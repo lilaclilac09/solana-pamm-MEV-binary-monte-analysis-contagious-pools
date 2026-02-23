@@ -1,0 +1,1 @@
+amm_trade,attacker_signer,victim_count,victim_signers,total_trades,attacker_trades,victim_ratio,window_seconds,window_ms,start_slot,end_slot,slot_span,start_time_ms,end_time_ms,actual_time_span_ms,validator,confidence,confidence_score,confidence_reasons,token_pair_validated

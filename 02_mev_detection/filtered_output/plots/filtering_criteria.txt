@@ -1,0 +1,14 @@
+Filtering / Classification Criteria
+
+FAT_SANDWICH when:
+ - net_profit_sol > 0
+ - sandwich pattern verified (front-run, victim, back-run)
+ - same signer for front and back run where applicable
+
+FAILED_SANDWICH when:
+ - net_profit_sol == 0 (no profit)
+ - no victim transaction between front and back run
+
+MULTI_HOP_ARBITRAGE when:
+ - multiple distinct pools/token pairs in one transaction
+ - aggregator routing patterns detected

@@ -1,0 +1,6 @@
+Pattern,Slots/Patterns,Trades,Percentage of Total Trades,Reference Bot
+Fat Sandwich (B91),119,1023,54.7%,B91 Bot
+Classic Sandwich,93,310,16.6%,Generic Sandwich
+Cross-Slot (2Fast),31,151,8.1%,2Fast Bot
+Front-Running,-,203,10.9%,Late-Slot Exploit
+Back-Running (DeezNode),-,443,23.7%,DeezNode Bot

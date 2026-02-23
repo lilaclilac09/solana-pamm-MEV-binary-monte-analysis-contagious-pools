@@ -1,0 +1,13 @@
+Metric,Value
+Total_MEV_Samples,2318.0
+Total_NonMEV_Samples,27197.0
+MEV_Percentage,7.8536337455531084
+MEV_Mean_mev_score,0.49281289944462947
+NonMEV_Mean_mev_score,0.38217427516968205
+MEV_Mean_oracle_backrun_ratio,0.9935558493818853
+NonMEV_Mean_oracle_backrun_ratio,0.9918390752525345
+MEV_Mean_cluster_ratio,0.5089872412725311
+NonMEV_Mean_cluster_ratio,0.09836308109748702
+Total_MEV_Trades,23925.0
+Total_Unique_Validators,583.0
+Total_Unique_Pools,8.0

@@ -1,0 +1,2 @@
+⚠️  Data file not found: [Errno 2] No such file or directory: '../01_data_cleaning/outputs/pamm_clean_final.parquet'
+Ensure you're running from the correct directory with access to MEV data

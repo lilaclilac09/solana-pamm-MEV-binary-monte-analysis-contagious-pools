@@ -1,0 +1,9 @@
+pool,unique_attackers,unique_validators,total_mev_events,total_fat_sandwiches,total_sandwiches,total_front_runs,total_back_runs,total_profit_sol,total_cost_sol,net_profit_sol,avg_profit_per_event,high_confidence_events,medium_confidence_events
+BisonFi,182,92,182,2595,35,0,0,12.48,1.248,11.232,0.0686,85,97
+GoonFi,258,106,258,1892,83,5,5,8.78,0.881,7.899,0.034,88,168
+HumidiFi,593,189,593,16828,374,8,8,83.482,8.353,75.129,0.1408,160,429
+ObricV2,13,6,13,34,1,0,0,0.12,0.012,0.108,0.0092,6,7
+SolFi,6,5,6,3,3,0,0,0.0,0.0,0.0,0.0,1,5
+SolFiV2,176,84,176,1733,74,5,5,8.35,0.838,7.512,0.0474,93,78
+TesseraV,157,83,157,1815,40,0,0,8.7,0.87,7.83,0.0554,83,74
+ZeroFi,116,72,116,690,23,2,2,3.088,0.31,2.778,0.0266,49,66

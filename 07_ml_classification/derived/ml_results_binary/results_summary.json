@@ -1,0 +1,95 @@
+{
+  "timestamp": "2026-01-23T14:23:07.813134",
+  "dataset_info": {
+    "total_samples": 2566,
+    "mev_samples": 202,
+    "non_mev_samples": 2364,
+    "imbalance_ratio": 11.702970297029703,
+    "features": [
+      "total_trades",
+      "trades_per_hour",
+      "aggregator_likelihood",
+      "late_slot_ratio",
+      "oracle_backrun_ratio",
+      "high_bytes_ratio",
+      "cluster_ratio",
+      "mev_score",
+      "wash_trading_score"
+    ]
+  },
+  "models": {
+    "Random Forest": {
+      "accuracy": 1.0,
+      "precision_mev": 1.0,
+      "recall_mev": 1.0,
+      "f1_mev": 1.0,
+      "roc_auc": 1.0,
+      "pr_auc": 1.0
+    },
+    "XGBoost": {
+      "accuracy": 1.0,
+      "precision_mev": 1.0,
+      "recall_mev": 1.0,
+      "f1_mev": 1.0,
+      "roc_auc": 0.9999999999999999,
+      "pr_auc": 1.0
+    },
+    "SVM": {
+      "accuracy": 0.9922178988326849,
+      "precision_mev": 0.9285714285714286,
+      "recall_mev": 0.975,
+      "f1_mev": 0.9512195121951219,
+      "roc_auc": 0.9994198312236288,
+      "pr_auc": 0.9934095071595073
+    },
+    "Logistic Regression": {
+      "accuracy": 0.9922178988326849,
+      "precision_mev": 0.9090909090909091,
+      "recall_mev": 1.0,
+      "f1_mev": 0.9523809523809523,
+      "roc_auc": 0.9975210970464136,
+      "pr_auc": 0.9632918032238615
+    },
+    "GMM": {
+      "accuracy": 0.9416342412451362,
+      "precision_mev": 0.7083333333333334,
+      "recall_mev": 0.425,
+      "f1_mev": 0.53125,
+      "roc_auc": 0.5855485232067511,
+      "pr_auc": 0.47016721817943574
+    },
+    "Isolation Forest": {
+      "accuracy": 0.6673151750972762,
+      "precision_mev": 0.0880503144654088,
+      "recall_mev": 0.35,
+      "f1_mev": 0.1407035175879397,
+      "roc_auc": 0.7217827004219409,
+      "pr_auc": 0.14698273416818533
+    },
+    "XGBoost (Optimized)": {
+      "accuracy": 1.0,
+      "precision_mev": 1.0,
+      "recall_mev": 1.0,
+      "f1_mev": 1.0,
+      "roc_auc": 1.0,
+      "pr_auc": 1.0
+    }
+  },
+  "monte_carlo": {
+    "n_iterations": 1000,
+    "mean_f1_mev": 0.9998395061728395,
+    "std_f1_mev": 0.0013984444947976083,
+    "ci_95_lower": 1.0,
+    "ci_95_upper": 1.0
+  },
+  "grid_search": {
+    "best_params": {
+      "learning_rate": 0.01,
+      "max_depth": 3,
+      "n_estimators": 100
+    },
+    "best_cv_score": 0.99946949602122,
+    "test_f1": 1.0,
+    "test_pr_auc": 1.0
+  }
+}

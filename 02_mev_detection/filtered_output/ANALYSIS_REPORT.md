@@ -1,0 +1,161 @@
+# MEV Analysis and Filtering Report
+## Removing Multi-Hop Arbitrage (FP) Cases, Keeping Fat Sandwich Cases
+
+**Date:** February 8, 2026
+**Location:** `/02_mev_detection/filtered_output/`
+
+---
+
+## Summary Results
+
+### Analysis Overview
+- **Total MEV cases analyzed:** 1,501
+- **Classification results:**
+  - ✓ **Fat Sandwich (KEPT):** 617 cases (41.1%)
+  - ✗ **Multi-Hop Arbitrage (REMOVED):** 19 cases (1.3%)
+  - ✗ **Failed Sandwich (REMOVED):** 865 cases (57.6%)
+
+### Top 10 Rankings Analysis
+- **Total top10 cases:** 76
+- **Fat Sandwich in top10:** 63 cases (82.9%)
+- **Failed in top10:** 13 cases (17.1%)
+- **No multi-hop in top10** (all pure fat sandwich or failed)
+
+---
+
+## Generated Output Files
+
+### 1. **top20_profit_fat_sandwich.csv** ⭐ HIGHEST VALUE
+- **Type:** Top 20 fat sandwich cases ranked by net profit
+- **Rows:** 21 (including header)
+- **Top profit:** 13.716 SOL (HumidiFi attacker)
+- **Use case:** Best performing MEV cases for analysis
+
+**Top 3 Cases:**
+1. HumidiFi - 13.716 SOL profit
+2. HumidiFi - 4.86 SOL profit  
+3. HumidiFi - 3.888 SOL profit
+
+---
+
+### 2. **all_fat_sandwich_only.csv** (Clean Dataset)
+- **Type:** All 617 fat sandwich cases (no multi-hop, no failed)
+- **Rows:** 618 (including header)
+- **Best for:** Complete analysis of successful fat sandwich attacks
+
+**By AMM Distribution:**
+```
+HumidiFi:     167 cases (max: 13.716 SOL)
+BisonFi:      111 cases (max: 2.079 SOL)
+SolFiV2:       95 cases (max: 1.818 SOL)
+TesseraV:      93 cases (max: 1.602 SOL)
+GoonFi:       101 cases (max: 0.846 SOL)
+ZeroFi:        47 cases (max: 0.279 SOL)
+ObricV2:        3 cases (max: 0.045 SOL)
+```
+
+---
+
+### 3. **top10_mev_fat_sandwich_only.csv** (Top 10 Cleaned)
+- **Type:** Top 10 per AMM cases (fat sandwich only)
+- **Rows:** 64 (including header)
+- **Use case:** Best cases from each AMM, ready for detailed analysis
+
+---
+
+### 4. **all_mev_with_classification.csv** (Reference)
+- **Type:** All 1,501 original MEV cases with classification column
+- **Rows:** 1,502 (including header)
+- **Use case:** Complete dataset showing what was removed
+- **Columns added:** `classification` (FAT_SANDWICH, MULTI_HOP_ARBITRAGE, FAILED_SANDWICH)
+
+---
+
+### 5. **top10_fat_sandwich.csv** (Summary)
+- **Type:** Highest profit fat sandwich cases (top 10)
+- **Rows:** 11 (including header)
+- **Use case:** Quick reference of absolute best cases
+
+---
+
+### 6. **top10_mev_with_classification.csv** (Reference)
+- **Type:** Original top10 file with classification column added
+- **Rows:** 77 (including header)
+- **Use case:** See what 13 top cases were failures
+
+---
+
+## Key Findings
+
+### What Was Removed (Multi-Hop Arbitrage)
+- **19 cases (1.3%)** identified as multi-hop arbitrage instead of fat sandwich
+- **These were NOT removed from all_mev_with_classification.csv** - just identified
+- Multi-hop cases suggest aggregator routing through multiple pools
+- These are valid MEV but different mechanism than fat sandwich
+
+### What Was Removed (Failed Cases)
+- **865 cases (57.6%)** had zero profit (failed sandwich attempts)
+- Listed in [failed_sandwich_attempts.csv](../../02_mev_detection/failed_sandwich_attempts.csv) with reasons
+- Most common reason: "no_victims_between" (no transactions between front-run and back-run)
+
+---
+
+## Classification Logic Used
+
+```
+FAT_SANDWICH when:
+  ✓ net_profit_sol > 0
+  ✓ sandwich_complete > 0 OR (sandwich > 0 AND fat_sandwich > 0)
+  ✓ Clear front-run → victim(s) → back-run pattern
+
+MULTI_HOP_ARBITRAGE when:
+  ✓ front_running > 0 OR back_running > 0
+  ✓ Multiple different pools/token pairs
+  ✓ Typical aggregator routing (e.g., Jupiter)
+
+FAILED_SANDWICH when:
+  ✗ net_profit_sol == 0
+  ✗ No victims found between front-run and back-run
+  ✗ Attack unsuccessful
+```
+
+---
+
+## Recommended Next Steps
+
+1. **For Highest-Value Analysis:** Use `top20_profit_fat_sandwich.csv`
+2. **For Complete Clean Dataset:** Use `all_fat_sandwich_only.csv`
+3. **For AMM Specific Analysis:** Use `top10_mev_fat_sandwich_only.csv`
+4. **For Reference:** Keep `all_mev_with_classification.csv` to see removals
+
+---
+
+## Technical Details
+
+- **Confidence Levels:** Most top cases are "high" confidence
+- **Time Window:** Sandwiches typically complete within 1-10 seconds
+- **Cost Structure:** Cost = (cost_sol), Profit = (profit_sol), Net = Profit - Cost
+- **Validators Involved:** Cases span multiple validators (decentralized extraction)
+
+---
+
+## File Locations
+
+```
+/02_mev_detection/
+├── filtered_output/  ← NEW FILTERED FILES
+│   ├── top20_profit_fat_sandwich.csv ⭐
+│   ├── all_fat_sandwich_only.csv
+│   ├── top10_mev_fat_sandwich_only.csv
+│   ├── all_mev_with_classification.csv
+│   ├── top10_fat_sandwich.csv
+│   └── top10_mev_with_classification.csv
+├── per_pamm_all_mev_with_validator.csv (original)
+├── per_pamm_top10_mev_with_validator.csv (original)
+└── failed_sandwich_attempts.csv (reference)
+```
+
+---
+
+**Generated by:** analyze_and_filter_mev.py
+**Analysis Date:** 2026-02-08

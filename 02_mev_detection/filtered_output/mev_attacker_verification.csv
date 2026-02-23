@@ -1,0 +1,6 @@
+attacker,total_trades,trades_per_hour,aggregator_likelihood,late_slot_ratio,oracle_backrun_ratio,high_bytes_ratio,cluster_ratio,mev_score,wash_trading_score,classification,confidence
+avqJiqdwHCWGMaDpEUnwZ8iFutj5rzP4sPez9yYyGZL,2,0.0,0.00%,100.00%,100.00%,0.00%,100.00%,80.00%,0.00,LIKELY MEV BOT,High
+GfcfkUU4fnKHzu3pBUL72DSXQo4A3ZzKNyETieJy8CH,2,0.0,0.00%,100.00%,100.00%,0.00%,100.00%,80.00%,0.00,LIKELY MEV BOT,High
+H7DkxYE6xC79N2uFqFVutrUwdYUCY4TWGg5DvwMvpodN,2,0.0,0.00%,100.00%,100.00%,0.00%,100.00%,80.00%,0.00,LIKELY MEV BOT,High
+4bEkAnJJSXue5REguwVF4TmdWxJ1aLqECMAZ3VPErPh7,2,0.0,0.00%,100.00%,100.00%,0.00%,100.00%,80.00%,0.00,LIKELY MEV BOT,High
+HRb8GUhRxKtLbk46XUm33baxryUACwMwQ9epAANQwXkG,2,0.0,0.00%,100.00%,100.00%,0.00%,100.00%,80.00%,0.00,LIKELY MEV BOT,High

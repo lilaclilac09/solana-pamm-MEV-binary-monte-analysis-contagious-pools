@@ -1,0 +1,23 @@
+{
+  "profit_analysis": {
+    "total_net_profit": 55.52100000000001,
+    "avg_net_profit": 2.7760500000000006,
+    "avg_roi": 900.0,
+    "avg_cost_fraction": 10.0
+  },
+  "sandwich_mechanics": {
+    "total_attacks": 16,
+    "completion_rate": 32668.75,
+    "avg_sandwich_size": 19.0
+  },
+  "attacker_patterns": {
+    "top_attacker": "YubQzu18FDqJRyNfG8JqHmsdbxhnoQqcKUHBdUkN6tP",
+    "top_attacker_profit": 15.795,
+    "num_unique_attackers": 19
+  },
+  "pool_analysis": {
+    "total_pools_exploited": 4,
+    "most_exploited_pool": "HumidiFi",
+    "most_exploited_pool_profit": 50.022
+  }
+}

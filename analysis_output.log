@@ -1,0 +1,75 @@
+================================================================================
+MEV ANALYSIS: Removing Multi-Hop (FP) Cases, Keeping Fat Sandwich
+================================================================================
+
+Loading /Users/aileen/Downloads/pamm/solana-pamm-analysis/solana-pamm-MEV-binary-monte-analysis/02_mev_detection/per_pamm_top10_mev_with_validator.csv...
+  - Loaded 76 rows
+  - Columns: ['amm_trade', 'attacker_signer', 'back_running', 'fat_sandwich', 'front_running', 'sandwich', 'validator', 'sandwich_complete', 'cost_sol', 'profit_sol', 'net_profit_sol', 'confidence']
+
+Loading /Users/aileen/Downloads/pamm/solana-pamm-analysis/solana-pamm-MEV-binary-monte-analysis/02_mev_detection/per_pamm_all_mev_with_validator.csv...
+  - Loaded 1501 rows
+
+Classifying MEV cases as Fat Sandwich vs Multi-Hop...
+
+Classification Results (ALL MEV):
+classification
+FAILED_SANDWICH        865
+FAT_SANDWICH           617
+MULTI_HOP_ARBITRAGE     19
+Name: count, dtype: int64
+
+After filtering out Multi-Hop & Failed cases:
+  - Fat Sandwich cases: 617
+  - Rows removed: 884
+
+Top 10 Fat Sandwich cases by net_profit_sol:
+     amm_trade  ... confidence
+996   HumidiFi  ...       high
+997   HumidiFi  ...       high
+727   HumidiFi  ...       high
+998   HumidiFi  ...       high
+811   HumidiFi  ...       high
+1005  HumidiFi  ...       high
+691   HumidiFi  ...       high
+1011  HumidiFi  ...       high
+536   HumidiFi  ...       high
+158    BisonFi  ...       high
+
+[10 rows x 6 columns]
+
+Saving filtered output files...
+✓ /Users/aileen/Downloads/pamm/solana-pamm-analysis/solana-pamm-MEV-binary-monte-analysis/02_mev_detection/filtered_output/all_fat_sandwich_only.csv
+✓ /Users/aileen/Downloads/pamm/solana-pamm-analysis/solana-pamm-MEV-binary-monte-analysis/02_mev_detection/filtered_output/top10_fat_sandwich.csv
+✓ /Users/aileen/Downloads/pamm/solana-pamm-analysis/solana-pamm-MEV-binary-monte-analysis/02_mev_detection/filtered_output/all_mev_with_classification.csv
+✓ /Users/aileen/Downloads/pamm/solana-pamm-analysis/solana-pamm-MEV-binary-monte-analysis/02_mev_detection/filtered_output/top20_profit_fat_sandwich.csv
+
+Processing top10_mev file...
+Classification Results (TOP 10):
+classification
+FAT_SANDWICH       63
+FAILED_SANDWICH    13
+Name: count, dtype: int64
+
+✓ /Users/aileen/Downloads/pamm/solana-pamm-analysis/solana-pamm-MEV-binary-monte-analysis/02_mev_detection/filtered_output/top10_mev_with_classification.csv
+✓ /Users/aileen/Downloads/pamm/solana-pamm-analysis/solana-pamm-MEV-binary-monte-analysis/02_mev_detection/filtered_output/top10_mev_fat_sandwich_only.csv
+  - Fat Sandwich cases in top10: 63 / 76
+
+================================================================================
+SUMMARY STATISTICS
+================================================================================
+All MEV cases: 1501
+  - Fat Sandwich: 617 (41.1%)
+  - Multi-Hop: 19 (1.3%)
+  - Failed: 865 (57.6%)
+
+Top Fat Sandwich by AMM:
+  BisonFi: 111 cases, max profit: 2.0790 SOL
+  GoonFi: 101 cases, max profit: 0.8460 SOL
+  HumidiFi: 167 cases, max profit: 13.7160 SOL
+  ObricV2: 3 cases, max profit: 0.0450 SOL
+  SolFiV2: 95 cases, max profit: 1.8180 SOL
+  TesseraV: 93 cases, max profit: 1.6020 SOL
+  ZeroFi: 47 cases, max profit: 0.2790 SOL
+
+All output files saved to: /Users/aileen/Downloads/pamm/solana-pamm-analysis/solana-pamm-MEV-binary-monte-analysis/02_mev_detection/filtered_output
+

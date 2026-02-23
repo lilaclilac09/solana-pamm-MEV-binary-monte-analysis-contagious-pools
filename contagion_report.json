@@ -1,0 +1,97 @@
+{
+  "timestamp": "2026-02-08T22:19:06.628153",
+  "analysis_type": "Contagious Vulnerability Analysis",
+  "key_finding": "Structural oracle lag on trigger pool (BisonFi) creates predictable price moves that enable coordinated multi-pool MEV attacks on downstream pools (HumidiFi, ZeroFi, GoonFi)",
+  "sections": {
+    "trigger_pool_identification": {
+      "trigger_pool": "HumidiFi",
+      "trigger_characteristics": {
+        "total_mev_attacks": 593,
+        "unique_attackers": 593,
+        "unique_token_pairs": 1,
+        "avg_attacks_per_attacker": 1.0
+      },
+      "attack_patterns_on_trigger": {},
+      "downstream_pools_identified": []
+    },
+    "cascade_rate_analysis": {
+      "cascade_rates": {
+        "trigger_attacks_total": 593,
+        "cascaded_attacks": 0,
+        "cascade_percentage": 0.0,
+        "time_window_ms": 5000,
+        "interpretation": "0.0% of HumidiFi attacks trigger coordinated attacks on downstream pools within 5000ms"
+      },
+      "contagion_percentage": 0.0,
+      "cascade_sequences": [],
+      "statistical_validation": {}
+    },
+    "attack_probability_analysis": {
+      "downstream_attack_probabilities": [
+        {
+          "downstream_pool": "BisonFi",
+          "attack_probability_pct": 22.4283305227656,
+          "shared_attackers": 133,
+          "total_downstream_attacks": 182,
+          "risk_level": "MODERATE"
+        },
+        {
+          "downstream_pool": "SolFiV2",
+          "attack_probability_pct": 21.75379426644182,
+          "shared_attackers": 129,
+          "total_downstream_attacks": 176,
+          "risk_level": "MODERATE"
+        },
+        {
+          "downstream_pool": "GoonFi",
+          "attack_probability_pct": 21.585160202360875,
+          "shared_attackers": 128,
+          "total_downstream_attacks": 258,
+          "risk_level": "MODERATE"
+        },
+        {
+          "downstream_pool": "TesseraV",
+          "attack_probability_pct": 20.236087689713322,
+          "shared_attackers": 120,
+          "total_downstream_attacks": 157,
+          "risk_level": "MODERATE"
+        },
+        {
+          "downstream_pool": "ZeroFi",
+          "attack_probability_pct": 14.165261382799327,
+          "shared_attackers": 84,
+          "total_downstream_attacks": 116,
+          "risk_level": "MODERATE"
+        },
+        {
+          "downstream_pool": "ObricV2",
+          "attack_probability_pct": 2.1922428330522767,
+          "shared_attackers": 13,
+          "total_downstream_attacks": 13,
+          "risk_level": "MODERATE"
+        },
+        {
+          "downstream_pool": "SolFi",
+          "attack_probability_pct": 1.0118043844856661,
+          "shared_attackers": 6,
+          "total_downstream_attacks": 6,
+          "risk_level": "MODERATE"
+        }
+      ],
+      "risk_amplification_factor": {},
+      "vulnerability_correlation": {}
+    }
+  },
+  "executive_summary": {
+    "trigger_pool_oracle_lag": "N/A",
+    "cascade_rate_percentage": 0.0,
+    "critical_risk_pools": [],
+    "key_findings": [],
+    "recommendations": [
+      "Prioritize oracle lag reduction on trigger pool (target: <50ms)",
+      "Implement MEV-resistant pool coordination (constant product formula validation)",
+      "Monitor attack patterns on downstream pools in real-time",
+      "Consider circuit breaker mechanisms during high-volatility periods"
+    ]
+  }
+}

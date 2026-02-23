@@ -1,0 +1,8 @@
+Metric,Value
+Total Events,5506090
+ORACLE %,87.58%
+TRADE %,12.42%
+ORACLE Freq (per sec),121.36056373474267
+TRADE Freq (per sec),17.209714357619227
+Suspicious Sandwich Slots,79640
+High-Latency TRADE,1419

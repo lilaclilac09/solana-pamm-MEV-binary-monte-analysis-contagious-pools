@@ -1,0 +1,166 @@
+
+====================================================================================================
+⚡ FAST OPTIMIZED GMM CLUSTERING - Large Dataset Version
+====================================================================================================
+
+📊 STEP 1: Loading Data
+----------------------------------------------------------------------------------------------------
+✅ Loaded: 5,506,090 rows × 18 columns
+
+📉 STEP 2: Intelligent Sampling Strategy
+----------------------------------------------------------------------------------------------------
+✅ Stratified sample: 100,000 records (1.82% of total)
+
+🔧 STEP 3: Feature Engineering
+----------------------------------------------------------------------------------------------------
+📊 Available numeric features: 6
+✅ Selected features (6):
+     • tx_idx
+     • slot
+     • us_since_first_shred
+     • bytes_changed_trade
+     • time
+     • ms_time
+   After cleaning: 100,000 records
+
+🎯 STEP 4: Outlier Detection
+----------------------------------------------------------------------------------------------------
+✅ After outlier removal: 95,000 records
+
+📏 STEP 5: Feature Scaling
+----------------------------------------------------------------------------------------------------
+✅ RobustScaler applied: shape (95000, 6)
+
+⚡ STEP 6: Fast Hyperparameter Optimization
+----------------------------------------------------------------------------------------------------
+   Testing configurations...
+     1. n_comp=2, cov=full   → BIC=-1,396,409
+     2. n_comp=2, cov=diag   → BIC=1,194,483
+     3. n_comp=3, cov=full   → BIC=-1,404,571
+     4. n_comp=3, cov=diag   → BIC=1,184,653
+     5. n_comp=4, cov=full   → BIC=-1,426,068
+     6. n_comp=4, cov=diag   → BIC=968,683
+     7. n_comp=5, cov=full   → BIC=-1,474,765
+     8. n_comp=5, cov=diag   → BIC=907,933
+     9. n_comp=6, cov=full   → BIC=-1,459,848
+     10. n_comp=6, cov=diag   → BIC=732,118
+
+   ✅ Tested 10 configurations
+   🏆 Best Configuration:
+      • Components: 5
+      • Covariance: full
+      • BIC Score: -1,474,765
+
+⚙️  STEP 7: Final Clustering
+----------------------------------------------------------------------------------------------------
+✅ GMM clustering complete
+   Clusters found: 5
+
+📊 STEP 8: Clustering Quality
+----------------------------------------------------------------------------------------------------
+   🔹 Silhouette Score: 0.3171
+      → Good clustering
+   🔹 Davies-Bouldin Index: 0.9449
+      → Good cluster separation ✅
+   🔹 Log-Likelihood: 7.77
+   🔹 Cluster Weights: [0.39 0.05 0.13 0.26 0.17]
+
+🔬 STEP 9: Cluster Characteristics
+----------------------------------------------------------------------------------------------------
+
+   📍 CLUSTER 0
+      Size: 38,095 samples (39.4%)
+      tx_idx: 918.32 ± 358.00
+      slot: 391947802.92 ± 15927.02
+      us_since_first_shred: 199748.14 ± 96238.31
+
+   📍 CLUSTER 1
+      Size: 4,476 samples (4.8%)
+      tx_idx: 764.93 ± 398.39
+      slot: 391934098.21 ± 21334.51
+      us_since_first_shred: 167385.91 ± 102768.46
+
+   📍 CLUSTER 2
+      Size: 12,404 samples (13.0%)
+      tx_idx: 734.82 ± 424.45
+      slot: 391927783.40 ± 27865.10
+      us_since_first_shred: 168339.13 ± 113819.11
+
+   📍 CLUSTER 3
+      Size: 24,355 samples (26.2%)
+      tx_idx: 858.32 ± 301.91
+      slot: 391898037.52 ± 13291.71
+      us_since_first_shred: 209806.65 ± 104113.29
+
+   📍 CLUSTER 4
+      Size: 15,670 samples (16.6%)
+      tx_idx: 65.30 ± 54.29
+      slot: 391928661.54 ± 28036.85
+      us_since_first_shred: 18774.86 ± 27048.13
+
+📈 STEP 10: Generating Visualizations
+----------------------------------------------------------------------------------------------------
+   ✅ Saved: 01_gmm_clusters_pca.png
+   ✅ Saved: 02_bic_optimization.png
+   ✅ Saved: 03_feature_distributions.png
+
+💾 STEP 11: Saving Results
+----------------------------------------------------------------------------------------------------
+   ✅ Saved: clustered_data_sample.csv (95,000 records)
+   ✅ Saved: gmm_optimization_results.csv
+   ✅ Saved: ANALYSIS_REPORT.txt
+
+====================================================================================================
+✅ GMM ANALYSIS COMPLETE!
+====================================================================================================
+
+╔══════════════════════════════════════════════════════════════╗
+║          GMM CLUSTERING ANALYSIS - FINAL REPORT             ║
+╚══════════════════════════════════════════════════════════════╝
+
+📊 DATA SUMMARY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Original Dataset:        5,506,090 records
+Sampled Dataset:         100,000 records (1.82%)
+After Preprocessing:     95,000 records (95.00%)
+
+🔧 MODEL CONFIGURATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Features Used:           tx_idx, slot, us_since_first_shred, bytes_changed_trade, time, ms_time
+Number of Features:      6
+Optimal Clusters:        5
+Covariance Type:         full
+Scaler Method:           RobustScaler
+
+📈 MODEL PERFORMANCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BIC Score:               -1,474,765
+Silhouette Score:        0.3171
+Davies-Bouldin Index:    0.9449
+Log-Likelihood:          7.77
+
+📍 CLUSTER DISTRIBUTION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Cluster 0:  38,095 samples (39.4%)
+Cluster 1:  4,476 samples (4.8%)
+Cluster 2:  12,404 samples (13.0%)
+Cluster 3:  24,355 samples (26.2%)
+Cluster 4:  15,670 samples (16.6%)
+
+📁 OUTPUT FILES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ 01_gmm_clusters_pca.png         - PCA visualization of clusters
+✅ 02_bic_optimization.png          - Hyperparameter tuning curves
+✅ 03_feature_distributions.png     - Feature boxplots by cluster
+✅ clustered_data_sample.csv        - Sample data with cluster labels
+✅ gmm_optimization_results.csv     - Detailed optimization metrics
+
+
+
+📊 Key Insights:
+   • Identified 5 distinct clusters in transaction patterns
+   • Silhouette score of 0.3171 indicates good separation
+   • All results saved to: 09a_advanced_ml/results/
+
+

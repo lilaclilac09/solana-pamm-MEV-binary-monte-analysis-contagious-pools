@@ -1,0 +1,12 @@
+Column,Missing Count,Missing Ratio (%)
+trades,4840049,87.5847
+amm,686088,12.4153
+tx_idx,20047,0.3628
+us_since_first_shred,20047,0.3628
+slot,0,0.0
+time,0,0.0
+validator,0,0.0
+sig,0,0.0
+signer,0,0.0
+kind,0,0.0
+account_updates,0,0.0
