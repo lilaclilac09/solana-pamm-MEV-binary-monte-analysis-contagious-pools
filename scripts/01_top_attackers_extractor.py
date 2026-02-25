@@ -3,7 +3,7 @@ import json
 from datetime import datetime
 
 # === CONFIG ===
-PARQUET_PATH = 'data/pamm_clean_final.parquet'  # ← change if your path is different (e.g. outputs/...)
+PARQUET_PATH = '01_data_cleaning/outputs/pamm_clean_final.parquet'
 OUTPUT_JSON = 'outputs/top_attackers_report.json'
 
 # Load your PAMM data (assumes columns: attacker_signer, profit_sol, attack_count, cascade_count, pool)

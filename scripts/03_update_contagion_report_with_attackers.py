@@ -5,7 +5,7 @@ import pandas as pd
 with open('contagion_report.json') as f:
     report = json.load(f)
 
-df = pd.read_parquet('data/pamm_clean_final.parquet')  # same as script 1
+df = pd.read_parquet('01_data_cleaning/outputs/pamm_clean_final.parquet')
 
 # Add top attackers section
 top_df = df.groupby('attacker_signer').agg(total_profit=('profit_sol','sum'), attacks=('attacker_signer','count')).nlargest(20, 'total_profit')
