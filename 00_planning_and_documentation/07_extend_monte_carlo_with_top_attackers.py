@@ -7,7 +7,7 @@ with open('outputs/top_attackers_report.json') as f:
     attackers = json.load(f)
 
 # Example weights (normalize)
-weights = [a['total_profit_sol'] for a in attackers[:10]]
+weights = [a['total_profit'] for a in attackers[:10]]
 weights = np.array(weights) / sum(weights)
 
 def monte_carlo_weighted(n_sims=50000):

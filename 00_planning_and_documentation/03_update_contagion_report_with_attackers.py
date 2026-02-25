@@ -1,14 +1,15 @@
 import json
 import pandas as pd
 
-# Load your current report + top attackers
+# Load your current report
 with open('contagion_report.json') as f:
     report = json.load(f)
 
-df = pd.read_parquet('01_data_cleaning/outputs/pamm_clean_final.parquet')
+# Load real attacker statistics
+df = pd.read_csv('13_mev_comprehensive_analysis/profit_mechanisms/outputs/attacker_statistics.csv')
 
-# Add top attackers section
-top_df = df.groupby('attacker_signer').agg(total_profit=('profit_sol','sum'), attacks=('attacker_signer','count')).nlargest(20, 'total_profit')
+# Get top 20 by profit
+top_df = df.nlargest(20, 'total_profit')[['attacker_signer', 'total_profit', 'num_attacks', 'fat_sandwiches']].reset_index(drop=True)
 
 report['top_attackers_section'] = {
     "generated_at": "2026-02-24",

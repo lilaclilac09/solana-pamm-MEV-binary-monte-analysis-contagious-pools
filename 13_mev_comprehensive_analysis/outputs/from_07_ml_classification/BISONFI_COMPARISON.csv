@@ -1,0 +1,3 @@
+Condition,BisonFi_MEV_Records,Difference,Percent_of_Total_MEV
+WITH SMOTE (Current),82,0,3.537532355478861
+WITHOUT SMOTE (Simulated),17,-65,1.261127596439169

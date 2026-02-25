@@ -93,5 +93,125 @@
       "Monitor attack patterns on downstream pools in real-time",
       "Consider circuit breaker mechanisms during high-volatility periods"
     ]
+  },
+  "top_attackers_section": {
+    "generated_at": "2026-02-24",
+    "top_20": [
+      {
+        "attacker_signer": "YubQzu18FDqJRyNfG8JqHmsdbxhnoQqcKUHBdUkN6tP",
+        "total_profit": 15.795,
+        "num_attacks": 2,
+        "fat_sandwiches": 3344
+      },
+      {
+        "attacker_signer": "YubVwWeg1vHFr17Q7HQQETcke7sFvMabqU8wbv8NXQW",
+        "total_profit": 4.86,
+        "num_attacks": 1,
+        "fat_sandwiches": 1019
+      },
+      {
+        "attacker_signer": "AEB9dXBoxkrapNd59Kg29JefMMf3M1WLcNA12XjKSf4R",
+        "total_profit": 3.888,
+        "num_attacks": 1,
+        "fat_sandwiches": 864
+      },
+      {
+        "attacker_signer": "YubozzSnKomEnH3pkmYsdatUUwUTcm7s4mHJVmefEWj",
+        "total_profit": 2.916,
+        "num_attacks": 1,
+        "fat_sandwiches": 632
+      },
+      {
+        "attacker_signer": "CatyeC3LgBxub7HcpW2n7cZZZ66CUKdcZ8DzHucHrSiP",
+        "total_profit": 2.691,
+        "num_attacks": 1,
+        "fat_sandwiches": 592
+      },
+      {
+        "attacker_signer": "enzog436vHy38bMhNR9XDENrvhxPK7y8wBQri852rhG",
+        "total_profit": 2.61,
+        "num_attacks": 1,
+        "fat_sandwiches": 578
+      },
+      {
+        "attacker_signer": "9TXFVx8N9dPneS3ETRt8KWtUXLRUsz6j6JM3bEXqkR3Z",
+        "total_profit": 2.439,
+        "num_attacks": 1,
+        "fat_sandwiches": 541
+      },
+      {
+        "attacker_signer": "han5oo9sy98473nuWU7PwkdgpJVFvQEQ14S5CCdbeYQ",
+        "total_profit": 2.304,
+        "num_attacks": 1,
+        "fat_sandwiches": 511
+      },
+      {
+        "attacker_signer": "4swoALYuvetDK6N3ak1Knc1bMLbm7nzkxCW1nqjPWGRV",
+        "total_profit": 2.178,
+        "num_attacks": 1,
+        "fat_sandwiches": 477
+      },
+      {
+        "attacker_signer": "foxMFk9faHggM4HWQWETCPSDvMbWx8LSv4c9CrkmBx6",
+        "total_profit": 1.908,
+        "num_attacks": 1,
+        "fat_sandwiches": 424
+      },
+      {
+        "attacker_signer": "E2MPTDnFPNiCRmbJGKYSYew48NWRGVNfHjoiibFP5VL2",
+        "total_profit": 1.818,
+        "num_attacks": 1,
+        "fat_sandwiches": 395
+      },
+      {
+        "attacker_signer": "2dRR9CaNrEsHm3UqZacEf8AoDuDx4NGQyMhGxG71NzkN",
+        "total_profit": 1.8,
+        "num_attacks": 1,
+        "fat_sandwiches": 399
+      },
+      {
+        "attacker_signer": "ATQs6A92eUzdxTBsQhRJxxJDpgYDTGvLnU4e5mMEfY3k",
+        "total_profit": 1.773,
+        "num_attacks": 1,
+        "fat_sandwiches": 395
+      },
+      {
+        "attacker_signer": "88S3zQ4RhahQJSMrusV3sxhZXJewo4oQ3ErNTXaN9VgR",
+        "total_profit": 1.665,
+        "num_attacks": 1,
+        "fat_sandwiches": 370
+      },
+      {
+        "attacker_signer": "k3bS5WfZ5P2NTgkVSwdbVrveYc25iXiEHYfZfVruBGq",
+        "total_profit": 1.602,
+        "num_attacks": 1,
+        "fat_sandwiches": 348
+      },
+      {
+        "attacker_signer": "2npqrs8E9iWPGjRhWp7BsD9nG62xnBm9Av4rWgqF3ZPK",
+        "total_profit": 1.566,
+        "num_attacks": 1,
+        "fat_sandwiches": 348
+      },
+      {
+        "attacker_signer": "C2bK8HFrL71aLnpyExVoJmqjDPA9tbLMXcBNAkRQnLfQ",
+        "total_profit": 1.359,
+        "num_attacks": 1,
+        "fat_sandwiches": 302
+      },
+      {
+        "attacker_signer": "theo9SfM3dKgKFbq4kFVmEXwSQ1pdr61wDqEWXKJpYs",
+        "total_profit": 1.206,
+        "num_attacks": 1,
+        "fat_sandwiches": 269
+      },
+      {
+        "attacker_signer": "EJdrWPg32qHnmc3cwgGRfTrvWpQkDH2vHNGsane6WFGd",
+        "total_profit": 1.143,
+        "num_attacks": 1,
+        "fat_sandwiches": 245
+      }
+    ],
+    "total_unique_attackers_in_dataset": 19
   }
 }
