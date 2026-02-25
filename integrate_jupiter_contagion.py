@@ -140,7 +140,7 @@ def temporal_contagion_analysis(df):
     print("TEMPORAL ANALYSIS: Multi-Hop Contagion Over Time")
     print("="*80)
     
-    df['hour'] = df['datetime'].dt.floor('H')
+    df['hour'] = df['datetime'].dt.floor('h')
     
     hourly = df.groupby('hour').agg({
         'is_multihop': ['sum', lambda x: x.sum() / len(x) * 100],

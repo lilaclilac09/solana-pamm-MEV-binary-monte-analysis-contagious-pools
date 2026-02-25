@@ -1,0 +1,34 @@
+{
+  "metadata": {
+    "total_transactions": 5506090,
+    "datetime_range": {
+      "start": "1970-01-30 10:19:36.344000+00:00",
+      "end": "1970-01-30 21:21:51.678000+00:00"
+    },
+    "analysis_date": "2026-02-24T23:08:11.631563"
+  },
+  "routing_summary": {
+    "multihop_count": 552250,
+    "multihop_pct": 10.029803363185128,
+    "singlehop_count": 131578,
+    "singlehop_pct": 2.3896812438590724,
+    "direct_count": 4822262,
+    "direct_pct": 87.5805153929558
+  },
+  "contagion_metrics": {
+    "multihop_mean_impact": 22.78043458578542,
+    "singlehop_mean_impact": 22.973354208150297,
+    "direct_mean_impact": 16.978493702747798,
+    "amplification_multihop_vs_direct": 1.3417229457816178
+  },
+  "top_amms_by_multihop_volume": {
+    "HumidiFi": 195367,
+    "SolFiV2": 93120,
+    "TesseraV": 81599,
+    "GoonFi": 76411,
+    "ZeroFi": 58101,
+    "BisonFi": 32641,
+    "ObricV2": 9010,
+    "SolFi": 6001
+  }
+}

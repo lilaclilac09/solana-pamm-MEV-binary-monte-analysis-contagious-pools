@@ -18,8 +18,31 @@ if 'hop_count' not in df.columns:
             return len(trades_array)
         return 0
 
-    print("Computing hop counts...")
+    def get_route_key(trades_array):
+        """Get a string representation of the route for grouping."""
+        hops = count_hops(trades_array)
+        if hops == 0:
+            return 'no_route'
+        
+        if isinstance(trades_array, np.ndarray):
+            trades_list = trades_array.tolist()
+        else:
+            trades_list = trades_array if isinstance(trades_array, list) else []
+        
+        amms = []
+        for trade in trades_list:
+            if isinstance(trade, dict) and 'amm' in trade:
+                amm_short = trade['amm'][:4] if len(trade['amm']) >= 4 else trade['amm']
+                amms.append(amm_short)
+        
+        if not amms:
+            return f'hops_{hops}'
+        
+        return '->'.join(amms)
+
+    print("Computing hop counts and route keys...")
     df['hop_count'] = df['trades'].apply(count_hops)
+    df['route_key'] = df['trades'].apply(get_route_key)
     df['is_multihop'] = df['hop_count'] > 1
     df['is_singlehop'] = df['hop_count'] == 1
     df['is_direct'] = df['hop_count'] == 0
