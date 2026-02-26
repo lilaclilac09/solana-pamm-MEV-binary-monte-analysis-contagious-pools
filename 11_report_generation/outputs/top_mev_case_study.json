@@ -1,0 +1,24 @@
+{
+  "case": {
+    "signer": "YubQzu18FDqJRyNfG8JqHmsdbxhnoQqcKUHBdUkN6tP",
+    "pool": "HumidiFi",
+    "validator": "22rU5yUmdVThrkoPieVNphqEyAtMQKmZxjwcD8v4bJDU",
+    "net_profit_sol": 13.716,
+    "profit_sol": 15.24,
+    "cost_sol": 1.524,
+    "classification": "FAT_SANDWICH",
+    "confidence": "high"
+  },
+  "context": {
+    "total_profit_sol": 112.428,
+    "case_share_of_total_pct": 12.199807877041307,
+    "attacker_profit_sol": 16.730999999999998,
+    "attacker_rank": 1,
+    "attacker_attack_count": 6,
+    "attacker_share_of_total_pct": 14.881524175472302,
+    "pool_profit_sol": 75.105,
+    "pool_rank": 1,
+    "pool_attack_count": 167,
+    "pool_share_of_total_pct": 66.80275376240795
+  }
+}
