@@ -874,6 +874,44 @@ def create_academic_report():
         """
         story.append(Paragraph(oracle_latency_interp, normal_style))
         story.append(Spacer(1, 0.1*inch))
+
+    # Oracle update density and burst analysis
+    oracle_update_rates_plot = '11_report_generation/outputs/oracle_update_rates_by_pool.png'
+    if os.path.exists(oracle_update_rates_plot):
+        story.append(Paragraph("Figure 4A: Oracle Update Density by Pool", heading3_style))
+        img = Image(oracle_update_rates_plot, width=6.2*inch, height=3.6*inch)
+        story.append(img)
+        story.append(Spacer(1, 0.2*inch))
+        oracle_update_rates_interp = """
+        <b>Update Density as MEV Surface Area:</b> Oracle update rates vary by more than an order of
+        magnitude across pools, creating uneven exposure to price staleness. HumidiFi posts the
+        highest update frequency (55.9 updates/sec; 22.9 updates/slot), while SolFi and AlphaQ
+        update at far lower rates (<3.1 updates/sec). High-frequency updates can reduce staleness,
+        but they also create dense, predictable windows that MEV bots monitor. Pools with both
+        high update density and high attack volume (HumidiFi, GoonFi, SolFiV2) exhibit the strongest
+        coupling between oracle refreshes and trade bursts, indicating bots are timing execution to
+        oracle cadence rather than random trade flow.
+        """
+        story.append(Paragraph(oracle_update_rates_interp, normal_style))
+        story.append(Spacer(1, 0.1*inch))
+
+    oracle_burst_plot = '11_report_generation/outputs/oracle_burst_density_by_pool.png'
+    if os.path.exists(oracle_burst_plot):
+        story.append(Paragraph("Figure 4B: Oracle Burst Density by Pool", heading3_style))
+        img = Image(oracle_burst_plot, width=6.2*inch, height=3.6*inch)
+        story.append(img)
+        story.append(Spacer(1, 0.2*inch))
+        oracle_burst_interp = """
+        <b>Burst Windows Indicate Manipulation Risk:</b> Burst windows capture rapid sequences of
+        oracle updates within short time windows. Pools with high burst counts experience more
+        frequent micro-interval pricing changes, which can amplify sandwich profitability by widening
+        the timing gap between oracle refresh and trade confirmation. The max-burst panel shows the
+        largest observed update spikes per pool, highlighting where oracle volatility is most extreme.
+        These bursts align with periods of elevated MEV activity, supporting the hypothesis that
+        oracle update clustering increases exploitability even when average latency is low.
+        """
+        story.append(Paragraph(oracle_burst_interp, normal_style))
+        story.append(Spacer(1, 0.1*inch))
     
     story.append(PageBreak())
     

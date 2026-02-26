@@ -17,6 +17,8 @@ PLOTS = {
     "filtered_vs_unfiltered": OUTPUT_DIR / "filtered_vs_unfiltered_impact.png",
     "contagion_dashboard": OUTPUT_DIR / "contagion_analysis_dashboard.png",
     "pool_network": OUTPUT_DIR / "pool_coordination_network.png",
+    "oracle_update_rates": OUTPUT_DIR / "oracle_update_rates_by_pool.png",
+    "oracle_burst_density": OUTPUT_DIR / "oracle_burst_density_by_pool.png",
 }
 
 SLIDE_W, SLIDE_H = landscape(letter)
@@ -123,6 +125,40 @@ def slide_key_stats(c):
         TITLE_Y - 0.7 * inch,
         font_size=18,
         leading=26,
+    )
+
+
+def slide_oracle_update_rates(c):
+    draw_title(c, "Oracle Update Density")
+    draw_image(c, PLOTS["oracle_update_rates"], MARGIN, 0.6 * inch, SLIDE_W - 2 * MARGIN, 4.8 * inch)
+    draw_bullets(
+        c,
+        [
+            "HumidiFi leads: ~55.9 updates/sec; 22.9 updates/slot",
+            "Lower-rate pools show larger staleness windows",
+            "MEV bots synchronize execution with oracle cadence",
+        ],
+        MARGIN,
+        0.5 * inch,
+        font_size=12,
+        leading=16,
+    )
+
+
+def slide_oracle_burst_density(c):
+    draw_title(c, "Oracle Burst Density")
+    draw_image(c, PLOTS["oracle_burst_density"], MARGIN, 0.6 * inch, SLIDE_W - 2 * MARGIN, 4.8 * inch)
+    draw_bullets(
+        c,
+        [
+            "Burst windows capture rapid oracle update clusters",
+            "High burst counts correlate with higher MEV exposure",
+            "Burst spikes amplify timing gaps for sandwiches",
+        ],
+        MARGIN,
+        0.5 * inch,
+        font_size=12,
+        leading=16,
     )
 
 
@@ -291,6 +327,8 @@ def main():
         slide_agenda,
         slide_dataset,
         slide_key_stats,
+        slide_oracle_update_rates,
+        slide_oracle_burst_density,
         slide_mev_distribution,
         slide_top_attackers,
         slide_agg_vs_mev,
