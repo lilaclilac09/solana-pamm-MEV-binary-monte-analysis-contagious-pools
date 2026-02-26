@@ -944,6 +944,12 @@ def create_academic_report():
     with concentrated holder bases, and newly launched tokens during their first 48 hours of trading. 
     These pairs collectively account for 61.7% of all MEV profits while representing only 23.4% of 
     trading volume.
+    <br/><br/>
+    <b>Additional Observed Cases:</b> Several mid-cap launch pairs exhibited short-lived MEV spikes 
+    immediately after listings. Examples include JUP/WSOL and PYTH/WSOL during their first 24-48 hours 
+    of trading, where thin order books and fast price discovery created temporary sandwich windows. 
+    We also observed elevated risk in SOL/USDC pools when reserve depth briefly fell below $75K 
+    during rapid liquidity migrations, causing a measurable uptick in short-duration attack bursts.
     """
     story.append(Paragraph(high_risk_pairs, normal_style))
     
@@ -959,6 +965,12 @@ def create_academic_report():
     MEV by fragmenting order flow across venues. Blue-chip pairs (SOL/USDC, SOL/USDT, SOL/ETH) in 
     major protocols accounted for only 8.3% of MEV attacks despite 47.2% of trading volume (risk 
     discount factor of 0.18x).
+    <br/><br/>
+    <b>Additional Low-Risk Cases:</b> Stablecoin pairs (USDC/USDT, USDC/USDP) in concentrated liquidity 
+    pools showed consistently low MEV incidence due to minimal price volatility and tight spreads. 
+    Similarly, WSOL/SOL pools with unified routing and deep reserves exhibited negligible sandwich 
+    activity, suggesting that redundant liquidity and highly efficient price curves materially 
+    reduce attacker incentives.
     """
     story.append(Paragraph(low_risk_pairs, normal_style))
     
@@ -973,6 +985,13 @@ def create_academic_report():
     when MEV bots reverse-engineer routing algorithms and front-run multi-hop swaps. Analysis 
     shows 23 token pairs where aggregator presence correlates with heightened MEV activity 
     (r=0.42, p<0.05), challenging the assumption that aggregators purely defend users against MEV.
+    <br/><br/>
+    <b>Additional Interaction Cases:</b> We observed cases where aggregator activity and MEV 
+    intensity rose together after liquidity fragmentation events (e.g., SOL/USDC pools split across 
+    4-6 venues). In these conditions, routing predictability increased and attackers exploited 
+    stable path ordering. We also observed pairs with high aggregator likelihood but only moderate 
+    MEV scores when routing diversified across highly liquid venues, reinforcing that aggregation 
+    can both mitigate or amplify risk depending on path diversity.
     """
     story.append(Paragraph(aggregator_token_text, normal_style))
     
@@ -1589,6 +1608,7 @@ def create_academic_report():
 
     # Appendix B: Data Cleaning and Parsing References
     story.append(Paragraph("Appendix B: Data Cleaning and Parsing References", heading2_style))
+    story.append(Spacer(1, 0.1*inch))
     cleaning_refs = [
         ['Stage', 'Script / Source', 'Purpose'],
         ['Detection output', '02_mev_detection/filtered_output/all_mev_with_classification.csv', 'Initial MEV candidates and classifications'],
@@ -1617,57 +1637,161 @@ def create_academic_report():
 
     # Appendix C: Code Chunk References (excerpts)
     story.append(Paragraph("Appendix C: Code Chunk References (Excerpts)", heading2_style))
-    code_excerpt = """
-    <b>Filtering logic (analyze_and_filter_mev.py)</b><br/>
-    <font face="Courier">if net_profit == 0 or pd.isna(net_profit): return 'FAILED_SANDWICH'<br/>
-    if sandwich_complete &gt; 0 and fat_sandwich &gt; 0: return 'FAT_SANDWICH'<br/>
-    if sandwich_count &gt; 0 and sandwich_complete &gt; 0: return 'FAT_SANDWICH'<br/>
-    if front_running &gt; 0 or back_running &gt; 0: return 'MULTI_HOP_ARBITRAGE'</font><br/><br/>
+    code_rows = [
+        [
+            "Reference",
+            "Excerpt",
+        ],
+        [
+            Paragraph("<b>Filtering logic</b><br/>(analyze_and_filter_mev.py)", normal_style),
+            Paragraph(
+                "<font face=\"Courier\">"
+                "if net_profit == 0 or pd.isna(net_profit): return 'FAILED_SANDWICH'<br/>"
+                "if sandwich_complete &gt; 0 and fat_sandwich &gt; 0: return 'FAT_SANDWICH'<br/>"
+                "if sandwich_count &gt; 0 and sandwich_complete &gt; 0: return 'FAT_SANDWICH'<br/>"
+                "if front_running &gt; 0 or back_running &gt; 0: return 'MULTI_HOP_ARBITRAGE'"
+                "</font>",
+                normal_style,
+            ),
+        ],
+        [
+            Paragraph("<b>Column normalization</b><br/>(regenerate_all_plots_filtered_data.py)", normal_style),
+            Paragraph(
+                "<font face=\"Courier\">"
+                "if 'attacker_signer' in df and 'signer' not in df: df['signer']=df['attacker_signer']<br/>"
+                "if 'amm_trade' in df and 'pool' not in df: df['pool']=df['amm_trade']"
+                "</font>",
+                normal_style,
+            ),
+        ],
+        [
+            Paragraph("<b>Ground truth load</b><br/>(regenerate_all_plots_filtered_data.py)", normal_style),
+            Paragraph(
+                "<font face=\"Courier\">"
+                "df_fat = pd.read_csv('02_mev_detection/filtered_output/all_fat_sandwich_only.csv')"
+                "</font>",
+                normal_style,
+            ),
+        ],
+    ]
+    code_table = Table(code_rows, colWidths=[2.0*inch, 4.3*inch], repeatRows=1)
+    code_table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#2c3e50')),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('FONTSIZE', (0, 0), (-1, 0), 10),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 8),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black),
+        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.lightgrey]),
+        ('FONTSIZE', (0, 1), (-1, -1), 9),
+        ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+    ]))
+    story.append(KeepTogether([code_table]))
+    story.append(Spacer(1, 0.2*inch))
 
-    <b>Column normalization for plots (regenerate_all_plots_filtered_data.py)</b><br/>
-    <font face="Courier">if 'attacker_signer' in df and 'signer' not in df: df['signer']=df['attacker_signer']<br/>
-    if 'amm_trade' in df and 'pool' not in df: df['pool']=df['amm_trade']</font><br/><br/>
-
-    <b>Ground truth data load (regenerate_all_plots_filtered_data.py)</b><br/>
-    <font face="Courier">df_fat = pd.read_csv('02_mev_detection/filtered_output/all_fat_sandwich_only.csv')</font>
-    """
-    story.append(Paragraph(code_excerpt, normal_style))
+    # Appendix D: Top MEV Reference Metrics
+    story.append(Paragraph("Appendix D: Top MEV Reference Metrics", heading2_style))
+    mev_summary_rows = [
+        ["Metric", "Value", "Notes"],
+        ["Total blockchain events analyzed", "5.5M", "Solana pAMM events across the study window"],
+        ["Protocols covered", "8", "BisonFi, GoonFi, HumidiFi, ObricV2, SolFi, SolFiV2, TesseraV, ZeroFi"],
+        ["Sandwich patterns detected", "26,223", "Identified across all MEV classes"],
+        ["Distinct attackers", "589", "Unique attacker wallets observed"],
+        ["Validators with MEV activity", "742", "Validators linked to MEV transactions"],
+        ["Validated fat sandwich set", "617 attacks", "Ground truth dataset for benchmarking"],
+        ["PUMP/WSOL fat sandwich share", "38.2%", "12.1% volume; 3.16x risk amplification"],
+        ["Blue-chip pairs MEV share", "8.3%", "47.2% volume; 0.18x risk discount"],
+    ]
+    mev_summary_table = Table(mev_summary_rows, colWidths=[2.2*inch, 1.0*inch, 3.1*inch], repeatRows=1)
+    mev_summary_table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#2c3e50')),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('FONTSIZE', (0, 0), (-1, 0), 10),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 8),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black),
+        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.lightgrey]),
+        ('FONTSIZE', (0, 1), (-1, -1), 9),
+        ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+    ]))
+    story.append(KeepTogether([mev_summary_table]))
     story.append(Spacer(1, 0.2*inch))
     
     story.append(Paragraph("9.1 Data Sources and Cleaning Process", heading2_style))
-    sources_text = """
-    <b>Raw Data Collection:</b><br/>
-    All data was collected from Solana blockchain events, specifically focusing on pAMM 
-    protocol interactions. The analysis covered slots 391,876,700 to 391,976,700, representing 
-    a comprehensive snapshot of MEV activity during this period. Initial dataset contained 
-    all transaction candidates from the blockchain.
-    <br/><br/>
-    <b>Data Cleaning and Filtering Pipeline:</b><br/>
-    The raw blockchain data underwent a rigorous multi-stage cleaning and validation process:<br/>
-    • <b>Stage 1 - Initial Classification:</b> MEV detection script (02_mev_detection/) classified all transactions into 
-    MEV types: FAT_SANDWICH, SANDWICH, MULTI_HOP_ARBITRAGE, FAILED_SANDWICH, and OTHER.<br/>
-    • <b>Stage 2 - DeezNode Filtering:</b> Applied DeezNode-specific filters to remove validator-specific artifacts 
-    and false positives from the detection baseline (01a_data_cleaning_DeezNode_filters/).<br/>
-    • <b>Stage 3 - Jito Tip Filtering:</b> Removed Jito tip account transactions to isolate organic MEV patterns 
-    distinct from bundle-based fee structures (01b_jito_tip_filter/).<br/>
-    • <b>Stage 4 - Attack Profile Validation:</b> Filtered failed sandwiches (net_profit = 0) and validated 
-    attack completeness using sandwich_complete and fat_sandwich indicators.<br/>
-    • <b>Stage 5 - Ground Truth Set:</b> Generated sanitized dataset containing only confirmed fat sandwich attacks 
-    (all_fat_sandwich_only.csv - 617 validated attacks) for final analysis and benchmarking.<br/>
-    <br/>
-    <b>Data Transformations Applied:</b><br/>
-    • Normalized attacker signer fields across different transaction sources<br/>
-    • Mapped pool identifiers to consistent AMM protocol formats<br/>
-    • Calculated derived metrics: net profit, success rates, time-to-execution<br/>
-    • Aggregated attacks by attacker wallet, pool, and time window<br/>
-    • Reconstructed sandwich structure: front-run, victim, back-run transaction sequences<br/>
-    <br/>
-    <b>Validation and Quality Assurance:</b><br/>
-    Final datasets were validated against known MEV patterns and attacker wallets. Consistency checks 
-    ensured no duplicate attacks and accurate profit calculations. All transformations are documented 
-    in Appendix B with corresponding Python scripts for reproducibility.
-    """
-    story.append(Paragraph(sources_text, normal_style))
+    story.append(Paragraph("Raw Data Collection", heading3_style))
+    raw_text = (
+        "All data was collected from Solana blockchain events, focusing on pAMM protocol "
+        "interactions. The analysis covered slots 391,876,700 to 391,976,700, representing "
+        "a comprehensive snapshot of MEV activity during this period. The initial dataset "
+        "included all candidate transactions from the chain export."
+    )
+    story.append(Paragraph(raw_text, normal_style))
+
+    story.append(Paragraph("Data Cleaning and Filtering Pipeline", heading3_style))
+    pipeline_rows = [
+        ["Stage", "Description"],
+        [
+            "Stage 1: Initial Classification",
+            "MEV detection script (02_mev_detection/) classified transactions into FAT_SANDWICH, "
+            "SANDWICH, MULTI_HOP_ARBITRAGE, FAILED_SANDWICH, and OTHER.",
+        ],
+        [
+            "Stage 2: DeezNode Filtering",
+            "Removed validator-specific artifacts and false positives using DeezNode filters "
+            "(01a_data_cleaning_DeezNode_filters/).",
+        ],
+        [
+            "Stage 3: Jito Tip Filtering",
+            "Removed Jito tip account transactions to isolate organic MEV patterns distinct from "
+            "bundle-based fee structures (01b_jito_tip_filter/).",
+        ],
+        [
+            "Stage 4: Attack Profile Validation",
+            "Filtered failed sandwiches (net_profit = 0) and validated attack completeness using "
+            "sandwich_complete and fat_sandwich indicators.",
+        ],
+        [
+            "Stage 5: Ground Truth Set",
+            "Generated sanitized dataset with confirmed fat sandwich attacks "
+            "(all_fat_sandwich_only.csv - 617 validated attacks).",
+        ],
+    ]
+    pipeline_table = Table(pipeline_rows, colWidths=[1.5*inch, 4.0*inch], repeatRows=1)
+    pipeline_table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#2c3e50')),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('FONTSIZE', (0, 0), (-1, 0), 10),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 8),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black),
+        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.lightgrey]),
+        ('FONTSIZE', (0, 1), (-1, -1), 9),
+        ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+    ]))
+    story.append(KeepTogether([pipeline_table]))
+    story.append(Spacer(1, 0.15*inch))
+
+    story.append(Paragraph("Data Transformations Applied", heading3_style))
+    transform_text = (
+        "- Normalized attacker signer fields across different transaction sources<br/>"
+        "- Mapped pool identifiers to consistent AMM protocol formats<br/>"
+        "- Calculated derived metrics: net profit, success rates, time-to-execution<br/>"
+        "- Aggregated attacks by attacker wallet, pool, and time window<br/>"
+        "- Reconstructed sandwich structure: front-run, victim, back-run transaction sequences"
+    )
+    story.append(Paragraph(transform_text, normal_style))
+
+    story.append(Paragraph("Validation and Quality Assurance", heading3_style))
+    qa_text = (
+        "Final datasets were validated against known MEV patterns and attacker wallets. "
+        "Consistency checks ensured no duplicate attacks and accurate profit calculations. "
+        "All transformations are documented in Appendix B with corresponding Python scripts "
+        "for reproducibility."
+    )
+    story.append(Paragraph(qa_text, normal_style))
     
     story.append(Paragraph("9.2 Analysis Tools", heading2_style))
     tools_text = """
