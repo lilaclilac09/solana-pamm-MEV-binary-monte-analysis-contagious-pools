@@ -160,22 +160,22 @@ ax7.axis('off')
 
 findings_text = f"""CONTAGION KEY INSIGHTS
 
-🎯 Trigger Pool:
-   {contagion_data.get('sections', {}).get('trigger_pool_identification', {}).get('trigger_pool', 'N/A')}
+Trigger Pool:
+    {contagion_data.get('sections', {}).get('trigger_pool_identification', {}).get('trigger_pool', 'N/A')}
 
-📊 Cascade Rate:
-   {cascade_info.get('cascade_percentage', 0):.1f}% of attacks cascade
+Cascade Rate:
+    {cascade_info.get('cascade_percentage', 0):.1f}% of attacks cascade
 
-⚠️ Highest Risk:
-   {pools_shared[0] if pools_shared else 'N/A'} ({probs[0]:.1f}%)
+Highest Risk:
+    {pools_shared[0] if pools_shared else 'N/A'} ({probs[0]:.1f}%)
 
-🌐 Total Pools:
-   {len(pools_shared)} affected
+Total Pools:
+    {len(pools_shared)} affected
 
-💰 MEV Concentration:
-   HumidiFi: 66.8%
-   BisonFi: 10.0%
-   Other: 23.2%
+MEV Concentration:
+    HumidiFi: 66.8%
+    BisonFi: 10.0%
+    Other: 23.2%
 """
 
 ax7.text(0.05, 0.95, findings_text, transform=ax7.transAxes, fontsize=10,
@@ -191,17 +191,17 @@ plt.savefig(dashboard_path, dpi=300, bbox_inches='tight')
 print(f"\n✓ Saved: {dashboard_path}")
 plt.close()
 
-# --- Create Pool Coordination Network Visualization
-fig2, axes = plt.subplots(2, 2, figsize=(16, 12))
+# --- Create Pool Coordination Network Visualization (zoomed)
+fig2, axes = plt.subplots(2, 2, figsize=(20, 15))
 fig2.suptitle('Pool Coordination & Attack Pattern Analysis\n(Contagious Vulnerability)', 
-              fontsize=16, fontweight='bold')
+              fontsize=20, fontweight='bold')
 
 # Plot 1: Attacker distribution across pools
 ax = axes[0, 0]
 pool_attackers = df_mev.groupby('pool')['signer'].nunique().sort_values(ascending=False)
 ax.barh(pool_attackers.index, pool_attackers.values, color='mediumpurple', alpha=0.7)
-ax.set_xlabel('Number of Unique Attackers', fontsize=10, fontweight='bold')
-ax.set_title('Unique Attackers per Pool', fontsize=11, fontweight='bold')
+ax.set_xlabel('Number of Unique Attackers', fontsize=12, fontweight='bold')
+ax.set_title('Unique Attackers per Pool', fontsize=13, fontweight='bold')
 grid_text = '\n'.join([f"{pool}: {count}" for pool, count in pool_attackers.items()])
 ax.grid(axis='x', alpha=0.3)
 
@@ -211,14 +211,14 @@ pool_freq = df_mev['pool'].value_counts()
 pool_freq_sorted = pool_freq.sort_values(ascending=False)
 ax.bar(range(len(pool_freq_sorted)), pool_freq_sorted.values, color='teal', alpha=0.7)
 ax.set_xticks(range(len(pool_freq_sorted)))
-ax.set_xticklabels(pool_freq_sorted.index, rotation=45, ha='right')
-ax.set_ylabel('Attack Count', fontsize=10, fontweight='bold')
-ax.set_title('Attack Frequency by Pool', fontsize=11, fontweight='bold')
+ax.set_xticklabels(pool_freq_sorted.index, rotation=45, ha='right', fontsize=10)
+ax.set_ylabel('Attack Count', fontsize=12, fontweight='bold')
+ax.set_title('Attack Frequency by Pool', fontsize=13, fontweight='bold')
 ax.grid(axis='y', alpha=0.3)
 
 # Add value labels
 for i, v in enumerate(pool_freq_sorted.values):
-    ax.text(i, v + 2, str(v), ha='center', fontweight='bold')
+    ax.text(i, v + 2, str(v), ha='center', fontweight='bold', fontsize=10)
 
 # Plot 3: Profit concentration analysis
 ax = axes[1, 0]
@@ -234,11 +234,11 @@ bars2 = ax2_twin.bar(x + width/2, profit_data['mean'], width, label='Avg Profit 
                      color='crimson', alpha=0.8)
 
 ax.set_xlabel('Pool', fontsize=10, fontweight='bold')
-ax.set_ylabel('Total Profit (SOL)', fontsize=10, fontweight='bold', color='gold')
-ax2_twin.set_ylabel('Average Profit (SOL)', fontsize=10, fontweight='bold', color='crimson')
-ax.set_title('Profit Analysis: Total vs Average', fontsize=11, fontweight='bold')
+ax.set_ylabel('Total Profit (SOL)', fontsize=12, fontweight='bold', color='gold')
+ax2_twin.set_ylabel('Average Profit (SOL)', fontsize=12, fontweight='bold', color='crimson')
+ax.set_title('Profit Analysis: Total vs Average', fontsize=13, fontweight='bold')
 ax.set_xticks(x)
-ax.set_xticklabels(profit_data.index, rotation=45, ha='right')
+ax.set_xticklabels(profit_data.index, rotation=45, ha='right', fontsize=10)
 
 ax.tick_params(axis='y', labelcolor='gold')
 ax2_twin.tick_params(axis='y', labelcolor='crimson')
@@ -259,10 +259,11 @@ for i, pool1 in enumerate(pools_list):
         contagion_matrix[i, j] = overlap
 
 sns.heatmap(contagion_matrix, annot=True, fmt='g', cmap='YlOrRd', ax=ax,
-            xticklabels=pools_list, yticklabels=pools_list, cbar_kws={'label': 'Shared Attackers'})
-ax.set_title('Contagion Matrix: Shared Attackers Between Pools', fontsize=11, fontweight='bold')
-ax.set_xlabel('Pool', fontsize=10, fontweight='bold')
-ax.set_ylabel('Pool', fontsize=10, fontweight='bold')
+            xticklabels=pools_list, yticklabels=pools_list, cbar_kws={'label': 'Shared Attackers'},
+            annot_kws={'fontsize': 10})
+ax.set_title('Contagion Matrix: Shared Attackers Between Pools', fontsize=13, fontweight='bold')
+ax.set_xlabel('Pool', fontsize=12, fontweight='bold')
+ax.set_ylabel('Pool', fontsize=12, fontweight='bold')
 
 plt.tight_layout()
 
