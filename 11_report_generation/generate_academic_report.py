@@ -1598,7 +1598,7 @@ def create_academic_report():
         ['Plot regeneration', '11_report_generation/regenerate_all_plots_filtered_data.py', 'Rebuild plots using validated data'],
     ]
 
-    cleaning_table = Table(cleaning_refs, colWidths=[1.4*inch, 3.1*inch, 2.0*inch], repeatRows=1)
+    cleaning_table = Table(cleaning_refs, colWidths=[1.3*inch, 3.9*inch, 2.8*inch], repeatRows=1)
     cleaning_table.setStyle(TableStyle([
         ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#2c3e50')),
         ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
@@ -1634,11 +1634,38 @@ def create_academic_report():
     story.append(Paragraph(code_excerpt, normal_style))
     story.append(Spacer(1, 0.2*inch))
     
-    story.append(Paragraph("9.1 Data Sources", heading2_style))
+    story.append(Paragraph("9.1 Data Sources and Cleaning Process", heading2_style))
     sources_text = """
+    <b>Raw Data Collection:</b><br/>
     All data was collected from Solana blockchain events, specifically focusing on pAMM 
     protocol interactions. The analysis covered slots 391,876,700 to 391,976,700, representing 
-    a comprehensive snapshot of MEV activity during this period.
+    a comprehensive snapshot of MEV activity during this period. Initial dataset contained 
+    all transaction candidates from the blockchain.
+    <br/><br/>
+    <b>Data Cleaning and Filtering Pipeline:</b><br/>
+    The raw blockchain data underwent a rigorous multi-stage cleaning and validation process:<br/>
+    • <b>Stage 1 - Initial Classification:</b> MEV detection script (02_mev_detection/) classified all transactions into 
+    MEV types: FAT_SANDWICH, SANDWICH, MULTI_HOP_ARBITRAGE, FAILED_SANDWICH, and OTHER.<br/>
+    • <b>Stage 2 - DeezNode Filtering:</b> Applied DeezNode-specific filters to remove validator-specific artifacts 
+    and false positives from the detection baseline (01a_data_cleaning_DeezNode_filters/).<br/>
+    • <b>Stage 3 - Jito Tip Filtering:</b> Removed Jito tip account transactions to isolate organic MEV patterns 
+    distinct from bundle-based fee structures (01b_jito_tip_filter/).<br/>
+    • <b>Stage 4 - Attack Profile Validation:</b> Filtered failed sandwiches (net_profit = 0) and validated 
+    attack completeness using sandwich_complete and fat_sandwich indicators.<br/>
+    • <b>Stage 5 - Ground Truth Set:</b> Generated sanitized dataset containing only confirmed fat sandwich attacks 
+    (all_fat_sandwich_only.csv - 617 validated attacks) for final analysis and benchmarking.<br/>
+    <br/>
+    <b>Data Transformations Applied:</b><br/>
+    • Normalized attacker signer fields across different transaction sources<br/>
+    • Mapped pool identifiers to consistent AMM protocol formats<br/>
+    • Calculated derived metrics: net profit, success rates, time-to-execution<br/>
+    • Aggregated attacks by attacker wallet, pool, and time window<br/>
+    • Reconstructed sandwich structure: front-run, victim, back-run transaction sequences<br/>
+    <br/>
+    <b>Validation and Quality Assurance:</b><br/>
+    Final datasets were validated against known MEV patterns and attacker wallets. Consistency checks 
+    ensured no duplicate attacks and accurate profit calculations. All transformations are documented 
+    in Appendix B with corresponding Python scripts for reproducibility.
     """
     story.append(Paragraph(sources_text, normal_style))
     
