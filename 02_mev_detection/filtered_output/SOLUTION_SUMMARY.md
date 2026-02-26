@@ -25,9 +25,9 @@
 | Metric | Value |
 |--------|-------|
 | **Count** | 617 cases (41.1%) |
-| **Average Profit** | 0.0896 SOL |
+| **Average Profit** | 0.1822 SOL |
 | **Max Profit** | 13.716 SOL |
-| **Total Profit** | 55.28 SOL |
+| **Total Profit** | 112.428 SOL |
 | **Quality** | All cases have positive profits |
 
 **Top 3 Cases:**
@@ -85,9 +85,9 @@
 | 7 | **ObricV2** | 3 | 0.5% | 0.0073 | 0.045 | 0.02 |
 
 ### Key Insights:
-- **HumidiFi is 2.7x more vulnerable** than second-place BisonFi
+- **HumidiFi accounts for 66.8% of fat-sandwich profit** (dominant source of profit concentration)
 - **Top 3 protocols** (HumidiFi, BisonFi, GoonFi) account for **61.4%** of all attacks
-- **HumidiFi's high average profit** (0.1169 SOL) indicates systematic exploitation
+- **HumidiFi's high average profit per-case** indicates systematic exploitation of specific pools
 - **Average case profit drops sharply** for less-targeted protocols
 
 ---
@@ -108,7 +108,7 @@
 | 10 | BisonFi | YubQzu18FDqJRyNf... | 2.079 | HIGH |
 | 11-20 | Mixed | Various | 1.18-1.91 | HIGH |
 
-**Total Profit (Top 20): 72.27 SOL**
+**Total Profit (Top 20): 55.521 SOL**
 
 ---
 
@@ -154,7 +154,7 @@
 ### Finding 1: High-Quality Filtered Dataset ✅
 - **617 proven successful fat sandwich cases**
 - **100% have positive profit** (no edge cases)
-- **Average profit: 0.0896 SOL per attack**
+- **Average profit: 0.1822 SOL per attack**
 - **All cases "high" confidence** - validated patterns
 
 ### Finding 2: HumidiFi is Primary Target 🎯
@@ -164,8 +164,8 @@
 - **Indicates systematic, repeated exploitability**
 
 ### Finding 3: Profitability is Concentrated 💰
-- **Top 20 cases = 72.27 SOL** (30% of all fat sandwich profit)
-- **Top 5 cases = 29.155 SOL** (52% of top 20 profit)
+- **Top 20 cases = 55.521 SOL** (49.38% of all fat-sandwich profit)
+- **Top 5 cases = 28.071 SOL** (50.56% of top-20 profit)
 - **Indicates high-value targets are repeatedly exploited**
 
 ### Finding 4: Validator Concentration 📍
