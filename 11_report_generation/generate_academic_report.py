@@ -116,6 +116,124 @@ def create_academic_report():
     story.append(Paragraph(abstract_text, abstract_style))
     story.append(PageBreak())
     
+    # Executive Summary: Complete Report Update
+    story.append(Paragraph("Executive Summary: Complete Report Update (February 26, 2026)", heading1_style))
+    
+    story.append(Paragraph("Overview", heading2_style))
+    update_overview = """
+    This report has been comprehensively updated with corrected MEV data and new contagion 
+    analysis visualizations. All analysis now uses validated data (617 fat sandwich attacks) 
+    with 58.9% false positive filtering applied. New contagion analysis reveals delayed 
+    cross-pool attack patterns and identifies HumidiFi as the primary MEV exploitation target.
+    """
+    story.append(Paragraph(update_overview, normal_style))
+    story.append(Spacer(1, 0.1*inch))
+    
+    # Updated Visualizations Table
+    story.append(Paragraph("Updated and New Visualizations", heading2_style))
+    viz_data = [
+        ['Visualization', 'Size', 'Purpose'],
+        ['mev_distribution_comprehensive.png', '158 KB', 'MEV profit by protocol'],
+        ['top_attackers.png', '133 KB', 'Top 20 attackers ranked by profit'],
+        ['aggregator_vs_mev_detailed_comparison.png', '288 KB', 'Behavioral dichotomy (aggregators vs MEV bots)'],
+        ['profit_distribution_filtered.png', '107 KB', 'Profit statistics and distributions'],
+        ['contagion_analysis_dashboard.png', '705 KB', 'NEW: Cross-pool attack probabilities and cascade analysis'],
+        ['pool_coordination_network.png', '519 KB', 'NEW: Attacker distribution and shared attacker heatmap'],
+    ]
+    
+    viz_table = Table(viz_data, colWidths=[2.5*inch, 1*inch, 2.5*inch])
+    viz_table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('FONTSIZE', (0, 0), (-1, 0), 10),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black),
+        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.lightgrey]),
+        ('FONTSIZE', (0, 1), (-1, -1), 9),
+        ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+    ]))
+    
+    story.append(viz_table)
+    story.append(Spacer(1, 0.2*inch))
+    
+    # Key Findings Table
+    story.append(Paragraph("Key Contagion Findings", heading2_style))
+    findings_data = [
+        ['Finding', 'Details'],
+        ['Trigger Pool', 'HumidiFi (75.1 SOL, 66.8% of total MEV)'],
+        ['Immediate Cascade', '0% (no same-slot coordinated attacks)'],
+        ['Delayed Contagion', '22% (attackers reuse skills on other pools)'],
+        ['Highest Risk Pool', 'BisonFi: 22.4% attack probability from HumidiFi attackers'],
+        ['Other Pool Risk', 'SolFiV2: 21.8%, GoonFi: 21.6%, TesseraV: 20.2%'],
+        ['Risk Level Distribution', 'MODERATE across all 7 pools (100%)'],
+        ['Attacker Overlap', '20-50 shared attackers between pool pairs'],
+        ['Contagion Mechanism', 'Knowledge transfer (skill reuse) vs real-time cascades'],
+    ]
+    
+    findings_table = Table(findings_data, colWidths=[2*inch, 4.5*inch])
+    findings_table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.darkblue),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('FONTSIZE', (0, 0), (-1, 0), 10),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.lightblue),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black),
+        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.lightblue]),
+        ('FONTSIZE', (0, 1), (-1, -1), 9),
+        ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+    ]))
+    
+    story.append(findings_table)
+    story.append(Spacer(1, 0.2*inch))
+    
+    # Data Corrections Table
+    story.append(Paragraph("Data Corrections Applied", heading2_style))
+    corrections_data = [
+        ['Issue Identified', 'Correction Applied'],
+        ['Top attacker profit mismatch', 'Fixed: 13.716 SOL → 16.731 SOL (+22% correction)'],
+        ['Top 20 file contained wrong signers', 'Regenerated from ground truth (617 validated attacks)'],
+        ['Derivative files out of sync', 'All files synchronized with single source of truth'],
+        ['Pool analysis missing', 'Generated pool_mev_summary.csv (7 pools analyzed)'],
+        ['Attacker-pool matrix missing', 'Generated attacker_pool_analysis.csv (617 attack pairs)'],
+        ['False positive contamination', 'Applied 58.9% filtering (617 valid attacks from 1,501 total)'],
+    ]
+    
+    corrections_table = Table(corrections_data, colWidths=[2.2*inch, 4.3*inch])
+    corrections_table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.darkred),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('FONTSIZE', (0, 0), (-1, 0), 10),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.lightyellow),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black),
+        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.lightyellow]),
+        ('FONTSIZE', (0, 1), (-1, -1), 9),
+        ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+    ]))
+    
+    story.append(corrections_table)
+    story.append(Spacer(1, 0.2*inch))
+    
+    summary_stats = """
+    <b>Summary Statistics:</b> This updated analysis covers 617 validated fat sandwich attacks 
+    across 7 pAMM protocols (HumidiFi, BisonFi, GoonFi, TesseraV, SolFiV2, ZeroFi, ObricV2), 
+    totaling 112.428 SOL in MEV profit. The analysis identifies 179 unique attackers and 
+    reveals a 0% immediate cascade rate but 22% delayed contagion risk through knowledge 
+    transfer patterns. All figures and tables in this report use the cleaned, validated dataset 
+    with false positives (failed sandwiches and multi-hop arbitrage) excluded. Two new 
+    contagion visualizations (Figures 8-9) provide comprehensive insights into cross-pool 
+    attack patterns and attacker specialization dynamics.
+    """
+    story.append(Paragraph(summary_stats, normal_style))
+    story.append(PageBreak())
+    
     # CONCLUSION (shown first as requested)
     story.append(Paragraph("Conclusion", heading1_style))
     
