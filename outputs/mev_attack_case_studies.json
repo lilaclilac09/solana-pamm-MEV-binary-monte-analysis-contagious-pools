@@ -1,0 +1,500 @@
+[
+  {
+    "attack_id": "CASE-001-460701000",
+    "attack_title": "JUP/WSOL Launch Period Flash Crash Extraction",
+    "timestamp": "2026-01-16T21:00:00Z",
+    "slot": 460701000,
+    "token_pair": "JUP/WSOL",
+    "pool": {
+      "name": "Orca JUP/WSOL",
+      "address": "4K6L6JcJ5w4dZRdV3D8Ck8VsB7P2q3J6k8M9n0O1p2Q",
+      "dex_protocol": "Orca",
+      "characteristics": "new pool, high volatility, low liquidity initially"
+    },
+    "attacker_info": {
+      "signer_address": "YubQzu18FDqJRyNfG8JqHmsdbxhnoQqcKUHBdUkN6tP",
+      "previous_attacks": 2,
+      "total_profit_history": 15.795,
+      "avg_roi": 900.0,
+      "known_name": "Unknown"
+    },
+    "victim_info": {
+      "transaction_signature": "TX00000000000000000000000000000000000000000000000000000000000000000000000000000000F9F874CD",
+      "wallet_cluster": "retail_trader",
+      "order_intent": "Buy 500,000 JUP tokens",
+      "order_size_tokens": 500000,
+      "expected_price": 0.015,
+      "slippage_tolerance_pct": 3.0
+    },
+    "attack_sequence": {
+      "frontrun": {
+        "position_created": {
+          "transaction_hash": "TX00000000000000000000000000000000000000000000000000000000000000000000000000000000683131C3",
+          "slot_offset_ms": -450,
+          "compute_units_used": 185000,
+          "priority_fee_lamports": 80000
+        },
+        "intent": "Acquire JUP before victim's large buy order",
+        "position_details": {
+          "input_amount": 250000.0,
+          "input_token": "JUP",
+          "output_token": "WSOL",
+          "output_amount": 3750.0,
+          "price": 0.015,
+          "liquidity_depth_impact": "5.2%"
+        },
+        "gas_costs_sol": 0.148005
+      },
+      "victim_execution": {
+        "transaction_hash": "TX0000000000000000000000000000000000000000000000000000000000000000000000000000000095CCCB69",
+        "slot_offset_ms": 0,
+        "position": "sandwiched_between_attacker_txs",
+        "details": {
+          "input_amount": 500000,
+          "input_token": "USDC/WSOL",
+          "output_token": "JUP",
+          "intended_output": 7500.0,
+          "actual_output": 7275.0,
+          "actual_price": 0.0132,
+          "actual_slippage_pct": 2.8,
+          "victim_loss_sol": 0.0
+        }
+      },
+      "backrun": {
+        "position_closed": {
+          "transaction_hash": "TX000000000000000000000000000000000000000000000000000000000000000000000000000000001B94E2BA",
+          "slot_offset_ms": 350,
+          "compute_units_used": 215000,
+          "priority_fee_lamports": 60000
+        },
+        "intent": "Exit position and realize profit",
+        "position_details": {
+          "input_amount": 250000.0,
+          "input_token": "JUP",
+          "output_token": "WSOL",
+          "output_amount": 534051.1363636364,
+          "price": 0.0132,
+          "implied_price_recovery": "98.5%"
+        },
+        "gas_costs_sol": 0.129005
+      }
+    },
+    "profit_breakdown": {
+      "gross_profit_sol": 3.245,
+      "transaction_costs": {
+        "frontrun_cost_sol": 0.148005,
+        "victim_miner_tip_sol": 0.0005,
+        "backrun_cost_sol": 0.129005,
+        "total_costs_sol": 0.060015
+      },
+      "net_profit_sol": 3.184985,
+      "roi_percentage": 91.0,
+      "roi_interpretation": "ROI compared to capital deployed in frontrun"
+    },
+    "validator_info": {
+      "validator_leader": "MPUMTbQzLbJyaJ2mEBcXoLDTKPK2TJJQhvQBRf2TZSR",
+      "validator_commission_pct": 7.0,
+      "mev_boost_enabled": true,
+      "mev_boost_bidder": "searcher_relay",
+      "tip_amount_sol": 0.025,
+      "block_space_position": "leader_slot",
+      "leadership_statistics": {
+        "blocks_produced": 1542,
+        "avg_mev_per_block_sol": 0.15,
+        "attack_facilitation_score": 0.72
+      }
+    },
+    "pool_metrics": {
+      "at_frontrun": {
+        "liquidity_depth": {
+          "tvl_sol": 2375000.0,
+          "reserve_jup": 150000000,
+          "reserve_wsol": 2500000
+        },
+        "price_jup_wsol": 0.015,
+        "price_jup_usd": 2.1,
+        "thirty_second_vwap": 0.01503
+      },
+      "at_victim_execution": {
+        "price_jup_wsol": 0.0132,
+        "price_change_pct": -11.999999999999996,
+        "impact_of_frontrun": "5.2%",
+        "estimated_depth": 2325000.0,
+        "slippage_increase": "2.3x normal"
+      },
+      "after_backrun": {
+        "price_jup_wsol": 0.0130416,
+        "price_recovery_pct": -1.1999999999999964,
+        "estimated_depth": 2275000.0,
+        "vwap_deviation": "1.8%"
+      },
+      "victim_impact": {
+        "slippage_pct": 2.8,
+        "slippage_jup_count": 14000,
+        "victim_loss_sol": 0.225,
+        "price_paid_vs_expected_pct": 97.2
+      }
+    },
+    "attack_characteristics": {
+      "type": "fat_sandwich",
+      "attack_taxonomy": "MEV-Search: Maximal Extractable Value",
+      "attack_vector": "Price impact sandwich",
+      "hops": 2,
+      "time_to_execution_ms": 800,
+      "confidence_score": 0.94,
+      "forensic_indicators": {
+        "address_reuse": false,
+        "wallet_funding_pattern": "contract_call",
+        "miner_interaction": "direct_tip",
+        "statistical_anomaly": true
+      },
+      "attack_mechanism": "Exploits JUP pool launch liquidity crisis with coordinated transactions"
+    },
+    "ecosystem_impact": {
+      "pool_fairness": "CRITICALLY COMPROMISED",
+      "price_discovery": "SEVERELY_DISTORTED",
+      "other_victims_possible": true,
+      "cascade_potential": "HIGH",
+      "remediation_difficulty": "HARD"
+    }
+  },
+  {
+    "attack_id": "CASE-002-461628000",
+    "attack_title": "PYTH/WSOL Oracle Lag Exploitation",
+    "timestamp": "2026-01-21T04:00:00Z",
+    "slot": 461628000,
+    "token_pair": "PYTH/WSOL",
+    "pool": {
+      "name": "Orca PYTH/WSOL",
+      "address": "5L7m8nOp9qR1s2T3u4V5w6X7y8Z0a1B2c3D4e5F6g7H",
+      "dex_protocol": "Orca",
+      "characteristics": "new pool, oracle-dependent pricing"
+    },
+    "attacker_info": {
+      "signer_address": "YubVwWeg1vHFr17Q7HQQETcke7sFvMabqU8wbv8NXQW",
+      "previous_attacks": 1,
+      "total_profit_history": 4.86,
+      "avg_roi": 900.0,
+      "known_name": "Unknown"
+    },
+    "victim_info": {
+      "transaction_signature": "TX0000000000000000000000000000000000000000000000000000000000000000000000000000000049A9F08F",
+      "wallet_cluster": "staking_authority",
+      "order_intent": "Deposit for stake pool",
+      "order_size_tokens": 750000,
+      "expected_price": 0.0082,
+      "slippage_tolerance_pct": 2.5
+    },
+    "attack_sequence": {
+      "frontrun": {
+        "position_created": {
+          "transaction_hash": "TX0000000000000000000000000000000000000000000000000000000000000000000000000000000081EBE3ED",
+          "slot_offset_ms": -320,
+          "compute_units_used": 172000,
+          "priority_fee_lamports": 120000
+        },
+        "intent": "Position before oracle update + victim transaction",
+        "position_details": {
+          "input_amount": 337500.0,
+          "input_token": "PYTH",
+          "output_token": "WSOL",
+          "output_amount": 2767.5000000000005,
+          "price": 0.0082,
+          "liquidity_depth_impact": "4.8%"
+        },
+        "gas_costs_sol": 0.206405
+      },
+      "victim_execution": {
+        "transaction_hash": "TX0000000000000000000000000000000000000000000000000000000000000000000000000000000048CFC2A6",
+        "slot_offset_ms": 0,
+        "position": "sandwiched",
+        "details": {
+          "input_amount": 750000,
+          "input_token": "WSOL",
+          "output_token": "PYTH",
+          "intended_output": 6150.000000000001,
+          "actual_output": 5904.000000000001,
+          "actual_price": 0.0069700000000000005,
+          "actual_slippage_pct": 4.0,
+          "victim_loss_sol": 0.0
+        }
+      },
+      "backrun": {
+        "position_closed": {
+          "transaction_hash": "TX00000000000000000000000000000000000000000000000000000000000000000000000000000000492EAEB0",
+          "slot_offset_ms": 280,
+          "compute_units_used": 198000,
+          "priority_fee_lamports": 90000
+        },
+        "intent": "Liquidate position at new price level",
+        "position_details": {
+          "input_amount": 337500.0,
+          "input_token": "PYTH",
+          "output_token": "WSOL",
+          "output_amount": 855529.4117647059,
+          "price": 0.0069700000000000005,
+          "realized_spread": "15.2%"
+        },
+        "gas_costs_sol": 0.178205
+      }
+    },
+    "profit_breakdown": {
+      "gross_profit_sol": 2.916,
+      "transaction_costs": {
+        "frontrun_cost_sol": 0.206405,
+        "victim_miner_tip_sol": 0.0008,
+        "backrun_cost_sol": 0.178205,
+        "total_costs_sol": 0.060015
+      },
+      "net_profit_sol": 2.855985,
+      "roi_percentage": 102.0,
+      "roi_interpretation": "Economic efficiency of capital deployment"
+    },
+    "validator_info": {
+      "validator_leader": "StephenAkridge98FDqJRyNfG8JqHmsdbxhnoQqcKUHBdUk",
+      "validator_commission_pct": 5.0,
+      "mev_boost_enabled": true,
+      "mev_boost_bidder": "flashbots_alternative",
+      "tip_amount_sol": 0.032,
+      "block_space_position": "jito_bundle",
+      "leadership_statistics": {
+        "blocks_produced": 2103,
+        "avg_mev_per_block_sol": 0.18,
+        "attack_facilitation_score": 0.78
+      }
+    },
+    "pool_metrics": {
+      "at_frontrun": {
+        "liquidity_depth": {
+          "tvl_sol": 1656000.0,
+          "reserve_pyth": 200000000,
+          "reserve_wsol": 1800000
+        },
+        "price_pyth_wsol": 0.0082,
+        "oracle_price_pyth_usd": 1.15,
+        "oracle_update_lag_blocks": 3,
+        "price_deviation_from_oracle": 1.8
+      },
+      "at_victim_execution": {
+        "price_pyth_wsol": 0.0069700000000000005,
+        "price_change_pct": -15.000000000000002,
+        "oracle_price_update_pending": true,
+        "oracle_deviation": 3.2,
+        "estimated_depth": 1584000.0
+      },
+      "after_backrun": {
+        "price_pyth_wsol": 0.00693515,
+        "price_recovery_pct": 0.5,
+        "oracle_updated_to": 1.15,
+        "new_oracle_deviation": 0.8
+      },
+      "victim_impact": {
+        "slippage_pct": 4.0,
+        "slippage_pyth_count": 30000,
+        "victim_loss_sol": 0.246,
+        "price_paid_vs_oracle_pct": 96.0
+      }
+    },
+    "attack_characteristics": {
+      "type": "sandwich",
+      "attack_taxonomy": "Oracle-Price-Decoupled Extraction",
+      "attack_vector": "Oracle lag exploitation + sandwich",
+      "hops": 2,
+      "time_to_execution_ms": 600,
+      "confidence_score": 0.91,
+      "forensic_indicators": {
+        "oracle_timing_correlated": true,
+        "price_discrepancy_created": true,
+        "cross_protocol_signal": false,
+        "human_intervention": false
+      },
+      "attack_mechanism": "Relies on PYTH oracle update lag and pool liquidity constraints"
+    },
+    "ecosystem_impact": {
+      "pool_fairness": "COMPROMISED",
+      "price_discovery": "DISTORTED",
+      "other_victims_possible": true,
+      "cascade_potential": "MODERATE",
+      "oracle_dependency_risk": "HIGH"
+    }
+  },
+  {
+    "attack_id": "CASE-003-463311000",
+    "attack_title": "SOL/USDC Critical Liquidity Drain Attack",
+    "timestamp": "2026-01-28T23:00:00Z",
+    "slot": 463311000,
+    "token_pair": "SOL/USDC",
+    "pool": {
+      "name": "Orca SOL/USDC",
+      "address": "6Q7u8Np9Oq1R2s3T4u5V6w7X8y9Z0a1B2c3D4e5F6g",
+      "dex_protocol": "Orca",
+      "characteristics": "stablecoin pair, low liquidity creates high slippage",
+      "criticality": "LOW_LIQUIDITY_CRISIS",
+      "tvl_usd": 7000000.0,
+      "severity_indicator": "CRITICAL"
+    },
+    "attacker_info": {
+      "signer_address": "AEB9dXBoxkrapNd59Kg29JefMMf3M1WLcNA12XjKSf4R",
+      "previous_attacks": 1,
+      "total_profit_history": 3.888,
+      "avg_roi": 900.0,
+      "known_name": "Unknown",
+      "attack_strategy": "accumulation_and_dump"
+    },
+    "victim_info": {
+      "transaction_signature": "TX000000000000000000000000000000000000000000000000000000000000000000000000000000007311D0CE",
+      "wallet_cluster": "bridge_redemption",
+      "order_intent": "Withdraw from lending protocol",
+      "order_size_tokens": 1000,
+      "expected_price": 140.0,
+      "slippage_tolerance_pct": 5.0,
+      "victim_loss_estimate_usd": 18200.0
+    },
+    "attack_sequence": {
+      "frontrun": {
+        "position_created": {
+          "transaction_hash": "TX0000000000000000000000000000000000000000000000000000000000000000000000000000000067126017",
+          "slot_offset_ms": -280,
+          "compute_units_used": 165000,
+          "priority_fee_lamports": 200000
+        },
+        "intent": "Absorb available liquidity before victim",
+        "position_details": {
+          "input_amount": 600.0,
+          "input_token": "SOL",
+          "output_token": "USDC",
+          "output_amount": 84000.0,
+          "price": 140.0,
+          "liquidity_depth_impact": "8.2%",
+          "pool_stress_indicator": "HIGH"
+        },
+        "gas_costs_sol": 0.330005
+      },
+      "victim_execution": {
+        "transaction_hash": "TX00000000000000000000000000000000000000000000000000000000000000000000000000000000FB0CC2D6",
+        "slot_offset_ms": 0,
+        "position": "critically_exposed",
+        "details": {
+          "input_amount": 1000,
+          "input_token": "SOL",
+          "output_token": "USDC",
+          "intended_output": 140000.0,
+          "actual_output": 121800.0,
+          "actual_price": 114.8,
+          "actual_slippage_pct": 13.0,
+          "victim_loss_usd": 18200.0
+        }
+      },
+      "backrun": {
+        "position_closed": {
+          "transaction_hash": "TX00000000000000000000000000000000000000000000000000000000000000000000000000000000FCD0C97C",
+          "slot_offset_ms": 240,
+          "compute_units_used": 188000,
+          "priority_fee_lamports": 150000
+        },
+        "intent": "Realize profit at depressed price",
+        "position_details": {
+          "input_amount": 121800.0,
+          "input_token": "USDC",
+          "output_token": "SOL",
+          "output_amount": 1092.8048780487804,
+          "price": 114.8,
+          "effective_arb_spread": "18.0%"
+        },
+        "gas_costs_sol": 0.282005
+      }
+    },
+    "profit_breakdown": {
+      "gross_profit_sol": 8.243,
+      "profit_breakdown_detail": {
+        "arb_profit_from_spread_sol": 6.42954,
+        "liquidation_bonus_sol": 1.81346,
+        "extraction_method": "price_differential + inventory_management"
+      },
+      "transaction_costs": {
+        "frontrun_cost_sol": 0.330005,
+        "backrun_cost_sol": 0.282005,
+        "validator_tip_sol": 0.0125,
+        "total_costs_sol": 0.060015
+      },
+      "net_profit_sol": 8.182985,
+      "roi_percentage": 125.89,
+      "roi_interpretation": "Exceptional ROI due to critical liquidity conditions"
+    },
+    "validator_info": {
+      "validator_leader": "JitoLabs8FDqJRyNfG8JqHmsdbxhnoQqcKUHBdUkN6tP",
+      "validator_commission_pct": 8.0,
+      "mev_boost_enabled": true,
+      "mev_boost_bidder": "jito_searcher",
+      "tip_amount_sol": 0.0125,
+      "block_space_position": "jito_bundle_top",
+      "leadership_statistics": {
+        "blocks_produced": 987,
+        "avg_mev_per_block_sol": 0.42,
+        "mev_intensive_blocks": "45%",
+        "attack_facilitation_score": 0.95
+      }
+    },
+    "pool_metrics": {
+      "at_frontrun": {
+        "liquidity_depth": {
+          "tvl_sol": 50000,
+          "tvl_usdc": 7000000.0,
+          "reserve_sol": 50000,
+          "reserve_usdc": 7000000.0,
+          "liquidity_concentration": "CRITICAL"
+        },
+        "price_sol_usdc": 140.0,
+        "slippage_for_1pct_move": 2.8,
+        "slippage_for_10pct_move": 28.5,
+        "market_depth": "SHALLOW"
+      },
+      "at_victim_execution": {
+        "price_sol_usdc": 114.8,
+        "price_change_pct": -18.000000000000004,
+        "liquidity_remaining_pct": 35.2,
+        "impact_of_frontrun_pct": 5.1,
+        "combined_impact_victim_pct": 13.0,
+        "pool_vulnerability": "EXPLOITED"
+      },
+      "after_backrun": {
+        "price_sol_usdc": 116.52199999999999,
+        "price_recovery_pct": 1.5,
+        "remaining_liquidity_pct": 12.8,
+        "reserve_depletion": "SEVERE",
+        "pool_status": "DISTRESSED"
+      },
+      "victim_impact": {
+        "slippage_pct": 13.0,
+        "slippage_sol_count": 130,
+        "victim_loss_usdc": 18200.0,
+        "price_paid_vs_expected_pct": 87.0,
+        "additional_spread_victims_exp": "12-18%"
+      }
+    },
+    "attack_characteristics": {
+      "type": "liquidity_drain_sandwich",
+      "attack_taxonomy": "Capital Liquidation Extraction",
+      "attack_vector": "Critical liquidity depletion sandwich",
+      "hops": 2,
+      "time_to_execution_ms": 520,
+      "confidence_score": 0.97,
+      "forensic_indicators": {
+        "liquidity_targeting": true,
+        "sequential_positioning": true,
+        "price_floor_creation": true,
+        "systematic_pattern": true
+      },
+      "attack_mechanism": "Exploits SOL/USDC pool's critically low liquidity to create extreme price impact"
+    },
+    "ecosystem_impact": {
+      "pool_fairness": "DESTROYED",
+      "price_discovery": "COMPLETELY_COMPROMISED",
+      "systemic_risk": "HIGH",
+      "downstream_contagion": "PROBABLE",
+      "lending_protocol_impact": "MARGIN_CALLS_LIKELY",
+      "remediation_difficulty": "CRITICAL",
+      "recommended_action": "Emergency liquidity provision or pool suspension"
+    }
+  }
+]

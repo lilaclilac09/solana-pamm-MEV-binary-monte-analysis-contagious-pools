@@ -1,0 +1,314 @@
+{
+  "metadata": {
+    "total_signers_analyzed": 15,
+    "top_signers_included": 10,
+    "analysis_date": "2026-02-27T14:52:29.158920",
+    "data_source": "top_attackers_full.csv"
+  },
+  "aggregate_statistics": {
+    "total_profit_all_signers": 50.24699999999999,
+    "average_profit_per_signer": 3.3497999999999997,
+    "median_profit_per_signer": 2.304,
+    "max_profit": 15.795,
+    "min_profit": 1.602,
+    "total_fat_sandwiches": 10889,
+    "total_regular_sandwiches": 293,
+    "average_roi": 900.0,
+    "total_attacks": 16
+  },
+  "top_10_signers": {
+    "1": {
+      "rank": 1,
+      "signer": "YubQzu18FDqJRyNfG8JqHmsdbxhnoQqcKUHBdUkN6tP",
+      "metrics": {
+        "total_profit": 15.795,
+        "average_profit_per_attack": 7.8975,
+        "fat_sandwich_attacks": 3344,
+        "regular_sandwich_attacks": 167,
+        "total_sandwich_attacks": 3511,
+        "fat_sandwich_ratio": 0.952435203645685,
+        "avg_roi_percent": 900.0,
+        "estimated_unique_victims": 4564,
+        "estimated_pools_targeted": 2,
+        "estimated_slots_involved": 4,
+        "estimated_average_hops": 3.0,
+        "profit_per_sandwich": 0.004498718313870692,
+        "total_attacks": 2
+      },
+      "percentile_profit": 6.666666666666667
+    },
+    "2": {
+      "rank": 2,
+      "signer": "YubVwWeg1vHFr17Q7HQQETcke7sFvMabqU8wbv8NXQW",
+      "metrics": {
+        "total_profit": 4.86,
+        "average_profit_per_attack": 4.86,
+        "fat_sandwich_attacks": 1019,
+        "regular_sandwich_attacks": 63,
+        "total_sandwich_attacks": 1082,
+        "fat_sandwich_ratio": 0.9417744916820703,
+        "avg_roi_percent": 900.0,
+        "estimated_unique_victims": 1406,
+        "estimated_pools_targeted": 1,
+        "estimated_slots_involved": 2,
+        "estimated_average_hops": 3.0,
+        "profit_per_sandwich": 0.004491682070240296,
+        "total_attacks": 1
+      },
+      "percentile_profit": 13.333333333333334
+    },
+    "3": {
+      "rank": 3,
+      "signer": "AEB9dXBoxkrapNd59Kg29JefMMf3M1WLcNA12XjKSf4R",
+      "metrics": {
+        "total_profit": 3.888,
+        "average_profit_per_attack": 3.888,
+        "fat_sandwich_attacks": 864,
+        "regular_sandwich_attacks": 0,
+        "total_sandwich_attacks": 864,
+        "fat_sandwich_ratio": 1.0,
+        "avg_roi_percent": 900.0,
+        "estimated_unique_victims": 1123,
+        "estimated_pools_targeted": 1,
+        "estimated_slots_involved": 2,
+        "estimated_average_hops": 4.0,
+        "profit_per_sandwich": 0.0045,
+        "total_attacks": 1
+      },
+      "percentile_profit": 20.0
+    },
+    "4": {
+      "rank": 4,
+      "signer": "YubozzSnKomEnH3pkmYsdatUUwUTcm7s4mHJVmefEWj",
+      "metrics": {
+        "total_profit": 2.916,
+        "average_profit_per_attack": 2.916,
+        "fat_sandwich_attacks": 632,
+        "regular_sandwich_attacks": 17,
+        "total_sandwich_attacks": 649,
+        "fat_sandwich_ratio": 0.9738058551617874,
+        "avg_roi_percent": 900.0,
+        "estimated_unique_victims": 843,
+        "estimated_pools_targeted": 1,
+        "estimated_slots_involved": 2,
+        "estimated_average_hops": 3.0,
+        "profit_per_sandwich": 0.0044930662557781205,
+        "total_attacks": 1
+      },
+      "percentile_profit": 26.666666666666668
+    },
+    "5": {
+      "rank": 5,
+      "signer": "CatyeC3LgBxub7HcpW2n7cZZZ66CUKdcZ8DzHucHrSiP",
+      "metrics": {
+        "total_profit": 2.691,
+        "average_profit_per_attack": 2.691,
+        "fat_sandwich_attacks": 592,
+        "regular_sandwich_attacks": 6,
+        "total_sandwich_attacks": 598,
+        "fat_sandwich_ratio": 0.9899665551839465,
+        "avg_roi_percent": 900.0,
+        "estimated_unique_victims": 777,
+        "estimated_pools_targeted": 1,
+        "estimated_slots_involved": 2,
+        "estimated_average_hops": 3.0,
+        "profit_per_sandwich": 0.0045,
+        "total_attacks": 1
+      },
+      "percentile_profit": 33.33333333333333
+    },
+    "6": {
+      "rank": 6,
+      "signer": "enzog436vHy38bMhNR9XDENrvhxPK7y8wBQri852rhG",
+      "metrics": {
+        "total_profit": 2.61,
+        "average_profit_per_attack": 2.61,
+        "fat_sandwich_attacks": 578,
+        "regular_sandwich_attacks": 2,
+        "total_sandwich_attacks": 580,
+        "fat_sandwich_ratio": 0.996551724137931,
+        "avg_roi_percent": 900.0,
+        "estimated_unique_victims": 754,
+        "estimated_pools_targeted": 1,
+        "estimated_slots_involved": 2,
+        "estimated_average_hops": 3.0,
+        "profit_per_sandwich": 0.0045,
+        "total_attacks": 1
+      },
+      "percentile_profit": 40.0
+    },
+    "7": {
+      "rank": 7,
+      "signer": "9TXFVx8N9dPneS3ETRt8KWtUXLRUsz6j6JM3bEXqkR3Z",
+      "metrics": {
+        "total_profit": 2.439,
+        "average_profit_per_attack": 2.439,
+        "fat_sandwich_attacks": 541,
+        "regular_sandwich_attacks": 3,
+        "total_sandwich_attacks": 544,
+        "fat_sandwich_ratio": 0.9944852941176471,
+        "avg_roi_percent": 900.0,
+        "estimated_unique_victims": 707,
+        "estimated_pools_targeted": 1,
+        "estimated_slots_involved": 2,
+        "estimated_average_hops": 3.0,
+        "profit_per_sandwich": 0.0044834558823529415,
+        "total_attacks": 1
+      },
+      "percentile_profit": 46.666666666666664
+    },
+    "8": {
+      "rank": 8,
+      "signer": "han5oo9sy98473nuWU7PwkdgpJVFvQEQ14S5CCdbeYQ",
+      "metrics": {
+        "total_profit": 2.304,
+        "average_profit_per_attack": 2.304,
+        "fat_sandwich_attacks": 511,
+        "regular_sandwich_attacks": 3,
+        "total_sandwich_attacks": 514,
+        "fat_sandwich_ratio": 0.9941634241245136,
+        "avg_roi_percent": 900.0,
+        "estimated_unique_victims": 668,
+        "estimated_pools_targeted": 1,
+        "estimated_slots_involved": 2,
+        "estimated_average_hops": 3.0,
+        "profit_per_sandwich": 0.004482490272373541,
+        "total_attacks": 1
+      },
+      "percentile_profit": 53.333333333333336
+    },
+    "9": {
+      "rank": 9,
+      "signer": "4swoALYuvetDK6N3ak1Knc1bMLbm7nzkxCW1nqjPWGRV",
+      "metrics": {
+        "total_profit": 2.178,
+        "average_profit_per_attack": 2.178,
+        "fat_sandwich_attacks": 477,
+        "regular_sandwich_attacks": 8,
+        "total_sandwich_attacks": 485,
+        "fat_sandwich_ratio": 0.9835051546391752,
+        "avg_roi_percent": 900.0,
+        "estimated_unique_victims": 630,
+        "estimated_pools_targeted": 1,
+        "estimated_slots_involved": 2,
+        "estimated_average_hops": 3.0,
+        "profit_per_sandwich": 0.004490721649484536,
+        "total_attacks": 1
+      },
+      "percentile_profit": 60.0
+    },
+    "10": {
+      "rank": 10,
+      "signer": "foxMFk9faHggM4HWQWETCPSDvMbWx8LSv4c9CrkmBx6",
+      "metrics": {
+        "total_profit": 1.908,
+        "average_profit_per_attack": 1.908,
+        "fat_sandwich_attacks": 424,
+        "regular_sandwich_attacks": 1,
+        "total_sandwich_attacks": 425,
+        "fat_sandwich_ratio": 0.9976470588235294,
+        "avg_roi_percent": 900.0,
+        "estimated_unique_victims": 552,
+        "estimated_pools_targeted": 1,
+        "estimated_slots_involved": 2,
+        "estimated_average_hops": 3.0,
+        "profit_per_sandwich": 0.004489411764705882,
+        "total_attacks": 1
+      },
+      "percentile_profit": 66.66666666666666
+    }
+  },
+  "attack_patterns": {
+    "fat_sandwich_dominance": {
+      "YubQzu18FDqJRyNfG8Jq": {
+        "fat_sandwich_ratio": 0.9524349323739867,
+        "pattern_type": "highly_specialized"
+      },
+      "YubVwWeg1vHFr17Q7HQQ": {
+        "fat_sandwich_ratio": 0.9417736212813113,
+        "pattern_type": "fat_sandwich_focused"
+      },
+      "AEB9dXBoxkrapNd59Kg2": {
+        "fat_sandwich_ratio": 0.9999988425939322,
+        "pattern_type": "highly_specialized"
+      },
+      "YubozzSnKomEnH3pkmYs": {
+        "fat_sandwich_ratio": 0.9738043546928279,
+        "pattern_type": "highly_specialized"
+      },
+      "CatyeC3LgBxub7HcpW2n": {
+        "fat_sandwich_ratio": 0.989964899724248,
+        "pattern_type": "highly_specialized"
+      },
+      "enzog436vHy38bMhNR9X": {
+        "fat_sandwich_ratio": 0.9965500059482656,
+        "pattern_type": "highly_specialized"
+      },
+      "9TXFVx8N9dPneS3ETRt8": {
+        "fat_sandwich_ratio": 0.9944834660230405,
+        "pattern_type": "highly_specialized"
+      },
+      "han5oo9sy98473nuWU7P": {
+        "fat_sandwich_ratio": 0.9941614899581908,
+        "pattern_type": "highly_specialized"
+      },
+      "4swoALYuvetDK6N3ak1K": {
+        "fat_sandwich_ratio": 0.9835031267976767,
+        "pattern_type": "highly_specialized"
+      },
+      "foxMFk9faHggM4HWQWET": {
+        "fat_sandwich_ratio": 0.9976447114242085,
+        "pattern_type": "highly_specialized"
+      }
+    },
+    "profit_efficiency": {
+      "YubQzu18FDqJRyNfG8Jq": {
+        "profit_per_attack": 7.8975,
+        "efficiency_score": 50.0
+      },
+      "YubVwWeg1vHFr17Q7HQQ": {
+        "profit_per_attack": 4.86,
+        "efficiency_score": 30.76923076923077
+      },
+      "AEB9dXBoxkrapNd59Kg2": {
+        "profit_per_attack": 3.888,
+        "efficiency_score": 24.615384615384613
+      },
+      "YubozzSnKomEnH3pkmYs": {
+        "profit_per_attack": 2.916,
+        "efficiency_score": 18.46153846153846
+      },
+      "CatyeC3LgBxub7HcpW2n": {
+        "profit_per_attack": 2.691,
+        "efficiency_score": 17.037037037037038
+      },
+      "enzog436vHy38bMhNR9X": {
+        "profit_per_attack": 2.61,
+        "efficiency_score": 16.524216524216524
+      },
+      "9TXFVx8N9dPneS3ETRt8": {
+        "profit_per_attack": 2.439,
+        "efficiency_score": 15.441595441595442
+      },
+      "han5oo9sy98473nuWU7P": {
+        "profit_per_attack": 2.304,
+        "efficiency_score": 14.586894586894585
+      },
+      "4swoALYuvetDK6N3ak1K": {
+        "profit_per_attack": 2.178,
+        "efficiency_score": 13.78917378917379
+      },
+      "foxMFk9faHggM4HWQWET": {
+        "profit_per_attack": 1.908,
+        "efficiency_score": 12.079772079772079
+      }
+    }
+  },
+  "average_metrics": {
+    "average_total_profit_top_10": 4.1589,
+    "average_fat_sandwiches_top_10": 898.2,
+    "average_regular_sandwiches_top_10": 27.0,
+    "average_num_attacks_top_10": 1.1,
+    "average_roi_top_10": 900.0
+  }
+}

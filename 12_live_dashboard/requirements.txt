@@ -1,0 +1,26 @@
+# Core Dashboard Dependencies
+dash==2.14.2
+plotly==5.18.0
+pandas==2.1.4
+networkx==3.2.1
+
+# Solana Integration (for live data)
+solana==0.31.0
+solders==0.18.1
+
+# API and HTTP requests
+requests==2.31.0
+aiohttp==3.9.1
+
+# Web server for deployment
+gunicorn==21.2.0
+flask==3.0.0
+
+# Data processing
+numpy==1.26.2
+scipy==1.11.4
+
+# Optional: For advanced features
+dash-bootstrap-components==1.5.0
+redis==5.0.1  # For caching live data
+celery==5.3.4  # For background tasks
