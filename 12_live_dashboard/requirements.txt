@@ -1,12 +1,8 @@
-# Core Dashboard Dependencies
-dash==2.14.2
-plotly==5.18.0
-pandas==2.1.4
-networkx==3.2.1
-
-# Solana Integration (for live data)
-solana==0.31.0
-solders==0.18.1
+dash==4.0.0
+plotly==6.5.2
+pandas>=3.0.1
+networkx==3.6.1
+gunicorn==21.2.0
 
 # API and HTTP requests
 requests==2.31.0
