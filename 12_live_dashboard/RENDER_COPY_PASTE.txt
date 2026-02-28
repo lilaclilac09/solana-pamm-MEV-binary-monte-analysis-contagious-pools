@@ -1,0 +1,43 @@
+════════════════════════════════════════════════════════════════
+  RENDER DEPLOYMENT - COPY & PASTE VALUES
+════════════════════════════════════════════════════════════════
+
+🔹 Name
+   mev-dashboard
+
+🔹 Runtime  
+   Python 3
+
+🔹 Root Directory
+   12_live_dashboard
+
+🔹 Build Command
+   pip install -r requirements.txt
+
+🔹 Start Command
+   gunicorn mev_dashboard:server --bind 0.0.0.0:$PORT --workers 2 --timeout 120
+
+🔹 Plan
+   Free
+
+════════════════════════════════════════════════════════════════
+
+📋 DEPLOYMENT CHECKLIST
+
+□ Push code to GitHub repository
+□ Go to render.com/dashboard
+□ Click "New +" → "Web Service"
+□ Connect GitHub repo
+□ Copy-paste values above
+□ Click "Create Web Service"
+□ Wait 5-10 minutes for deployment
+□ Click the provided URL to view dashboard
+
+════════════════════════════════════════════════════════════════
+
+🌐 After deployment, your URL will be:
+   https://mev-dashboard.onrender.com
+
+⚠️  Free plan sleeps after 15 min inactivity (30s wake time)
+
+════════════════════════════════════════════════════════════════
