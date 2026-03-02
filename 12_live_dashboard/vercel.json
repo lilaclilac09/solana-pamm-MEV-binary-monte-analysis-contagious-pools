@@ -1,18 +1,9 @@
 {
   "version": 2,
   "builds": [
-    {
-      "src": "mev_dashboard_enhanced.py",
-      "use": "@vercel/python"
-    }
+    { "src": "app/index.py", "use": "@vercel/python" }
   ],
   "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "mev_dashboard_enhanced.py"
-    }
-  ],
-  "env": {
-    "PYTHON_VERSION": "3.9"
-  }
+    { "src": "(.*)", "dest": "app/index.py" }
+  ]
 }

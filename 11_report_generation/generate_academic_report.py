@@ -317,55 +317,37 @@ def create_academic_report():
     """
     story.append(Paragraph(transformation_text, normal_style))
     
-    story.append(Paragraph("2.3 Event Type Distribution", heading2_style))
-    event_dist_text = """
-    Analysis of event types revealed a distribution between ORACLE updates and TRADE events. 
-    The dataset spans 39,735 seconds (approximately 11 hours) of blockchain activity, with 
-    events distributed across multiple validators and AMM protocols.
+    story.append(Paragraph("2.3 MEV Attack Pattern Analysis", heading2_style))
+    mev_pattern_text = """
+    Analysis of validated MEV attack patterns after false-positive elimination reveals a highly 
+    concentrated exploitation landscape. From the filtered classification dataset 
+    (02_mev_detection/filtered_output/all_mev_with_classification.csv), we identified 636 
+    profitable, validated MEV attacks: 617 Fat Sandwich attacks (97.0%) and 19 Multi-Hop 
+    Arbitrage events (3.0%). Previously reported Back-Running, Classic Sandwich, Front-Running, 
+    and Cross-Slot categories were eliminated during validation as false positives.
     """
-    story.append(Paragraph(event_dist_text, normal_style))
+    story.append(Paragraph(mev_pattern_text, normal_style))
     
-    # Add data cleaning visualizations
-    event_type_plot = os.path.join(base_dir, '01_data_cleaning/outputs/images/event_type_distribution.png')
-    if os.path.exists(event_type_plot):
+    # Add VAL-AMM-3 visualization
+    val_amm_plot = os.path.join(base_dir, '12_live_dashboard/REAL_VAL_AMM_3.png')
+    if os.path.exists(val_amm_plot):
         story.append(Spacer(1, 0.1*inch))
-        story.append(Paragraph("Figure A: Event Type Distribution", heading3_style))
-        img = Image(event_type_plot, width=5*inch, height=2.7*inch)
+        story.append(Paragraph("Figure VAL-AMM-3: MEV Attack Pattern Comparison Across Validator-AMM Pairs", heading3_style))
+        img = Image(val_amm_plot, width=7*inch, height=3*inch)
         story.append(img)
         story.append(Spacer(1, 0.1*inch))
         # Plot interpretation
-        event_type_interp = """
-        <b>Key Insights:</b> The event type distribution reveals a balanced ecosystem between oracle 
-        updates and trading activity. The dataset contains approximately equal proportions of ORACLE 
-        and TRADE events, indicating active price discovery mechanisms. This balance is essential for 
-        MEV detection, as oracle updates serve as reference points for identifying back-running attacks 
-        (trades placed immediately after price updates). The near-parity between event types suggests 
-        that pAMM protocols maintain frequent oracle refresh cycles, typically updating prices every 
-        400ms to 2.5 seconds depending on the protocol. However, as shown in Section 4.1.1, even these 
-        short latency windows create exploitable opportunities for sophisticated MEV bots.
+        val_amm_interp = """
+        <b>Key Insights:</b> The validated MEV distribution shows overwhelming dominance of 
+        <b>Fat Sandwich</b> behavior with <b>617 attacks (97.0%)</b>, indicating that profitable 
+        extraction is concentrated in validator-controlled multi-transaction sandwich execution. 
+        <b>Multi-Hop Arbitrage</b> contributes only <b>19 attacks (3.0%)</b>. The final validated 
+        dataset contains <b>636 profitable attacks</b> after removing 865 failed or non-validated 
+        detections from 1,501 raw events (57.6% elimination). This concentration strengthens the 
+        case for validator accountability, slot-level ordering transparency, and anti-sandwich 
+        protections as the highest-impact mitigations.
         """
-        story.append(Paragraph(event_type_interp, normal_style))
-        story.append(Spacer(1, 0.1*inch))
-    
-    pamm_events_plot = os.path.join(base_dir, '01_data_cleaning/outputs/images/pamm_events_per_minute.png')
-    if os.path.exists(pamm_events_plot):
-        story.append(Paragraph("Figure B: pAMM Events Per Minute Over Time", heading3_style))
-        img = Image(pamm_events_plot, width=5*inch, height=2.7*inch)
-        story.append(img)
-        story.append(Spacer(1, 0.1*inch))
-        # Plot interpretation
-        pamm_events_interp = """
-        <b>Key Insights:</b> The temporal distribution of pAMM events reveals significant volatility 
-        spikes and clustering patterns. Event density varies from baseline levels (500-1,000 events/minute) 
-        to extreme peaks (>5,000 events/minute), indicating periods of intense trading activity. These 
-        spikes correlate strongly with MEV attack windows—high-frequency periods represent opportunities 
-        where attackers can hide their transactions among legitimate volume. The clustering of events 
-        also suggests bot coordination: multiple MEV bots simultaneously detect oracle updates or large 
-        victim trades and compete to execute sandwich attacks. Time-of-day analysis (Section 7.1.1) 
-        shows that these high-activity periods (12:00-18:00 UTC) carry 2.1x higher front-run risk, 
-        making them particularly hazardous for large trades.
-        """
-        story.append(Paragraph(pamm_events_interp, normal_style))
+        story.append(Paragraph(val_amm_interp, normal_style))
         story.append(Spacer(1, 0.1*inch))
     
     story.append(PageBreak())

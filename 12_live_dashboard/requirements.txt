@@ -1,6 +1,6 @@
 dash==4.0.0
 plotly==6.5.2
-pandas>=3.0.1
+pandas>=2.0.0
 networkx==3.6.1
 
 # API and HTTP requests

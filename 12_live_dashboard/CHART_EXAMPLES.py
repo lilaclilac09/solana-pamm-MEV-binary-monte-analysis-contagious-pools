@@ -6,8 +6,11 @@ Shows exactly how each chart type was created
 
 import plotly.express as px
 import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 import pandas as pd
 import networkx as nx
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # ========================================
 # 📊 CHART TYPE 1: BAR CHART
@@ -212,6 +215,153 @@ print(attackers.to_string(index=False))
 print()
 
 # ========================================
+# 📊 CHART TYPE 7: CORRECTED VAL-AMM-3
+# MEV Attack Pattern Comparison (Post-FP Elimination)
+# ========================================
+
+print("=" * 60)
+print("🎯 CHART 7: MEV ATTACK PATTERNS - Corrected Data")
+print("=" * 60)
+
+# Corrected data after false positive elimination
+# Total MEV trades = 650 (down from ~2,131)
+mev_patterns_data = pd.DataFrame({
+    'Pattern': ['Fat Sandwich', 'Back-Running (DeezNode)', 'Classic Sandwich', 
+                'Front-Running', 'Cross-Slot (2Fast)'],
+    'Count': [312, 135, 95, 62, 46],
+    'Percentage': [48.0, 20.8, 14.6, 9.5, 7.1]
+})
+
+# Sort by count descending
+mev_patterns_data = mev_patterns_data.sort_values('Count', ascending=False)
+
+# Define colors (pink/red for Fat Sandwich and Front-Running, purple for Back-Running, teal/cyan for others)
+color_map = {
+    'Fat Sandwich': '#FF6B9D',           # Pink
+    'Front-Running': '#FF4757',          # Red
+    'Back-Running (DeezNode)': '#9B59B6', # Purple
+    'Classic Sandwich': '#1ABC9C',       # Teal
+    'Cross-Slot (2Fast)': '#3498DB'      # Cyan
+}
+
+colors = [color_map[pattern] for pattern in mev_patterns_data['Pattern']]
+
+# Create figure with subplots (1 row, 2 columns)
+fig = make_subplots(
+    rows=1, cols=2,
+    subplot_titles=('MEV Pattern Comparison: Trade Counts', 'MEV Pattern Distribution'),
+    specs=[[{"type": "bar"}, {"type": "pie"}]],
+    horizontal_spacing=0.15
+)
+
+# Add horizontal bar chart
+fig.add_trace(
+    go.Bar(
+        y=mev_patterns_data['Pattern'],
+        x=mev_patterns_data['Count'],
+        orientation='h',
+        marker=dict(color=colors),
+        text=mev_patterns_data['Count'],
+        textposition='outside',
+        hovertemplate='<b>%{y}</b><br>Count: %{x}<br>Percentage: %{customdata}%<extra></extra>',
+        customdata=mev_patterns_data['Percentage'],
+        showlegend=False
+    ),
+    row=1, col=1
+)
+
+# Add pie chart
+fig.add_trace(
+    go.Pie(
+        labels=mev_patterns_data['Pattern'],
+        values=mev_patterns_data['Count'],
+        marker=dict(colors=colors),
+        textinfo='percent+label',
+        textposition='auto',
+        hovertemplate='<b>%{label}</b><br>Count: %{value}<br>Percentage: %{percent}<extra></extra>',
+        hole=0.3  # Make it a donut chart
+    ),
+    row=1, col=2
+)
+
+# Update layout
+fig.update_xaxes(title_text="Number of Trades", range=[0, 350], row=1, col=1)
+fig.update_yaxes(title_text="Attack Pattern", row=1, col=1)
+
+fig.update_layout(
+    title_text="Figure VAL-AMM-3: MEV Attack Pattern Comparison Across Validator-AMM Pairs (Post-FP Elimination)",
+    title_font_size=14,
+    showlegend=False,
+    height=500,
+    width=1400,
+    plot_bgcolor='white',
+    paper_bgcolor='white',
+    font={'family': 'Arial', 'color': '#2D3436'}
+)
+
+# Alternative: Create separate matplotlib/seaborn version for saving as PNG
+print("Creating matplotlib version for PNG export...")
+
+# Set up the figure with two subplots
+plt.style.use('seaborn-v0_8-darkgrid')
+fig_mpl, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 6))
+
+# Left: Horizontal bar chart
+bars = ax1.barh(mev_patterns_data['Pattern'], mev_patterns_data['Count'], color=colors)
+ax1.set_xlabel('Number of Trades', fontsize=12, fontweight='bold')
+ax1.set_ylabel('Attack Pattern', fontsize=12, fontweight='bold')
+ax1.set_title('MEV Pattern Comparison: Trade Counts', fontsize=13, fontweight='bold', pad=15)
+ax1.set_xlim(0, 350)
+ax1.grid(axis='x', alpha=0.3, linestyle='--')
+
+# Add value labels on bars
+for i, (pattern, count) in enumerate(zip(mev_patterns_data['Pattern'], mev_patterns_data['Count'])):
+    ax1.text(count + 5, i, str(count), va='center', fontsize=11, fontweight='bold')
+
+# Right: Pie chart
+wedges, texts, autotexts = ax2.pie(
+    mev_patterns_data['Count'], 
+    labels=mev_patterns_data['Pattern'],
+    autopct='%1.1f%%',
+    colors=colors,
+    startangle=90,
+    textprops={'fontsize': 10, 'fontweight': 'bold'},
+    wedgeprops={'edgecolor': 'white', 'linewidth': 2}
+)
+
+# Make percentage text more visible
+for autotext in autotexts:
+    autotext.set_color('white')
+    autotext.set_fontsize(11)
+
+ax2.set_title('MEV Pattern Distribution', fontsize=13, fontweight='bold', pad=15)
+
+# Overall title
+fig_mpl.suptitle(
+    'Figure VAL-AMM-3: MEV Attack Pattern Comparison Across Validator-AMM Pairs\n(Post-False Positive Elimination: 650 Total MEV Trades)',
+    fontsize=14,
+    fontweight='bold',
+    y=0.98
+)
+
+plt.tight_layout(rect=[0, 0, 1, 0.95])
+
+# Save the figure
+output_path = '/Users/aileen/Downloads/pamm/solana-pamm-analysis/solana-pamm-MEV-binary-monte-analysis-contagious-pools/12_live_dashboard/corrected_val_amm_3.png'
+plt.savefig(output_path, dpi=300, bbox_inches='tight', facecolor='white')
+print(f"✅ Figure saved to: {output_path}")
+
+print()
+print("📊 CORRECTED DATA SUMMARY:")
+print(f"   Total MEV Trades: {mev_patterns_data['Count'].sum()}")
+print(f"   Most Common Pattern: {mev_patterns_data.iloc[0]['Pattern']} ({mev_patterns_data.iloc[0]['Count']} trades, {mev_patterns_data.iloc[0]['Percentage']}%)")
+print()
+print("   Pattern Breakdown:")
+for _, row in mev_patterns_data.iterrows():
+    print(f"     • {row['Pattern']}: {row['Count']} trades ({row['Percentage']}%)")
+print()
+
+# ========================================
 # 🎯 SUMMARY
 # ========================================
 
@@ -236,6 +386,9 @@ print("   Used for: Showing connections/relationships")
 print()
 print("6. 📋 TABLE → dash_table.DataTable(data, columns)")
 print("   Used for: Displaying raw data")
+print()
+print("7. 🎯 COMBINED CHARTS → make_subplots() + matplotlib")
+print("   Used for: Multi-panel visualizations with corrected data")
 print()
 
 print("=" * 60)

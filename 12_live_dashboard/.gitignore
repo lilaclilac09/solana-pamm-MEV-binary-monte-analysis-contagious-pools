@@ -44,3 +44,5 @@ data/
 *api_key*
 *secret*
 credentials.json
+.vercel
+.env*.local
