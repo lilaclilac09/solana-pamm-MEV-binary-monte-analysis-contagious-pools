@@ -1,0 +1,48 @@
+.vercel
+.env*.local
+
+# 数据文件和缓存
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+build/
+dist/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+
+# 大型数据文件 (已被 git history 污染)
+01_data_cleaning/outputs/
+01a_data_cleaning_DeezNode_filters/outputs/
+03_oracle_analysis/outputs/
+04_validator_analysis/outputs/
+05_token_pair_analysis/outputs/
+06_pool_analysis/outputs/
+07_ml_classification/outputs/
+08_monte_carlo_risk/outputs/
+09a_advanced_ml/outputs/
+10_advanced_FP_solution/outputs/
+
+# 大型 CSV 和数据文件
+*.csv
+*.parquet
+*.xlsx
+*.zip
+*.tar.gz
+*.tar
+*.sqlite
+*.db
+
+# Node
+node_modules/
+.next/
