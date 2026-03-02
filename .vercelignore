@@ -1,0 +1,35 @@
+# 忽略大型数据文件和目录
+01_data_cleaning/
+01a_data_cleaning_DeezNode_filters/
+01b_jito_tip_filter/
+02_mev_detection/
+03_oracle_analysis/
+04_validator_analysis/
+05_token_pair_analysis/
+06_pool_analysis/
+07_ml_classification/
+08_monte_carlo_risk/
+09a_advanced_ml/
+10_advanced_FP_solution/
+11_report_generation/
+12_mev_profit_mechanisms/
+13_mev_comprehensive_analysis/
+00_planning_and_documentation/
+
+# 忽略 notebooks
+*.ipynb
+.ipynb_checkpoints/
+
+# 忽略 Python 缓存
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# 忽略其他
+.DS_Store
+*.csv
+*.parquet
+*.xlsx
+*.zip
+*.tar.gz
+.git/
