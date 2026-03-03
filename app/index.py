@@ -292,27 +292,9 @@ app.layout = html.Div([
         ),
     ], style={"marginBottom": "40px"}),
     
-    # Section 5: Case Studies
+    # Section 5: Methodology
     html.Div([
-        html.H2("Section 5: MEV Attack Case Studies",
-                style={"fontSize": "22px", "fontWeight": 700, "marginBottom": "16px", "color": "#1f2937"}),
-        html.P("Real-world MEV attack examples demonstrating sophisticated exploitation techniques across different protocols and token pairs.",
-               style={"fontSize": "14px", "color": "#6b7280", "marginBottom": "16px"}),
-        
-        dash_table.DataTable(
-            data=case_studies.to_dict('records'),
-            columns=[{"name": i, "id": i} for i in case_studies.columns],
-            style_cell={"padding": "12px", "fontSize": "13px", "textAlign": "left"},
-            style_header={"backgroundColor": "#f3f4f6", "fontWeight": 700},
-            style_cell_conditional=[
-                {"if": {"column_id": "Profit (SOL)"}, "fontWeight": 700, "color": "#dc2626"},
-            ],
-        ),
-    ], style={"marginBottom": "40px"}),
-    
-    # Section 7: Methodology
-    html.Div([
-        html.H2("Section 7: Methodology",
+        html.H2("Section 5: Methodology",
                 style={"fontSize": "22px", "fontWeight": 700, "marginBottom": "16px", "color": "#1f2937"}),
         html.Ul([
             html.Li([html.Strong("ML Classification: "), "XGBoost with SMOTE balancing (F1=0.91, Recall=85%, Precision=88%)"]),
@@ -322,9 +304,9 @@ app.layout = html.Div([
         ], style={"fontSize": "14px", "lineHeight": "1.8", "color": "#374151"}),
     ], style={"marginBottom": "40px", "backgroundColor": "#f9fafb", "padding": "20px", "borderRadius": "8px"}),
     
-    # Section 8: Recommendations
+    # Section 6: Recommendations
     html.Div([
-        html.H2("Section 8: Recommendations",
+        html.H2("Section 6: Recommendations",
                 style={"fontSize": "22px", "fontWeight": 700, "marginBottom": "16px", "color": "#1f2937"}),
         html.Ol([
             html.Li([html.Strong("Reduce BisonFi oracle latency to <500ms"), " to eliminate trigger-pool conditions"]),
