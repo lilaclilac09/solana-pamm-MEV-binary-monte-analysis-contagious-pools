@@ -79,6 +79,66 @@ app.layout = html.Div([
         html.P("Comprehensive Analysis of MEV Attack Patterns Across 8 pAMM Protocols",
                style={"margin": "8px 0 0 0", "fontSize": "14px", "color": "#666"}),
     ], style={"marginBottom": "32px", "paddingBottom": "24px", "borderBottom": "3px solid #e5e7eb"}),
+
+    # Section 5b: TOP STORIES - Attack Case Studies (FEATURED)
+    html.Div([
+        html.Div([
+                html.H2("TOP STORIES: Real-World Attack Case Studies",
+                    style={"fontSize": "22px", "fontWeight": 700, "marginBottom": "16px", "color": "#dc2626"}),
+            html.P("Four detailed case studies from January 7, 2026 dataset analyzing real MEV attackers with millisecond-level precision",
+                   style={"fontSize": "14px", "color": "#6b7280", "marginBottom": "24px"}),
+        ], style={"backgroundColor": "#fef2f2", "border": "2px solid #dc2626", "padding": "20px", "borderRadius": "8px", "marginBottom": "24px"}),
+        
+        # Quick stats
+        html.Div([
+            html.Div([
+                html.Div("7.666 SOL", style={"fontSize": "28px", "fontWeight": 700, "color": "#059669"}),
+                html.Div("Total Attacker Revenue", style={"fontSize": "12px", "color": "#6b7280", "marginTop": "4px"}),
+            ], style={"backgroundColor": "#f0fdf4", "padding": "16px", "borderRadius": "6px", "textAlign": "center"}),
+            
+            html.Div([
+                html.Div("10.49 SOL", style={"fontSize": "28px", "fontWeight": 700, "color": "#dc2626"}),
+                html.Div("Victim Losses (6 users)", style={"fontSize": "12px", "color": "#6b7280", "marginTop": "4px"}),
+            ], style={"backgroundColor": "#fef2f2", "padding": "16px", "borderRadius": "6px", "textAlign": "center"}),
+            
+            html.Div([
+                html.Div("552%", style={"fontSize": "28px", "fontWeight": 700, "color": "#f59e0b"}),
+                html.Div("Max ROI (Case 2)", style={"fontSize": "12px", "color": "#6b7280", "marginTop": "4px"}),
+            ], style={"backgroundColor": "#fffbeb", "padding": "16px", "borderRadius": "6px", "textAlign": "center"}),
+            
+            html.Div([
+                html.Div("3.365 SOL", style={"fontSize": "28px", "fontWeight": 700, "color": "#3b82f6"}),
+                html.Div("Validator Revenue", style={"fontSize": "12px", "color": "#6b7280", "marginTop": "4px"}),
+            ], style={"backgroundColor": "#eff6ff", "padding": "16px", "borderRadius": "6px", "textAlign": "center"}),
+        ], style={"display": "grid", "gridTemplateColumns": "repeat(4, 1fr)", "gap": "12px", "marginBottom": "24px"}),
+        
+        # Case Studies Summary Table
+        html.H3("Case Studies Overview", style={"fontSize": "16px", "fontWeight": 700, "marginBottom": "12px"}),
+        dash_table.DataTable(
+            data=case_studies.to_dict('records'),
+            columns=[{"name": i, "id": i} for i in case_studies.columns],
+            style_cell={"padding": "12px", "fontSize": "12px", "textAlign": "left"},
+            style_header={"backgroundColor": "#f3f4f6", "fontWeight": 700},
+            style_cell_conditional=[
+                {"if": {"column_id": "Profit (SOL)"}, "fontWeight": 700, "color": "#dc2626"},
+            ],
+        ),
+        
+        html.P([
+            html.Strong("Detailed Attack Breakdowns:"),
+            html.Br(),
+            "• ", html.Strong("Case 1 (189ms):"), " Simple sandwich attack on JUP/WSOL, 285% ROI",
+            html.Br(),
+            "• ", html.Strong("Case 2 (2.4s):"), " Multi-slot sandwich + LP strategy, 552% ROI (highest)",
+            html.Br(),
+            "• ", html.Strong("Case 2b (1.2s):"), " BisonFi cross-pool arbitrage, 209% ROI, 2 victims",
+            html.Br(),
+            "• ", html.Strong("Case 3 (865ms):"), " Crisis exploitation with 3 cascading sandwich attacks, 135% ROI",
+        ], style={"fontSize": "13px", "color": "#374151", "backgroundColor": "#f9fafb", "padding": "16px", "borderRadius": "6px", 
+                  "lineHeight": "1.8", "marginTop": "16px", "marginBottom": "0"}),
+
+
+    ], style={"marginBottom": "40px", "backgroundColor": "white", "padding": "20px", "borderRadius": "8px"}),
     
     # Executive Summary Box
     html.Div([
@@ -243,66 +303,6 @@ app.layout = html.Div([
             ],
         ),
     ], style={"marginBottom": "40px"}),
-    
-    # Section 5b: TOP STORIES - Attack Case Studies (FEATURED)
-    html.Div([
-        html.Div([
-                html.H2("TOP STORIES: Real-World Attack Case Studies",
-                    style={"fontSize": "22px", "fontWeight": 700, "marginBottom": "16px", "color": "#dc2626"}),
-            html.P("Four detailed case studies from January 7, 2026 dataset analyzing real MEV attackers with millisecond-level precision",
-                   style={"fontSize": "14px", "color": "#6b7280", "marginBottom": "24px"}),
-        ], style={"backgroundColor": "#fef2f2", "border": "2px solid #dc2626", "padding": "20px", "borderRadius": "8px", "marginBottom": "24px"}),
-        
-        # Quick stats
-        html.Div([
-            html.Div([
-                html.Div("7.666 SOL", style={"fontSize": "28px", "fontWeight": 700, "color": "#059669"}),
-                html.Div("Total Attacker Revenue", style={"fontSize": "12px", "color": "#6b7280", "marginTop": "4px"}),
-            ], style={"backgroundColor": "#f0fdf4", "padding": "16px", "borderRadius": "6px", "textAlign": "center"}),
-            
-            html.Div([
-                html.Div("10.49 SOL", style={"fontSize": "28px", "fontWeight": 700, "color": "#dc2626"}),
-                html.Div("Victim Losses (6 users)", style={"fontSize": "12px", "color": "#6b7280", "marginTop": "4px"}),
-            ], style={"backgroundColor": "#fef2f2", "padding": "16px", "borderRadius": "6px", "textAlign": "center"}),
-            
-            html.Div([
-                html.Div("552%", style={"fontSize": "28px", "fontWeight": 700, "color": "#f59e0b"}),
-                html.Div("Max ROI (Case 2)", style={"fontSize": "12px", "color": "#6b7280", "marginTop": "4px"}),
-            ], style={"backgroundColor": "#fffbeb", "padding": "16px", "borderRadius": "6px", "textAlign": "center"}),
-            
-            html.Div([
-                html.Div("3.365 SOL", style={"fontSize": "28px", "fontWeight": 700, "color": "#3b82f6"}),
-                html.Div("Validator Revenue", style={"fontSize": "12px", "color": "#6b7280", "marginTop": "4px"}),
-            ], style={"backgroundColor": "#eff6ff", "padding": "16px", "borderRadius": "6px", "textAlign": "center"}),
-        ], style={"display": "grid", "gridTemplateColumns": "repeat(4, 1fr)", "gap": "12px", "marginBottom": "24px"}),
-        
-        # Case Studies Summary Table
-        html.H3("Case Studies Overview", style={"fontSize": "16px", "fontWeight": 700, "marginBottom": "12px"}),
-        dash_table.DataTable(
-            data=case_studies.to_dict('records'),
-            columns=[{"name": i, "id": i} for i in case_studies.columns],
-            style_cell={"padding": "12px", "fontSize": "12px", "textAlign": "left"},
-            style_header={"backgroundColor": "#f3f4f6", "fontWeight": 700},
-            style_cell_conditional=[
-                {"if": {"column_id": "Profit (SOL)"}, "fontWeight": 700, "color": "#dc2626"},
-            ],
-        ),
-        
-        html.P([
-            html.Strong("Detailed Attack Breakdowns:"),
-            html.Br(),
-            "• ", html.Strong("Case 1 (189ms):"), " Simple sandwich attack on JUP/WSOL, 285% ROI",
-            html.Br(),
-            "• ", html.Strong("Case 2 (2.4s):"), " Multi-slot sandwich + LP strategy, 552% ROI (highest)",
-            html.Br(),
-            "• ", html.Strong("Case 2b (1.2s):"), " BisonFi cross-pool arbitrage, 209% ROI, 2 victims",
-            html.Br(),
-            "• ", html.Strong("Case 3 (865ms):"), " Crisis exploitation with 3 cascading sandwich attacks, 135% ROI",
-        ], style={"fontSize": "13px", "color": "#374151", "backgroundColor": "#f9fafb", "padding": "16px", "borderRadius": "6px", 
-                  "lineHeight": "1.8", "marginTop": "16px", "marginBottom": "0"}),
-        
-
-    ], style={"marginBottom": "40px", "backgroundColor": "white", "padding": "20px", "borderRadius": "8px"}),
     
     # Section 5c: Threat Intelligence Visualizations
     html.Div([
