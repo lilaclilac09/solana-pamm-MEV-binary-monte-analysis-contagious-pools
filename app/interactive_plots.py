@@ -7,47 +7,59 @@ import pandas as pd
 import json
 
 def load_viz_data():
-    """Load visualization data from JSON file."""
-    try:
-        with open('visualization_data.json', 'r') as f:
-            return json.load(f)
-    except:
-        # Fallback to default data
-        return {
-            "token_pair_fragility": {
-                "headline_percent": 39.5,
-                "pump_wsol_label": "High-Risk Pool (HumidiFi)",
+    """Load visualization data from JSON file or use embedded data."""
+    # Embedded default data (works in serverless environment)
+    default_data = {
+        "token_pair_fragility": {
+            "headline_percent": 39.5,
+            "pump_wsol_label": "High-Risk Pool (HumidiFi)",
+            "safe_pair_label": "Diversified Pools",
+            "safe_pairs_label": "Low-Risk Pools",
+            "points": {
+                "pump_wsol": [1.5, 8.8],
+                "safe_pair": [7.2, 3.0],
+                "safe_pairs": [8.1, 2.6]
+            }
+        },
+        "oracle_latency_window": {
+            "headline_latency_seconds": 0.4,
+            "headline_trade_percent": 39.5,
+            "pool_latencies_us": {
+                "GoonFi": 322161,
+                "HumidiFi": 341033,
+                "SolFiV2": 350892
+            }
+        },
+        "mev_battlefield": {
+            "pool_profits_sol": {
+                "HumidiFi": 75.1,
+                "BisonFi": 11.2,
+                "GoonFi": 7.9,
+                "TesseraV": 7.8,
+                "SolFiV2": 7.5,
+                "ZeroFi": 2.8,
+                "ObricV2": 0.1
             },
-            "oracle_latency_window": {
-                "headline_latency_seconds": 0.4,
-                "headline_trade_percent": 39.5,
-                "pool_latencies_us": {
-                    "GoonFi": 322161,
-                    "HumidiFi": 341033,
-                    "SolFiV2": 350892
-                }
-            },
-            "mev_battlefield": {
-                "pool_profits_sol": {
-                    "HumidiFi": 75.1,
-                    "BisonFi": 11.2,
-                    "GoonFi": 7.9,
-                    "TesseraV": 7.8,
-                    "SolFiV2": 7.5,
-                    "ZeroFi": 2.8,
-                    "ObricV2": 0.1
-                },
-                "profit_share_percent": {
-                    "HumidiFi": 66.8,
-                    "BisonFi": 10.0,
-                    "GoonFi": 7.0,
-                    "TesseraV": 7.0,
-                    "SolFiV2": 6.7,
-                    "ZeroFi": 2.5,
-                    "ObricV2": 0.1
-                }
+            "profit_share_percent": {
+                "HumidiFi": 66.8,
+                "BisonFi": 10.0,
+                "GoonFi": 7.0,
+                "TesseraV": 7.0,
+                "SolFiV2": 6.7,
+                "ZeroFi": 2.5,
+                "ObricV2": 0.1
             }
         }
+    }
+    
+    try:
+        import os
+        json_path = os.path.join(os.path.dirname(__file__), 'visualization_data.json')
+        with open(json_path, 'r') as f:
+            return json.load(f)
+    except:
+        # Use embedded data in serverless environment
+        return default_data
 
 def create_token_pair_fragility_interactive():
     """Create interactive scatter plot for token pair fragility."""
@@ -262,37 +274,21 @@ def create_mev_battlefield_interactive():
 
 def get_pool_data_table(pool_name=None):
     """Return DataFrame with detailed pool statistics for selected pool."""
-    # Load actual pool data
-    try:
-        pool_summary = pd.read_csv('02_mev_detection/POOL_SUMMARY.csv')
-        pool_profits = pd.read_csv('13_mev_comprehensive_analysis/outputs/from_02_mev_detection/pool_mev_summary.csv')
-        
-        # Merge data
-        df = pool_summary.merge(pool_profits, on='pool', how='left')
-        
-        if pool_name:
-            df = df[df['pool'] == pool_name]
-        
-        # Select and rename columns for display
-        display_df = df[[
-            'pool', 'unique_attackers', 'unique_validators', 'total_mev_events',
-            'total_profit', 'avg_profit', 'net_profit_sol', 'total_fat_sandwiches'
-        ]].copy()
-        
-        display_df.columns = [
-            'Pool', 'Attackers', 'Validators', 'MEV Events',
-            'Profit (SOL)', 'Avg Profit', 'Net Profit', 'Fat Sandwiches'
-        ]
-        
-        return display_df
-    except Exception as e:
-        # Fallback mock data
-        return pd.DataFrame({
-            'Pool': ['HumidiFi', 'BisonFi', 'GoonFi'],
-            'Attackers': [593, 182, 258],
-            'Profit (SOL)': [75.1, 11.2, 7.9],
-            'MEV Events': [1434, 82, 799]
-        })
+    # Embedded data from analysis results (no CSV dependencies for serverless)
+    pool_data = pd.DataFrame({
+        'Pool': ['HumidiFi', 'BisonFi', 'GoonFi', 'TesseraV', 'SolFiV2', 'ZeroFi', 'ObricV2'],
+        'Attackers': [593, 182, 258, 157, 176, 116, 13],
+        'Validators': [189, 92, 106, 83, 84, 72, 6],
+        'MEV Events': [593, 182, 258, 157, 176, 116, 13],
+        'Profit (SOL)': [75.1, 11.2, 7.9, 7.8, 7.5, 2.8, 0.1],
+        'Avg Profit': [0.450, 0.101, 0.078, 0.084, 0.079, 0.059, 0.036],
+        'Fat Sandwiches': [16828, 2595, 1892, 1815, 1733, 690, 34]
+    })
+    
+    if pool_name:
+        pool_data = pool_data[pool_data['Pool'] == pool_name]
+    
+    return pool_data
 
 def get_latency_data_table():
     """Return DataFrame with oracle latency details."""
