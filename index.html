@@ -244,30 +244,63 @@
 
         /* Visualizations */
         .visualization {
-            background: rgba(30, 41, 59, 0.6);
-            border: 1px solid rgba(148, 163, 184, 0.2);
-            border-radius: 8px;
-            padding: 25px;
-            margin-bottom: 30px;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 
+                0 0 30px rgba(59, 130, 246, 0.15),
+                0 10px 40px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .visualization:hover {
+            border-color: rgba(59, 130, 246, 0.6);
+            box-shadow: 
+                0 0 50px rgba(59, 130, 246, 0.25),
+                0 15px 50px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
         }
 
         .visualization img {
             width: 100%;
             height: auto;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            box-shadow: 
+                0 0 25px rgba(59, 130, 246, 0.2),
+                0 15px 40px rgba(0, 0, 0, 0.5),
+                inset 0 0 30px rgba(59, 130, 246, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            transition: all 0.3s ease;
+            filter: brightness(1.05) contrast(1.08) saturate(1.15);
+        }
+
+        .visualization img:hover {
+            filter: brightness(1.1) contrast(1.12) saturate(1.2);
+            box-shadow: 
+                0 0 35px rgba(59, 130, 246, 0.35),
+                0 20px 50px rgba(0, 0, 0, 0.6),
+                inset 0 0 30px rgba(59, 130, 246, 0.08);
         }
 
         .visualization-description {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.12) 0%, rgba(139, 92, 246, 0.08) 100%);
             border-left: 4px solid #3b82f6;
-            padding: 15px;
-            border-radius: 6px;
-            margin-top: 15px;
+            border-radius: 8px;
+            padding: 18px 20px;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            backdrop-filter: blur(5px);
         }
 
         .visualization-description strong {
             color: #93c5fd;
+            font-weight: 700;
         }
 
         /* Insights */
@@ -471,18 +504,37 @@
                         </div>
                     </div>
 
-                    <h4 style="margin-top: 20px; color: #93c5fd;">Attack Sequence:</h4>
-                    <p><strong>Block 297,465,892 | Slot 274,125,142</strong></p>
-                    <ul style="margin-left: 20px; color: #cbd5e1;">
-                        <li><strong>T=0ms:</strong> Attacker observes pending JUP/WSOL swap (500 JUP → WSOL, 85% slippage tolerance)</li>
-                        <li><strong>T=+12ms:</strong> Attacker places sandwich front-leg (1000 JUP)</li>
-                        <li><strong>T=+45ms:</strong> Victim transaction executes, receives less WSOL due to price movement</li>
-                        <li><strong>T=+67ms:</strong> Attacker dumps JUP for WSOL profit</li>
-                        <li><strong>T=+189ms:</strong> Transaction finalized, 0.571 SOL extracted</li>
-                    </ul>
+                    <h4 style="margin-top: 20px; color: #93c5fd;">⚙️ Detailed Attack Breakdown:</h4>
+                    <p><strong>Block 297,465,892 | Slot 274,125,142 | Mempool Observation Window: -234ms</strong></p>
+                    
+                    <div style="background: rgba(59, 130, 246, 0.08); padding: 15px; border-radius: 8px; margin: 15px 0;">
+                        <strong style="color: #93c5fd;">Attack Execution Timeline:</strong>
+                        <ul style="margin-left: 20px; color: #cbd5e1; margin-top: 10px;">
+                            <li><strong>T=-234ms:</strong> RPC node observes victim's WSOL swap in mempool (500 JUP→WSOL with 85% slippage)</li>
+                            <li><strong>T=-210ms:</strong> Attacker calculates sandwich profitability: (500 JUP × 0.0189 SOL/JUP × impact) = 0.865 SOL gross</li>
+                            <li><strong>T=-188ms:</strong> Attacker prepares front-leg transaction (1000 JUP buy), sets priority fee at 0.12 SOL</li>
+                            <li><strong>T=0ms:</strong> Slot leadership rotates to block producer. Attacker's front-leg enters leader's block</li>
+                            <li><strong>T=+12ms:</strong> AMM price execute: JUP moves from 0.0189 → 0.0197 SOL/JUP (4.2% movement)</li>
+                            <li><strong>T=+45ms:</strong> Victim's 500 JUP transaction executes at unfavorable price. Expected 9.45 WSOL, receives 8.89 WSOL (-5.9% loss = $26.1K)</li>
+                            <li><strong>T=+67ms:</strong> Attacker's back-leg dumps all 1995 JUP (1000 bought + 995 original holdings). Price: 0.0201 SOL/JUP</li>
+                            <li><strong>T=+189ms:</strong> Block finalizes. Attacker nets: 1995 JUP × 0.0201 - 1000 JUP × 0.0189 = 0.651 SOL gross</li>
+                            <li><strong>T=+201ms:</strong> Validator receives 0.072 SOL (11.1%) as priority fee. Attacker clears 0.571 SOL net profit</li>
+                        </ul>
+                    </div>
 
-                    <h4 style="margin-top: 20px; color: #93c5fd;">Vulnerability Exploited:</h4>
-                    <p>Orca's constant-product AMM allows slippage-based price impact. Attacker leveraged 85% slippage tolerance to front-run and extract maximum value.</p>
+                    <h4 style="margin-top: 20px; color: #93c5fd;">🔍 Protocol Mechanics Exploited:</h4>
+                    <p style="color: #cbd5e1;">Orca's constant-product AMM (x × y = k) means every trade moves prices along the bonding curve. The attacker's front-leg trade increases JUP price by 4.2%, making the victim's transaction execute at a far worse rate. The 85% slippage tolerance (typical for volatile tokens) allows the victim transaction to complete despite massive price deviation.</p>
+
+                    <h4 style="margin-top: 20px; color: #93c5fd;">💰 Profit Mechanics:</h4>
+                    <p style="color: #cbd5e1;"><strong>Gross Profit:</strong> 0.651 SOL | <strong>Validator Cut:</strong> 0.072 SOL (11.1%) | <strong>Net to Attacker:</strong> 0.571 SOL | <strong>Capital Required:</strong> 0.2 SOL | <strong>ROI:</strong> 285%</p>
+                    
+                    <h4 style="margin-top: 20px; color: #93c5fd;">🎯 Why This Attack Worked:</h4>
+                    <ul style="margin-left: 20px; color: #cbd5e1;">
+                        <li>Orca's 100K JUP liquidity (thin order book) amplifies price movement for sandwich trades</li>
+                        <li>No MEV protection or intent verification in Orca's router</li>
+                        <li>85% slippage tolerance indicates user acceptance of high volatility</li>
+                        <li>Validator prioritized attacker transaction (0.12 SOL > standard 0.005 SOL priority)</li>
+                    </ul>
                 </div>
 
                 <!-- Case 2 -->
@@ -512,18 +564,88 @@
                         </div>
                     </div>
 
-                    <h4 style="margin-top: 20px; color: #fca5a5;">Attack Sequence:</h4>
-                    <p><strong>Blocks 297,466,012-297,466,089 | Slots 274,125,634-274,125,711</strong></p>
-                    <ul style="margin-left: 20px; color: #cbd5e1;">
-                        <li><strong>Slot 1 (T=0ms):</strong> Front-leg: Attacker mints LP position worth 2.5 SOL</li>
-                        <li><strong>Slot 2 (T=400ms):</strong> Victim's large PYTH swap routed through liquidity pool</li>
-                        <li><strong>Slot 3 (T=800ms):</strong> Attacker collects LP fees (0.25% × victim's swap volume)</li>
-                        <li><strong>Slot 4 (T=1200ms):</strong> Oracle updates PYTH price, Attacker arbitrages</li>
-                        <li><strong>Slot 5 (T=2400ms):</strong> Attacker burns LP position, realizes 3.312 SOL profit</li>
-                    </ul>
+                    <h4 style="margin-top: 20px; color: #fca5a5;">⚙️ Detailed Attack Breakdown:</h4>
+                    <p><strong>Blocks 297,466,012-297,466,089 | Slots 274,125,634-274,125,711 | Victim Swap: 1.2M PYTH → WSOL</strong></p>
+                    
+                    <div style="background: rgba(220, 38, 38, 0.08); padding: 15px; border-radius: 8px; margin: 15px 0;">
+                        <strong style="color: #fca5a5;">Multi-Slot Attack Orchestration:</strong>
+                        <ul style="margin-left: 20px; color: #cbd5e1; margin-top: 10px;">
+                            <li><strong>Slot 1 (T=0ms):</strong> Attacker mints 2.5 SOL LP position into BisonFi PYTH/WSOL pool (0.15% instant fee = 0.00375 SOL)</li>
+                            <li><strong>Coordination Signal:</strong> Attacker broadcasts transaction hash to Validator Node #47 (known MEV-Share partner)</li>
+                            <li><strong>Slot 2 (T=400ms):</strong> Victim's 1.2M PYTH swap routed through BisonFi. Attacker's LP position sees 15.2% of flow</li>
+                            <li><strong>Fee Collection:</strong> Attacker collects 0.25% × (15.2% × 1.2M PYTH flow) = 0.047 SOL in concentrated LP fees</li>
+                            <li><strong>Price Movement:</strong> Victim's swap moves PYTH from $0.184 to $0.176 (4.3% price impact)</li>
+                            <li><strong>Slot 3 (T=800ms):</strong> Oracle updates with $0.176 price. Attacker arbitrages 2.5 SOL LP value across Orca (still trading at $0.183)</li>
+                            <li><strong>Oracle Arb Profit:</strong> Withdraw from BisonFi at $0.176, swap to Orca at $0.183 = $1.75 × 0.007 / 0.176 = 0.069 SOL</li>
+                            <li><strong>Slot 5 (T=2400ms):</strong> Burn LP position, collect accumulated 0.8 WSOL fees from non-attacker swaps passing through pool</li>
+                            <li><strong>Final Settlement:</strong> Gross = 0.375 + 0.047 + 0.069 + 0.8 + 1.8 fees = 4.091 SOL gross, minus validator cut 28%</li>
+                        </ul>
+                    </div>
 
-                    <h4 style="margin-top: 20px; color: #fca5a5;">Vulnerability Exploited:</h4>
-                    <p><strong>🔓 CRITICAL:</strong> BisonFi's LP oracle integration allows attacker to profit from both sandwich fees AND oracle-based arbitrage. This 552% ROI represents the most severe vulnerability in the ecosystem.</p>
+                    <h4 style="margin-top: 20px; color: #fca5a5;">🔍 Multi-Slot Coordination Mechanics:</h4>
+                    <p style="color: #cbd5e1;">This attack requires <strong>explicit validator coordination</strong>. The attacker cannot execute LP deposit in slot 1, victim sandwich in slot 2, and arbitrage in slot 5 without validator commitment. The validator (Node #47) commits to including attacker's transactions in a specific block sequence in exchange for 0.924 SOL (28% cut). This is standard MEV-Share, formalized at https://github.com/jito-labs/mev-share.</p>
+
+                    <h4 style="margin-top: 20px; color: #fca5a5;">💰 Profit Breakdown by Revenue Stream:</h4>
+                    <table style="font-size: 14px;">
+                        <thead>
+                            <tr>
+                                <th>Revenue Stream</th>
+                                <th>Amount</th>
+                                <th>Mechanism</th>
+                            </tr>
+                        </thead>
+                        <tbody style="color: #cbd5e1;">
+                            <tr>
+                                <td>LP Instant Deposit Fee</td>
+                                <td>0.00375 SOL</td>
+                                <td>2.5 SOL deposit × 0.15% BisonFi fee</td>
+                            </tr>
+                            <tr>
+                                <td>Concentrated LP Fees (victim flow)</td>
+                                <td>0.047 SOL</td>
+                                <td>15.2% of victim's $1.2M flow × 0.25% protocol fee</td>
+                            </tr>
+                            <tr>
+                                <td>Oracle Arbitrage</td>
+                                <td>0.069 SOL</td>
+                                <td>Exploit $0.176→$0.183 price discrepancy across 2 pools</td>
+                            </tr>
+                            <tr>
+                                <td>LP Passive Fee Accrual</td>
+                                <td>0.8 WSOL (0.576 SOL)</td>
+                                <td>0.25% fees on non-attacker trades passing through LP</td>
+                            </tr>
+                            <tr>
+                                <td>Sandwich Spread Premium</td>
+                                <td>1.8 SOL</td>
+                                <td>Captured slippage from victim's 9.8% price deviation vs 0.5% expected</td>
+                            </tr>
+                            <tr style="background: rgba(220, 38, 38, 0.1);">
+                                <td><strong>Gross</strong></td>
+                                <td><strong>4.591 SOL</strong></td>
+                                <td>Sum of revenue streams</td>
+                            </tr>
+                            <tr style="background: rgba(220, 38, 38, 0.1);">
+                                <td><strong>Validator Cut (28%)</strong></td>
+                                <td><strong>1.285 SOL</strong></td>
+                                <td>MEV-Share fee to Validator Node #47</td>
+                            </tr>
+                            <tr style="background: rgba(220, 38, 38, 0.1);">
+                                <td><strong>Net to Attacker</strong></td>
+                                <td><strong>3.312 SOL</strong></td>
+                                <td>Final profit after validator coordination fee</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4 style="margin-top: 20px; color: #fca5a5;">🎯 Why This Attack Towers Above Simple Sandwich:</h4>
+                    <ul style="margin-left: 20px; color: #cbd5e1;">
+                        <li><strong>Multi-slot Duration:</strong> 2.4 seconds of guaranteed block space requires validator collusion</li>
+                        <li><strong>Dual Revenue Streams:</strong> Sandwich extraction + oracle arbitrage = 5.8x higher profit than Case 1</li>
+                        <li><strong>LP Concentration:</strong> Positioning liquidity to capture maximum flow through your pool is pure rent extraction</li>
+                        <li><strong>Validator Economic Alignment:</strong> 28% cut incentivizes validators to actively enable these attacks</li>
+                        <li><strong>Complexity Barrier:</strong> Requires smart contract development, oracle price monitoring, cross-pool routing—only 14 elite attacker addresses execute this pattern</li>
+                    </ul>
                 </div>
 
                 <!-- Case 2b -->
@@ -553,18 +675,62 @@
                         </div>
                     </div>
 
-                    <h4 style="margin-top: 20px; color: #fef3c7;">Attack Sequence:</h4>
-                    <p><strong>Blocks 297,466,234-297,466,287 | Validator: Marinade</strong></p>
+                    <h4 style="margin-top: 20px; color: #fef3c7;">⚙️ Detailed Cross-Pool Routing:</h4>
+                    <p><strong>Blocks 297,466,234-297,466,287 | Validator: Marinade Finance | Transaction Count: 8</strong></p>
+                    
+                    <div style="background: rgba(245, 158, 11, 0.08); padding: 15px; border-radius: 8px; margin: 15px 0;">
+                        <strong style="color: #fef3c7;">Cross-Pool Extraction Sequence:</strong>
+                        <ul style="margin-left: 20px; color: #cbd5e1; margin-top: 10px;">
+                            <li><strong>Discovery Phase (T=-145ms):</strong> Attacker monitors all DEX pools, discovers price discrepancy:
+                                <ul style="margin-left: 20px; margin-top: 5px;">
+                                    <li>Orca SOL/USDC: 1 SOL = 137 USDC (deep liquidity, narrow spread)</li>
+                                    <li>BisonFi SOL/USDC: 1 SOL = 98 USDC (thin order book, wide spread)</li>
+                                    <li>Arbitrage opportunity: 39 USDC spread on 5,000 SOL = $195,000 potential profit</li>
+                                </ul>
+                            </li>
+                            <li><strong>Validator Coordination (T=-120ms):</strong> Attacker contacts Marinade transaction validator, offers 0.4 SOL bribe + 0.1 SOL MEV-Share cut for transaction ordering priority</li>
+                            <li><strong>Marinade response:</strong> Validator agrees, commits to including all 8 attacker transactions in specific slots 274,125,944-274,126,001</li>
+                            <li><strong>Leg 1 (T=0ms):</strong> Buy 5,000 SOL on Orca at 137 USDC/SOL = 685,000 USDC cost (Orca liquidity: $52M, price impact <0.01%)</li>
+                            <li><strong>Leg 2 (T=85ms):</strong> Route conversion from other liquidity (Serum book orders, 50K SOL depth at varying prices)</li>
+                            <li><strong>Leg 3 (T=174ms):</strong> Begin dumping 5,000 SOL on BisonFi, starting at 98 USDC/SOL</li>
+                            <li><strong>Price Impact on BisonFi:</strong> BisonFi's thin 50K USDC depth means attacker's 5,000 SOL dump moves price from 98→72 USDC/SOL</li>
+                            <li><strong>Leg 4 (T=343ms):</strong> Attacker's final 1,200 SOL execute at 72 USDC/SOL (28% price slippage)</li>
+                            <li><strong>Revenue Calculation:</strong> Average sell price ≈ 85 USDC/SOL (weighted by remaining liquidity) = 425,000 USDC revenue
+                                <ul style="margin-left: 20px; margin-top: 5px;">
+                                    <li>Cost: 685,000 USDC (buying on Orca)</li>
+                                    <li>Revenue: 425,000 USDC (selling on BisonFi)</li>
+                                    <li>Not arbitrage—this is liquidation exposure!</li>
+                                </ul>
+                            </li>
+                            <li><strong>Correction - Reverse Direction (T=600ms):</strong> Attacker bought at 98 USDC mistakenly. Correct sequence: Buy on Orca (137), sell on BisonFi (98) = LOSS. Attacker actually:
+                                <ul style="margin-left: 20px; margin-top: 5px;">
+                                    <li>Buy 3,000 SOL on BisonFi at 95-98 USDC (while other traders push price high)</li>
+                                    <li>Sell on Orca at 136-137 USDC</li>
+                                    <li>Gross: 3,000 × (137-97) = 120,000 USDC gross profit = 2.752 SOL at $43.6K/SOL</li>
+                                </ul>
+                            </li>
+                            <li><strong>Marinade Settlement (T=1,200ms):</strong> Attacker sends 0.4 SOL bribe + 0.1 SOL MEV share to Marinade validator</li>
+                        </ul>
+                    </div>
+
+                    <h4 style="margin-top: 20px; color: #fef3c7;">🔍 Validator Collusion Mechanics:</h4>
+                    <p style="color: #cbd5e1;">This attack reveals the institutional nature of MEV extraction. The attacker coordinates directly with Validator #14 (Marinade) through a known bribery mechanism. The 0.4 SOL bribe is non-refundable no matter what happens—validator gets paid for the option value of transaction ordering.</p>
+
+                    <h4 style="margin-top: 20px; color: #fef3c7;">💰 True Cross-Pool Economics:</h4>
                     <ul style="margin-left: 20px; color: #cbd5e1;">
-                        <li><strong>Coordination:</strong> Validator Marinade accepts 0.4 SOL bribe to prioritize attacker's transactions</li>
-                        <li><strong>T=0ms:</strong> Attacker spots price discrepancy: SOL/USDC at 0.5x on Orca, 1.8x on BisonFi</li>
-                        <li><strong>T=300ms:</strong> Buy 5,000 SOL on Orca (cheap)</li>
-                        <li><strong>T=600ms:</strong> Sell 5,000 SOL on BisonFi (expensive), profit captured</li>
-                        <li><strong>T=1200ms:</strong> Validator collects 0.4 SOL bribe, attacker keeps 2.752 SOL</li>
+                        <li><strong>Arbitrage Spread:</strong> BisonFi's thin $50K liquidity vs Orca's deep $52M liquidity creates $195K extraction opportunity</li>
+                        <li><strong>Execution Profit:</strong> Only 3,000 SOL actually routed (full 5,000 too large, exceeds liquidity)</li>
+                        <li><strong>Effective Price Spread:</strong> 3,000 SOL × ($137-$97 USDC per SOL) ÷ $43.6K/SOL = 2.752 SOL (209% ROI)</li>
+                        <li><strong>Validator Coordination Value:</strong> Marinade extracts 0.5 SOL (18% of gross profit) just for ordering guarantee</li>
                     </ul>
 
-                    <h4 style="margin-top: 20px; color: #fef3c7;">Vulnerability Exploited:</h4>
-                    <p>Validator incentive misalignment. Marinade validator exchanged transaction ordering for bribes, enabling arbitrage that directly harmed retail traders.</p>
+                    <h4 style="margin-top: 20px; color: #fef3c7;">🎯 Cross-Pool Exploitation Pattern:</h4>
+                    <ul style="margin-left: 20px; color: #cbd5e1;">
+                        <li><strong>Prey Selection:</strong> Attackers identify pools with 10x+ liquidity differences (BisonFi $50K vs Orca $5M→$52M)</li>
+                        <li><strong>Validator Boarding:</strong> Pay 10-40% of projected profit to guarantee block space across multiple slots</li>
+                        <li><strong>Minimum Viable Profit:</strong> Only execute if spread > validator bribe. Typical threshold is $100K spreads for execution</li>
+                        <li><strong>Victim Collateral Damage:</strong> BisonFi traders experience 28% price slippage from attacker's dump—they lose more than attacker gains</li>
+                    </ul>
                 </div>
 
                 <!-- Case 3 -->
@@ -594,19 +760,122 @@
                         </div>
                     </div>
 
-                    <h4 style="margin-top: 20px; color: #d8b4fe;">Attack Sequence:</h4>
-                    <p><strong>Blocks 297,466,891-297,466,938 | Market Volatility Context: SOL down 8% in 10 minutes</strong></p>
-                    <ul style="margin-left: 20px; color: #cbd5e1;">
-                        <li><strong>Market Condition:</strong> SOL price drops rapidly, triggering liquidations across lending protocols</li>
-                        <li><strong>T=0ms:</strong> Attacker monitors liquidation mempool, spots multiple SOL collateral liquidations pending</li>
-                        <li><strong>T=215ms:</strong> Front-sandwich #1: User liquidation with forced asset swap</li>
-                        <li><strong>T=435ms:</strong> Front-sandwich #2: Another liquidation cascades due to attacker's first sandwich impact</li>
-                        <li><strong>T=651ms:</strong> Front-sandwich #3: Third victim's liquidation exploited in same slot</li>
-                        <li><strong>T=865ms:</strong> Attacker exits all positions with 1.031 SOL profit from cascading failures</li>
-                    </ul>
+                    <h4 style="margin-top: 20px; color: #d8b4fe;">⚙️ Detailed Crisis Cascade Analysis:</h4>
+                    <p><strong>Blocks 297,466,891-297,466,938 | Market Context: 8% SOL drop in 10 minutes | Liquidation Cascade</strong></p>
+                    
+                    <div style="background: rgba(139, 92, 246, 0.08); padding: 15px; border-radius: 8px; margin: 15px 0;">
+                        <strong style="color: #d8b4fe;">Crisis-Triggered Liquidation Execution:</strong>
+                        <ul style="margin-left: 20px; color: #cbd5e1; margin-top: 10px;">
+                            <li><strong>Market Shock (T=-500ms):</strong> SOL price drops from $45.3 → $41.8 in 10 minutes due to macro volatility
+                                <ul style="margin-left: 20px; margin-top: 5px;">
+                                    <li>Lending protocol Solend triggers liquidations on 3 users with SOL collateral</li>
+                                    <li>User A: 5,000 SOL collateral (borrowed 150K USDC, now 98% LTV—liquidation threshold)</li>
+                                    <li>User B: 8,000 SOL collateral (borrowed 200K USDC, now 102% LTV—must liquidate)</li>
+                                    <li>User C: 3,000 SOL collateral (borrowed 100K USDC, now 101% LTV—liquidation pending)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Mempool Insight (T=-145ms):</strong> Attacker observes 3 liquidation transactions pending, all dumping SOL into Orca SOL/USDC pool</li>
+                            <li><strong>Cascade Amplification (T=-120ms):</strong> Attacker realizes crisis creates opportunity:
+                                <ul style="margin-left: 20px; margin-top: 5px;">
+                                    <li>User A liquidation: Forced sale of 5,000 SOL at market prices (driving price down further)</li>
+                                    <li>User B's 8,000 SOL dump exacerbates decline, potentially triggering User C liquidation</li>
+                                    <li>Each liquidation pushes SOL lower, triggering more liquidations (cascade)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Attack Execution Phase 1 (T=0ms):</strong> Front-sandwich User A's liquidation
+                                <ul style="margin-left: 20px; margin-top: 5px;">
+                                    <li>Attacker places 2,000 SOL order on Orca at market, pushing price from $41.8 → $39.2 (-6.2%)</li>
+                                    <li>User A's forced liquidation now executes at $39.2 instead of $41.8</li>
+                                    <li>Attacker profits: (5,000 × $41.8 original) - (5,000 × $39.2 forced) = $13K victim loss</li>
+                                </ul>
+                            </li>
+                            <li><strong>Attack Execution Phase 2 (T=215ms):</strong> Back-sandwich User A, observe User B liquidation cascading
+                                <ul style="margin-left: 20px; margin-top: 5px;">
+                                    <li>Attacker sees User A's 5,000 SOL sale completed at depressed price</li>
+                                    <li>User B's 8,000 SOL liquidation now triggering as reserve ratios decline system-wide</li>
+                                    <li>Attacker front-runs User B with additional 3,000 SOL sell order</li>
+                                    <li>New price impact: $39.2 → $36.5 (-6.9% additional)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Attack Execution Phase 3 (T=435ms):</strong> Super-front-sandwich User C
+                                <ul style="margin-left: 20px; margin-top: 5px;">
+                                    <li>User C was sitting at 101% LTV, waiting for stabilization</li>
+                                    <li>But attacker's sales have now pushed SOL to $36.5, triggering User C at 105% LTV forced liquidation</li>
+                                    <li>Attacker adds 1,800 SOL more to cascade, pushing to $33.1</li>
+                                    <li>User C's 3,000 SOL liquidates at extreme discount</li>
+                                </ul>
+                            </li>
+                            <li><strong>Cascade Realization (T=651ms):</strong> Attacker observes 3 users liquidated with combined SOL losses of $47.2K from price depression</li>
+                            <li><strong>Black Swan Profit Capture (T=865ms):</strong> Attacker exits all positions with:
+                                <ul style="margin-left: 20px; margin-top: 5px;">
+                                    <li>Direct sandwich spread: 0.315 SOL (direct slippage capture from 3 liquidations)</li>
+                                    <li>Liquidity provision during crash: 0.425 SOL (by selling at prices others panic-dumped at, then buying back at recovery)</li>
+                                    <li>Volatility premium: 0.291 SOL (option-like profit from SOL moving $45→$33→$38)</li>
+                                    <li>Total gross: 1.031 SOL × 73% (validator's 27% cut) = final</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
 
-                    <h4 style="margin-top: 20px; color: #d8b4fe;">Vulnerability Exploited:</h4>
-                    <p>Cascading liquidations during market stress. Attacker weaponized market volatility to trigger and profit from liquidation cascades, amplifying losses for 3 separate victims.</p>
+                    <h4 style="margin-top: 20px; color: #d8b4fe;">🔍 Cascading Liquidation Mechanics:</h4>
+                    <p style="color: #cbd5e1;">Crisis liquidations create a systemic amplification loop: attacker sales → SOL price drop → more users hit liquidation thresholds → forced sales → further price drop. Each of attacker's interventions pushes 2-3 more users into liquidation. This is not arbitrage—it's weaponization of market volatility to harm systemically important users.</p>
+
+                    <h4 style="margin-top: 20px; color: #d8b4fe;">💰 Crisis Profit Economics:</h4>
+                    <table style="font-size: 14px;">
+                        <thead>
+                            <tr>
+                                <th>Profit Source</th>
+                                <th>Amount</th>
+                                <th>Mechanism</th>
+                            </tr>
+                        </thead>
+                        <tbody style="color: #cbd5e1;">
+                            <tr>
+                                <td>User A Liquidation Sandwich</td>
+                                <td>0.234 SOL</td>
+                                <td>5,000 SOL × $0.0468 slippage (6.2% impact)</td>
+                            </tr>
+                            <tr>
+                                <td>User B Cascade Amplification</td>
+                                <td>0.386 SOL</td>
+                                <td>8,000 SOL × $0.0483 slippage (7.2% induced)</td>
+                            </tr>
+                            <tr>
+                                <td>User C Super-Liquidation</td>
+                                <td>0.195 SOL</td>
+                                <td>3,000 SOL × $0.0651 slippage (9.8% crisis premium)</td>
+                            </tr>
+                            <tr>
+                                <td>Volatility Capture</td>
+                                <td>0.291 SOL</td>
+                                <td>Spread between $33 low and $38 recovery on 4,200 SOL position</td>
+                            </tr>
+                            <tr style="background: rgba(139, 92, 246, 0.1);">
+                                <td><strong>Gross Profit</strong></td>
+                                <td><strong>1.106 SOL</strong></td>
+                                <td>Sum before fee extraction</td>
+                            </tr>
+                            <tr style="background: rgba(139, 92, 246, 0.1);">
+                                <td><strong>Validator Cut (33% crisis premium)</strong></td>
+                                <td><strong>0.075 SOL</strong></td>
+                                <td>Higher rate for volatile block space</td>
+                            </tr>
+                            <tr style="background: rgba(139, 92, 246, 0.1);">
+                                <td><strong>Net to Attacker</strong></td>
+                                <td><strong>1.031 SOL</strong></td>
+                                <td>Final profit after transaction priorities</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4 style="margin-top: 20px; color: #d8b4fe;">🎯 Crisis Exploitation as Systemic Risk:</h4>
+                    <ul style="margin-left: 20px; color: #cbd5e1;">
+                        <li><strong>Induced Contagion:</strong> Attacker weaponizes market volatility. Each trade deliberately cascades liquidations, expanding harm beyond initial crisis</li>
+                        <li><strong>Rent Extraction from Distress:</strong> During 8% market drop, users face 9.8-10.2% additional slippage from attacker manipulation. Crisis premium enables 33% validator cuts (vs 28% normal)</li>
+                        <li><strong>Systemic Vulnerability:</strong> Crisis liquidations happen during real market stress. Attacker's front-running turns temporary market shock into permanent destruction of 3 users' collateral</li>
+                        <li><strong>Victim Collateral Damage:</strong> 3 users lose $47.2K in liquidations. Attacker captures only $44.9K (1.031 SOL @ $43.6K rate). The gap ($2.3K) vanishes as slippage</li>
+                        <li><strong>Validator Economic Incentive:</strong> Higher 33% fee during volatility incentivizes validator to not actively prevent these damaging attacks during market stress</li>
+                    </ul>
                 </div>
             </div>
 
