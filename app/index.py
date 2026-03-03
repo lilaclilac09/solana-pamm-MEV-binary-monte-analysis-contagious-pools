@@ -140,39 +140,6 @@ app.layout = html.Div([
 
     ], style={"marginBottom": "40px", "backgroundColor": "white", "padding": "20px", "borderRadius": "8px"}),
 
-    # Section 5c: Threat Intelligence Visualizations
-    html.Div([
-        html.H2("Section 5c: Threat Intelligence Visualizations",
-                style={"fontSize": "22px", "fontWeight": 700, "marginBottom": "16px", "color": "#1f2937"}),
-        html.P("High-resolution visualizations of MEV attack patterns, oracle latency vulnerabilities, and protocol-specific threat landscape.",
-               style={"fontSize": "14px", "color": "#6b7280", "marginBottom": "24px"}),
-        
-        # Visualization 1: Token Pair Fragility
-        html.Div([
-            html.H3("1. High-Risk Assets: Token Pair Fragility", style={"fontSize": "18px", "fontWeight": 700, "marginBottom": "12px"}),
-            html.P("HumidiFi pool dominates MEV attacks (39.5% concentration). Low liquidity combined with high volatility creates extreme slippage conditions.",
-                   style={"fontSize": "13px", "color": "#6b7280", "marginBottom": "16px"}),
-            html.Img(src="/assets/token_pair_fragility.png", style={"width": "100%", "borderRadius": "8px", "boxShadow": "0 2px 8px rgba(0,0,0,0.1)"}),
-        ], style={"marginBottom": "32px"}),
-        
-        # Visualization 2: Oracle Latency Window
-        html.Div([
-            html.H3("2. Extraction Mechanics: The Oracle Latency Window", style={"fontSize": "18px", "fontWeight": 700, "marginBottom": "12px"}),
-            html.P("Median oracle latencies up to 0.35 seconds create exploitation windows. 39.5% of trades concentrate in high-latency pools.",
-                   style={"fontSize": "13px", "color": "#6b7280", "marginBottom": "16px"}),
-            html.Img(src="/assets/oracle_latency_window.png", style={"width": "100%", "borderRadius": "8px", "boxShadow": "0 2px 8px rgba(0,0,0,0.1)"}),
-        ], style={"marginBottom": "32px"}),
-        
-        # Visualization 3: MEV Battlefield
-        html.Div([
-            html.H3("3. The MEV Battlefield: Protocol-Specific Vulnerability", style={"fontSize": "18px", "fontWeight": 700, "marginBottom": "12px"}),
-            html.P("HumidiFi concentrates 66.8% of total MEV profits (75.1 SOL of 112.4 total). This extreme concentration indicates systematic vulnerability.",
-                   style={"fontSize": "13px", "color": "#6b7280", "marginBottom": "16px"}),
-            html.Img(src="/assets/mev_battlefield.png", style={"width": "100%", "borderRadius": "8px", "boxShadow": "0 2px 8px rgba(0,0,0,0.1)"}),
-        ], style={"marginBottom": "32px"}),
-        
-    ], style={"marginBottom": "40px", "backgroundColor": "#fefce8", "padding": "20px", "borderRadius": "8px"}),
-    
     # Executive Summary Box
     html.Div([
         html.H2("Executive Summary", style={"fontSize": "20px", "fontWeight": 700, "marginBottom": "16px", "color": "#1f2937"}),
@@ -352,10 +319,17 @@ app.layout = html.Div([
     html.Hr(style={"margin": "32px 0", "borderColor": "#e5e7eb"}),
     html.Div([
         html.P("Solana pAMM MEV Analysis | XGBoost + SMOTE Classification | BisonFi Oracle-Lag Root Cause",
-               style={"textAlign": "center", "color": "#9ca3af", "fontSize": "12px", "margin": "0"}),
-        html.P("Report Generated: March 3, 2026 | 5.5M Events → 636 Validated → 617 Fat Sandwich (97% accuracy)",
-               style={"textAlign": "center", "color": "#9ca3af", "fontSize": "11px", "margin": "4px 0 0 0"}),
-    ]),
+               style={"textAlign": "center", "color": "#9ca3af", "fontSize": "12px", "margin": "0 0 16px 0"}),
+        html.A(
+            html.Button("Follow @A01DZ3RO on X/Twitter", 
+                       style={"backgroundColor": "#1DA1F2", "color": "white", "border": "none", 
+                              "padding": "10px 20px", "borderRadius": "6px", "fontSize": "14px", 
+                              "fontWeight": 600, "cursor": "pointer", "boxShadow": "0 2px 4px rgba(0,0,0,0.1)"}),
+            href="https://x.com/A01DZ3RO",
+            target="_blank",
+            style={"textDecoration": "none", "display": "inline-block"}
+        ),
+    ], style={"textAlign": "center"}),
     
 ], style={"maxWidth": "1400px", "margin": "0 auto", "padding": "40px 24px", 
           "fontFamily": "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", 
