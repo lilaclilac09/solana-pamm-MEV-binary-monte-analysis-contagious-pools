@@ -127,13 +127,13 @@ app.layout = html.Div([
         html.P([
             html.Strong("Detailed Attack Breakdowns:"),
             html.Br(),
-            "• ", html.Strong("Case 1 (189ms, JUP/WSOL on HumidiFi):"), " Single-slot sandwich execution with precise front-run/back-run timing; 285% ROI from low-slippage entry and fast unwind.",
+            "• ", html.Strong("Case 1 (1.2s, WIF/SOL + BONK/SOL on BisonFi):"), " Cross-pair arbitrage sequence across two correlated pools; 3.99 SOL profit, 209% ROI, 2 victim traders impacted.",
             html.Br(),
-            "• ", html.Strong("Case 2 (2.4s, PYTH/WSOL on BisonFi):"), " Multi-slot sandwich + LP fee capture strategy; 4.82 SOL profit and 552% ROI (highest in sample).",
+            "• ", html.Strong("Case 2 (865ms, PUMP/WSOL across 5 pools):"), " Cascading sandwich pattern that propagates after trigger-pool instability; 3 linked attacks with 2.84 SOL captured.",
             html.Br(),
-            "• ", html.Strong("Case 2b (1.2s, WIF/SOL + BONK/SOL on BisonFi):"), " Cross-pair arbitrage sequence across two correlated pools; 3.99 SOL profit, 209% ROI, 2 victim traders impacted.",
+            "• ", html.Strong("Case 3 (189ms, JUP/WSOL on HumidiFi):"), " Single-slot sandwich execution with precise front-run/back-run timing; 285% ROI from low-slippage entry and fast unwind.",
             html.Br(),
-            "• ", html.Strong("Case 3 (865ms, PUMP/WSOL across 5 pools):"), " Cascading sandwich pattern that propagates after trigger-pool instability; 3 linked attacks with 2.84 SOL captured.",
+            "• ", html.Strong("Case 4 (2.4s, PYTH/WSOL on BisonFi):"), " Multi-slot sandwich + LP fee capture strategy; 4.82 SOL profit and 552% ROI (highest in sample).",
         ], style={"fontSize": "13px", "color": "#374151", "backgroundColor": "#f9fafb", "padding": "16px", "borderRadius": "6px", 
                   "lineHeight": "1.8", "marginTop": "16px", "marginBottom": "0"}),
 
