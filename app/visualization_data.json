@@ -1,0 +1,51 @@
+{
+  "token_pair_fragility": {
+    "headline_percent": 39.5,
+    "pump_wsol_label": "High-Risk Pool (HumidiFi)",
+    "safe_pair_label": "Diversified Pools",
+    "safe_pairs_label": "Low-Risk Pools",
+    "points": {
+      "pump_wsol": [
+        1.5,
+        8.8
+      ],
+      "safe_pair": [
+        7.2,
+        3.0
+      ],
+      "safe_pairs": [
+        8.1,
+        2.6
+      ]
+    }
+  },
+  "oracle_latency_window": {
+    "headline_latency_seconds": 0.4,
+    "headline_trade_percent": 39.5,
+    "pool_latencies_us": {
+      "GoonFi": 322161,
+      "HumidiFi": 341033,
+      "SolFiV2": 350892
+    }
+  },
+  "mev_battlefield": {
+    "pool_profits_sol": {
+      "HumidiFi": 75.1,
+      "BisonFi": 11.2,
+      "GoonFi": 7.9,
+      "TesseraV": 7.8,
+      "SolFiV2": 7.5,
+      "ZeroFi": 2.8,
+      "ObricV2": 0.1
+    },
+    "profit_share_percent": {
+      "HumidiFi": 66.8,
+      "BisonFi": 10.0,
+      "GoonFi": 7.0,
+      "TesseraV": 7.0,
+      "SolFiV2": 6.7,
+      "ZeroFi": 2.5,
+      "ObricV2": 0.1
+    }
+  }
+}
