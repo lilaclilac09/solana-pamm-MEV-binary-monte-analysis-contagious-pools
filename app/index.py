@@ -1,16 +1,9 @@
 #!/usr/bin/env python3
 import dash
-from dash import html, dash_table, dcc, Input, Output, State
+from dash import html, dash_table, dcc
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-from interactive_plots import (
-    create_token_pair_fragility_interactive,
-    create_oracle_latency_interactive,
-    create_mev_battlefield_interactive,
-    get_pool_data_table,
-    get_latency_data_table
-)
 
 app = dash.Dash(__name__)
 server = app.server
@@ -147,12 +140,11 @@ app.layout = html.Div([
 
     ], style={"marginBottom": "40px", "backgroundColor": "white", "padding": "20px", "borderRadius": "8px"}),
 
-    # Section 5c: Threat Intelligence Visualizations (INTERACTIVE)
+    # Section 5c: Threat Intelligence Visualizations
     html.Div([
         html.H2("Section 5c: Threat Intelligence Visualizations",
                 style={"fontSize": "22px", "fontWeight": 700, "marginBottom": "16px", "color": "#1f2937"}),
-        html.P(["Interactive visualizations of MEV attack patterns, oracle latency vulnerabilities, and protocol-specific threat landscape. ",
-                html.Strong("Click on any chart to view detailed raw data.")],
+        html.P("High-resolution visualizations of MEV attack patterns, oracle latency vulnerabilities, and protocol-specific threat landscape.",
                style={"fontSize": "14px", "color": "#6b7280", "marginBottom": "24px"}),
         
         # Visualization 1: Token Pair Fragility
@@ -160,10 +152,7 @@ app.layout = html.Div([
             html.H3("1. High-Risk Assets: Token Pair Fragility", style={"fontSize": "18px", "fontWeight": 700, "marginBottom": "12px"}),
             html.P("HumidiFi pool dominates MEV attacks (39.5% concentration). Low liquidity combined with high volatility creates extreme slippage conditions.",
                    style={"fontSize": "13px", "color": "#6b7280", "marginBottom": "16px"}),
-            dcc.Graph(id='fragility-plot', figure=create_token_pair_fragility_interactive(), 
-                     config={'displayModeBar': True, 'displaylogo': False},
-                     style={"borderRadius": "8px", "boxShadow": "0 2px 8px rgba(0,0,0,0.1)"}),
-            html.Div(id='fragility-data', style={"marginTop": "16px"}),
+            html.Img(src="/assets/token_pair_fragility.png", style={"width": "100%", "borderRadius": "8px", "boxShadow": "0 2px 8px rgba(0,0,0,0.1)"}),
         ], style={"marginBottom": "32px"}),
         
         # Visualization 2: Oracle Latency Window
@@ -171,10 +160,7 @@ app.layout = html.Div([
             html.H3("2. Extraction Mechanics: The Oracle Latency Window", style={"fontSize": "18px", "fontWeight": 700, "marginBottom": "12px"}),
             html.P("Median oracle latencies up to 0.35 seconds create exploitation windows. 39.5% of trades concentrate in high-latency pools.",
                    style={"fontSize": "13px", "color": "#6b7280", "marginBottom": "16px"}),
-            dcc.Graph(id='latency-plot', figure=create_oracle_latency_interactive(),
-                     config={'displayModeBar': True, 'displaylogo': False},
-                     style={"borderRadius": "8px", "boxShadow": "0 2px 8px rgba(0,0,0,0.1)"}),
-            html.Div(id='latency-data', style={"marginTop": "16px"}),
+            html.Img(src="/assets/oracle_latency_window.png", style={"width": "100%", "borderRadius": "8px", "boxShadow": "0 2px 8px rgba(0,0,0,0.1)"}),
         ], style={"marginBottom": "32px"}),
         
         # Visualization 3: MEV Battlefield
@@ -182,10 +168,7 @@ app.layout = html.Div([
             html.H3("3. The MEV Battlefield: Protocol-Specific Vulnerability", style={"fontSize": "18px", "fontWeight": 700, "marginBottom": "12px"}),
             html.P("HumidiFi concentrates 66.8% of total MEV profits (75.1 SOL of 112.4 total). This extreme concentration indicates systematic vulnerability.",
                    style={"fontSize": "13px", "color": "#6b7280", "marginBottom": "16px"}),
-            dcc.Graph(id='battlefield-plot', figure=create_mev_battlefield_interactive(),
-                     config={'displayModeBar': True, 'displaylogo': False},
-                     style={"borderRadius": "8px", "boxShadow": "0 2px 8px rgba(0,0,0,0.1)"}),
-            html.Div(id='battlefield-data', style={"marginTop": "16px"}),
+            html.Img(src="/assets/mev_battlefield.png", style={"width": "100%", "borderRadius": "8px", "boxShadow": "0 2px 8px rgba(0,0,0,0.1)"}),
         ], style={"marginBottom": "32px"}),
         
     ], style={"marginBottom": "40px", "backgroundColor": "#fefce8", "padding": "20px", "borderRadius": "8px"}),
@@ -377,102 +360,6 @@ app.layout = html.Div([
 ], style={"maxWidth": "1400px", "margin": "0 auto", "padding": "40px 24px", 
           "fontFamily": "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", 
           "backgroundColor": "#ffffff"})
-
-# ============ CALLBACKS FOR INTERACTIVE PLOTS ============
-
-@app.callback(
-    Output('fragility-data', 'children'),
-    Input('fragility-plot', 'clickData')
-)
-def display_fragility_data(clickData):
-    if clickData is None:
-        return html.Div([
-            html.P("Click on any point to view detailed pool statistics.",
-                   style={"fontSize": "13px", "color": "#9ca3af", "fontStyle": "italic"})
-        ])
-    
-    # Get pool data table
-    pool_df = get_pool_data_table()
-    
-    return html.Div([
-        html.H4("Pool Statistics (Raw Data)", style={"fontSize": "16px", "fontWeight": 700, "marginBottom": "12px"}),
-        dash_table.DataTable(
-            data=pool_df.to_dict('records'),
-            columns=[{"name": i, "id": i} for i in pool_df.columns],
-            style_cell={'padding': '10px', 'fontSize': '12px', 'textAlign': 'left'},
-            style_header={'backgroundColor': '#f3f4f6', 'fontWeight': 700},
-            style_data_conditional=[
-                {'if': {'column_id': 'Profit (SOL)'}, 'fontWeight': 700, 'color': '#dc2626'},
-            ],
-        ),
-    ], style={"backgroundColor": "#f9fafb", "padding": "16px", "borderRadius": "6px"})
-
-@app.callback(
-    Output('latency-data', 'children'),
-    Input('latency-plot', 'clickData')
-)
-def display_latency_data(clickData):
-    if clickData is None:
-        return html.Div([
-            html.P("Click on any bar to view oracle latency details.",
-                   style={"fontSize": "13px", "color": "#9ca3af", "fontStyle": "italic"})
-        ])
-    
-    latency_df = get_latency_data_table()
-    
-    return html.Div([
-        html.H4("Oracle Latency Data (Raw Measurements)", style={"fontSize": "16px", "fontWeight": 700, "marginBottom": "12px"}),
-        dash_table.DataTable(
-            data=latency_df.to_dict('records'),
-            columns=[{"name": i, "id": i} for i in latency_df.columns],
-            style_cell={'padding': '10px', 'fontSize': '12px', 'textAlign': 'left'},
-            style_header={'backgroundColor': '#f3f4f6', 'fontWeight': 700},
-            style_data_conditional=[
-                {'if': {'column_id': 'Latency (s)'}, 'fontWeight': 700, 'color': '#dc2626'},
-            ],
-        ),
-        html.P([
-            html.Strong("Data Source: "),
-            "Median us_since_first_shred values from attacker detailed activity CSVs. ",
-            "Higher latency = longer oracle update windows = more MEV opportunity."
-        ], style={"fontSize": "12px", "color": "#6b7280", "marginTop": "12px"})
-    ], style={"backgroundColor": "#f9fafb", "padding": "16px", "borderRadius": "6px"})
-
-@app.callback(
-    Output('battlefield-data', 'children'),
-    Input('battlefield-plot', 'clickData')
-)
-def display_battlefield_data(clickData):
-    if clickData is None:
-        return html.Div([
-            html.P("Click on pie chart segments or bars to view profit distribution details.",
-                   style={"fontSize": "13px", "color": "#9ca3af", "fontStyle": "italic"})
-        ])
-    
-    pool_df = get_pool_data_table()
-    
-    # Calculate totals
-    total_profit = pool_df['Profit (SOL)'].sum() if 'Profit (SOL)' in pool_df.columns else 112.4
-    
-    return html.Div([
-        html.H4(f"MEV Profit Distribution (Total: {total_profit:.1f} SOL)", 
-                style={"fontSize": "16px", "fontWeight": 700, "marginBottom": "12px"}),
-        dash_table.DataTable(
-            data=pool_df.to_dict('records'),
-            columns=[{"name": i, "id": i} for i in pool_df.columns],
-            style_cell={'padding': '10px', 'fontSize': '12px', 'textAlign': 'left'},
-            style_header={'backgroundColor': '#f3f4f6', 'fontWeight': 700},
-            style_data_conditional=[
-                {'if': {'column_id': 'Profit (SOL)'}, 'fontWeight': 700, 'color': '#dc2626'},
-                {'if': {'row_index': 0}, 'backgroundColor': '#fef2f2'},  # Highlight HumidiFi
-            ],
-        ),
-        html.P([
-            html.Strong("Key Insight: "),
-            "HumidiFi's 66.8% profit concentration far exceeds its attack volume share, ",
-            "indicating higher-value exploitation opportunities due to systemic vulnerabilities."
-        ], style={"fontSize": "12px", "color": "#6b7280", "marginTop": "12px"})
-    ], style={"backgroundColor": "#f9fafb", "padding": "16px", "borderRadius": "6px"})
 
 if __name__ == "__main__":
     app.run(debug=False, host="0.0.0.0", port=8050)
