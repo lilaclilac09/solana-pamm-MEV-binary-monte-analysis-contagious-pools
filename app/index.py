@@ -127,13 +127,13 @@ app.layout = html.Div([
         html.P([
             html.Strong("Detailed Attack Breakdowns:"),
             html.Br(),
-            "• ", html.Strong("Case 1 (189ms):"), " Simple sandwich attack on JUP/WSOL, 285% ROI",
+            "• ", html.Strong("Case 1 (189ms, JUP/WSOL on HumidiFi):"), " Single-slot sandwich execution with precise front-run/back-run timing; 285% ROI from low-slippage entry and fast unwind.",
             html.Br(),
-            "• ", html.Strong("Case 2 (2.4s):"), " Multi-slot sandwich + LP strategy, 552% ROI (highest)",
+            "• ", html.Strong("Case 2 (2.4s, PYTH/WSOL on BisonFi):"), " Multi-slot sandwich + LP fee capture strategy; 4.82 SOL profit and 552% ROI (highest in sample).",
             html.Br(),
-            "• ", html.Strong("Case 2b (1.2s):"), " BisonFi cross-pool arbitrage, 209% ROI, 2 victims",
+            "• ", html.Strong("Case 2b (1.2s, WIF/SOL + BONK/SOL on BisonFi):"), " Cross-pair arbitrage sequence across two correlated pools; 3.99 SOL profit, 209% ROI, 2 victim traders impacted.",
             html.Br(),
-            "• ", html.Strong("Case 3 (865ms):"), " Crisis exploitation with 3 cascading sandwich attacks, 135% ROI",
+            "• ", html.Strong("Case 3 (865ms, PUMP/WSOL across 5 pools):"), " Cascading sandwich pattern that propagates after trigger-pool instability; 3 linked attacks with 2.84 SOL captured.",
         ], style={"fontSize": "13px", "color": "#374151", "backgroundColor": "#f9fafb", "padding": "16px", "borderRadius": "6px", 
                   "lineHeight": "1.8", "marginTop": "16px", "marginBottom": "0"}),
 
@@ -189,6 +189,16 @@ app.layout = html.Div([
                 {"if": {"filter_query": "{Depth} = 'Shallow'"}, "backgroundColor": "#fee2e2"},
             ],
         ),
+        html.Div([
+            html.P(html.Strong("How to read this table (columns + source):"),
+                   style={"fontSize": "13px", "color": "#374151", "margin": "0 0 8px 0"}),
+            html.Ul([
+                html.Li([html.Strong("Pool / Primary Pairs: "), "Protocol names and most-traded token pairs from our analysis mapping used in this dashboard."]),
+                html.Li([html.Strong("Total TVL (SOL): "), "SOL-equivalent total value locked snapshot for each pool used in the report table (dashboard dataset)."]),
+                html.Li([html.Strong("Depth: "), "Derived from TVL tiers (Deep, Moderate, Shallow) to normalize risk comparisons."]),
+                html.Li([html.Strong("Avg Slippage / MEV Risk: "), "Summary metrics from the MEV analysis outputs and pool-level aggregation used for report scoring."]),
+            ], style={"fontSize": "12px", "color": "#6b7280", "lineHeight": "1.8", "margin": "0", "paddingLeft": "18px"}),
+        ], style={"marginTop": "12px", "backgroundColor": "#f9fafb", "padding": "12px", "borderRadius": "6px"}),
         
         html.Div([
             dcc.Graph(
