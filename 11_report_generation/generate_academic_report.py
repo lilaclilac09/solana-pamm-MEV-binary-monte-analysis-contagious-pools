@@ -1053,27 +1053,25 @@ def create_academic_report():
     """
     story.append(Paragraph(contagion_intro, normal_style))
     
-    story.append(Paragraph("5.3.1 Trigger Pool Identification: HumidiFi as Attack Origin", heading3_style))
+    story.append(Paragraph("5.3.1 Trigger Pool Identification: BisonFi Oracle-Lag Attack Origin", heading3_style))
     trigger_pool = """
-    HumidiFi emerged as the primary trigger pool, with 593 total MEV attacks and 593 unique attackers 
-    (avg 1.0 attack per attacker). This pattern indicates widespread opportunistic exploitation rather 
-    than sustained bot operations\u2014attackers identify vulnerability windows in HumidiFi and execute 
-    single high-value attacks. HumidiFi's structural characteristics create ideal trigger conditions: 
-    (1) Longest oracle latency (2.1s median) provides widest MEV windows, (2) Moderate liquidity 
-    ($50K-$200K pools) allows profitable attacks without requiring massive capital, and (3) High 
-    trading volume ensures continuous victim flow for sandwich attacks. Analysis of attack patterns 
-    on the trigger pool shows concentrated exposure on 1 primary token pair (PUMP/WSOL), suggesting 
-    that specific pool configurations drive contagion risk rather than protocol-wide vulnerabilities.
+    BisonFi is treated as the structural trigger pool for contagion interpretation because oracle-lag 
+    behavior creates predictable pricing windows that can be reused by MEV signers across protocols. 
+    While HumidiFi contributes large observed attack counts, trigger causality is assigned to the 
+    oracle-lag mechanism centered on BisonFi dynamics rather than to raw count dominance alone. 
+    In practice, this means BisonFi provides timing vulnerability, while realized attacks may appear 
+    across multiple downstream venues (HumidiFi, SolFiV2, GoonFi, TesseraV). This distinction aligns 
+    mechanism-based risk attribution with observed cross-pool attacker overlap.
     """
     story.append(Paragraph(trigger_pool, normal_style))
     
     story.append(Paragraph("5.3.2 Cascade Rate Analysis: Temporal Independence", heading3_style))
     cascade_rate = """
-    <b>Critical Finding: Zero Immediate Cascade.</b> Despite HumidiFi's role as trigger pool, cascade 
-    rate analysis revealed 0.0% of HumidiFi attacks triggered coordinated attacks on downstream pools 
-    within a 5000ms time window (0 cascaded attacks out of 593 trigger attacks). This finding challenges 
+    <b>Critical Finding: Zero Immediate Cascade.</b> Despite BisonFi's role as structural trigger source, 
+    cascade rate analysis revealed 0.0% immediate coordinated attacks on downstream pools within a 
+    5000ms time window. This finding challenges 
     the hypothesis of real-time cross-pool attack coordination. Instead, the data suggests temporal 
-    independence: attackers do not immediately pivot from HumidiFi to exploit downstream pools like 
+    independence: attackers do not immediately pivot from the trigger pool to exploit downstream pools like 
     BisonFi, GoonFi, or SolFiV2. Several explanations are plausible: (1) <b>Capital Constraints</b> - 
     attackers may lack sufficient capital to execute simultaneous multi-pool attacks, requiring them 
     to focus on single high-value opportunities, (2) <b>Risk Management</b> - coordinated attacks 
@@ -1104,15 +1102,15 @@ def create_academic_report():
     story.append(Paragraph("5.3.4 Contagion Risk Interpretation and Implications", heading3_style))
     contagion_implications = """
     The 0% immediate cascade rate but 22% delayed attack probability creates a nuanced risk profile. 
-    Protocols should not fear instantaneous contagion waves\u2014vulnerabilities in HumidiFi do not 
+    Protocols should not fear instantaneous contagion waves\u2014vulnerabilities in BisonFi do not 
     trigger immediate exploits on BisonFi or GoonFi. However, the moderate-level shared attacker 
     patterns indicate knowledge transfer: bot operators who successfully exploit HumidiFi gain expertise 
     (parameter tuning, oracle monitoring strategies, slippage optimization) that they later deploy 
     against similar protocols. Recommended mitigation strategies include: (1) <b>Oracle Lag Reduction</b> - 
-    Reduce HumidiFi's 2.1s latency to <500ms to eliminate trigger pool status, (2) <b>Cross-Protocol 
+    Reduce BisonFi oracle latency to <500ms to eliminate trigger-pool conditions, (2) <b>Cross-Protocol 
     Coordination</b> - Protocols should share attack signatures and implement collective circuit breakers 
     during high-volatility periods, (3) <b>Exploit Pattern Monitoring</b> - Track attackers who succeed 
-    on HumidiFi and implement heightened surveillance when they appear on downstream protocols, and 
+    on BisonFi and implement heightened surveillance when they appear on downstream protocols, and 
     (4) <b>Liquidity Concentration</b> - Consolidate fragmented PUMP/WSOL liquidity into fewer, deeper 
     pools to reduce cross-pool arbitrage opportunities. The absence of immediate cascade reduces systemic 
     risk but does not eliminate the problem\u2014delayed contagion remains a significant concern for pAMM 

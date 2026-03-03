@@ -32,4 +32,5 @@ __pycache__/
 *.xlsx
 *.zip
 *.tar.gz
+*.pdf
 .git/
