@@ -139,6 +139,39 @@ app.layout = html.Div([
 
 
     ], style={"marginBottom": "40px", "backgroundColor": "white", "padding": "20px", "borderRadius": "8px"}),
+
+    # Section 5c: Threat Intelligence Visualizations
+    html.Div([
+        html.H2("Section 5c: Threat Intelligence Visualizations",
+                style={"fontSize": "22px", "fontWeight": 700, "marginBottom": "16px", "color": "#1f2937"}),
+        html.P("High-resolution visualizations of MEV attack patterns, oracle latency vulnerabilities, and protocol-specific threat landscape.",
+               style={"fontSize": "14px", "color": "#6b7280", "marginBottom": "24px"}),
+        
+        # Visualization 1: Token Pair Fragility
+        html.Div([
+            html.H3("1. High-Risk Assets: Token Pair Fragility", style={"fontSize": "18px", "fontWeight": 700, "marginBottom": "12px"}),
+            html.P("PUMP/WSOL dominates MEV attacks (38.2% of all sandwich attacks). Low liquidity ($50K) combined with high volatility (15-40% daily swings) creates extreme slippage conditions.",
+                   style={"fontSize": "13px", "color": "#6b7280", "marginBottom": "16px"}),
+            html.Img(src="/assets/token_pair_fragility.png", style={"width": "100%", "borderRadius": "8px", "boxShadow": "0 2px 8px rgba(0,0,0,0.1)"}),
+        ], style={"marginBottom": "32px"}),
+        
+        # Visualization 2: Oracle Latency Window
+        html.Div([
+            html.H3("2. Extraction Mechanics: The Oracle Latency Window", style={"fontSize": "18px", "fontWeight": 700, "marginBottom": "12px"}),
+            html.P("HumidiFi's 2.1 second oracle latency creates 50-200ms exploitation windows. 34.7% of trades execute exactly in this window, enabling 2.3x higher sandwich attack rates.",
+                   style={"fontSize": "13px", "color": "#6b7280", "marginBottom": "16px"}),
+            html.Img(src="/assets/oracle_latency_window.png", style={"width": "100%", "borderRadius": "8px", "boxShadow": "0 2px 8px rgba(0,0,0,0.1)"}),
+        ], style={"marginBottom": "32px"}),
+        
+        # Visualization 3: MEV Battlefield
+        html.Div([
+            html.H3("3. The MEV Battlefield: Protocol-Specific Vulnerability", style={"fontSize": "18px", "fontWeight": 700, "marginBottom": "12px"}),
+            html.P("HumidiFi concentrates 66.8% of total MEV profits despite representing only 27% of attack volume. This extreme concentration indicates systematic vulnerability rather than distributed risk.",
+                   style={"fontSize": "13px", "color": "#6b7280", "marginBottom": "16px"}),
+            html.Img(src="/assets/mev_battlefield.png", style={"width": "100%", "borderRadius": "8px", "boxShadow": "0 2px 8px rgba(0,0,0,0.1)"}),
+        ], style={"marginBottom": "32px"}),
+        
+    ], style={"marginBottom": "40px"}),
     
     # Executive Summary Box
     html.Div([
@@ -169,23 +202,6 @@ app.layout = html.Div([
         ], style={"backgroundColor": "#fff", "padding": "24px", "borderRadius": "8px", "border": "2px solid #e5e7eb",
                   "textAlign": "center", "boxShadow": "0 1px 3px rgba(0,0,0,0.1)"}),
     ], style={"display": "grid", "gridTemplateColumns": "repeat(2, 1fr)", "gap": "16px", "marginBottom": "40px"}),
-    
-    # Section 1: Token Pair Vulnerability
-    html.Div([
-        html.H2("Section 1: Token Pair Vulnerability Analysis", 
-                style={"fontSize": "22px", "fontWeight": 700, "marginBottom": "16px", "color": "#1f2937"}),
-        html.P("High-risk token pairs exhibit systematic vulnerability to MEV exploitation due to low liquidity, high volatility, and oracle latency.",
-               style={"fontSize": "14px", "color": "#6b7280", "marginBottom": "16px"}),
-        
-        html.Div([
-            dcc.Graph(
-                figure=px.bar(token_pairs, x="Token Pair", y="Risk Score", 
-                             color="Tier", color_discrete_map={"HIGH": "#dc2626", "MODERATE": "#f59e0b", "LOW": "#059669"},
-                             title="Token Pair Risk Scores"),
-                config={"displayModeBar": False}
-            ),
-        ], style={"marginTop": "20px"}),
-    ], style={"marginBottom": "40px"}),
     
     # Section 2: Pool Liquidity & Slippage Analysis
     html.Div([
@@ -302,39 +318,6 @@ app.layout = html.Div([
                 {"if": {"column_id": "Profit (SOL)"}, "fontWeight": 700, "color": "#dc2626"},
             ],
         ),
-    ], style={"marginBottom": "40px"}),
-    
-    # Section 5c: Threat Intelligence Visualizations
-    html.Div([
-        html.H2("Section 5c: Threat Intelligence Visualizations",
-                style={"fontSize": "22px", "fontWeight": 700, "marginBottom": "16px", "color": "#1f2937"}),
-        html.P("High-resolution visualizations of MEV attack patterns, oracle latency vulnerabilities, and protocol-specific threat landscape.",
-               style={"fontSize": "14px", "color": "#6b7280", "marginBottom": "24px"}),
-        
-        # Visualization 1: Token Pair Fragility
-        html.Div([
-            html.H3("1. High-Risk Assets: Token Pair Fragility", style={"fontSize": "18px", "fontWeight": 700, "marginBottom": "12px"}),
-            html.P("PUMP/WSOL dominates MEV attacks (38.2% of all sandwich attacks). Low liquidity ($50K) combined with high volatility (15-40% daily swings) creates extreme slippage conditions.",
-                   style={"fontSize": "13px", "color": "#6b7280", "marginBottom": "16px"}),
-            html.Img(src="/assets/token_pair_fragility.png", style={"width": "100%", "borderRadius": "8px", "boxShadow": "0 2px 8px rgba(0,0,0,0.1)"}),
-        ], style={"marginBottom": "32px"}),
-        
-        # Visualization 2: Oracle Latency Window
-        html.Div([
-            html.H3("2. Extraction Mechanics: The Oracle Latency Window", style={"fontSize": "18px", "fontWeight": 700, "marginBottom": "12px"}),
-            html.P("HumidiFi's 2.1 second oracle latency creates 50-200ms exploitation windows. 34.7% of trades execute exactly in this window, enabling 2.3x higher sandwich attack rates.",
-                   style={"fontSize": "13px", "color": "#6b7280", "marginBottom": "16px"}),
-            html.Img(src="/assets/oracle_latency_window.png", style={"width": "100%", "borderRadius": "8px", "boxShadow": "0 2px 8px rgba(0,0,0,0.1)"}),
-        ], style={"marginBottom": "32px"}),
-        
-        # Visualization 3: MEV Battlefield
-        html.Div([
-            html.H3("3. The MEV Battlefield: Protocol-Specific Vulnerability", style={"fontSize": "18px", "fontWeight": 700, "marginBottom": "12px"}),
-            html.P("HumidiFi concentrates 66.8% of total MEV profits despite representing only 27% of attack volume. This extreme concentration indicates systematic vulnerability rather than distributed risk.",
-                   style={"fontSize": "13px", "color": "#6b7280", "marginBottom": "16px"}),
-            html.Img(src="/assets/mev_battlefield.png", style={"width": "100%", "borderRadius": "8px", "boxShadow": "0 2px 8px rgba(0,0,0,0.1)"}),
-        ], style={"marginBottom": "32px"}),
-        
     ], style={"marginBottom": "40px"}),
     
     # Section 7: Methodology
