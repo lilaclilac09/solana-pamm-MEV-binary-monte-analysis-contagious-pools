@@ -6,7 +6,7 @@ A comprehensive analysis of **how MEV attackers generate profits** through front
 
 ## Core Files
 
-### 📊 Analysis Scripts
+###  Analysis Scripts
 - **`mev_profit_analysis.py`** - Main profit analysis engine
   - Profit generation mechanisms
   - Sandwich attack mechanics
@@ -21,14 +21,14 @@ A comprehensive analysis of **how MEV attackers generate profits** through front
   - Multi-leg swap patterns
   - Attack frequency patterns
 
-### 📖 Documentation
+###  Documentation
 - **`MEV_PROFIT_MECHANISMS.md`** - Comprehensive guide (READ THIS FIRST)
   - How attacks generate profit
   - Cost vs profit analysis
   - Attack success patterns
   - Risk and protection mechanisms
 
-### 📁 Outputs
+###  Outputs
 - `mev_profit_summary.csv` - All profitable attacks ranked
 - `attacker_statistics.csv` - Attacker profiles and patterns
 - `pool_exploitation_statistics.csv` - Vulnerability by pool
@@ -69,30 +69,30 @@ cat outputs/pool_exploitation_statistics.csv | head -15
 
 ## Key Findings
 
-### 📈 Profitability
+###  Profitability
 - **Average net profit per attack:** 3.37 SOL
 - **Average ROI:** ~500% (10x return on transaction costs)
 - **Profit margin:** ~90% (costs are minimal)
 - **Highest profit:** 13.716 SOL (single attack)
 
-### 🎯 Attack Types
+###  Attack Types
 - **Fat Sandwich attacks:** Most profitable (2000+ transactions)
 - **Completion rate:** ~76% achieve full sandwich closure
 - **Partial successes:** Still profitable even without complete back-run
 
-### 🏊 Pool Targets
+###  Pool Targets
 Top exploited pools:
 1. **HumidiFi** - 14 out of 20 attacks (why? highest liquidity, large victim orders)
 2. **BisonFi** - 2 attacks, high profit per attack
 3. **SolFiV2** - 1 attack
 4. **TesseraV** - 1 attack
 
-### 💰 Top Attacker
+###  Top Attacker
 - **Signer:** `YubQzu18FDqJRyNfG8JqHmsdbxhnoQqcKUHBdUkN6tP`
 - **Profit:** 23.31 SOL from 2 attacks
 - **Average:** 11.655 SOL per attack
 
-### 📍 Validator Concentration
+###  Validator Concentration
 - Multiple validators showing high attack frequency
 - Suggests validator selection is strategic
 - Some validators may be more vulnerable to MEV
@@ -170,12 +170,12 @@ in a single atomic block execution.
 
 ## Validation Checklist
 
-✅ Data loaded successfully
-✅ Profit calculations verified
-✅ Attack classifications checked
-✅ Attacker addresses identified
-✅ Validator relationships mapped
-✅ Pool vulnerabilities detected
+ Data loaded successfully
+ Profit calculations verified
+ Attack classifications checked
+ Attacker addresses identified
+ Validator relationships mapped
+ Pool vulnerabilities detected
 
 ## Common Questions
 

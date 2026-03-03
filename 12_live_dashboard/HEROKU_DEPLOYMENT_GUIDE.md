@@ -4,17 +4,17 @@
 
 ---
 
-## ✅ What You Have Ready
+##  What You Have Ready
 
 Your project is already configured for Heroku:
-- ✅ `Procfile` - Startup command
-- ✅ `runtime.txt` - Python version specified
-- ✅ `requirements.txt` - All dependencies
-- ✅ `mev_dashboard.py` - App with `server = app.server`
+-  `Procfile` - Startup command
+-  `runtime.txt` - Python version specified
+-  `requirements.txt` - All dependencies
+-  `mev_dashboard.py` - App with `server = app.server`
 
 ---
 
-## 📋 Step 1: Install Heroku CLI
+##  Step 1: Install Heroku CLI
 
 ### On macOS:
 ```bash
@@ -30,7 +30,7 @@ https://devcenter.heroku.com/articles/heroku-cli
 
 ---
 
-## 🔐 Step 2: Create Heroku Account & Login
+##  Step 2: Create Heroku Account & Login
 
 ```bash
 # Create account at: https://www.heroku.com/
@@ -43,7 +43,7 @@ heroku login
 
 ---
 
-## 🚀 Step 3: Create & Deploy App
+##  Step 3: Create & Deploy App
 
 ### Option A: Deploy from main repo directory
 
@@ -88,7 +88,7 @@ heroku logs --tail
 
 ---
 
-## 🎯 Verify Deployment
+##  Verify Deployment
 
 After deployment completes:
 
@@ -105,11 +105,11 @@ heroku logs -n 50
 
 Visit: `https://mev-dashboard.herokuapp.com`
 
-Your dashboard should load with all charts! ✓
+Your dashboard should load with all charts! 
 
 ---
 
-## 🌐 Step 4: Add Custom Domain (Optional)
+##  Step 4: Add Custom Domain (Optional)
 
 You already have **mev.aileena.xyz** on Render. To use same domain on Heroku:
 
@@ -142,14 +142,14 @@ Create: `heroku-mev.aileena.xyz` → `mev-dashboard.herokuapp.com`
 
 ---
 
-## 📊 Free Tier Details
+##  Free Tier Details
 
 ### Limitations:
-- ✅ Free until you verify payment method
+-  Free until you verify payment method
 - ⏸️ Sleeps after 30 min inactivity
 - ⏱️ 550 hours/month (enough for always-on during US business hours)
-- 💾 512 MB RAM
-- 📈 Single dyno only
+-  512 MB RAM
+-  Single dyno only
 
 ### Wake-up:
 - First request wakes app (takes 5-10 seconds)
@@ -163,7 +163,7 @@ heroku ps:scale web=1:standard-1x
 
 ---
 
-## 🔄 Deploy Updates
+##  Deploy Updates
 
 ### From subdirectory:
 ```bash
@@ -218,7 +218,7 @@ cat requirements.txt | grep -E "dash|plotly|gunicorn"
 
 ---
 
-## 📊 Scale Up (Optional)
+##  Scale Up (Optional)
 
 For production use:
 
@@ -232,7 +232,7 @@ heroku apps:info -a mev-dashboard
 
 ---
 
-## 🎯 Quick Reference
+##  Quick Reference
 
 | Action | Command |
 |--------|---------|
@@ -247,25 +247,25 @@ heroku apps:info -a mev-dashboard
 
 ---
 
-## ✅ Comparison: Render vs Heroku
+##  Comparison: Render vs Heroku
 
 | Feature | Render | Heroku |
 |---------|--------|--------|
-| Free tier | ✅ Yes | ✅ Yes |
-| Always-on | ✅ No (sleeps) | ✅ No (sleeps) |
-| Custom domain | ✅ Yes | ✅ Yes |
-| Auto-deploy | ✅ Yes (git push) | ⚠️ Manual (git push) |
+| Free tier |  Yes |  Yes |
+| Always-on |  No (sleeps) |  No (sleeps) |
+| Custom domain |  Yes |  Yes |
+| Auto-deploy |  Yes (git push) | ️ Manual (git push) |
 | Uptime | 99% | 99% |
 | Setup | Easy | Easy |
 | Price (paid) | $7/mo | $7/mo |
-| **Current Status** | **🟢 LIVE** | ⚪ Ready |
+| **Current Status** | ** LIVE** |  Ready |
 
 ---
 
-## 🎉 You're Ready!
+##  You're Ready!
 
 Your dashboard is configured for **both** Render and Heroku:
-1. **Render (Current)**: mev.aileena.xyz ✅
+1. **Render (Current)**: mev.aileena.xyz 
 2. **Heroku (Optional)**: Ready to deploy
 
 Choose one or run both!
@@ -295,7 +295,7 @@ Choose one or run both!
 
 ---
 
-## 📞 Support
+##  Support
 
 - Heroku Docs: https://devcenter.heroku.com/
 - Dash on Heroku: https://dash.plotly.com/deployment
@@ -303,4 +303,4 @@ Choose one or run both!
 
 ---
 
-**Your dashboard is deployment-ready!** Choose Render (already live) or Heroku (setup on demand). 🚀
+**Your dashboard is deployment-ready!** Choose Render (already live) or Heroku (setup on demand). 

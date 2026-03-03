@@ -4,7 +4,7 @@ Complete step-by-step guide to deploy your Solana pAMM MEV Dashboard to Render.
 
 ## Prerequisites
 
-✅ Your dashboard is ready! Your project has:
+ Your dashboard is ready! Your project has:
 - `mev_dashboard.py` with Dash app configured
 - `server = app.server` properly defined for WSGI deployment
 - `gunicorn` in requirements.txt
@@ -21,9 +21,9 @@ Complete step-by-step guide to deploy your Solana pAMM MEV Dashboard to Render.
    ```
 
 2. **Verify files are committed:**
-   - `requirements.txt` ✅
-   - `mev_dashboard.py` ✅
-   - `Procfile` ✅
+   - `requirements.txt` 
+   - `mev_dashboard.py` 
+   - `Procfile` 
    - `.gitignore` should exclude `.venv`, `__pycache__`, `.env`
 
 ## Step 2: Create Render Account & Service
@@ -77,12 +77,12 @@ Fill in the following settings on Render:
 
 ## Step 5: Verify Deployment
 
-✅ **Check dashboard is working:**
+ **Check dashboard is working:**
 - Navigate to your `.onrender.com` URL
 - Verify all charts load correctly
 - Check browser console for errors
 
-✅ **View logs:**
+ **View logs:**
 - Go to Render Dashboard → Your Service → Logs
 - Look for flask startup messages
 
@@ -171,12 +171,12 @@ git push origin main
 
 ## Next Steps
 
-1. ✅ Push your repo to GitHub
-2. ✅ Sign up for Render.com
-3. ✅ Create Web Service with above settings
-4. ✅ Wait for first deployment (5-10 mins)
-5. ✅ Test your dashboard at the provided URL
-6. ✅ Share link: `https://mev-dashboard.onrender.com`
+1.  Push your repo to GitHub
+2.  Sign up for Render.com
+3.  Create Web Service with above settings
+4.  Wait for first deployment (5-10 mins)
+5.  Test your dashboard at the provided URL
+6.  Share link: `https://mev-dashboard.onrender.com`
 
 ## Additional Resources
 

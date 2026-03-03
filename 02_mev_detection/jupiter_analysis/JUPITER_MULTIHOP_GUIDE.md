@@ -1,19 +1,19 @@
 # Jupiter Multi-Hop Detection Guide
 
-**Last Updated:** February 24, 2026 | **Status:** ✅ Analysis Complete
+**Last Updated:** February 24, 2026 | **Status:**  Analysis Complete
 
-## 🎯 Overview
+##  Overview
 
 Your dataset already contains **full routing information** in the `trades` column! With the `02_jupiter_multihop_analysis.ipynb` notebook, you can:
 
-1. ✅ **Detect multi-hop routes** (aggregator-like patterns)
-2. ✅ **Tag transactions** by routing type
-3. ✅ **Identify contagious behavior** from Jupiter-routed flows
-4. ✅ **Generate visualizations** showing Jupiter's impact on your pAMM
+1.  **Detect multi-hop routes** (aggregator-like patterns)
+2.  **Tag transactions** by routing type
+3.  **Identify contagious behavior** from Jupiter-routed flows
+4.  **Generate visualizations** showing Jupiter's impact on your pAMM
 
 ---
 
-## 📊 Analysis Results (Generated Feb 24, 2026)
+##  Analysis Results (Generated Feb 24, 2026)
 
 ### Dataset Overview
 - **Total Transactions:** 5,506,090
@@ -57,16 +57,16 @@ Row trades column:
 
 ---
 
-## 🚀 Quick Start (Already Complete!)
+##  Quick Start (Already Complete!)
 
-### ✅ Step 1: Run the Notebook - DONE
+###  Step 1: Run the Notebook - DONE
 ```bash
 # Notebook: 02_jupiter_multihop_analysis.ipynb
 # Status: Executed successfully on Feb 24, 2026
 # Results: All visualizations generated
 ```
 
-### ✅ Step 2: Check the Output - Results Available
+###  Step 2: Check the Output - Results Available
 ```python
 # Multi-hop share analysis (COMPLETED):
 df['is_multihop'].value_counts()
@@ -80,17 +80,17 @@ df['is_multihop'].value_counts()
 # - jupyter_routing_summary.csv (Summary statistics)
 ```
 
-### ✅ Step 3: Data Exports - Ready for Download
+###  Step 3: Data Exports - Ready for Download
 The notebook automatically saved:
-- ✅ `pamm_clean_with_jupiter_tags.parquet` - Full tagged dataset (5.5M+ rows)
-- ✅ `jupiter_routing_summary.csv` - 10 summary metrics
-- ✅ 3 PNG visualizations (distribution, time-series, flow analysis)
+-  `pamm_clean_with_jupiter_tags.parquet` - Full tagged dataset (5.5M+ rows)
+-  `jupiter_routing_summary.csv` - 10 summary metrics
+-  3 PNG visualizations (distribution, time-series, flow analysis)
 
 ---
 
-## 📈 What to Look For
+##  What to Look For
 
-### 1. Multi-Hop Share (✅ ANALYZED)
+### 1. Multi-Hop Share ( ANALYZED)
 **Your Result:** 10.03% of transactions are `is_multihop=True`
 
 This indicates Jupiter or similar aggregators are routing approximately 1 in 10 transactions through your pAMM as part of a multi-leg route.
@@ -104,7 +104,7 @@ print(f"Jupiter-like multi-hop: {multihop_pct:.1f}%")
 # Output: Jupiter-like multi-hop: 10.03%
 ```
 
-### 2. Routes Hitting Your pAMM (✅ ANALYZED)
+### 2. Routes Hitting Your pAMM ( ANALYZED)
 The `route_key` column shows which DEX combos route through your pool:
 
 ```python
@@ -113,7 +113,7 @@ top_routes = df[df['is_multihop']]['route_key'].value_counts().head(10)
 # Shows primary aggregation patterns
 ```
 
-### 3. Contagious Behavior Signal (✅ CORRELATION IDENTIFIED)
+### 3. Contagious Behavior Signal ( CORRELATION IDENTIFIED)
 Multi-hop transactions are the **main source of contagion** you observed:
 - They hit your pool as **one leg of a multi-leg route**
 - If leg 1 (Raydium) has high slippage, leg 2 (your pAMM) gets hit with derived flow
@@ -124,7 +124,7 @@ Multi-hop transactions are the **main source of contagion** you observed:
 
 ---
 
-## 🤖 ML & Risk Model Integration (✅ REGENERATED)
+##  ML & Risk Model Integration ( REGENERATED)
 
 ### XGBoost Binary Classification Results (Feb 24, 2026)
 **Status:** Regenerated and optimized
@@ -169,7 +169,7 @@ CV F1-Score: 0.9995
 
 ---
 
-## 🔗 Integration with Your Existing Analysis
+##  Integration with Your Existing Analysis
 
 ### Chain with Contagion Analysis
 ```python
@@ -198,7 +198,7 @@ print(f"ML-predicted MEV in multi-hop: {mev_predictions.sum()} transactions")
 
 ---
 
-## 📊 Interpretation Guide
+##  Interpretation Guide
 
 ### Hop Count Distribution
 | **Scenario** | **Percentage** | **Meaning** |
@@ -220,7 +220,7 @@ print(f"ML-predicted MEV in multi-hop: {mev_predictions.sum()} transactions")
 
 ---
 
-## 🛠️ Pro Recipes
+## ️ Pro Recipes
 
 ### Recipe 1: Jupiter Volume Share
 ```python
@@ -274,17 +274,17 @@ print(f"High-risk MEV in Jupiter routes: {len(high_risk):,} transactions")
 
 ---
 
-## ⚠️ Limitations & Notes
+## ️ Limitations & Notes
 
 ### What This Detects
-✅ Multi-leg routes (inferred from `trades` array length)  
-✅ Relative comparison (Jupiter vs direct) 
-✅ Contagion vectors (which pools get hit from multi-hop)
+ Multi-leg routes (inferred from `trades` array length)  
+ Relative comparison (Jupiter vs direct) 
+ Contagion vectors (which pools get hit from multi-hop)
 
 ### What This Doesn't Detect
-❌ Raw program IDs (you'd need tx-level data for that)  
-❌ Jupiter-specific signature (uses heuristic: 2+ hops ≈ aggregator)  
-❌ Sandwich MEV intent (only flags multi-hop routes when contagion occurs)
+ Raw program IDs (you'd need tx-level data for that)  
+ Jupiter-specific signature (uses heuristic: 2+ hops ≈ aggregator)  
+ Sandwich MEV intent (only flags multi-hop routes when contagion occurs)
 
 ### If You Have Raw TX Data
 If you later get access to raw Solana transaction instruction data with program IDs, you can:
@@ -294,9 +294,9 @@ If you later get access to raw Solana transaction instruction data with program 
 
 ---
 
-## 📞 Summary & Deliverables
+##  Summary & Deliverables
 
-### ✅ Completed Analysis (Feb 24, 2026)
+###  Completed Analysis (Feb 24, 2026)
 
 #### 1. Jupiter Multi-Hop Detection
 - [x] Loaded 5.5M+ transactions from cleaned dataset
@@ -319,13 +319,13 @@ If you later get access to raw Solana transaction instruction data with program 
 - [x] Computed infrastructure protection benefits
 - [x] Generated 4 comprehensive visualizations + CSV exports
 
-### 📁 Output Files Generated
+###  Output Files Generated
 ```
-✅ Data Exports:
+ Data Exports:
    - 01_data_cleaning/outputs/pamm_clean_with_jupiter_tags.parquet (5.5M rows)
    - 01_data_cleaning/outputs/jupiter_routing_summary.csv
 
-✅ Visualizations:
+ Visualizations:
    - 02_jupiter_routing_distribution.png (Hop distribution)
    - 02_jupiter_timeseries_multihop.png (Time-series analysis)
    - confusion_matrices.png (6 models)
@@ -338,19 +338,19 @@ If you later get access to raw Solana transaction instruction data with program 
    - monte_carlo_boxplots_*.png (Statistical comparison)
    - oracle_lag_correlation_*.png (Sensitivity analysis)
 
-✅ ML Model Exports:
+ ML Model Exports:
    - derived/ml_results_binary/xgboost_model.pkl
    - derived/ml_results_binary/random_forest_model.pkl
    - derived/ml_results_binary/results_summary.json
 
-✅ Monte Carlo Data:
+ Monte Carlo Data:
    - monte_carlo_jito_baseline_*.csv (100k simulations)
    - monte_carlo_bam_privacy_*.csv (100k simulations)
    - monte_carlo_harmony_multibuilder_*.csv (100k simulations)
    - monte_carlo_summary_*.csv (Aggregate statistics)
 ```
 
-### 🎓 Key Insights for Your Research
+###  Key Insights for Your Research
 
 #### Jupiter Integration Finding
 > "10.03% of your pAMM's transaction volume comes from Jupiter multi-hop routes, making it a statistically significant aggregation vector. These routes primarily follow 2-3 hop patterns (e.g., Raydium → Your pAMM → Token pair), demonstrating your pool's active inclusion in Jupiter's swap optimization algorithms."
@@ -363,7 +363,7 @@ If you later get access to raw Solana transaction instruction data with program 
 
 ---
 
-## 🚀 Next Steps
+##  Next Steps
 
 1. **Validate Jupiter Program IDs** - Cross-reference `route_key` with actual Jupiter program addresses if raw TX data becomes available
 2. **Cascade Analysis** - Feed multi-hop transactions into your contagion detector to measure impact amplification
@@ -374,6 +374,6 @@ If you later get access to raw Solana transaction instruction data with program 
 ---
 
 **Generated:** February 24, 2026  
-**Analysis Notebook:** `02_jupiter_multihop_analysis.ipynb` ✅ Complete  
-**ML Models Notebook:** `07a_ml_classification_binary.ipynb` ✅ Complete  
-**Monte Carlo Notebook:** `09_binary_monte_carlo_contagion.ipynb` ✅ Complete
+**Analysis Notebook:** `02_jupiter_multihop_analysis.ipynb`  Complete  
+**ML Models Notebook:** `07a_ml_classification_binary.ipynb`  Complete  
+**Monte Carlo Notebook:** `09_binary_monte_carlo_contagion.ipynb`  Complete

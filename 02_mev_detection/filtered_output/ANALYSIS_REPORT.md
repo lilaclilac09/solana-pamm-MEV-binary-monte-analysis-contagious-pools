@@ -11,9 +11,9 @@
 ### Analysis Overview
 - **Total MEV cases analyzed:** 1,501
 - **Classification results:**
-  - ✓ **Fat Sandwich (KEPT):** 617 cases (41.1%)
-  - ✗ **Multi-Hop Arbitrage (REMOVED):** 19 cases (1.3%)
-  - ✗ **Failed Sandwich (REMOVED):** 865 cases (57.6%)
+  -  **Fat Sandwich (KEPT):** 617 cases (41.1%)
+  -  **Multi-Hop Arbitrage (REMOVED):** 19 cases (1.3%)
+  -  **Failed Sandwich (REMOVED):** 865 cases (57.6%)
 
 ### Top 10 Rankings Analysis
 - **Total top10 cases:** 76
@@ -104,19 +104,19 @@ ObricV2:        3 cases (max: 0.045 SOL)
 
 ```
 FAT_SANDWICH when:
-  ✓ net_profit_sol > 0
-  ✓ sandwich_complete > 0 OR (sandwich > 0 AND fat_sandwich > 0)
-  ✓ Clear front-run → victim(s) → back-run pattern
+   net_profit_sol > 0
+   sandwich_complete > 0 OR (sandwich > 0 AND fat_sandwich > 0)
+   Clear front-run → victim(s) → back-run pattern
 
 MULTI_HOP_ARBITRAGE when:
-  ✓ front_running > 0 OR back_running > 0
-  ✓ Multiple different pools/token pairs
-  ✓ Typical aggregator routing (e.g., Jupiter)
+   front_running > 0 OR back_running > 0
+   Multiple different pools/token pairs
+   Typical aggregator routing (e.g., Jupiter)
 
 FAILED_SANDWICH when:
-  ✗ net_profit_sol == 0
-  ✗ No victims found between front-run and back-run
-  ✗ Attack unsuccessful
+   net_profit_sol == 0
+   No victims found between front-run and back-run
+   Attack unsuccessful
 ```
 
 ---

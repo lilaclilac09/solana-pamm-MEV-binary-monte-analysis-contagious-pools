@@ -1,6 +1,6 @@
 # Report Update Summary: VAL-AMM-3 with Real MEV Statistics
 
-## ✅ Completed Tasks
+##  Completed Tasks
 
 ### 1. Generated Figure VAL-AMM-3 with REAL Research Data
 
@@ -24,9 +24,9 @@
 **Modified File**: `11_report_generation/generate_academic_report.py`
 
 **Changes Made**:
-- ❌ **REMOVED**: Figure A (Event Type Distribution - DC-1)
-- ❌ **REMOVED**: Figure B (pAMM Events Per Minute - DC-2)
-- ✅ **ADDED**: Figure VAL-AMM-3 (MEV Attack Pattern Comparison)
+-  **REMOVED**: Figure A (Event Type Distribution - DC-1)
+-  **REMOVED**: Figure B (pAMM Events Per Minute - DC-2)
+-  **ADDED**: Figure VAL-AMM-3 (MEV Attack Pattern Comparison)
 
 **New Section (2.3)**:
 - **Title**: "MEV Attack Pattern Analysis"
@@ -43,7 +43,7 @@
 
 ---
 
-## 📊 Key Research Insights from Real Data
+##  Key Research Insights from Real Data
 
 ### MEV Attack Dominance
 - **Fat Sandwich (B91 Bot)**: Dominates with 48% of all MEV activity
@@ -64,7 +64,7 @@
 
 ---
 
-## 📁 Generated Files
+##  Generated Files
 
 1. **`12_live_dashboard/generate_REAL_val_amm_3.py`**
    - Script to generate the real VAL-AMM-3 figure
@@ -83,7 +83,7 @@
 
 ---
 
-## 🔄 To Regenerate the PDF Report
+##  To Regenerate the PDF Report
 
 ```bash
 cd /Users/aileen/Downloads/pamm/solana-pamm-analysis/solana-pamm-MEV-binary-monte-analysis-contagious-pools/11_report_generation
@@ -92,15 +92,15 @@ python3 generate_academic_report.py
 ```
 
 This will create an updated PDF report with:
-- ✅ Figure VAL-AMM-3 included
-- ✅ Real MEV statistics (2,130 total trades)
-- ❌ No Figure DC-1 (Event Type Distribution)
-- ❌ No Figure DC-2 (pAMM Events Per Minute)
-- ❌ No Figure DC-3 (not present in the report)
+-  Figure VAL-AMM-3 included
+-  Real MEV statistics (2,130 total trades)
+-  No Figure DC-1 (Event Type Distribution)
+-  No Figure DC-2 (pAMM Events Per Minute)
+-  No Figure DC-3 (not present in the report)
 
 ---
 
-## 📈 How The Figure Was Created
+##  How The Figure Was Created
 
 ### Data Source
 ```
@@ -120,7 +120,7 @@ This will create an updated PDF report with:
 
 ---
 
-## 🎯 Next Steps (Optional)
+##  Next Steps (Optional)
 
 If you need to make further adjustments:
 
@@ -130,12 +130,12 @@ If you need to make further adjustments:
 
 ---
 
-## ✨ Summary
+##  Summary
 
-✅ **Removed**: Figures DC-1, DC-2 (data cleaning visualizations)  
-✅ **Added**: Figure VAL-AMM-3 (real MEV attack pattern analysis)  
-✅ **Data**: 2,130 MEV trades from actual validator-AMM research  
-✅ **Report**: Updated academic report with correct statistics  
+ **Removed**: Figures DC-1, DC-2 (data cleaning visualizations)  
+ **Added**: Figure VAL-AMM-3 (real MEV attack pattern analysis)  
+ **Data**: 2,130 MEV trades from actual validator-AMM research  
+ **Report**: Updated academic report with correct statistics  
 
 **Figure Location**: `12_live_dashboard/REAL_VAL_AMM_3.png`
 

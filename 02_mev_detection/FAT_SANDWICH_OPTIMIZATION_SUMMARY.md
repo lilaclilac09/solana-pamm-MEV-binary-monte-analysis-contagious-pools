@@ -1,12 +1,12 @@
 # Fat Sandwich Detector - Optimization Summary
 
-## 📋 Overview
+##  Overview
 
 Created a **single unified, optimized detector** that consolidates all duplicated code from `10_advanced_FP_solution` folder and connects to actual data (`df_clean`).
 
 ---
 
-## 🗑️ FILES REMOVED (Duplicates)
+## ️ FILES REMOVED (Duplicates)
 
 ### From `10_advanced_FP_solution/`:
 1. **`01_improved_fat_sandwich_detection.ipynb`** - Duplicate notebook
@@ -22,7 +22,7 @@ Created a **single unified, optimized detector** that consolidates all duplicate
 
 ---
 
-## ✅ NEW UNIFIED SOLUTION
+##  NEW UNIFIED SOLUTION
 
 ### Files Created:
 
@@ -41,7 +41,7 @@ Created a **single unified, optimized detector** that consolidates all duplicate
 
 ---
 
-## 🎯 Optimization Metrics
+##  Optimization Metrics
 
 | Metric | Before | After | Improvement |
 |--------|--------|-------|-------------|
@@ -49,11 +49,11 @@ Created a **single unified, optimized detector** that consolidates all duplicate
 | File count (10_advanced_FP_solution) | 4 files | 0 files | -100% |
 | Lines of code | 1,099 | 473 | -57% |
 | Documentation files | 7 files | 1 integrated doc | -86% |
-| Data connection | None | Direct ✓ | 100% |
+| Data connection | None | Direct  | 100% |
 
 ---
 
-## 🏗️ Architecture
+## ️ Architecture
 
 ```
 FatSandwichDetector (Class)
@@ -74,22 +74,22 @@ FatSandwichDetector (Class)
 
 ---
 
-## 🔍 Core Detection Features
+##  Core Detection Features
 
 ### Fat Sandwich Detection
-✅ **A-B-A Pattern**: Attacker first and last trade in window  
-✅ **Wrapped Victims**: Different signers between attacker trades  
-✅ **Same Token Pair**: Attacker trades reverse token direction  
-✅ **Time Windows**: 1s, 2s, 5s, 10s rolling windows  
-✅ **Confidence Scoring**: High/Medium/Low based on 5 factors  
+ **A-B-A Pattern**: Attacker first and last trade in window  
+ **Wrapped Victims**: Different signers between attacker trades  
+ **Same Token Pair**: Attacker trades reverse token direction  
+ **Time Windows**: 1s, 2s, 5s, 10s rolling windows  
+ **Confidence Scoring**: High/Medium/Low based on 5 factors  
 
 ### Attack Classification
-✅ **Fat Sandwich Indicators**:
+ **Fat Sandwich Indicators**:
 - Mandatory wrapped victims (35% weight)
 - Same token pair throughout (25% weight)
 - Low pool diversity (20% weight)
 
-✅ **Multi-Hop Arbitrage Indicators**:
+ **Multi-Hop Arbitrage Indicators**:
 - Cycle routing pattern (35% weight)
 - Multiple different token pairs (25% weight)
 - High pool diversity (20% weight)
@@ -97,7 +97,7 @@ FatSandwichDetector (Class)
 
 ---
 
-## 📊 Data Connection
+##  Data Connection
 
 ### Input: `df_clean` (pamm_clean_final.parquet)
 ```python
@@ -128,7 +128,7 @@ Columns added:
 
 ---
 
-## 🚀 How to Use
+##  How to Use
 
 ### Option 1: Interactive Notebook (Recommended)
 ```
@@ -176,7 +176,7 @@ classified.to_parquet('results.parquet')
 
 ---
 
-## 📈 Expected Outputs
+##  Expected Outputs
 
 After running the detector, you'll get:
 
@@ -209,7 +209,7 @@ Attack Type Distribution:
 
 ---
 
-## 🔧 Customization
+##  Customization
 
 ### Adjust Detection Parameters
 ```python
@@ -231,7 +231,7 @@ classified = detector.classify_all_attacks(
 
 ---
 
-## 📚 Function Reference
+##  Function Reference
 
 ### `detect_fat_sandwiches(...)`
 Finds fat sandwich patterns using rolling time windows.
@@ -266,7 +266,7 @@ Batch classify all detected attacks.
 
 ---
 
-## 🎓 Key Improvements
+##  Key Improvements
 
 1. **Unified Codebase**: Single source of truth
 2. **Direct Data Access**: Connected to `df_clean` 
@@ -279,7 +279,7 @@ Batch classify all detected attacks.
 
 ---
 
-## 📝 Notes
+##  Notes
 
 - **Data Size**: The detector handles large datasets efficiently
 - **Time Windows**: 1-10 second windows capture most MEV attacks
@@ -307,12 +307,12 @@ Batch classify all detected attacks.
 
 ##  Summary
 
-✅ **Removed 4 duplicate/doc files** from 10_advanced_FP_solution  
-✅ **Consolidated 18 functions** into 4 core methods  
-✅ **Created production-ready code** (473 lines)  
-✅ **Connected to actual df_clean data**  
-✅ **Built interactive Jupyter notebook**  
-✅ **Fully documented** with examples  
+ **Removed 4 duplicate/doc files** from 10_advanced_FP_solution  
+ **Consolidated 18 functions** into 4 core methods  
+ **Created production-ready code** (473 lines)  
+ **Connected to actual df_clean data**  
+ **Built interactive Jupyter notebook**  
+ **Fully documented** with examples  
 
 **You can now:**
 1. Open `12_fat_sandwich_optimized_detector.ipynb` and run it

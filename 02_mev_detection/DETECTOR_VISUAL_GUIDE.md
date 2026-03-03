@@ -1,6 +1,6 @@
 # Fat Sandwich Detector - Quick Visual Guide
 
-## 🎯 What It Does
+##  What It Does
 
 ```
                             INPUT DATA (df_clean)
@@ -48,7 +48,7 @@
 
 ---
 
-## 🔬 Detection Algorithm
+##  Detection Algorithm
 
 ### Step 1: Rolling Time Window Scanning
 
@@ -63,11 +63,11 @@ Each window (1s, 2s, 5s, 10s):
 ┌─────────────────────────────────┐
 │ Trade 1: Alice → BOB            │
 │ Trade 2: BOB → Charlie          │  A-B-A Pattern?
-│ Trade 3: Charlie → Alice        │  ✓ Alice (A) first & last
-│ Trade 4: Alice → BOB            │  ✗ Skip (already counted)
+│ Trade 3: Charlie → Alice        │   Alice (A) first & last
+│ Trade 4: Alice → BOB            │   Skip (already counted)
 └─────────────────────────────────┘
          ↓
-Result: ✅ Fat Sandwich Detected
+Result:  Fat Sandwich Detected
 ```
 
 ### Step 2: A-B-A Pattern Validation
@@ -83,13 +83,13 @@ Pattern Check:
     │A1│B1│B2│A2│  ← All trades in window (ms_time order)
     └──┴──┴──┴──┘
        ↑     ↑
-       └─────┘ Same signer? ✓
+       └─────┘ Same signer? 
 
 Validation Checklist:
-✓ First signer == Last signer
-✓ Middle trades have different signers (victims)
-✓ No victim is the attacker
-✓ Minimum attacker trades ≥ 2
+ First signer == Last signer
+ Middle trades have different signers (victims)
+ No victim is the attacker
+ Minimum attacker trades ≥ 2
 ```
 
 ### Step 3: Victim Ratio Filtering
@@ -98,11 +98,11 @@ Validation Checklist:
 Filter Aggregator Routing:
 
 If victim_ratio = victims / total_trades > 0.8
-    ⚠️  Likely aggregator routing, not MEV
+    ️  Likely aggregator routing, not MEV
     → SKIP
 
 If victim_ratio ≤ 0.8
-    ✓ Enough concentrated attack
+     Enough concentrated attack
     → CONTINUE
 ```
 
@@ -114,10 +114,10 @@ Token Pair Reversal Check:
 Attacker's first trade:  USDC → SOL
 Attacker's last trade:   SOL → USDC
                          ↑       ↑
-                    Reversed! ✓ Valid
+                    Reversed!  Valid
 
 If NOT reversed:
-    ⚠️ Not a sandwich pattern
+    ️ Not a sandwich pattern
     → SKIP
 ```
 
@@ -139,14 +139,14 @@ Base scoring:
   +1 pt:  victim_count ≥ 3 (multiple targets)
 
 Final Confidence:
-  score ≥ 6 pts: "high" ✓
-  score 4-5 pts: "medium" ⚠️
-  score < 4 pts: "low" ❌
+  score ≥ 6 pts: "high" 
+  score 4-5 pts: "medium" ️
+  score < 4 pts: "low" 
 ```
 
 ---
 
-## 📊 Classification Algorithm
+##  Classification Algorithm
 
 ### Phase 1: Gather Evidence
 
@@ -228,7 +228,7 @@ Example Scoring:
 
 ---
 
-## 🎮 Usage Examples
+##  Usage Examples
 
 ### Interactive (Notebook)
 
@@ -269,7 +269,7 @@ analyze_results(classified)
 
 ---
 
-## 📈 Output Interpretation
+##  Output Interpretation
 
 ### Results DataFrame Columns
 
@@ -306,7 +306,7 @@ EXAMPLE Row:
 │ attacker_signer:            │
 │   9B5X4zA...Yw4Kp2C3J       │  ← Who attacked
 ├─────────────────────────────┤
-│ Confidence: 0.87 ✓          │  ← Very confident
+│ Confidence: 0.87           │  ← Very confident
 │ attack_type: fat_sandwich   │  ← Type identified
 ├─────────────────────────────┤
 │ victim_count: 8             │  ← 8 victims wrapped
@@ -318,16 +318,16 @@ EXAMPLE Row:
 └─────────────────────────────┘
 
 INTERPRETATION:
-✅ High confidence Fat Sandwich attack
-✅ Attacker wrapped 8 victims
-✅ Completed in 1.2 seconds
-✅ Used same token pair (likely SOL pair)
-✅ Likely extracted value = slippage × 8 victims
+ High confidence Fat Sandwich attack
+ Attacker wrapped 8 victims
+ Completed in 1.2 seconds
+ Used same token pair (likely SOL pair)
+ Likely extracted value = slippage × 8 victims
 ```
 
 ---
 
-## 🎨 Parameter Guide
+##  Parameter Guide
 
 ### Time Windows: `window_seconds`
 
@@ -378,7 +378,7 @@ Why multiple?
 
 ---
 
-## 🚨 Common Issues & Fixes
+##  Common Issues & Fixes
 
 | Issue | Cause | Fix |
 |-------|-------|-----|
@@ -389,14 +389,14 @@ Why multiple?
 
 ---
 
-## 📝 Summary
+##  Summary
 
 The optimized detector:
 1. **Scans** trades in rolling time windows ⏱️
-2. **Validates** A-B-A pattern + victims 👥
-3. **Filters** aggregator routing 🚫
-4. **Scores** confidence 📊
-5. **Classifies** attack type 🎯
-6. **Outputs** detailed results 📋
+2. **Validates** A-B-A pattern + victims 
+3. **Filters** aggregator routing 
+4. **Scores** confidence 
+5. **Classifies** attack type 
+6. **Outputs** detailed results 
 
-All in one unified, easy-to-use class! ✨
+All in one unified, easy-to-use class! 

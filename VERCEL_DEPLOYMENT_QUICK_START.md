@@ -1,15 +1,15 @@
-# 🚀 Vercel Deployment: Quick Start Guide
+#  Vercel Deployment: Quick Start Guide
 
 ## What's Being Deployed
 
-✅ **Dash Dashboard** (Python Plotly)
+ **Dash Dashboard** (Python Plotly)
 - Section 5b: TOP STORIES - Real-World Attack Case Studies
 - Section 5c: Threat Intelligence Visualizations (3 high-res PNG plots)
 
-✅ **Website HTML** (Responsive Design)
+ **Website HTML** (Responsive Design)
 - MEV_THREAT_INTELLIGENCE_VISUAL_ANALYSIS.html for mev.aileen.xyz
 
-✅ **Visualization Assets** (300 DPI Publication Quality)
+ **Visualization Assets** (300 DPI Publication Quality)
 - token_pair_fragility.png (394K)
 - oracle_latency_window.png (526K)
 - mev_battlefield.png (443K)
@@ -50,7 +50,7 @@ https://your-project.vercel.app
 
 ---
 
-## 📋 Required Vercel Configuration
+##  Required Vercel Configuration
 
 ### Environment Variables
 Go to **Vercel Dashboard** → **Settings** → **Environment Variables**
@@ -91,7 +91,7 @@ File: `vercel.json`
 
 ---
 
-## 🌐 Website Deployment (mev.aileen.xyz)
+##  Website Deployment (mev.aileen.xyz)
 
 ### Option 1: Upload to Web Server (SSH/SFTP)
 ```bash
@@ -132,7 +132,7 @@ aws s3 sync app/assets/ s3://your-bucket/assets/
 
 ---
 
-## ✅ Deployment Checklist
+##  Deployment Checklist
 
 - [ ] Git status clean: `git status`
 - [ ] All 3 PNG files in `app/assets/`: `ls -lh app/assets/`
@@ -159,7 +159,7 @@ Expected responses: `200 OK`
 
 ---
 
-## 🐛 Troubleshooting
+##  Troubleshooting
 
 ### "Module not found" Error
 **Problem:** `ModuleNotFoundError: No module named 'dash'`
@@ -184,8 +184,8 @@ git push origin main  # Triggers redeploy
 grep "src=" app/index.py | head -5
 
 # Correct format:
-# src="/assets/token_pair_fragility.png"  ✅
-# src="token_pair_fragility.png"          ❌
+# src="/assets/token_pair_fragility.png"  
+# src="token_pair_fragility.png"          
 
 # Commit fix:
 git add app/index.py
@@ -210,7 +210,7 @@ vercel logs --prod
 
 ---
 
-## 📊 Dashboard Sections Reference
+##  Dashboard Sections Reference
 
 ### Section 5b: TOP STORIES (Attack Case Studies)
 - **Location:** app/index.py, lines 267-330
@@ -229,7 +229,7 @@ vercel logs --prod
 
 ---
 
-## 🔄 Update Workflow
+##  Update Workflow
 
 When you want to update content:
 
@@ -254,15 +254,15 @@ git push origin main
 
 ---
 
-## 🎯 Success Indicators
+##  Success Indicators
 
-✅ **Dashboard is live** when you see:
+ **Dashboard is live** when you see:
 - Dash app loads at HTTPS URL
 - Sections 5b + 5c visible and styled correctly
 - 3 PNG visualizations display without errors
 - No 404s in browser console
 
-✅ **Website is live** when you see:
+ **Website is live** when you see:
 - HTML page loads at mev.aileen.xyz
 - All images display correctly
 - Responsive design works on mobile
@@ -270,7 +270,7 @@ git push origin main
 
 ---
 
-## 📞 Support
+##  Support
 
 **Issue:** Dashboard not responding
 **Fix:** Check `vercel logs --prod`
@@ -286,13 +286,13 @@ git push origin main
 
 ---
 
-## 🎉 You're Done!
+##  You're Done!
 
 Your MEV threat intelligence is now:
-- ✅ Live on Vercel at https://your-project.vercel.app
-- ✅ Accessible on mev.aileen.xyz/stories (after manual upload)
-- ✅ Dashboard with Sections 5b + 5c fully integrated
-- ✅ 3 high-resolution threat visualizations deployed
-- ✅ All data interactive and responsive
+-  Live on Vercel at https://your-project.vercel.app
+-  Accessible on mev.aileen.xyz/stories (after manual upload)
+-  Dashboard with Sections 5b + 5c fully integrated
+-  3 high-resolution threat visualizations deployed
+-  All data interactive and responsive
 
 **Next:** Share the Vercel Dashboard URL + public website link with your team!

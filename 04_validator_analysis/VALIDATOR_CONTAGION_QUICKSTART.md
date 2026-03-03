@@ -129,7 +129,7 @@ Cross-Slot Fat Sandwiches: 12
 Slot Boundary Exploits: 23
 ```
 
-**Interpretation:** ⚠️ **Requires slot-level data**
+**Interpretation:** ️ **Requires slot-level data**
 - Currently data doesn't have granular slot/time columns
 - If available, reveals sophisticated cross-slot strategies
 - Indicates professional "2Fast Bot" infrastructure
@@ -196,7 +196,7 @@ for item in mitigations['implementation_priority']:
 for rule_name, rule_config in mitigations['bot_detection_rules'].items():
     print(f"\n{rule_name}")
     for indicator in rule_config['indicators']:
-        print(f"  ✓ {indicator}")
+        print(f"   {indicator}")
     print(f"  Action: {rule_config['action']}")
 ```
 

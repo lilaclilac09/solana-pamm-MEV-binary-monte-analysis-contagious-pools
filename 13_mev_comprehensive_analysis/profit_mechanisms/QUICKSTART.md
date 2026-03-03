@@ -1,19 +1,19 @@
-# 🚀 QUICKSTART - MEV Profit Mechanisms
+#  QUICKSTART - MEV Profit Mechanisms
 
 ## The Essential Numbers
 
-### 💰 Profitability Summary
+###  Profitability Summary
 - **Total Net Profit (Top 20):** 55.52 SOL
 - **Average Profit Per Attack:** 2.78 SOL
 - **Highest Single Attack:** 13.72 SOL
 - **Success Rate:** 100% (all cases confirmed high-confidence)
 
-### 📊 Cost vs Profit
+###  Cost vs Profit
 - **Average Transaction Cost:** 0.31 SOL
 - **Profit Margin:** 90% (10% goes to fees/costs)
 - **Return on Investment (ROI):** 900% (you spend 0.31 SOL, get 2.78 SOL back)
 
-### 🎯 Attack Methods
+###  Attack Methods
 - **Fat Sandwich Attacks:** 20/20 cases (100%)
 - **Sandwich Positioning:** Average 19 transactions per attack
 - **Completion Rate:** Most attacks successfully exploit victim trades
@@ -122,13 +122,13 @@ Top validators by attack frequency:
 ## How to Exploit Similar Patterns
 
 ### Attacker Playbook
-1. Run a validator or connect to one ✓
-2. Monitor mempool for large trades ✓
-3. Identify profitable opportunities ✓
-4. Submit front-run transaction with high tip ✓
-5. Wait for victim transaction ✓
-6. Execute back-run to close position ✓
-7. Profit captured in atomic block ✓
+1. Run a validator or connect to one 
+2. Monitor mempool for large trades 
+3. Identify profitable opportunities 
+4. Submit front-run transaction with high tip 
+5. Wait for victim transaction 
+6. Execute back-run to close position 
+7. Profit captured in atomic block 
 
 ### Success Requirements
 - Access to mempool (validator connection)
@@ -142,16 +142,16 @@ Top validators by attack frequency:
 ## Protection Mechanisms
 
 ### For Victims (Pool Users)
-- ✓ Set max slippage (reject if >5% price movement)
-- ✓ Use time-locked transactions
-- ✓ Route through MEV-protected pools
-- ✓ Broadcast intent instead of transactions
+-  Set max slippage (reject if >5% price movement)
+-  Use time-locked transactions
+-  Route through MEV-protected pools
+-  Broadcast intent instead of transactions
 
 ### For Protocols
-- ✓ Fair transaction ordering (no MEV)
-- ✓ Private mempools (encrypted transactions)
-- ✓ Intent-based execution 
-- ✓ MEV burning (send extracted value to community)
+-  Fair transaction ordering (no MEV)
+-  Private mempools (encrypted transactions)
+-  Intent-based execution 
+-  MEV burning (send extracted value to community)
 
 ---
 

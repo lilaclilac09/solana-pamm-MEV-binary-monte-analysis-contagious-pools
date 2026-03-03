@@ -1,12 +1,89 @@
 """
-Generate three MEV threat intelligence visualizations
+Generate three MEV threat intelligence visualizations.
+
+Supports loading updated values from a JSON data file.
 """
+
+import argparse
+import json
+import os
+import shutil
 
 import matplotlib.pyplot as plt
 import numpy as np
 
+
+DEFAULT_DATA = {
+    "token_pair_fragility": {
+        "headline_percent": 38.2,
+        "pump_wsol_label": "PUMP/WSOL",
+        "safe_pair_label": "SOL/USDC",
+        "safe_pairs_label": "Blue-chip pairs",
+        "points": {
+            "pump_wsol": [1.5, 8.8],
+            "safe_pair": [7.2, 3.0],
+            "safe_pairs": [8.1, 2.6],
+        },
+    },
+    "oracle_latency_window": {
+        "headline_latency_seconds": 2.1,
+        "headline_trade_percent": 34.7,
+        "pool_latencies_us": {
+            "HumidiFi": 2100000,
+            "ZeroFi": 953483,
+            "TesseraV": 524160,
+            "SolFIV2": 524160,
+            "GoonFi": 202230,
+            "BisonFi": 137663,
+            "SolFi": 101930,
+            "AlphaQ": 99770,
+        },
+    },
+    "mev_battlefield": {
+        "pool_profits_sol": {
+            "HumidiFi": 75.1,
+            "BisonFi": 11.2,
+            "GoonFi": 8.1,
+            "TesseraV": 7.8,
+            "SolFIV2": 7.2,
+            "ZeroFi": 2.4,
+            "OtherV2": 0,
+        },
+        "profit_share_percent": {
+            "HumidiFi": 66.8,
+            "BisonFi": 10.0,
+            "GoonFi": 7.0,
+            "TesseraV": 6.7,
+            "SolFIV2": 6.7,
+            "Others": 2.8,
+        },
+    },
+}
+
+
+def deep_merge(base, override):
+    merged = dict(base)
+    for key, value in override.items():
+        if isinstance(value, dict) and isinstance(merged.get(key), dict):
+            merged[key] = deep_merge(merged[key], value)
+        else:
+            merged[key] = value
+    return merged
+
+
+def load_data(data_file=None):
+    if not data_file:
+        return DEFAULT_DATA
+
+    with open(data_file, "r", encoding="utf-8") as file:
+        user_data = json.load(file)
+    return deep_merge(DEFAULT_DATA, user_data)
+
 # ==================== PLOT 1: Token Pair Fragility ====================
-def create_token_pair_fragility():
+def create_token_pair_fragility(data, out_dir):
+    section = data["token_pair_fragility"]
+    points = section["points"]
+
     fig = plt.figure(figsize=(15, 9.5), facecolor='white')
     fig.suptitle('High-Risk Assets: Token Pair Fragility', fontsize=24, fontweight='bold', y=0.95)
     fig.text(0.5, 0.89, 'Editorial Threat Intelligence Briefing', fontsize=14, ha='center', color='gray')
@@ -15,8 +92,8 @@ def create_token_pair_fragility():
     left = fig.add_axes([0.02, 0.15, 0.28, 0.65])
     left.axis('off')
     left.add_patch(plt.Rectangle((0,0),1,1, fill=False, edgecolor='black', linewidth=1.5))
-    left.text(0.5, 0.68, '38.2%', fontsize=95, fontweight='bold', ha='center', va='center')
-    left.text(0.5, 0.35, '(PUMP/WSOL pair\ndominance in MEV attacks)', fontsize=13, ha='center', va='center', linespacing=1.2)
+    left.text(0.5, 0.68, f"{section['headline_percent']:.1f}%", fontsize=95, fontweight='bold', ha='center', va='center')
+    left.text(0.5, 0.35, f"({section['pump_wsol_label']} pair\ndominance in MEV attacks)", fontsize=13, ha='center', va='center', linespacing=1.2)
 
     # Right side: Four-quadrant scatter plot
     ax = fig.add_axes([0.35, 0.15, 0.62, 0.65])
@@ -36,24 +113,24 @@ def create_token_pair_fragility():
     ax.axhline(5, color='gray', linestyle='--', alpha=0.4, linewidth=1)
 
     # Data points
-    ax.scatter(1.5, 8.8, s=1400, c='#e74c3c', edgecolor='white', linewidth=6, zorder=5)
-    ax.scatter(7.2, 3.0, s=650, c='#27ae60', edgecolor='white', linewidth=4, zorder=5)
-    ax.scatter(8.1, 2.6, s=580, c='#2ecc71', edgecolor='white', linewidth=4, zorder=5)
+    ax.scatter(points['pump_wsol'][0], points['pump_wsol'][1], s=1400, c='#e74c3c', edgecolor='white', linewidth=6, zorder=5)
+    ax.scatter(points['safe_pair'][0], points['safe_pair'][1], s=650, c='#27ae60', edgecolor='white', linewidth=4, zorder=5)
+    ax.scatter(points['safe_pairs'][0], points['safe_pairs'][1], s=580, c='#2ecc71', edgecolor='white', linewidth=4, zorder=5)
 
     # Labels
-    ax.text(1.5, 9.6, 'PUMP/WSOL', fontsize=14, fontweight='bold', color='#c0392b', ha='center')
-    ax.text(7.2, 3.8, 'SOL/USDC', fontsize=12, fontweight='bold', color='darkgreen', ha='center')
-    ax.text(8.5, 2.1, 'Blue-chip pairs', fontsize=11.5, color='darkgreen', ha='center')
+    ax.text(points['pump_wsol'][0], 9.6, section['pump_wsol_label'], fontsize=14, fontweight='bold', color='#c0392b', ha='center')
+    ax.text(points['safe_pair'][0], 3.8, section['safe_pair_label'], fontsize=12, fontweight='bold', color='darkgreen', ha='center')
+    ax.text(8.5, 2.1, section['safe_pairs_label'], fontsize=11.5, color='darkgreen', ha='center')
 
     # Annotations with arrows
     deadly_text = "The Deadly Triad (PUMP/WSOL): Combines\ntypical reserves <$50K (high slippage),\n15-40% 24h swings (wide oracle windows),\nand fragmented cross-pool liquidity."
-    ax.annotate(deadly_text, xy=(1.5, 8.8), xytext=(3.5, 9.6),
+    ax.annotate(deadly_text, xy=(points['pump_wsol'][0], points['pump_wsol'][1]), xytext=(3.5, 9.6),
                 fontsize=10, ha='left', va='top',
                 arrowprops=dict(arrowstyle='->', color='black', lw=1.5),
                 bbox=dict(boxstyle="round,pad=0.5", facecolor='white', alpha=0.9))
 
     safe_text = "Safe Havens: Blue-chip pairs\n(SOL/USDC) with >$1M\nreserves showed 5.2x lower\nsandwich risk due to sub-\n0.5% price impact making\nattacks unprofitable."
-    ax.annotate(safe_text, xy=(8.1, 2.6), xytext=(6.5, 5.5),
+    ax.annotate(safe_text, xy=(points['safe_pairs'][0], points['safe_pairs'][1]), xytext=(6.5, 5.5),
                 fontsize=10, ha='right', va='top',
                 arrowprops=dict(arrowstyle='->', color='black', lw=1.5),
                 bbox=dict(boxstyle="round,pad=0.5", facecolor='white', alpha=0.9))
@@ -65,12 +142,14 @@ def create_token_pair_fragility():
     bottom_text = "The PUMP/WSOL pair carries a 3.16x risk amplification factor. Attackers actively exploit its\nfragmented, thin order books simultaneously across HumidiFi and BisonFi."
     bottom.text(0.5, 0.5, bottom_text, fontsize=11, ha='center', va='center', linespacing=1.3)
 
-    plt.savefig('outputs/token_pair_fragility.png', dpi=300, bbox_inches='tight')
+    plt.savefig(os.path.join(out_dir, 'token_pair_fragility.png'), dpi=300, bbox_inches='tight')
     plt.close()
     print('✅ Plot 1: token_pair_fragility.png generated')
 
 # ==================== PLOT 2: Oracle Latency Window ====================
-def create_oracle_latency_window():
+def create_oracle_latency_window(data, out_dir):
+    section = data["oracle_latency_window"]
+
     fig = plt.figure(figsize=(15, 11), facecolor='white')
     fig.suptitle('Extraction Mechanics: The Oracle Latency Window', fontsize=22, fontweight='bold', y=0.96)
 
@@ -78,14 +157,14 @@ def create_oracle_latency_window():
     left_card = fig.add_axes([0.03, 0.78, 0.28, 0.15])
     left_card.axis('off')
     left_card.add_patch(plt.Rectangle((0,0),1,1, fill=False, edgecolor='#8B0000', linewidth=2, linestyle='solid'))
-    left_card.text(0.5, 0.65, '2.1s', fontsize=68, fontweight='bold', color='#8B0000', ha='center')
+    left_card.text(0.5, 0.65, f"{section['headline_latency_seconds']:.1f}s", fontsize=68, fontweight='bold', color='#8B0000', ha='center')
     left_card.text(0.5, 0.25, 'HumidiFi median oracle latency\n(Longest in ecosystem)', fontsize=11, ha='center', va='center', linespacing=1.1)
 
     # Top right: 34.7% card
     right_card = fig.add_axes([0.65, 0.78, 0.32, 0.15])
     right_card.axis('off')
     right_card.add_patch(plt.Rectangle((0,0),1,1, fill=False, edgecolor='#8B0000', linewidth=2))
-    right_card.text(0.5, 0.65, '34.7%', fontsize=68, fontweight='bold', color='#8B0000', ha='center')
+    right_card.text(0.5, 0.65, f"{section['headline_trade_percent']:.1f}%", fontsize=68, fontweight='bold', color='#8B0000', ha='center')
     right_card.text(0.5, 0.25, 'Trades executing within exactly\n50-200ms of an oracle update', fontsize=11, ha='center', va='center', linespacing=1.1)
 
     # Middle: Density plot
@@ -127,8 +206,8 @@ def create_oracle_latency_window():
 
     # Bottom: Bar chart
     bar_ax = fig.add_axes([0.03, 0.05, 0.94, 0.22])
-    pools = ['HumidiFi', 'ZeroFi', 'TesseraV', 'SolFIV2', 'GoonFi', 'BisonFi', 'SolFi', 'AlphaQ']
-    latencies = [2100000, 953483, 524160, 524160, 202230, 137663, 101930, 99770]
+    pools = list(section['pool_latencies_us'].keys())
+    latencies = list(section['pool_latencies_us'].values())
     colors = ['#8B0000'] + ['#1f2a44']*7
 
     bars = bar_ax.barh(pools[::-1], latencies[::-1], color=colors[::-1], height=0.6)
@@ -140,20 +219,22 @@ def create_oracle_latency_window():
         bar_ax.text(width + 30000, bar.get_y() + bar.get_height()/2, f'{width:,.0f}μs',
                     va='center', fontsize=10, fontweight='bold')
 
-    plt.savefig('outputs/oracle_latency_window.png', dpi=300, bbox_inches='tight')
+    plt.savefig(os.path.join(out_dir, 'oracle_latency_window.png'), dpi=300, bbox_inches='tight')
     plt.close()
     print('✅ Plot 2: oracle_latency_window.png generated')
 
 # ==================== PLOT 3: MEV Battlefield ====================
-def create_mev_battlefield():
+def create_mev_battlefield(data, out_dir):
+    section = data["mev_battlefield"]
+
     fig = plt.figure(figsize=(14.5, 10), facecolor='white')
     fig.suptitle('The MEV Battlefield: Protocol-Specific Vulnerability', fontsize=22, fontweight='bold', y=0.95)
     fig.text(0.5, 0.90, 'Editorial Threat Intelligence Briefing', fontsize=13, ha='center', color='gray')
 
     # Left: Bar chart
     ax_bar = fig.add_axes([0.04, 0.22, 0.48, 0.62])
-    pools = ['HumidiFi', 'BisonFi', 'GoonFi', 'TesseraV', 'SolFIV2', 'ZeroFi', 'OtherV2']
-    profits = [75.1, 11.2, 8.1, 7.8, 7.2, 2.4, 0]
+    pools = list(section['pool_profits_sol'].keys())
+    profits = list(section['pool_profits_sol'].values())
     colors = ['#8B0000'] + ['#2e7d32']*5 + ['#1f2a44']
 
     bars = ax_bar.bar(pools, profits, color=colors, width=0.65)
@@ -170,12 +251,12 @@ def create_mev_battlefield():
                 transform=ax_bar.transAxes, ha='center', fontsize=10, linespacing=1.3)
 
     # Right: Large percentage
-    fig.text(0.72, 0.68, '66.8%', fontsize=85, fontweight='bold', color='#8B0000', ha='center')
+    fig.text(0.72, 0.68, f"{section['profit_share_percent']['HumidiFi']:.1f}%", fontsize=85, fontweight='bold', color='#8B0000', ha='center')
 
     # Pie chart
     ax_pie = fig.add_axes([0.62, 0.22, 0.35, 0.48])
-    sizes = [66.8, 10.0, 7.0, 6.7, 6.7, 2.8]
-    labels = ['HumidiFi', 'BisonFi', 'GoonFi', 'TesseraV', 'SolFIV2', 'Others']
+    labels = list(section['profit_share_percent'].keys())
+    sizes = list(section['profit_share_percent'].values())
     colors_pie = ['#8B0000', '#2e7d32', '#2e7d32', '#2e7d32', '#2e7d32', '#1f2a44']
 
     wedges, texts, autotexts = ax_pie.pie(sizes, labels=labels, colors=colors_pie, autopct='%1.1f%%',
@@ -190,16 +271,36 @@ def create_mev_battlefield():
     risk.text(0.05, 0.68, 'Extreme concentration\nindicates systemic\nvulnerability in\nHumidiFi.\n\nAttackers do not\nblanket the ecosystem;\nthey actively target\nspecific pools with\nknown oracle or\nliquidity weaknesses.',
               fontsize=10, va='top', linespacing=1.3)
 
-    plt.savefig('outputs/mev_battlefield.png', dpi=300, bbox_inches='tight')
+    plt.savefig(os.path.join(out_dir, 'mev_battlefield.png'), dpi=300, bbox_inches='tight')
     plt.close()
     print('✅ Plot 3: mev_battlefield.png generated')
 
 if __name__ == '__main__':
-    import os
-    os.makedirs('outputs', exist_ok=True)
-    
-    print('🎨 Generating visualizations...\n')
-    create_token_pair_fragility()
-    create_oracle_latency_window()
-    create_mev_battlefield()
-    print('\n✨ All visualizations complete! Check outputs/ folder')
+    parser = argparse.ArgumentParser(description="Generate Section 5c visualization PNGs")
+    parser.add_argument("--data-file", help="Path to JSON file with updated values", default=None)
+    parser.add_argument("--out-dir", help="Output directory for generated PNGs", default="outputs")
+    parser.add_argument("--copy-to-assets", help="Copy generated PNGs to this assets directory", default="app/assets")
+    args = parser.parse_args()
+
+    os.makedirs(args.out_dir, exist_ok=True)
+
+    data = load_data(args.data_file)
+
+    print('Generating visualizations...\n')
+    create_token_pair_fragility(data, args.out_dir)
+    create_oracle_latency_window(data, args.out_dir)
+    create_mev_battlefield(data, args.out_dir)
+
+    if args.copy_to_assets:
+        os.makedirs(args.copy_to_assets, exist_ok=True)
+        for name in [
+            'token_pair_fragility.png',
+            'oracle_latency_window.png',
+            'mev_battlefield.png',
+        ]:
+            src = os.path.join(args.out_dir, name)
+            dst = os.path.join(args.copy_to_assets, name)
+            shutil.copy2(src, dst)
+        print(f'\nCopied PNGs to {args.copy_to_assets}')
+
+    print(f'\nAll visualizations complete! Check {args.out_dir}/ folder')

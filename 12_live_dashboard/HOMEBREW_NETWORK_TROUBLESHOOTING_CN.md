@@ -1,13 +1,13 @@
-# 🚀 Heroku + Homebrew 快速修复指南
+#  Heroku + Homebrew 快速修复指南
 
 ## 您的网络状态诊断
 
 ```
-✅ Homebrew: 已安装 (/opt/homebrew/bin/brew)
-✅ Git: 已安装 (v2.39.5)
-✅ macOS: 15.5 (Sequoia)
-✅ 处理器: Apple Silicon (arm64)
-⚠️ 网络: 延迟高（75+ ms），偶有超时
+ Homebrew: 已安装 (/opt/homebrew/bin/brew)
+ Git: 已安装 (v2.39.5)
+ macOS: 15.5 (Sequoia)
+ 处理器: Apple Silicon (arm64)
+️ 网络: 延迟高（75+ ms），偶有超时
 ```
 
 ---
@@ -23,7 +23,7 @@ GitHub 连接超时 (port 443) 是因为：
 
 ## 现在该做什么
 
-### ✅ 第 1 步：等待 Heroku CLI 安装完成
+###  第 1 步：等待 Heroku CLI 安装完成
 
 Homebrew 正在下载 Heroku CLI（约 11.6 MB）：
 ```bash
@@ -38,7 +38,7 @@ Homebrew 正在下载 Heroku CLI（约 11.6 MB）：
 
 ---
 
-### ✅ 第 2 步：验证 Heroku CLI 安装（5 分钟后）
+###  第 2 步：验证 Heroku CLI 安装（5 分钟后）
 
 ```bash
 # 打开新终端，检查是否安装成功
@@ -57,7 +57,7 @@ heroku --version
 
 ---
 
-### ✅ 第 3 步：登录 Heroku
+###  第 3 步：登录 Heroku
 
 ```bash
 heroku login
@@ -68,7 +68,7 @@ heroku login
 
 ---
 
-### ✅ 第 4 步：一键部署 MEV 仪表板
+###  第 4 步：一键部署 MEV 仪表板
 
 ```bash
 # 进入目录
@@ -98,7 +98,7 @@ chmod +x heroku-deploy-cn.sh
 
 ## 🆘 如果仍然失败
 
-### ❌ 问题 1: `heroku: command not found`
+###  问题 1: `heroku: command not found`
 
 ```bash
 # 解决方案：手动添加 PATH
@@ -107,7 +107,7 @@ source ~/.zshrc
 heroku --version
 ```
 
-### ❌ 问题 2: Heroku 登录超时
+###  问题 2: Heroku 登录超时
 
 ```bash
 # 解决方案：赋予 heroku 足够时间，或使用 API token
@@ -119,7 +119,7 @@ heroku --version
 # 3. 运行：heroku auth:login --browser=false
 ```
 
-### ❌ 问题 3: `git push heroku main` 失败
+###  问题 3: `git push heroku main` 失败
 
 ```bash
 # 常见原因：网络超时
@@ -130,7 +130,7 @@ git push heroku main
 
 ---
 
-## 📋 一键完整清单
+##  一键完整清单
 
 ```bash
 # 1️⃣ 等待 Heroku 安装完成（已在进行中）
@@ -178,7 +178,7 @@ heroku open
 
 ```bash
 # 您的仪表板已在 Render 上运行：
-# 🟢 https://mev.aileena.xyz
+#  https://mev.aileena.xyz
 
 # 如果 Heroku 部署实在有困难，Render 已足够用
 # Heroku 是备选方案
@@ -186,7 +186,7 @@ heroku open
 
 ---
 
-## 📊 网络优化建议
+##  网络优化建议
 
 ### 如果您在中国大陆：
 
@@ -205,17 +205,17 @@ git config --global http.lowSpeedTime 600  # 10 分钟
 
 ---
 
-## ✅ 完成后验证
+##  完成后验证
 
 ```bash
 # 仪表板应该显示：
 heroku open
 
 # 检查项：
-# ✅ 8 个标签页正常加载
-# ✅ 所有图表可见
-# ✅ 交互功能正常（缩放、悬停）
-# ✅ 控制台无错误（按 F12 查看）
+#  8 个标签页正常加载
+#  所有图表可见
+#  交互功能正常（缩放、悬停）
+#  控制台无错误（按 F12 查看）
 
 # 查看日志
 heroku logs --tail
@@ -223,19 +223,19 @@ heroku logs --tail
 
 ---
 
-## 🎯 最可能的场景
+##  最可能的场景
 
 **您现在的状态：**
-- ✅ MacBook 已准备
-- ✅ Homebrew 已有
-- 🔄 Heroku CLI 正在安装（下载中）
+-  MacBook 已准备
+-  Homebrew 已有
+-  Heroku CLI 正在安装（下载中）
 - ⏳ 需要等待 5-10 分钟
 
 **最可能的结果：**
 ```
-✅ Heroku CLI 安装成功（95% 概率）
-✅ 一键部署脚本运行成功（90% 概率）
-✅ 应用在 20 分钟内上线（85% 概率）
+ Heroku CLI 安装成功（95% 概率）
+ 一键部署脚本运行成功（90% 概率）
+ 应用在 20 分钟内上线（85% 概率）
 ```
 
 **如果出现意外：**
@@ -244,7 +244,7 @@ heroku logs --tail
 
 ---
 
-## 📞 需要帮助？
+##  需要帮助？
 
 **最快的调试步骤：**
 1. 复制错误信息
@@ -258,15 +258,15 @@ heroku logs --tail
 
 ---
 
-## 🎉 耐心等待！
+##  耐心等待！
 
 Homebrew 和 Heroku 都在安心下载中。
 这不是您的问题，只是网络延迟。
 
 **5-10 分钟后，您将拥有：**
-- ✅ 完整的 Heroku 部署设置
-- ✅ 两个在线 MEV 仪表板（Render + Heroku）
-- ✅ 自动化部署能力
+-  完整的 Heroku 部署设置
+-  两个在线 MEV 仪表板（Render + Heroku）
+-  自动化部署能力
 
 **然后您可以随时：**
 - 更新代码 → `git push`
@@ -275,6 +275,6 @@ Homebrew 和 Heroku 都在安心下载中。
 
 ---
 
-**现在就放心等待吧，已经很接近了！🚀**
+**现在就放心等待吧，已经很接近了！**
 
 *最后更新：2024-02-28 | 针对网络延迟的实用指南*

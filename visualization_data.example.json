@@ -1,0 +1,46 @@
+{
+  "token_pair_fragility": {
+    "headline_percent": 38.2,
+    "pump_wsol_label": "PUMP/WSOL",
+    "safe_pair_label": "SOL/USDC",
+    "safe_pairs_label": "Blue-chip pairs",
+    "points": {
+      "pump_wsol": [1.5, 8.8],
+      "safe_pair": [7.2, 3.0],
+      "safe_pairs": [8.1, 2.6]
+    }
+  },
+  "oracle_latency_window": {
+    "headline_latency_seconds": 2.1,
+    "headline_trade_percent": 34.7,
+    "pool_latencies_us": {
+      "HumidiFi": 2100000,
+      "ZeroFi": 953483,
+      "TesseraV": 524160,
+      "SolFIV2": 524160,
+      "GoonFi": 202230,
+      "BisonFi": 137663,
+      "SolFi": 101930,
+      "AlphaQ": 99770
+    }
+  },
+  "mev_battlefield": {
+    "pool_profits_sol": {
+      "HumidiFi": 75.1,
+      "BisonFi": 11.2,
+      "GoonFi": 8.1,
+      "TesseraV": 7.8,
+      "SolFIV2": 7.2,
+      "ZeroFi": 2.4,
+      "OtherV2": 0
+    },
+    "profit_share_percent": {
+      "HumidiFi": 66.8,
+      "BisonFi": 10.0,
+      "GoonFi": 7.0,
+      "TesseraV": 6.7,
+      "SolFIV2": 6.7,
+      "Others": 2.8
+    }
+  }
+}

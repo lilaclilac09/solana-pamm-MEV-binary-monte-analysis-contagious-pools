@@ -3,7 +3,7 @@
 
 ---
 
-## 🎯 KEY FINDINGS FROM HEATMAP ANALYSIS
+##  KEY FINDINGS FROM HEATMAP ANALYSIS
 
 ### Top Risk Pairs (Heatmap Hotspots)
 
@@ -29,7 +29,7 @@
 
 ---
 
-## 🔗 CONTAGION ANALYSIS: Validators Hitting Multiple AMMs
+##  CONTAGION ANALYSIS: Validators Hitting Multiple AMMs
 
 | Validator | Cases | AMMs Hit | Contagion Level | Mitigation Priority |
 |-----------|-------|----------|-----------------|-------------------|
@@ -43,7 +43,7 @@
 
 ---
 
-## 📊 PROTOCOL VULNERABILITY INDEX (Based on Validator Exposure)
+##  PROTOCOL VULNERABILITY INDEX (Based on Validator Exposure)
 
 ```
 HumidiFi:   ████████████████████████ 67.8% of all fat sandwich profit (75.11 SOL)
@@ -63,7 +63,7 @@ ObricV2:    • <0.1% of profit (0.11 SOL)
 
 ---
 
-## 🛡️ MITIGATION STRATEGIES: CROSS-REFERENCED WITH FRAMEWORK
+## ️ MITIGATION STRATEGIES: CROSS-REFERENCED WITH FRAMEWORK
 
 ### **PHASE 1: Immediate (Week 1-2) - Target CRITICAL Pairs**
 
@@ -141,7 +141,7 @@ def update_humidifi_twap():
 
 ---
 
-## 📈 RISK REDUCTION PROJECTION
+##  RISK REDUCTION PROJECTION
 
 ```
 Baseline (Current):                    100% attack rate
@@ -152,7 +152,7 @@ Baseline (Current):                    100% attack rate
 
 ---
 
-## 🎯 IMMEDIATE ACTION ITEMS
+##  IMMEDIATE ACTION ITEMS
 
 **Week 1:**
 - [ ] Share risk analysis with HumidiFi developers
@@ -171,7 +171,7 @@ Baseline (Current):                    100% attack rate
 
 ---
 
-## 📁 SUPPORTING MATERIALS
+##  SUPPORTING MATERIALS
 
 All files in: `/02_mev_detection/filtered_output/`
 
@@ -185,7 +185,7 @@ All files in: `/02_mev_detection/filtered_output/`
 
 ---
 
-## 🔗 FRAMEWORK INTEGRATION
+##  FRAMEWORK INTEGRATION
 
 This analysis directly implements recommendations from:
 - **VALIDATOR_CONTAGION_FRAMEWORK.md** (Mechanism 1: Leader Slot Concentration)
@@ -196,7 +196,7 @@ This analysis directly implements recommendations from:
 
 ---
 
-## 📞 NEXT STEPS
+##  NEXT STEPS
 
 1. **Verify with validators:** Confirm HEL1US, DRpbCBMxVnDK, Fd7btgySsrjuo25 agree to filtering
 2. **Coordinate with protocols:** Work with HumidiFi on TWAP implementation

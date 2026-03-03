@@ -1,0 +1,73 @@
+
+VALIDATOR AND SIGNER COMPREHENSIVE ANALYSIS
+Generated: March 03, 2026 at 04:12 PM
+
+=== EXECUTIVE SUMMARY ===
+• Total Validators Analyzed: 15
+• Total MEV Events: 1,501
+• Unique Signers/Attackers: 0
+• High-Risk Validators: 15
+
+=== TOP 10 VALIDATORS BY MEV CONCENTRATION ===
+
+1. HEL1USMZKAL2odpNBj2oCjffnFGaYwmbGmyewGv1e2TU
+   MEV Events: 86
+   Concentration: 5.7295%
+   Risk Level: HIGH
+   Associated Signers: 0
+
+2. DRpbCBMxVnDK7maPM5tGv6MvB3v1sRMC86PZ8okm21hy
+   MEV Events: 58
+   Concentration: 3.8641%
+   Risk Level: HIGH
+   Associated Signers: 0
+
+3. Fd7btgySsrjuo25CJCj7oE7VPMyezDhnx7pZkj2v69Nk
+   MEV Events: 39
+   Concentration: 2.5983%
+   Risk Level: HIGH
+   Associated Signers: 0
+
+4. DtdSSG8ZJRZVv5Jx7K1MeWp7Zxcu19GD5wQRGRpQ9uMF
+   MEV Events: 37
+   Concentration: 2.4650%
+   Risk Level: HIGH
+   Associated Signers: 0
+
+5. 9jxgosAfHgHzwnxsHw4RAZYaLVokMbnYtmiZBreynGFP
+   MEV Events: 34
+   Concentration: 2.2652%
+   Risk Level: HIGH
+   Associated Signers: 0
+
+6. DNVZMSqeRH18Xa4MCTrb1MndNf3Npg4MEwqswo23eWkf
+   MEV Events: 27
+   Concentration: 1.7988%
+   Risk Level: HIGH
+   Associated Signers: 0
+
+7. ChorusmmK7i1AxXeiTtQgQZhQNiXYU84ULeaYF1EH15n
+   MEV Events: 26
+   Concentration: 1.7322%
+   Risk Level: HIGH
+   Associated Signers: 0
+
+8. 5pPRHniefFjkiaArbGX3Y8NUysJmQ9tMZg3FrFGwHzSm
+   MEV Events: 26
+   Concentration: 1.7322%
+   Risk Level: HIGH
+   Associated Signers: 0
+
+9. CAo1dCGYrB6NhHh5xb1cGjUiu86iyCfMTENxgHumSve4
+   MEV Events: 26
+   Concentration: 1.7322%
+   Risk Level: HIGH
+   Associated Signers: 0
+
+10. 9W3QTgBhkU4Bwg6cwnDJo6eGZ9BtZafSdu1Lo9JmWws7
+   MEV Events: 25
+   Concentration: 1.6656%
+   Risk Level: HIGH
+   Associated Signers: 0
+
+=== TOP 10 SIGNERS BY ACTIVITY ===

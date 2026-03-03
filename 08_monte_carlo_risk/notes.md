@@ -18,15 +18,15 @@
 
 ### Execution Outputs
 
-1. ✓ Using existing df_clean: 10,000 rows
-2. ⚠️  Validator stats not found. Using default bot ratios.
+1.  Using existing df_clean: 10,000 rows
+2. ️  Validator stats not found. Using default bot ratios.
 3. 2. Pool (account_trade)
-4. ✓ Saved validator visualization to: monte_carlo_grouped_validator.png
-5. ✓ Saved pool visualization to: monte_carlo_grouped_pool.png
+4.  Saved validator visualization to: monte_carlo_grouped_validator.png
+5.  Saved pool visualization to: monte_carlo_grouped_pool.png
 6. Scenario  Sandwich Risk (%)  Front-Run Risk (%)  Back-Run Risk (%)  Expected Slippage (%)  Expected Loss (SOL)  Success Rate (%)
-7. ✓ Saved comparison to: monte_carlo_scenario_comparison.csv
-8. ✓ Saved plot to: monte_carlo_scenario_comparison.png
-9. ✓ Saved plot to: monte_carlo_risk_distributions.png
+7.  Saved comparison to: monte_carlo_scenario_comparison.csv
+8.  Saved plot to: monte_carlo_scenario_comparison.png
+9.  Saved plot to: monte_carlo_risk_distributions.png
 
 ### Generated Files
 

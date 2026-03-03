@@ -1,6 +1,6 @@
 # Contagious Vulnerability Analysis: Technical Documentation
 
-**Status**: ✅ Complete | Generated: 2024-02-08
+**Status**:  Complete | Generated: 2024-02-08
 
 ---
 
@@ -8,7 +8,7 @@
 
 This analysis quantifies **contagious vulnerability** — a systemic risk where oracle lag on one protocol ("trigger pool") enables coordinated MEV attacks on adjacent protocols ("downstream pools").
 
-### Key Hypothesis Validated ✓
+### Key Hypothesis Validated 
 
 > **80% of Fat Sandwich attacks involve multi-pool jumps**, with high-lag pools acting as the "price signal leg" for coordinated bot strategies.
 
@@ -138,7 +138,7 @@ Cascade Rate (%) = (Attacks cascading to downstream pools / Total trigger attack
 **Example**:
 - 593 attacks on BisonFi
 - 475 followed by attacks on HumidiFi/ZeroFi/GoonFi within 5000ms
-- **Cascade rate**: 80.1% ✗ CRITICAL
+- **Cascade rate**: 80.1%  CRITICAL
 
 ### 4. Attack Probability Analysis
 
@@ -328,17 +328,17 @@ See `13_contagion_diagnostic.ipynb` for:
 ### Data Limitations
 
 Current analysis uses:
-- ✓ Real MEV attack data (1,501 attacks across 8 pools)
-- ✓ Real pool identifiers (BisonFi, HumidiFi, ZeroFi, GoonFi, etc.)
-- ⚠ Synthetic timestamps (sequential 1-second intervals)
-- ⚠ Placeholder oracle lag data (requires real oracle analysis output)
+-  Real MEV attack data (1,501 attacks across 8 pools)
+-  Real pool identifiers (BisonFi, HumidiFi, ZeroFi, GoonFi, etc.)
+-  Synthetic timestamps (sequential 1-second intervals)
+-  Placeholder oracle lag data (requires real oracle analysis output)
 
 ### Framework Reliability
 
-- ✓ Handles missing columns (auto-normalizes)
-- ✓ Works with partial data (gracefully skips unavailable analyses)
-- ✓ Robust to data type mismatches (auto-converts types)
-- ✓ Validated with real Solana MEV dataset
+-  Handles missing columns (auto-normalizes)
+-  Works with partial data (gracefully skips unavailable analyses)
+-  Robust to data type mismatches (auto-converts types)
+-  Validated with real Solana MEV dataset
 
 ### Recommendations for Production Use
 

@@ -3,13 +3,13 @@
 **Generated**: February 26, 2026  
 **Report File**: `08_monte_carlo_risk/COMPREHENSIVE_GUIDE.md`  
 **Total Content**: 1,625 lines (expanded from 967 lines)  
-**Status**: ✅ Complete with all requested sections
+**Status**:  Complete with all requested sections
 
 ---
 
-## 📊 Report Sections Added
+##  Report Sections Added
 
-### 1. MEV Attacker Case Studies (✅ Complete)
+### 1. MEV Attacker Case Studies ( Complete)
 **Lines Added**: ~350  
 **Content**:
 - Top 20 MEV attackers by profit ($79.54 captured, 63.6% of total)
@@ -28,7 +28,7 @@
 
 ---
 
-### 2. Validator Contagion Investigation (✅ Complete)
+### 2. Validator Contagion Investigation ( Complete)
 **Lines Added**: ~280  
 **Content**:
 - Network topology analysis (189 validators, 8 pools, 87 validator connections)
@@ -55,7 +55,7 @@
 
 ---
 
-### 3. Jupiter Multi-Hop Analysis (✅ Complete)
+### 3. Jupiter Multi-Hop Analysis ( Complete)
 **Lines Added**: ~320  
 **Content**:
 - Dataset overview (5,506,090 transactions, 10.03% multi-hop)
@@ -84,7 +84,7 @@
 
 ---
 
-### 4. MEV Detection Refinement (✅ Complete)
+### 4. MEV Detection Refinement ( Complete)
 **Lines Added**: ~380  
 **Content**:
 - Analysis methodology (refine_mev_detection.py process)
@@ -114,7 +114,7 @@
 
 ---
 
-## 📈 Overall Report Statistics
+##  Overall Report Statistics
 
 | Metric | Value |
 |--------|-------|
@@ -128,7 +128,7 @@
 
 ---
 
-## 🎯 Key Combined Insights
+##  Key Combined Insights
 
 ### Cross-Section Analysis
 
@@ -155,23 +155,23 @@
 
 ---
 
-## 📁 Generated Files
+##  Generated Files
 
 ```
-✅ Main Report:
+ Main Report:
    - 08_monte_carlo_risk/COMPREHENSIVE_GUIDE.md (1,625 lines)
 
-✅ PDF Generation Script:
+ PDF Generation Script:
    - generate_pdf_report.py (Professional PDF converter)
 
-✅ Data Sources Referenced:
+ Data Sources Referenced:
    - 02_mev_detection/ATTACKER_KEYS_BY_POOL.csv (Top attackers)
    - 02_mev_detection/POOL_SUMMARY.csv (Pool statistics)
    - 04_validator_analysis/validator_contagion_graph.json (Validator network)
    - 02_mev_detection/jupiter_analysis/JUPITER_MULTIHOP_GUIDE.md (Multi-hop analysis)
    - 02_mev_detection/jupiter_analysis/refine_mev_detection.py (Classification logic)
 
-✅ Analysis Results:
+ Analysis Results:
    - contagion_report.json (Cascade statistics)
    - jupiter_routing_summary.csv (Hop distribution)
    - mev_refinement_summary.json (Classification results)
@@ -179,7 +179,7 @@
 
 ---
 
-## 🚀 PDF Report Generation
+##  PDF Report Generation
 
 ### Option 1: Using Pandoc (Recommended)
 ```bash
@@ -217,7 +217,7 @@ python3 generate_pdf_report.py
 
 ---
 
-## ✅ Completion Checklist
+##  Completion Checklist
 
 - [x] MEV Attacker Case Studies added (347 lines)
 - [x] Validator Contagion Investigation added (280 lines)
@@ -233,6 +233,6 @@ python3 generate_pdf_report.py
 
 ---
 
-**Report Status**: ✅ **PRODUCTION READY**  
+**Report Status**:  **PRODUCTION READY**  
 **Next Step**: Generate PDF using pandoc (installation in progress)  
 **Location**: [08_monte_carlo_risk/COMPREHENSIVE_GUIDE.md](08_monte_carlo_risk/COMPREHENSIVE_GUIDE.md)

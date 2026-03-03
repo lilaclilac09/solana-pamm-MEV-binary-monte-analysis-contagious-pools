@@ -2,7 +2,7 @@
 
 This directory contains all analysis notebooks organized by analysis type. Each notebook has its own folder with outputs and documentation.
 
-## 📁 Folder Structure
+##  Folder Structure
 
 ```
 notebooks/
@@ -18,7 +18,7 @@ notebooks/
 ├── 08_monte_carlo_risk/           # Monte Carlo risk simulation
 ```
 
-## 📊 Execution Order
+##  Execution Order
 
 1. **01_data_cleaning/** - Clean and parse raw data
 2. **01a_data_cleaning_filters/** - Filter DeezNode transactions
@@ -32,7 +32,7 @@ notebooks/
 10. **08_monte_carlo_risk/** - Risk simulation
 11. **09_aggregator_mev_analysis/** - Combined aggregator + MEV analysis
 
-## 📝 Each Folder Contains
+##  Each Folder Contains
 
 - **Notebook file** (`.ipynb`) - The analysis notebook
 - **notes.md** - Detailed documentation of the analysis
@@ -40,7 +40,7 @@ notebooks/
   - **csv/** - CSV data files
   - **images/** - Visualization images
 
-## 🔍 Quick Reference
+##  Quick Reference
 
 | Notebook | Purpose | Key Outputs |
 |----------|---------|-------------|
@@ -56,19 +56,19 @@ notebooks/
 | `08_monte_carlo_risk` | Risk simulation | `monte_carlo_by_*.csv` |
 
 
-## 📚 Documentation
+##  Documentation
 
 - Each folder has a `notes.md` file with detailed documentation
 
 
-## 🔗 Key Code Locations
+##  Key Code Locations
 
-All code locations are documented in `CODE_ORGANIZATION_PLAN.md` with 📍 markers pointing to:
+All code locations are documented in `CODE_ORGANIZATION_PLAN.md` with  markers pointing to:
 - Source notebook locations
 - Specific cell numbers
 - Reference documentation
 
-## ⚠️ Important Notes
+## ️ Important Notes
 
 - **All code stays in `.ipynb` notebooks** - NO `.py` file extraction
 - Outputs are organized in each notebook's `outputs/` folder

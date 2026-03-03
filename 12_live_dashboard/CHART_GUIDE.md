@@ -1,11 +1,11 @@
-# 🎨 MEV Dashboard - How Each Chart Was Made
+#  MEV Dashboard - How Each Chart Was Made
 
-## 🌐 LIVE DEMO
+##  LIVE DEMO
 **Your Dashboard:** https://mev.aileena.xyz
 
 ---
 
-## 📊 CHART TYPE 1: BAR CHART
+##  CHART TYPE 1: BAR CHART
 **Purpose:** Compare MEV profits across protocols
 
 ### Data:
@@ -35,7 +35,7 @@ chart = px.bar(
 
 ---
 
-## 🥧 CHART TYPE 2: PIE CHART
+##  CHART TYPE 2: PIE CHART
 **Purpose:** Show profit distribution as percentages
 
 ### Code:
@@ -53,7 +53,7 @@ pie = px.pie(
 
 ---
 
-## 🔥 CHART TYPE 3: HEATMAP
+##  CHART TYPE 3: HEATMAP
 **Purpose:** Show attacker overlap between pools
 
 ### Data:
@@ -79,7 +79,7 @@ heatmap = px.imshow(
 
 ---
 
-## ⚡ CHART TYPE 4: SCATTER PLOT
+##  CHART TYPE 4: SCATTER PLOT
 **Purpose:** Show relationship between attacks and profit
 
 ### Code:
@@ -98,7 +98,7 @@ scatter = px.scatter(
 
 ---
 
-## 🕸️ CHART TYPE 5: NETWORK GRAPH
+## ️ CHART TYPE 5: NETWORK GRAPH
 **Purpose:** Visualize pool connections via shared attackers
 
 ### Step 1: Create network
@@ -149,7 +149,7 @@ fig = go.Figure(
 
 ---
 
-## 📋 CHART TYPE 6: DATA TABLE
+##  CHART TYPE 6: DATA TABLE
 **Purpose:** Display attacker details
 
 ### Code:
@@ -168,7 +168,7 @@ table = dash_table.DataTable(
 
 ---
 
-## 🎯 PUTTING IT ALL TOGETHER
+##  PUTTING IT ALL TOGETHER
 
 ### Your Complete Dashboard =
 
@@ -183,7 +183,7 @@ server = app.server  # ← For Render deployment
 
 # 2. Create layout
 app.layout = html.Div([
-    html.H1('🚀 MEV Dashboard'),
+    html.H1(' MEV Dashboard'),
     
     dcc.Tabs([
         # Tab 1
@@ -217,7 +217,7 @@ cd 12_live_dashboard && gunicorn --bind 0.0.0.0:$PORT mev_dashboard:server
 
 ---
 
-## 📊 DATA FLOW
+##  DATA FLOW
 
 ```
 Your MEV Stats (Python dicts)
@@ -239,7 +239,7 @@ https://mev.aileena.xyz (your live site!)
 
 ---
 
-## 🎨 STYLING
+##  STYLING
 
 ### Colors Used:
 ```python
@@ -266,7 +266,7 @@ font = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto'
 
 ---
 
-## 🚀 HOW TO MODIFY
+##  HOW TO MODIFY
 
 ### Add a new chart:
 ```python
@@ -299,7 +299,7 @@ def update_graph(selected_value):
 
 ---
 
-## 📚 KEY LIBRARIES
+##  KEY LIBRARIES
 
 ```python
 dash==4.0.0              # Web framework
@@ -312,7 +312,7 @@ flask==3.0.0             # Web server (auto-included)
 
 ---
 
-## ✨ FEATURES ON YOUR DASHBOARD
+##  FEATURES ON YOUR DASHBOARD
 
 1. **8 Interactive Tabs**
    - Overview statistics
@@ -345,7 +345,7 @@ flask==3.0.0             # Web server (auto-included)
 
 ---
 
-## 🎯 SUMMARY
+##  SUMMARY
 
 **Your dashboard took:**
 - 748 lines of Python
@@ -366,7 +366,7 @@ https://mev.aileena.xyz
 
 ---
 
-## 💡 QUICK TIPS
+##  QUICK TIPS
 
 **To test locally:**
 ```bash
@@ -395,6 +395,6 @@ px.bar(df, x='Protocol', y='New Column')
 
 ---
 
-🎉 **Your dashboard is live and fully functional!**
+ **Your dashboard is live and fully functional!**
 
 Questions? Check [mev_dashboard.py](mev_dashboard.py) for the full source code.

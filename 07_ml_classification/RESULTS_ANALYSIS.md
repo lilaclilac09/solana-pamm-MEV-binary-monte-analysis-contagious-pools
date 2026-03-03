@@ -99,7 +99,7 @@ Components: 2
 ### 4. Models Skipped
 
 ```
-⚠️  Skipping SVM and Logistic Regression (require at least 2 classes)
+️  Skipping SVM and Logistic Regression (require at least 2 classes)
 ```
 
 **Analysis**: 

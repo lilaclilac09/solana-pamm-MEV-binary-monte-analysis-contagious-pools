@@ -1,4 +1,4 @@
-# ✅ Setup & Execution Checklist
+#  Setup & Execution Checklist
 
 ## Pre-Execution Verification
 
@@ -13,8 +13,8 @@
   - [ ] `DUPLICATE_FILES_REMOVED.txt` (this file)
 
 - [ ] **Duplicate files removed from `10_advanced_FP_solution/`**:
-  - [ ] `01_improved_fat_sandwich_detection.ipynb` ❌ REMOVED
-  - [ ] `01_improved_fat_sandwich_detection_COMBINED.ipynb` ❌ REMOVED
+  - [ ] `01_improved_fat_sandwich_detection.ipynb`  REMOVED
+  - [ ] `01_improved_fat_sandwich_detection_COMBINED.ipynb`  REMOVED
   - [ ] (FAT_SANDWICH_VS_MULTIHOP_CLASSIFICATION.md - kept for reference)
   - [ ] (FAT_SANDWICH_VS_MULTIHOP_QUICK_REFERENCE.md - kept for reference)
 
@@ -25,9 +25,9 @@
 ### Option A: Interactive Notebook (RECOMMENDED)
 
 ```
-✓ Best for: Exploration, parameter testing, visualization
-✓ Speed: Can process ~10,000 attacks interactively
-✓ Output: Real-time plots and statistics
+ Best for: Exploration, parameter testing, visualization
+ Speed: Can process ~10,000 attacks interactively
+ Output: Real-time plots and statistics
 
 STEPS:
 1. Open: 12_fat_sandwich_optimized_detector.ipynb
@@ -46,9 +46,9 @@ STEPS:
 ### Option B: Command Line Script
 
 ```
-✓ Best for: Batch processing, automation, large datasets
-✓ Speed: Single execution, full pipeline
-✓ Output: Files saved automatically
+ Best for: Batch processing, automation, large datasets
+ Speed: Single execution, full pipeline
+ Output: Files saved automatically
 
 STEPS:
 1. Open terminal
@@ -91,12 +91,12 @@ FAT SANDWICH vs MULTI-HOP ARBITRAGE DETECTOR (OPTIMIZED)
 ================================================================================
 
 Loading data from 01_data_cleaning/outputs/pamm_clean_final.parquet...
-✓ Loaded 1,234,567 records
-✓ Filtered to 456,789 TRADE events
+ Loaded 1,234,567 records
+ Filtered to 456,789 TRADE events
 
-✓ Initialized detector with 456,789 trade events
-✓ Unique signers: 12,345
-✓ Time range: 1234567890000 to 1234567900000
+ Initialized detector with 456,789 trade events
+ Unique signers: 12,345
+ Time range: 1234567890000 to 1234567900000
 
 ================================================================================
 FAT SANDWICH DETECTION: Rolling Time Windows
@@ -109,7 +109,7 @@ Parameters:
 
 Scanning...
 
-✓ Total detections: 23,456
+ Total detections: 23,456
 
 By Time Window:
   1s:  6,234 (26.6%)
@@ -134,12 +134,12 @@ Classifying: 4,692/23,456...
 ...
 Completed: 23,456/23,456
 
-📊 Classification Results:
+ Classification Results:
    fat_sandwich:       15,234 (64.9%)
    multi_hop_arbitrage: 6,123 (26.1%)
    ambiguous:          2,099 (8.9%)
 
-✓ Results saved to fat_sandwich_classification_results.parquet
+ Results saved to fat_sandwich_classification_results.parquet
 ```
 
 ### Generated Files
@@ -398,7 +398,7 @@ If something doesn't work:
 
 ---
 
-## Summary Checklist ✅
+## Summary Checklist 
 
 - [ ] Removed 4 duplicate files from `10_advanced_FP_solution`
 - [ ] Created unified `FatSandwichDetector` class
@@ -409,6 +409,6 @@ If something doesn't work:
 - [ ] Output format validated
 - [ ] Examples provided
 
-**YOU ARE READY TO GO!** 🚀
+**YOU ARE READY TO GO!** 
 
 Pick your execution method (notebook or script) and start analyzing MEV attacks.

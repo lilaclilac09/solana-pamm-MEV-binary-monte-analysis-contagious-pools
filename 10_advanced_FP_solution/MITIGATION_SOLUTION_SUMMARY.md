@@ -283,19 +283,19 @@ TWAP = Average(slot_0...slot_11) = 0.995000
 
 ```
 Phase 1 Result (Week 1):
-  ✓ Validator diversity routing deployed
-  ✓ Attacks: 15 → 13 (-13%)
-  ✓ Profit: 10.476 SOL → 9.134 SOL (-13%)
+   Validator diversity routing deployed
+   Attacks: 15 → 13 (-13%)
+   Profit: 10.476 SOL → 9.134 SOL (-13%)
 
 Phase 2A Result (Week 3):
-  ✓ Slot-level filtering active
-  ✓ Attacks: 13 → 5 (-62% cumulative)
-  ✓ Profit: 9.134 SOL → 3.662 SOL (-62% cumulative)
+   Slot-level filtering active
+   Attacks: 13 → 5 (-62% cumulative)
+   Profit: 9.134 SOL → 3.662 SOL (-62% cumulative)
 
 Phase 2B Result (Week 4):
-  ✓ TWAP oracle deployed
-  ✓ Attacks: 5 → 2 (-87% cumulative)
-  ✓ Profit: 3.662 SOL → 0.732 SOL (-93% cumulative)
+   TWAP oracle deployed
+   Attacks: 5 → 2 (-87% cumulative)
+   Profit: 3.662 SOL → 0.732 SOL (-93% cumulative)
 ```
 
 ### Key Metrics to Track

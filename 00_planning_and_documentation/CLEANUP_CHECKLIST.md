@@ -1,4 +1,4 @@
-# 📋 FILE CLEANUP & CONSOLIDATION CHECKLIST
+#  FILE CLEANUP & CONSOLIDATION CHECKLIST
 
 **Project:** Solana PAMM MEV Binary Monte Analysis  
 **Created:** February 8, 2026  
@@ -6,19 +6,19 @@
 
 ---
 
-## 🎯 QUICK ACTION SUMMARY
+##  QUICK ACTION SUMMARY
 
 | Action | Count | Priority | Time Est |
 |--------|-------|----------|----------|
-| 🔴 Delete Duplicates | 5 files | P1 | 5 min |
-| 📦 Archive Old Versions | 8 files | P2 | 10 min |
-| 🔍 Investigate GMM Conflict | 2 files | P1 | 15 min |
-| ✅ Keep & Audit | 12 files | P0 | 30 min |
+|  Delete Duplicates | 5 files | P1 | 5 min |
+|  Archive Old Versions | 8 files | P2 | 10 min |
+|  Investigate GMM Conflict | 2 files | P1 | 15 min |
+|  Keep & Audit | 12 files | P0 | 30 min |
 | **TOTAL** | **27 files** | - | **60 min** |
 
 ---
 
-## ✂️ DELETE IMMEDIATELY (Confirmed Duplicates)
+## ️ DELETE IMMEDIATELY (Confirmed Duplicates)
 
 These files are confirmed superseded and can be safely deleted:
 
@@ -47,7 +47,7 @@ mv 10_advanced_FP_solution/01_improved_fat_sandwich_detection_COMBINED.ipynb ARC
 
 ---
 
-## 🔍 INVESTIGATE BEFORE DELETION (Conflicting Timestamps)
+##  INVESTIGATE BEFORE DELETION (Conflicting Timestamps)
 
 ### GMM Analysis Files - TIMESTAMP CONFLICT
 
@@ -83,7 +83,7 @@ grep -A 5 "IsolationForest\|fit_predict" 09a_advanced_ml/gmm*.py
 
 ---
 
-## ⚠️ ARCHIVE (Old but Potentially Useful)
+## ️ ARCHIVE (Old but Potentially Useful)
 
 Keep in archive folder for reference:
 
@@ -96,7 +96,7 @@ Keep in archive folder for reference:
 - [ ] `04_validator_analysis/12_validator_contagion_analysis.py` (1080 lines)
   - This is NOT used by test_contagion_analyzer.py
   - Uses `ValidatorContagionAnalyzer` class
-  - Superseded by `contagious_vulnerability_analyzer.py` (601 lines) ✅ KEEP PRIMARY
+  - Superseded by `contagious_vulnerability_analyzer.py` (601 lines)  KEEP PRIMARY
   - **Decision:** ARCHIVE as reference
 
 **Cleanup Command:**
@@ -118,12 +118,12 @@ mv 04_validator_analysis/12_validator_contagion_analysis.py ARCHIVE/validator_an
 
 ---
 
-## ✅ KEEP & AUDIT (Production Files)
+##  KEEP & AUDIT (Production Files)
 
 ### Core Detection (Keep)
 - [ ] **fat_sandwich_detector_optimized.py** (481 lines, main class)
   - [ ] Verify imports work in 12_fat_sandwich_optimized_detector.ipynb
-  - [ ] Run test: `python3 -c "from fat_sandwich_detector_optimized import FatSandwichDetector; print('✓')"`
+  - [ ] Run test: `python3 -c "from fat_sandwich_detector_optimized import FatSandwichDetector; print('')"`
 
 - [ ] **12_fat_sandwich_optimized_detector.ipynb** (31K, latest 2/8/26 21:39)
   - [ ] Verify all cells execute without errors
@@ -132,8 +132,8 @@ mv 04_validator_analysis/12_validator_contagion_analysis.py ARCHIVE/validator_an
 
 ### GMM Analysis (Keep & Verify)
 - [ ] **09a_advanced_ml/gmm_optimized_analysis.py** (320 lines, primary)
-  - [ ] ✅ CONFIRMED: Uses RobustScaler (correct approach)
-  - [ ] Run: `python3 -c "from gmm_optimized_analysis import *; print('✓')"`
+  - [ ]  CONFIRMED: Uses RobustScaler (correct approach)
+  - [ ] Run: `python3 -c "from gmm_optimized_analysis import *; print('')"`
   - [ ] Note: DELETE gmm_fast_analysis.py (inferior approach)
 
 - [ ] **09a_advanced_ml/01_gmm_clustering_analysis.ipynb** (main notebook)
@@ -150,7 +150,7 @@ mv 04_validator_analysis/12_validator_contagion_analysis.py ARCHIVE/validator_an
 
 ### Contagion Analysis (Keep)
 - [ ] **contagious_vulnerability_analyzer.py** (601 lines, primary class)
-  - [ ] ✅ CONFIRMED: Used by test_contagion_analyzer.py
+  - [ ]  CONFIRMED: Used by test_contagion_analyzer.py
   - [ ] Run test: `python3 test_contagion_analyzer.py 2>&1 | head -50`
 
 - [ ] **test_contagion_analyzer.py** (71 lines, test harness)
@@ -168,7 +168,7 @@ mv 04_validator_analysis/12_validator_contagion_analysis.py ARCHIVE/validator_an
 
 ---
 
-## 🚀 EXECUTION PROCEDURE
+##  EXECUTION PROCEDURE
 
 ### STEP 1: Backup (5 minutes)
 ```bash
@@ -221,20 +221,20 @@ mv 04_validator_analysis/13_validator_contagion_investigation.ipynb ARCHIVE/supp
 python3 << 'EOF'
 from fat_sandwich_detector_optimized import FatSandwichDetector
 import pandas as pd
-print("✓ fat_sandwich_detector_optimized.py imports successfully")
+print(" fat_sandwich_detector_optimized.py imports successfully")
 EOF
 ```
 
 **Test 2: Contagion Analyzer**
 ```bash
 python3 test_contagion_analyzer.py 2>&1 | head -20
-echo "✓ test_contagion_analyzer.py runs successfully"
+echo " test_contagion_analyzer.py runs successfully"
 ```
 
 **Test 3: Pool Analysis**
 ```bash
 cd 06_pool_analysis && python3 pamm_cross_comparison_final.py 2>&1 | head -10
-echo "✓ pamm_cross_comparison_final.py runs successfully"
+echo " pamm_cross_comparison_final.py runs successfully"
 ```
 
 ### STEP 5: Update Documentation (10 minutes)
@@ -266,7 +266,7 @@ echo "✓ pamm_cross_comparison_final.py runs successfully"
 
 ---
 
-## 📊 Before/After Summary
+##  Before/After Summary
 
 ### Before Cleanup
 ```
@@ -284,15 +284,15 @@ Scattered analysis notebooks
 15 Python files (5 archived)
 23 Jupyter Notebooks (5 archived)
 ---
-✅ Single implementation per algorithm
-✅ Clear primary entry points
-✅ Class-based modern implementation
-✅ Organized backup
+ Single implementation per algorithm
+ Clear primary entry points
+ Class-based modern implementation
+ Organized backup
 ```
 
 ---
 
-## ⚡ QUICK COMMAND REFERENCE
+##  QUICK COMMAND REFERENCE
 
 **One-Command Archive All Old Files:**
 ```bash
@@ -305,20 +305,20 @@ mv 06_pool_analysis/pamm_cross_comparison_analysis.py ARCHIVE/old_algorithms/ &&
 mv 10_advanced_FP_solution/01_improved_fat_sandwich_detection.ipynb ARCHIVE/old_notebooks/ && \
 mv 10_advanced_FP_solution/01_improved_fat_sandwich_detection_COMBINED.ipynb ARCHIVE/old_notebooks/ && \
 mv 04_validator_analysis/12_validator_contagion_analysis.py ARCHIVE/validator_analysis_old/ && \
-echo "✅ Archive complete! Check ARCHIVE folder"
+echo " Archive complete! Check ARCHIVE folder"
 ```
 
 **Verify All Tests Pass:**
 ```bash
 cd /Users/aileen/Downloads/pamm/solana-pamm-analysis/solana-pamm-MEV-binary-monte-analysis && \
-python3 -c "from fat_sandwich_detector_optimized import FatSandwichDetector; print('✓ fat_sandwich_detector_optimized')" && \
-python3 test_contagion_analyzer.py 2>&1 | head -5 && echo "✓ test_contagion_analyzer" && \
-cd 06_pool_analysis && python3 pamm_cross_comparison_final.py 2>&1 | head -5 && echo "✓ pamm_cross_comparison_final"
+python3 -c "from fat_sandwich_detector_optimized import FatSandwichDetector; print(' fat_sandwich_detector_optimized')" && \
+python3 test_contagion_analyzer.py 2>&1 | head -5 && echo " test_contagion_analyzer" && \
+cd 06_pool_analysis && python3 pamm_cross_comparison_final.py 2>&1 | head -5 && echo " pamm_cross_comparison_final"
 ```
 
 ---
 
-## 📝 Notes
+##  Notes
 
 1. **GMM Conflict Resolution:** Decide whether to keep gmm_fast_analysis.py:
    - If benchmarks show it's faster → keep with clear naming
@@ -337,6 +337,6 @@ cd 06_pool_analysis && python3 pamm_cross_comparison_final.py 2>&1 | head -5 && 
 
 ---
 
-**Status:** ✅ Ready to execute  
+**Status:**  Ready to execute  
 **Estimated Time:** 60 minutes total  
 **Risk Level:** LOW (all old files backed up in ARCHIVE)

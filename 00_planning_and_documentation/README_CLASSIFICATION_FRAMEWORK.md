@@ -2,7 +2,7 @@
 
 ## Quick Start (Choose Your Path)
 
-### 👤 I'm an Analyst - Get me analyzing in <5 minutes
+###  I'm an Analyst - Get me analyzing in <5 minutes
 1. Read: [Quick Reference - Decision Tree](10_advanced_FP_solution/FAT_SANDWICH_VS_MULTIHOP_QUICK_REFERENCE.md#the-60-second-decision-tree)
 2. Use: [30-Second Checklist](10_advanced_FP_solution/FAT_SANDWICH_VS_MULTIHOP_QUICK_REFERENCE.md#instant-checklist-30-second-analysis)
 3. Classify: Run the code snippet for your cluster
@@ -11,7 +11,7 @@
 
 ---
 
-### 💻 I'm a Developer - Show me the code
+###  I'm a Developer - Show me the code
 1. See: [What's new in the module](DELIVERY_SUMMARY.md#new-functions-implemented)
 2. Code: [Using `classify_mev_attack()`](IMPLEMENTATION_SUMMARY.md#for-single-cluster-analysis)
 3. Integrate: [Production workflow](DELIVERY_SUMMARY.md#for-batch-processing-at-scale)
@@ -20,7 +20,7 @@
 
 ---
 
-### 🔬 I'm a Researcher - Deep dive
+###  I'm a Researcher - Deep dive
 1. Study: [Complete methodology](10_advanced_FP_solution/FAT_SANDWICH_VS_MULTIHOP_CLASSIFICATION.md)
 2. Learn: [Interactive notebook](10_advanced_FP_solution/11_fat_sandwich_vs_multihop_classification.ipynb)
 3. Validate: [Edge cases & ambiguous patterns](10_advanced_FP_solution/FAT_SANDWICH_VS_MULTIHOP_CLASSIFICATION.md#10-edge-cases-and-ambiguous-patterns)
@@ -29,7 +29,7 @@
 
 ---
 
-### 👔 I'm a Manager - Summary & metrics
+###  I'm a Manager - Summary & metrics
 1. Overview: [Implementation Summary](IMPLEMENTATION_SUMMARY.md)
 2. Metrics: [Performance expectations](DELIVERY_SUMMARY.md#-performance-metrics)
 3. Plan: [Integration checklist](IMPLEMENTATION_SUMMARY.md#integration-checklist)
@@ -121,7 +121,7 @@ print(f"Multi-Hop: {len(multi_hops)}")
 - `improved_fat_sandwich_detection.py` (485 lines)
   - Enhanced with 6 new functions
   - Production-ready error handling
-  - Verified working ✓
+  - Verified working 
 
 ### Documentation
 - `DELIVERY_SUMMARY.md` - What was delivered
@@ -159,13 +159,13 @@ print(f"Multi-Hop: {len(multi_hops)}")
 ## Decision Rules
 
 ### Definitive Fat Sandwich
-- ✓ 2+ wrapped victims + same token pair
-- ✓ 1-2 pools + Oracle burst
+-  2+ wrapped victims + same token pair
+-  1-2 pools + Oracle burst
 - Confidence: >90%
 
 ### Definitive Multi-Hop
-- ✓ 0 victims + cyclic path
-- ✓ 3+ pools + net balance = 0
+-  0 victims + cyclic path
+-  3+ pools + net balance = 0
 - Confidence: >90%
 
 ### Ambiguous
@@ -181,7 +181,7 @@ print(f"Multi-Hop: {len(multi_hops)}")
 ┌──────────────────────────┬─────────────────┬──────────────────┐
 │ Feature                  │ Fat Sandwich    │ Multi-Hop        │
 ├──────────────────────────┼─────────────────┼──────────────────┤
-│ Victims                  │ ✓ 2+ mandatory  │ ✗ 0 required     │
+│ Victims                  │  2+ mandatory  │  0 required     │
 │ Token Path               │ Same pair       │ Cycle            │
 │ Pools                    │ 1-2             │ 3+               │
 │ Net Balance              │ >0 (profit)     │ =0 (closed)      │
@@ -301,8 +301,8 @@ A: Flag for manual review. Confidence <70% is rare (~5% of cases).
 - **Dependencies**: pandas, numpy
 - **Module Size**: 485 lines
 - **Functions Added**: 6 (2 main, 4 supporting)
-- **Test Status**: ✅ Verified working
-- **Production Ready**: ✅ Yes
+- **Test Status**:  Verified working
+- **Production Ready**:  Yes
 
 ---
 
@@ -322,6 +322,6 @@ This framework provides **production-ready differentiation** between Fat Sandwic
 
 ---
 
-**Status**: ✅ Ready for production use  
+**Status**:  Ready for production use  
 **Last Updated**: February 8, 2026  
 **Version**: 1.0 - Complete Implementation

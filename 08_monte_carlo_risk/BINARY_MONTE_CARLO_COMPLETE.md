@@ -1,8 +1,8 @@
-# ✅ Binary Monte Carlo Implementation COMPLETE
+#  Binary Monte Carlo Implementation COMPLETE
 
 ## What You Now Have
 
-### 📦 **New Files in `/08_monte_carlo_risk/`**
+###  **New Files in `/08_monte_carlo_risk/`**
 
 1. **`mev_contagion_monte_carlo.py`** (500 lines)
    - Core Monte Carlo class
@@ -35,7 +35,7 @@
 
 ---
 
-## 🎯 Core Results: 300,000 Simulations
+##  Core Results: 300,000 Simulations
 
 ### Comparison: Jito vs BAM vs Harmony
 
@@ -53,7 +53,7 @@ High-Risk Events %      11.62%           1.45%          2.90%       87.5% reduct
 
 ---
 
-## 🚀 How to Use (3 Steps)
+##  How to Use (3 Steps)
 
 ### Step 1: Navigate to notebook
 ```bash
@@ -66,13 +66,13 @@ Press `Ctrl+A` then `Shift+Enter`
 (Takes ~4 seconds)
 
 ### Step 3: Results appear
-- ✅ CSV files: `outputs/monte_carlo_*.csv`
-- ✅ Plots: `outputs/*.png` (4 visualizations)
-- ✅ Statistics: Printed in notebook + summary table
+-  CSV files: `outputs/monte_carlo_*.csv`
+-  Plots: `outputs/*.png` (4 visualizations)
+-  Statistics: Printed in notebook + summary table
 
 ---
 
-## 📊 What Gets Generated
+##  What Gets Generated
 
 | Output | File | Contains |
 |--------|------|----------|
@@ -87,7 +87,7 @@ Press `Ctrl+A` then `Shift+Enter`
 
 ---
 
-## 🧮 The Model Explained (Simple Version)
+##  The Model Explained (Simple Version)
 
 ### For Each of 100,000 Simulations:
 
@@ -112,14 +112,14 @@ Press `Ctrl+A` then `Shift+Enter`
 ```
 
 **Why This Model?**
-- ✅ Binary draws match real-world yes/no decisions
-- ✅ Cascade binomial models contagion spread
-- ✅ Slots jumped correlates with validator skip probability
-- ✅ Loss formula from empirical data ($50 base + oracle impact)
+-  Binary draws match real-world yes/no decisions
+-  Cascade binomial models contagion spread
+-  Slots jumped correlates with validator skip probability
+-  Loss formula from empirical data ($50 base + oracle impact)
 
 ---
 
-## 📈 Key Insights
+##  Key Insights
 
 ### 1. Infrastructure Choice = Risk Reduction
 **Baseline Risk**: 11.62% of attacks exceed skipped-slot threshold  
@@ -143,7 +143,7 @@ Press `Ctrl+A` then `Shift+Enter`
 
 ---
 
-## 🔬 Technical Highlights
+##  Technical Highlights
 
 ### Performance
 - **Speed**: 300,000 simulations in 0.51 seconds
@@ -157,14 +157,14 @@ Press `Ctrl+A` then `Shift+Enter`
 - **Infrastructure reduction**: 65% BAM, 40% Harmony (configurable)
 
 ### Validation
-- ✅ Matches historical cascade rates from `contagion_report.json`
-- ✅ P90 < P99 (correct monotonicity)
-- ✅ Lower visibility → Lower cascades (correct direction)
-- ✅ Attack rate stable across scenarios (correct independence)
+-  Matches historical cascade rates from `contagion_report.json`
+-  P90 < P99 (correct monotonicity)
+-  Lower visibility → Lower cascades (correct direction)
+-  Attack rate stable across scenarios (correct independence)
 
 ---
 
-## 📚 Documentation Package
+##  Documentation Package
 
 | Document | Purpose | Read Time |
 |----------|---------|-----------|
@@ -175,7 +175,7 @@ Press `Ctrl+A` then `Shift+Enter`
 
 ---
 
-## 🔧 Customization Examples
+##  Customization Examples
 
 ### Add New Infrastructure
 ```python
@@ -213,7 +213,7 @@ cascades = cascades * (1 + centralization)
 
 ---
 
-## ✅ Deliverables Checklist
+##  Deliverables Checklist
 
 - [x] **Pure Python module** (mev_contagion_monte_carlo.py)
 - [x] **Jupyter notebook** (09_binary_monte_carlo_contagion.ipynb) 
@@ -230,7 +230,7 @@ cascades = cascades * (1 + centralization)
 
 ---
 
-## 🎓 Next Steps
+##  Next Steps
 
 ### Right Now (Today)
 1. Open: `08_monte_carlo_risk/09_binary_monte_carlo_contagion.ipynb`
@@ -252,7 +252,7 @@ cascades = cascades * (1 + centralization)
 
 ---
 
-## 📞 Support & Extensions
+##  Support & Extensions
 
 ### Questions?
 1. **Quick setup**: See QUICKSTART.md
@@ -267,7 +267,7 @@ cascades = cascades * (1 + centralization)
 
 ---
 
-## 📊 Sample Output (What You Get)
+##  Sample Output (What You Get)
 
 ### Notebook Output after running all cells:
 ```
@@ -277,19 +277,19 @@ RUNNING MONTE CARLO SIMULATIONS
 
 ▶ Running Jito Baseline (Current)...
   Simulations: 100,000
-  ✓ Attack rate: 14.90%
-  ✓ Mean cascades: 3.99
-  ✓ P90 slots jumped: 6.00
-  ✓ High risk events: 11.62%
+   Attack rate: 14.90%
+   Mean cascades: 3.99
+   P90 slots jumped: 6.00
+   High risk events: 11.62%
 
 ▶ Running BAM Privacy (65% visibility reduction)...
   Simulations: 100,000
-  ✓ Attack rate: 14.97%
-  ✓ Mean cascades: 1.41 ← 64.7% REDUCTION
-  ✓ P90 slots jumped: 3.00 ← 50.0% REDUCTION
-  ✓ High risk events: 1.45% ← 87.5% REDUCTION
+   Attack rate: 14.97%
+   Mean cascades: 1.41 ← 64.7% REDUCTION
+   P90 slots jumped: 3.00 ← 50.0% REDUCTION
+   High risk events: 1.45% ← 87.5% REDUCTION
 
-✓ Simulations completed in 0.51 seconds
+ Simulations completed in 0.51 seconds
   Total iterations: 300,000
 
 INFRASTRUCTURE COMPARISON TABLE
@@ -317,22 +317,22 @@ sim,trigger,cascades,slots_jumped,total_loss,scenario,infra_gap,high_risk
 
 ---
 
-## 🎉 Summary
+##  Summary
 
 You now have a **production-ready stochastic simulation framework** for MEV contagion analysis that:
 
-✅ Runs 300k simulations in <1 second  
-✅ Tests 3 infrastructure scenarios (Jito/BAM/Harmony)  
-✅ Quantifies risk reduction (50-65% improvement with privacy/competition)  
-✅ Generates 4 publication-ready visualizations  
-✅ Exports results as CSV for further analysis  
-✅ Is fully documented with customization examples  
-✅ Integrates with your existing `contagion_report.json`  
+ Runs 300k simulations in <1 second  
+ Tests 3 infrastructure scenarios (Jito/BAM/Harmony)  
+ Quantifies risk reduction (50-65% improvement with privacy/competition)  
+ Generates 4 publication-ready visualizations  
+ Exports results as CSV for further analysis  
+ Is fully documented with customization examples  
+ Integrates with your existing `contagion_report.json`  
 
-**To get started**: Open `08_monte_carlo_risk/09_binary_monte_carlo_contagion.ipynb` and run all cells (Shift+Enter) ✨
+**To get started**: Open `08_monte_carlo_risk/09_binary_monte_carlo_contagion.ipynb` and run all cells (Shift+Enter) 
 
 ---
 
 **Generated**: 24 February 2026  
-**Status**: ✅ Ready for Production  
+**Status**:  Ready for Production  
 **Runtime**: 0.51 seconds (300k simulations)

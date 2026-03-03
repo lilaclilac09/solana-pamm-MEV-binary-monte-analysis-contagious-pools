@@ -18,17 +18,17 @@
 
 ### Execution Outputs
 
-1. ✓ Total records: 2,559
-2. ✓ Total features: 9
-3. ✓ Total classes: 4
-4. ⚠️  Warning: SVM requires at least 2 classes, but only 1 class(es) found.
-5. ⚠️  Warning: Logistic Regression requires at least 2 classes, but only 1 class(es) found.
-6. ✓ Saved: derived/ml_results/model_comparison.png
-7. ✓ Saved: derived/ml_results/confusion_matrices.png
-8. ✓ Saved: derived/ml_results/gmm_analysis.png
-9. ✓ Saved: derived/ml_results/feature_importance.png
-10. ✓ Saved: derived/ml_results/gmm_clusters_2d.png
-11. ✓ Saved: derived/ml_results/results_summary.json
+1.  Total records: 2,559
+2.  Total features: 9
+3.  Total classes: 4
+4. ️  Warning: SVM requires at least 2 classes, but only 1 class(es) found.
+5. ️  Warning: Logistic Regression requires at least 2 classes, but only 1 class(es) found.
+6.  Saved: derived/ml_results/model_comparison.png
+7.  Saved: derived/ml_results/confusion_matrices.png
+8.  Saved: derived/ml_results/gmm_analysis.png
+9.  Saved: derived/ml_results/feature_importance.png
+10.  Saved: derived/ml_results/gmm_clusters_2d.png
+11.  Saved: derived/ml_results/results_summary.json
 12. All results saved to: derived/ml_results/
 
 ### Generated Files

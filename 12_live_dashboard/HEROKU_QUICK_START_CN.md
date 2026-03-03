@@ -4,7 +4,7 @@
 
 ---
 
-## 🚀 3 步快速部署
+##  3 步快速部署
 
 ### 第 1 步：安装 Heroku CLI
 
@@ -53,7 +53,7 @@ heroku open
 
 ---
 
-## 🌐 添加自定义域名（mev.aileena.xyz）
+##  添加自定义域名（mev.aileena.xyz）
 
 ```bash
 # 在 Heroku 中添加域名
@@ -69,7 +69,7 @@ heroku domains:add mev.aileena.xyz
 
 ---
 
-## 📊 检查状态
+##  检查状态
 
 ```bash
 heroku ps              # 查看 dyno 状态
@@ -79,7 +79,7 @@ heroku config          # 环境变量
 
 ---
 
-## 🔄 更新应用
+##  更新应用
 
 ```bash
 # 方式 A（Git Subtree - 从主仓库）：
@@ -97,7 +97,7 @@ git push heroku main
 
 ---
 
-## ⚙️ 常用命令
+## ️ 常用命令
 
 ```bash
 heroku create APP_NAME              # 创建应用
@@ -111,7 +111,7 @@ heroku destroy APP_NAME             # 删除应用
 
 ---
 
-## 🔍 故障排除
+##  故障排除
 
 **构建失败？**
 ```bash
@@ -132,7 +132,7 @@ git push heroku main  # 或 git subtree push...
 
 ---
 
-## 📈 Dyno 睡眠
+##  Dyno 睡眠
 
 **免费 dyno 每 30 分钟无活动后休眠**
 
@@ -141,7 +141,7 @@ git push heroku main  # 或 git subtree push...
 
 ---
 
-## 📋 检查清单
+##  检查清单
 
 - [ ] `heroku login` 已运行
 - [ ] `runtime.txt` 包含 `python-3.12`
@@ -155,7 +155,7 @@ git push heroku main  # 或 git subtree push...
 
 ---
 
-## 🎯 现在就开始！
+##  现在就开始！
 
 **最快的方式：**
 
@@ -168,18 +168,18 @@ cd /Users/aileen/Downloads/pamm/solana-pamm-analysis/solana-pamm-MEV-binary-mont
 
 ---
 
-## 📊 您的 MEV 仪表板
+##  您的 MEV 仪表板
 
 **当前状态：**
-- 🟢 **Render：** LIVE（mev.aileena.xyz）
-- ⚪ **Heroku：** 随时可部署
+-  **Render：** LIVE（mev.aileena.xyz）
+-  **Heroku：** 随时可部署
 
 **部署后：**
-- ✅ 所有 6 种图表类型（柱状、饼图、热力图、散点、网络、表格）
-- ✅ 8 个交互式标签页
-- ✅ 完整的 MEV 数据可视化
-- ✅ 可滚动、可悬停、可缩放
+-  所有 6 种图表类型（柱状、饼图、热力图、散点、网络、表格）
+-  8 个交互式标签页
+-  完整的 MEV 数据可视化
+-  可滚动、可悬停、可缩放
 
 ---
 
-**祝部署顺利！🚀**
+**祝部署顺利！**

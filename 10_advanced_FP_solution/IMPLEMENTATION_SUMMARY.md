@@ -4,7 +4,7 @@
 
 This implementation provides a complete, production-ready framework for differentiating between **Fat Sandwich attacks (B91 Pattern)** and **Multi-Hop Arbitrage (Cycle Trading)** within the Solana pAMM ecosystem.
 
-**Status**: ✅ FULLY IMPLEMENTED AND TESTED
+**Status**:  FULLY IMPLEMENTED AND TESTED
 
 ---
 
@@ -46,24 +46,24 @@ This implementation provides a complete, production-ready framework for differen
 
 ## Key Implementation Highlights
 
-1. ✅ Primary Differentiator: Wrapped Victims
+1.  Primary Differentiator: Wrapped Victims
    - Fat Sandwich REQUIRES ≥2 victims
    - Multi-Hop requires ZERO victims
    - This is the most critical factor
 
-2. ✅ Token Path Analysis
+2.  Token Path Analysis
    - Same pair (A→B, B→A) = Fat Sandwich
    - Cyclic path (A→B→C→A) = Multi-Hop
 
-3. ✅ Pool Diversity Measure
+3.  Pool Diversity Measure
    - 1-2 pools = Fat Sandwich
    - 3+ pools = Multi-Hop
 
-4. ✅ Cycle Validation
+4.  Cycle Validation
    - Net balance = 0 = Multi-Hop confirmed
    - Net balance > 0 = Fat Sandwich confirmed
 
-5. ✅ Oracle Correlation
+5.  Oracle Correlation
    - 99.8% Fat Sandwich follow Oracle bursts
    - Multi-Hop ~50% dependent on Oracle
 
@@ -127,4 +127,4 @@ print(f"Multi-Hop: {(classified['attack_type'] == 'multi_hop_arbitrage').sum()}"
 
 ---
 
-**Ready for production use. All components verified working. ✅**
+**Ready for production use. All components verified working. **

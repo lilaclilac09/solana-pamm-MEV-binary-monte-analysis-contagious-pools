@@ -56,10 +56,10 @@ A **stochastic Monte Carlo simulation** analyzing MEV contagion risk across thre
 
 ### Statistical Validation
 
-✅ **Model Calibration**: Simulated cascade rate matches historical data within ±10%  
-✅ **P90 Stability**: P90 slots show <5% variance across runs  
-✅ **Attack Rate Independence**: Attack rate consistent (14.9-15.0%) across all scenarios  
-✅ **Economic Impact Correlation**: Loss increases proportionally with cascades (R² > 0.95)  
+ **Model Calibration**: Simulated cascade rate matches historical data within ±10%  
+ **P90 Stability**: P90 slots show <5% variance across runs  
+ **Attack Rate Independence**: Attack rate consistent (14.9-15.0%) across all scenarios  
+ **Economic Impact Correlation**: Loss increases proportionally with cascades (R² > 0.95)  
 
 ---
 
@@ -724,14 +724,14 @@ Based on `route_key` analysis, top 10 routes through your pool:
 Using `refine_mev_detection.py`, we separate:
 
 **Legitimate Multi-Hop Bot Trading**:
-- Multi-hop routing (2+ hops) ✓
-- NO sandwich indicators (no wrapped victims) ✓
-- Low MEV confidence score (<0.5) ✓
+- Multi-hop routing (2+ hops) 
+- NO sandwich indicators (no wrapped victims) 
+- Low MEV confidence score (<0.5) 
 - **Purpose**: Normal Jupiter aggregator usage for best price execution
 
 **True MEV Sandwich Attacks**:
-- Sandwich signatures (wrapped victims OR A-B-A pattern) ✓
-- High MEV confidence score (>0.5) ✓
+- Sandwich signatures (wrapped victims OR A-B-A pattern) 
+- High MEV confidence score (>0.5) 
 - May use multi-hop OR single-hop routing
 - **Purpose**: Malicious front-running for profit extraction
 
@@ -756,7 +756,7 @@ Using `refine_mev_detection.py`, we separate:
 
 **Mechanism**: Encrypted transaction ordering prevents attackers from seeing Jupiter route execution beforehand, eliminating front-running opportunities on multi-leg swaps.
 
-**Jupiter Compatibility**: ✅ **Fully compatible** - BAM hides transactions from attackers, not from Jupiter routing algorithm.
+**Jupiter Compatibility**:  **Fully compatible** - BAM hides transactions from attackers, not from Jupiter routing algorithm.
 
 #### Harmony Multi-Builder (40% reduction + competition)
 
@@ -767,7 +767,7 @@ Using `refine_mev_detection.py`, we separate:
 
 **Mechanism**: Multi-builder competition reduces single-builder monopoly on transaction ordering, making multi-leg attacks harder to coordinate.
 
-**Jupiter Compatibility**: ✅ **Fully compatible** - Harmony distributes routing across builders, maintaining Jupiter functionality.
+**Jupiter Compatibility**:  **Fully compatible** - Harmony distributes routing across builders, maintaining Jupiter functionality.
 
 ### Key Insights: Jupiter Multi-Hop
 
@@ -825,19 +825,19 @@ Real MEV sandwiches exhibit:
 Three categories:
 
 1. **Legitimate Multi-Hop Bots** 
-   - Multi-hop routing (2+ hops) ✓
-   - NO sandwich indicators ✓
-   - MEV confidence < 0.5 ✓
+   - Multi-hop routing (2+ hops) 
+   - NO sandwich indicators 
+   - MEV confidence < 0.5 
    - **Output**: `legitimate_multihop_bots.parquet` (482,115 transactions)
 
 2. **True MEV Sandwich Attacks**
-   - Sandwich signatures (wrapped victims OR A-B-A) ✓
-   - MEV confidence > 0.5 (or > 0.7 for multi-hop) ✓
+   - Sandwich signatures (wrapped victims OR A-B-A) 
+   - MEV confidence > 0.5 (or > 0.7 for multi-hop) 
    - **Output**: `true_mev_sandwiches.parquet` (58,624 transactions)
 
 3. **Normal Trades**
-   - No multi-hop routing ✓
-   - No sandwich signatures ✓
+   - No multi-hop routing 
+   - No sandwich signatures 
    - **Output**: `normal_trades.parquet` (143,089 transactions)
 
 ### Refinement Results
@@ -909,11 +909,11 @@ Sandwich Attack Example:
 Profit: (1000 × $106) - (1000 × $100) - $0.19 fees = $5,900
 
 Detection Markers:
-✓ Same signer in positions 1 & 3 (attacker)
-✓ Different signer in position 2 (victim)
-✓ Token pair reversal (buy → sell)
-✓ Time window: 300ms (< 5s threshold)  
-✓ MEV confidence: 0.94 (very high)
+ Same signer in positions 1 & 3 (attacker)
+ Different signer in position 2 (victim)
+ Token pair reversal (buy → sell)
+ Time window: 300ms (< 5s threshold)  
+ MEV confidence: 0.94 (very high)
 ```
 
 **Distribution by Pool**:
@@ -1008,7 +1008,7 @@ ROI: 3.8-7.6× in year 1
 #### Output Files Generated
 
 ```
-✅ jupiter_analysis/outputs/
+ jupiter_analysis/outputs/
    ├─ true_mev_sandwiches.parquet (58,624 rows)
    ├─ legitimate_multihop_bots.parquet (482,115 rows)
    ├─ normal_trades.parquet (143,089 rows)
@@ -1191,11 +1191,11 @@ Mouse: Click Run, Run All Cells
 #### Step 3: Review Results
 ```
 Expected output:
-- ✓ Simulations completed in 0.51 seconds
-- ✓ Comparison table with 3 scenarios
-- ✓ Detailed statistics per scenario
-- ✓ 4 PNG visualizations
-- ✓ CSV files in outputs/
+-  Simulations completed in 0.51 seconds
+-  Comparison table with 3 scenarios
+-  Detailed statistics per scenario
+-  4 PNG visualizations
+-  CSV files in outputs/
 ```
 
 #### Step 4: Inspect Outputs
@@ -1386,10 +1386,10 @@ print(f"Correlation: {correlation:.3f} (p={p_value:.4f})")
 ```bash
 # Check notebook runs
 jupyter notebook 08_monte_carlo_risk/09_binary_monte_carlo_contagion.ipynb
-# Run cell 1-3, verify output ✓
+# Run cell 1-3, verify output 
 
 # Check module imports
-python -c "from mev_contagion_monte_carlo import ContagionMonteCarlo; print('✓')"
+python -c "from mev_contagion_monte_carlo import ContagionMonteCarlo; print('')"
 ```
 
 #### 1.2 Run Baseline

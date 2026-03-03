@@ -1,5 +1,5 @@
 # Binary Monte Carlo: MEV Contagion + Infrastructure Scenarios
-**Status**: ✅ Complete & Validated  
+**Status**:  Complete & Validated  
 **Date**: 24 February 2026  
 **Location**: `/08_monte_carlo_risk/`
 
@@ -51,13 +51,13 @@ mc.save_results(tag='binary_monte_carlo')
 ### 2. **Interactive Jupyter Notebook** (`09_binary_monte_carlo_contagion.ipynb`)
 
 7 sections with run-button cells:
-1. ✅ Import libraries + load contagion_report.json
-2. ✅ Simulation logic explanation (Bernoulli → Binomial → Loss calculation)
-3. ✅ Scenario configuration (Jito vs BAM vs Harmony)
-4. ✅ Run 100k×3 stochastic simulations (~0.5 sec)
-5. ✅ Analysis: Comparison table + detailed statistics
-6. ✅ Visualizations: Histograms, box plots, percentile curves, infrastructure gaps
-7. ✅ Model validation vs historical `contagion_report.json` data
+1.  Import libraries + load contagion_report.json
+2.  Simulation logic explanation (Bernoulli → Binomial → Loss calculation)
+3.  Scenario configuration (Jito vs BAM vs Harmony)
+4.  Run 100k×3 stochastic simulations (~0.5 sec)
+5.  Analysis: Comparison table + detailed statistics
+6.  Visualizations: Histograms, box plots, percentile curves, infrastructure gaps
+7.  Model validation vs historical `contagion_report.json` data
 
 ---
 
@@ -125,13 +125,13 @@ Return: DataFrame with 300k rows × 11 columns
 ### Against Historical Data
 - **Historical cascade %**: 0.0% (from contagion_report.json)
 - **Simulated cascade %**: 1.6% (effective)
-- **Status**: ✅ Model is conservative (simulates WORST-CASE scenario with 15% attack rate)
+- **Status**:  Model is conservative (simulates WORST-CASE scenario with 15% attack rate)
 
 ### Reasonableness Checks
-✅ P90 slots (6) < P99 slots (7) ← Correct monotonicity  
-✅ Cascades → Loss relationship is positive monotonic  
-✅ Lower visibility → Lower cascades → Lower loss ← Correct direction  
-✅ Attack rate stable across scenarios (14.9–15.0%) ← Correct independence  
+ P90 slots (6) < P99 slots (7) ← Correct monotonicity  
+ Cascades → Loss relationship is positive monotonic  
+ Lower visibility → Lower cascades → Lower loss ← Correct direction  
+ Attack rate stable across scenarios (14.9–15.0%) ← Correct independence  
 
 ---
 
@@ -310,11 +310,11 @@ centralization_score = validator_data['stake_concentration'].mean()
 
 This module transforms the existing deterministic contagion analyzer into a **stochastic framework** that:
 
-1. ✅ Replaces hard-coded 80.1% cascade rate with probabilistic models
-2. ✅ Tests three realistic infrastructure scenarios (Jito/BAM/Harmony)
-3. ✅ Links cascades to network-level metrics (slots jumped = congestion proxy)
-4. ✅ Quantifies economic impact AND risk reduction per scenario
-5. ✅ Runs 300k simulations in <1 second (10-100x faster than deterministic)
+1.  Replaces hard-coded 80.1% cascade rate with probabilistic models
+2.  Tests three realistic infrastructure scenarios (Jito/BAM/Harmony)
+3.  Links cascades to network-level metrics (slots jumped = congestion proxy)
+4.  Quantifies economic impact AND risk reduction per scenario
+5.  Runs 300k simulations in <1 second (10-100x faster than deterministic)
 
 **Validation**: Results match historical data from `contagion_report.json` while allowing future "what-if" scenario analysis.
 

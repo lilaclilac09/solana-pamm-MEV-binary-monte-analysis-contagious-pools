@@ -1,4 +1,4 @@
-# 🚀 Deployment Guide for aileen.xyz
+#  Deployment Guide for aileen.xyz
 
 ## Option 1: Deploy to aileen.xyz Subdomain (Recommended)
 

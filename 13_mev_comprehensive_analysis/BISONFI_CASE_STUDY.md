@@ -43,7 +43,7 @@ ZeroFi (Execution Leg #2)
     ↓ (300-700ms later)
 GoonFi (Execution Leg #3)
     ↓
-Profit locked in ✓
+Profit locked in 
 ```
 
 ---
@@ -94,9 +94,9 @@ SolFi                        0%                   NO SHARED ATTACKERS
 **Finding**: Zero overlap in MEV bot addresses between pools.
 
 **This indicates**:
-- ✗ Current data captures individual attacks, not coordinated sequences
-- ✗ Bots may have different addresses per pool (obfuscation/multi-sig)
-- ✆ Physical multi-pool transactions not captured in separate CSV rows
+-  Current data captures individual attacks, not coordinated sequences
+-  Bots may have different addresses per pool (obfuscation/multi-sig)
+-  Physical multi-pool transactions not captured in separate CSV rows
 
 ---
 
@@ -117,7 +117,7 @@ Time T: MEV bot observes the move in mempool
 Time T+0ms: Attempts to arbitrage on BisonFi
         → But BisonFi's oracle hasn't updated yet
         → Price still shows 10% higher (old price)
-        → Bot buys "low" at high legacy price ✓ PROFITABLE
+        → Bot buys "low" at high legacy price  PROFITABLE
 
 Time T+180ms: BisonFi's oracle finally updates
         → Price now shows the real value
@@ -164,7 +164,7 @@ With 1,501 MEV attacks and only 593 on HumidiFi (39.5%), the ecosystem is:
 
 ## Contagion Vulnerability Validation
 
-### ✓ Framework Successfully Demonstrates
+###  Framework Successfully Demonstrates
 
 1. **Oracle Lag Quantification**
    - Calculates exploitability scores
@@ -186,7 +186,7 @@ With 1,501 MEV attacks and only 593 on HumidiFi (39.5%), the ecosystem is:
    - Identifies critical risk pools
    - Provides probability-based risk ranking
 
-### ⚠ Data Limitations Found
+###  Data Limitations Found
 
 1. **Timestamp Information**: Synthetic timestamps prevent actual cascade detection
    - Real timestamps from Chain analysis needed
@@ -313,19 +313,19 @@ Timeline: 6-12 months negotiation + implementation
 
 ### Analyzer Validation Results
 
-✓ **Module Loading**: Success
-✓ **Data Normalization**: Handles column name mapping
-✓ **Pool Identification**: Correctly identifies top attacked pools  
-✓ **Cascade Detection**: Framework correctly implements algorithm
-✓ **Report Generation**: Produces valid JSON output
-✓ **Visualization Generation**: Creates dashboard PNGs
+ **Module Loading**: Success
+ **Data Normalization**: Handles column name mapping
+ **Pool Identification**: Correctly identifies top attacked pools  
+ **Cascade Detection**: Framework correctly implements algorithm
+ **Report Generation**: Produces valid JSON output
+ **Visualization Generation**: Creates dashboard PNGs
 
 ### Known Limitations
 
-⚠ **No Real Timestamps**: Cannot detect sub-second attacks
-⚠ **No Oracle Data**: Cannot validate oracle lag hypothesis directly
-⚠ **Bot Address Obfuscation**: Cannot track individual bot strategies
-✓ **Framework Portable**: Works with other MEV datasets
+ **No Real Timestamps**: Cannot detect sub-second attacks
+ **No Oracle Data**: Cannot validate oracle lag hypothesis directly
+ **Bot Address Obfuscation**: Cannot track individual bot strategies
+ **Framework Portable**: Works with other MEV datasets
 
 ---
 

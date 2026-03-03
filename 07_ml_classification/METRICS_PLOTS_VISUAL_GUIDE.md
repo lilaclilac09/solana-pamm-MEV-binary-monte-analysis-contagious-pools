@@ -27,10 +27,10 @@ ACTUAL  MEV    [FN]       [TP]
 ```
 
 **The 4 Cells**:
-- **TN (Top-left)**: True Negatives - correctly identified non-MEV ✓
-- **FP (Top-right)**: False Positives - incorrectly flagged as MEV ✗
-- **FN (Bottom-left)**: False Negatives - missed MEV attacks ✗✗ **WORST CASE**
-- **TP (Bottom-right)**: True Positives - correctly caught MEV ✓
+- **TN (Top-left)**: True Negatives - correctly identified non-MEV 
+- **FP (Top-right)**: False Positives - incorrectly flagged as MEV 
+- **FN (Bottom-left)**: False Negatives - missed MEV attacks  **WORST CASE**
+- **TP (Bottom-right)**: True Positives - correctly caught MEV 
 
 ### Why It Matters for MEV Detection:
 - **High TN**: Good (don't flag innocent traders)
@@ -60,12 +60,12 @@ A **2D curve** showing the relationship between:
 
 ### The Magic: Why PR-AUC is Better for Imbalanced Data
 
-#### ROC Curve (❌ Misleading for imbalanced data)
+#### ROC Curve ( Misleading for imbalanced data)
 - X-axis: **False Positive Rate** = False Positives / All Non-MEV
 - With 90% non-MEV, FPR is huge and dominates the metric
 - A model can fake high ROC-AUC by just predicting majority class
 
-#### PR Curve (✅ Better for imbalanced data)
+#### PR Curve ( Better for imbalanced data)
 - X-axis: **Recall** = True Positives / Actual MEV
 - Y-axis: **Precision** = True Positives / Predicted MEV
 - **ONLY cares about minority class (MEV)**
@@ -153,7 +153,7 @@ XGBoost          |███████████████ | 0.850
 SVM              |██████████████  | 0.825
 ...
 ```
-✓ Higher is better | Of MEV predictions, how many correct?
+ Higher is better | Of MEV predictions, how many correct?
 
 #### Top-Right: MEV Recall  
 ```
@@ -162,7 +162,7 @@ Random Forest    |███████████████ | 0.900
 SVM              |██████████████  | 0.840
 ...
 ```
-✓ Higher is better | Of actual MEV, how many caught?
+ Higher is better | Of actual MEV, how many caught?
 
 #### Bottom-Left: MEV F1-Score
 ```
@@ -171,7 +171,7 @@ Random Forest    |██████████| 0.885 ← SAME as XGBoost!
 SVM              |█████████ | 0.832
 ...
 ```
-⚠️ F1 can be the same even when models differ!
+️ F1 can be the same even when models differ!
 
 #### Bottom-Right: PR-AUC
 ```
@@ -180,7 +180,7 @@ XGBoost          |███████████████ | 0.775
 SVM              |██████████████  | 0.710
 ...
 ```
-✓ Higher is better | Better for imbalanced data
+ Higher is better | Better for imbalanced data
 
 ---
 
@@ -233,19 +233,19 @@ This difference reveals:
 
 | Metric | Range | What It Measures | Good For | Bad For |
 |--------|-------|------------------|----------|---------|
-| **Accuracy** | 0-1 | Overall correctness | Balanced data | **⚠️ Imbalanced data** |
+| **Accuracy** | 0-1 | Overall correctness | Balanced data | **️ Imbalanced data** |
 | **Precision** | 0-1 | False alarm rate | Reducing false alarms | Missing attacks |
 | **Recall** | 0-1 | Attack detection rate | Catching MEV | Too many alarms |
 | **F1-Score** | 0-1 | Balance at threshold 0.5 | Single threshold comparison | Doesn't show full picture |
-| **ROC-AUC** | 0-1 | Performance across thresholds | **❌ Not for imbalanced** | **⚠️ Misleads on imbalanced** |
-| **PR-AUC** | 0-1 | Minority class across thresholds | **✅ Perfect for imbalanced** | Not needed for balanced |
+| **ROC-AUC** | 0-1 | Performance across thresholds | ** Not for imbalanced** | **️ Misleads on imbalanced** |
+| **PR-AUC** | 0-1 | Minority class across thresholds | ** Perfect for imbalanced** | Not needed for balanced |
 
 ---
 
 ## Decision Rules for Your MEV Detection
 
 ### Rule 1: Ignore Accuracy
-❌ Don't use this metric
+ Don't use this metric
 ```
 Model: "Always predict Non-MEV"
 Accuracy = 88% (looks great!)
@@ -253,7 +253,7 @@ But MEV Recall = 0% (absolutely useless)
 ```
 
 ### Rule 2: Ignore ROC-AUC
-⚠️ Use with extreme caution
+️ Use with extreme caution
 ```
 Model A: ROC-AUC = 0.72 (threshold-independent, but misleads with imbalance)
 Model B: ROC-AUC = 0.70 (seems worse, but actually better for MEV)
@@ -261,7 +261,7 @@ Model B: ROC-AUC = 0.70 (seems worse, but actually better for MEV)
 ```
 
 ### Rule 3: Prefer PR-AUC
-✅ Best metric for MEV detection
+ Best metric for MEV detection
 ```
 Random Forest: PR-AUC = 0.780  ← PICK THIS
 XGBoost: PR-AUC = 0.775       ← Similar but slightly worse
@@ -269,14 +269,14 @@ SVM: PR-AUC = 0.710           ← Much worse
 ```
 
 ### Rule 4: Use F1 as Secondary Check
-✅ Good secondary metric
+ Good secondary metric
 ```
 If F1 > 0.8 AND PR-AUC > 0.7: GOOD model for deployment
 If F1 > 0.8 BUT PR-AUC < 0.6: Model is unreliable (check confidence estimates)
 ```
 
 ### Rule 5: Set Recall Threshold
-✅ Operational requirement
+ Operational requirement
 ```
 MEV Recall must be > 0.85: Catch at least 85% of attacks
 Accept some false alarms to achieve this
@@ -308,10 +308,10 @@ XGBoost:
 ```
 
 ### Interpretation:
-✅ **Both models are good** (PR-AUC > 0.77)
-✅ **Random Forest slightly better** (PR-AUC 0.7843 vs 0.7754)
-⚠️ Don't use ROC-AUC (0.94+) to decide—it's misleading
-✅ F1 scores are similar (0.89 vs 0.90), explaining why they seem equivalent
+ **Both models are good** (PR-AUC > 0.77)
+ **Random Forest slightly better** (PR-AUC 0.7843 vs 0.7754)
+️ Don't use ROC-AUC (0.94+) to decide—it's misleading
+ F1 scores are similar (0.89 vs 0.90), explaining why they seem equivalent
 
 ---
 

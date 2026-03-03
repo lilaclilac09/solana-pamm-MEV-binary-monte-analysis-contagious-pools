@@ -1,4 +1,4 @@
-# 📊 PROJECT FILE ORGANIZATION VISUAL GUIDE
+#  PROJECT FILE ORGANIZATION VISUAL GUIDE
 
 **Based On:** DETECTOR_VISUAL_GUIDE.md Architecture  
 **Status:** Duplicate Inventory Complete  
@@ -6,7 +6,7 @@
 
 ---
 
-## 🏗️ ARCHITECTURE OVERVIEW
+## ️ ARCHITECTURE OVERVIEW
 
 ### Production Pipeline (CURRENT)
 
@@ -20,68 +20,68 @@
                ↓
 ┌─────────────────────────────────────────────────────┐
 │         MEV DETECTION                              │
-│  📄 02_mev_detection.ipynb                         │
-│  🐍 Core: fat_sandwich_detector_optimized.py       │
-│     ✅ KEEP - Unified detector class               │
-│  🔴 DELETE: improved_fat_sandwich_detection.py     │
+│   02_mev_detection.ipynb                         │
+│   Core: fat_sandwich_detector_optimized.py       │
+│      KEEP - Unified detector class               │
+│   DELETE: improved_fat_sandwich_detection.py     │
 │     (1098 lines, pre-optimization)                 │
 └──────────────┬──────────────────────────────────────┘
                ↓
 ┌─────────────────────────────────────────────────────┐
 │         ANALYSIS & CLASSIFICATION                  │
-│  📓 12_fat_sandwich_optimized_detector.ipynb       │ ← MAIN NOTEBOOK
-│     ✅ KEEP - Latest (2/8 21:39, 31K)             │
-│  ✅ KEEP supplementary notebooks:                  │
+│   12_fat_sandwich_optimized_detector.ipynb       │ ← MAIN NOTEBOOK
+│      KEEP - Latest (2/8 21:39, 31K)             │
+│   KEEP supplementary notebooks:                  │
 │     • 10_advanced_FP_solution/11_...classification │
 │     • 04_validator_contagion_analysis.ipynb        │
 └──────────────┬──────────────────────────────────────┘
                ↓
 ┌─────────────────────────────────────────────────────┐
 │         ADVANCED ANALYSIS                          │
-│  📓 06_pool_analysis.ipynb                         │
-│  🐍 Core: pamm_cross_comparison_final.py           │
-│     ✅ KEEP - Clean final version (474 lines)      │
-│  🔴 DELETE: pamm_cross_comparison_analysis.py      │
+│   06_pool_analysis.ipynb                         │
+│   Core: pamm_cross_comparison_final.py           │
+│      KEEP - Clean final version (474 lines)      │
+│   DELETE: pamm_cross_comparison_analysis.py      │
 │     (570 lines, superseded version)                │
 │                                                    │
-│  📓 09a_advanced_ml/01_gmm_clustering_analysis.ipynb
-│  🐍 Core: gmm_optimized_analysis.py                │
-│     ✅ KEEP - RobustScaler approach (320 lines)    │
-│  🔴 INVESTIGATE: gmm_fast_analysis.py              │
+│   09a_advanced_ml/01_gmm_clustering_analysis.ipynb
+│   Core: gmm_optimized_analysis.py                │
+│      KEEP - RobustScaler approach (320 lines)    │
+│   INVESTIGATE: gmm_fast_analysis.py              │
 │     (345 lines, timestamp conflict 20:59)          │
-│  🔴 DELETE: enhanced_gmm_analysis.py               │
+│   DELETE: enhanced_gmm_analysis.py               │
 │     (95 lines, wrapper function only)              │
 └──────────────┬──────────────────────────────────────┘
                ↓
 ┌─────────────────────────────────────────────────────┐
 │         VULNERABILITY ANALYSIS                     │
-│  📓 04_validator_contagion_analysis.ipynb          │
-│  🐍 Core: contagious_vulnerability_analyzer.py     │
-│     ✅ KEEP - Active primary class (601 lines)     │
-│     ✅ Used by: test_contagion_analyzer.py         │
-│  🔴 ARCHIVE: 04_validator_analysis/12_...analysis.py
+│   04_validator_contagion_analysis.ipynb          │
+│   Core: contagious_vulnerability_analyzer.py     │
+│      KEEP - Active primary class (601 lines)     │
+│      Used by: test_contagion_analyzer.py         │
+│   ARCHIVE: 04_validator_analysis/12_...analysis.py
 │     (1080 lines, old implementation)               │
 └──────────────┬──────────────────────────────────────┘
                ↓
 ┌─────────────────────────────────────────────────────┐
 │         PROFIT ANALYSIS                            │
-│  📓 12_mev_profit_mechanisms/                      │
-│  🐍 Core: mev_profit_analysis.py                   │
-│     ✅ KEEP                                         │
+│   12_mev_profit_mechanisms/                      │
+│   Core: mev_profit_analysis.py                   │
+│      KEEP                                         │
 └──────────────┬──────────────────────────────────────┘
                ↓
 ┌─────────────────────────────────────────────────────┐
 │         REPORTS & DOCUMENTATION                    │
-│  📝 README_OPTIMIZATION_COMPLETE.md                │
-│  📝 DETECTOR_VISUAL_GUIDE.md                       │
-│  📝 FILE_ORGANIZATION_REPORT.md                    │
-│  📝 CLEANUP_CHECKLIST.md                           │
+│   README_OPTIMIZATION_COMPLETE.md                │
+│   DETECTOR_VISUAL_GUIDE.md                       │
+│   FILE_ORGANIZATION_REPORT.md                    │
+│   CLEANUP_CHECKLIST.md                           │
 └─────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 📂 CURRENT FILE STATE MATRIX
+##  CURRENT FILE STATE MATRIX
 
 ### Section 02: MEV Detection
 
@@ -91,22 +91,22 @@ STATUS: Core algorithm optimized, old version identified
 ┌─────────────────────────────────────────────────────────┐
 │ RECOMMENDED STRUCTURE                                  │
 ├─────────────────────────────────────────────────────────┤
-│ ✅ fat_sandwich_detector_optimized.py (481 lines)       │
+│  fat_sandwich_detector_optimized.py (481 lines)       │
 │    └─ Used by: 12_fat_sandwich_optimized_detector.ipynb│
 │    └─ Algorithm: A-B-A pattern detection               │
 │    └─ Status: PRODUCTION READY                         │
 ├─────────────────────────────────────────────────────────┤
-│ 🔴 improved_fat_sandwich_detection.py (1098 lines)      │
+│  improved_fat_sandwich_detection.py (1098 lines)      │
 │    └─ Status: SUPERSEDED - ARCHIVE TO:                │
 │       ARCHIVE/old_algorithms/                          │
 │    └─ Replaced by: FatSandwichDetector class            │
 ├─────────────────────────────────────────────────────────┤
-│ ✅ 12_fat_sandwich_optimized_detector.ipynb (31K, NEW) │
+│  12_fat_sandwich_optimized_detector.ipynb (31K, NEW) │
 │    └─ Last Modified: 2/8/26 21:39                      │
 │    └─ Status: PRIMARY NOTEBOOK - KEEP                 │
 │    └─ Does: Interactive detection & analysis           │
 ├─────────────────────────────────────────────────────────┤
-│ 🔴 10_advanced_FP_solution/01_improved_...ipynb (1KB)  │
+│  10_advanced_FP_solution/01_improved_...ipynb (1KB)  │
 │    └─ Status: STUB NOTEBOOK - ARCHIVE                 │
 │    └─ Reason: Content moved to 12_ notebook            │
 └─────────────────────────────────────────────────────────┘
@@ -127,17 +127,17 @@ STATUS: Clean consolidation, older version identified
 ┌─────────────────────────────────────────────────────────┐
 │ RECOMMENDED STRUCTURE                                  │
 ├─────────────────────────────────────────────────────────┤
-│ ✅ pamm_cross_comparison_final.py (474 lines)          │
+│  pamm_cross_comparison_final.py (474 lines)          │
 │    └─ Status: PRIMARY - KEEP                          │
 │    └─ Algorithm: Network analysis, Louvain clustering   │
 │    └─ Code Reduction: 96 lines shorter than analysis   │
 ├─────────────────────────────────────────────────────────┤
-│ 🔴 pamm_cross_comparison_analysis.py (570 lines)       │
+│  pamm_cross_comparison_analysis.py (570 lines)       │
 │    └─ Status: SUPERSEDED - ARCHIVE TO:                │
 │       ARCHIVE/old_algorithms/                          │
 │    └─ Reason: Final version is cleaner optimization    │
 ├─────────────────────────────────────────────────────────┤
-│ ✅ 06_pool_analysis.ipynb (150K)                       │
+│  06_pool_analysis.ipynb (150K)                       │
 │    └─ Status: PRIMARY NOTEBOOK - KEEP                 │
 │    └─ Uses: pamm_cross_comparison_final.py             │
 └─────────────────────────────────────────────────────────┘
@@ -153,7 +153,7 @@ pamm_cross_comparison_final.py (474 lines) [96 line reduction!]
 ### Section 09a: Advanced ML / GMM Clustering
 
 ```
-STATUS: ⚠️ ALGORITHM CONFLICT - REQUIRES INVESTIGATION
+STATUS: ️ ALGORITHM CONFLICT - REQUIRES INVESTIGATION
 
 ┌─────────────────────────────────────────────────────────┐
 │ TIMESTAMP ANOMALY DETECTED                            │
@@ -167,26 +167,26 @@ STATUS: ⚠️ ALGORITHM CONFLICT - REQUIRES INVESTIGATION
 
 CURRENT CONFLICT:
 ┌─────────────────────────────────────────────────────────┐
-│ 📍 gmm_optimized_analysis.py (320 lines, 20:53)        │
+│  gmm_optimized_analysis.py (320 lines, 20:53)        │
 │    Preprocessing:                                      │
-│    • RobustScaler ✅ (better for outliers)             │
+│    • RobustScaler  (better for outliers)             │
 │    • IsolationForest                                   │
 │    • Feature engineering optimized                     │
 │    Status: RECOMMENDED AS PRIMARY                      │
 ├─────────────────────────────────────────────────────────┤
-│ 📍 gmm_fast_analysis.py (345 lines, 20:59)             │
+│  gmm_fast_analysis.py (345 lines, 20:59)             │
 │    Preprocessing:                                      │
-│    • StandardScaler ❌ (sensitive to outliers)         │
+│    • StandardScaler  (sensitive to outliers)         │
 │    • Basic IsolationForest                             │
 │    • Standard approach                                 │
 │    Status: CONFLICTING - DELETE or INVESTIGATE        │
 ├─────────────────────────────────────────────────────────┤
-│ 🔴 enhanced_gmm_analysis.py (95 lines, 11:39)          │
+│  enhanced_gmm_analysis.py (95 lines, 11:39)          │
 │    Content: def enhanced_gmm_clustering_analysis()     │
 │    Type: Wrapper function with Chinese comments        │
 │    Status: DELETE - not standalone                     │
 ├─────────────────────────────────────────────────────────┤
-│ ✅ 01_gmm_clustering_analysis.ipynb                     │
+│  01_gmm_clustering_analysis.ipynb                     │
 │    Status: MAIN NOTEBOOK - KEEP                       │
 └─────────────────────────────────────────────────────────┘
 
@@ -210,7 +210,7 @@ STATUS: Two competing implementations - needs consolidation
 ┌─────────────────────────────────────────────────────────┐
 │ PRIMARY IMPLEMENTATION                                │
 ├─────────────────────────────────────────────────────────┤
-│ ✅ contagious_vulnerability_analyzer.py (601 lines)     │
+│  contagious_vulnerability_analyzer.py (601 lines)     │
 │    Class: ContagiousVulnerabilityAnalyzer              │
 │    Status: ACTIVE - Used by test_contagion_analyzer.py │
 │    Methods:                                            │
@@ -219,14 +219,14 @@ STATUS: Two competing implementations - needs consolidation
 │    • analyze_cascade_rates()                           │
 │    • generate_contagion_report()                       │
 ├─────────────────────────────────────────────────────────┤
-│ ✅ test_contagion_analyzer.py (71 lines)                │
+│  test_contagion_analyzer.py (71 lines)                │
 │    Status: TEST HARNESS - KEEP                        │
 │    Imports: contagious_vulnerability_analyzer          │
 │    Tests: Main analyzer functionality                  │
 ├─────────────────────────────────────────────────────────┤
 │ OLD IMPLEMENTATION (ARCHIVE)                           │
 ├─────────────────────────────────────────────────────────┤
-│ ⚠️ 04_validator_analysis/12_validator_contagion_analysis.py
+│ ️ 04_validator_analysis/12_validator_contagion_analysis.py
 │    Class: ValidatorContagionAnalyzer                   │
 │    Lines: 1080 (much larger)                           │
 │    Status: OLD - ARCHIVE TO:                          │
@@ -234,9 +234,9 @@ STATUS: Two competing implementations - needs consolidation
 │    Reason: NOT used by active test harness            │
 │    Note: 04_validator_analysis notebooks might use it │
 ├─────────────────────────────────────────────────────────┤
-│ ✅ 04_validator_contagion_analysis.ipynb               │
+│  04_validator_contagion_analysis.ipynb               │
 │    Status: MAIN NOTEBOOK - KEEP                       │
-│    ⚠️ TODO: Verify which analyzer it uses             │
+│    ️ TODO: Verify which analyzer it uses             │
 │             Update if using old version               │
 └─────────────────────────────────────────────────────────┘
 
@@ -251,7 +251,7 @@ ACTION REQUIRED:
 
 ---
 
-## 🎯 QUICK DECISION MATRIX
+##  QUICK DECISION MATRIX
 
 ### For Each Duplicate, Decide:
 
@@ -266,12 +266,12 @@ ACTION REQUIRED:
 │                                                              │
 │ Q2: Which has newer algorithm/optimization?                 │
 │     Timestamps:  A=20:53, B=20:59                           │
-│     Algorithm:   A=RobustScaler✅, B=StandardScaler❌        │
+│     Algorithm:   A=RobustScaler, B=StandardScaler        │
 │     Verdict:     KEEP A despite older timestamp             │
 │                                                              │
 │ Q3: Code quality / size?                                    │
-│     A=320 lines✅, B=345 lines❌                            │
-│     A=RobustScaler✅, B=StandardScaler❌                     │
+│     A=320 lines, B=345 lines                            │
+│     A=RobustScaler, B=StandardScaler                     │
 │     Verdict:     KEEP A                                      │
 │                                                              │
 │ DECISION: Archive B, Keep A                                 │
@@ -280,7 +280,7 @@ ACTION REQUIRED:
 
 ---
 
-## 📊 FILE CONSOLIDATION SUMMARY
+##  FILE CONSOLIDATION SUMMARY
 
 ### Count by Section
 
@@ -297,15 +297,15 @@ ACTION REQUIRED:
 ├─────────────────────────────────────────────────────┤
 │ TOTAL                    22     14        2         │
 │                                                     │
-│ ✅ Production Files       22                        │
-│ 📦 Archive/Reference      14                        │
-│ 🗑️ Can Delete             2                        │
+│  Production Files       22                        │
+│  Archive/Reference      14                        │
+│ ️ Can Delete             2                        │
 └─────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 🚀 IMPLEMENTATION ROADMAP
+##  IMPLEMENTATION ROADMAP
 
 ### Phase 1️⃣: Immediate (Obvious Duplicates)
 
@@ -353,7 +353,7 @@ EOF
 
 ---
 
-## ✅ SUCCESS CRITERIA
+##  SUCCESS CRITERIA
 
 When consolidation is complete:
 
@@ -385,7 +385,7 @@ When consolidation is complete:
 
 ---
 
-## 📞 References
+##  References
 
 1. **Architecture:** [DETECTOR_VISUAL_GUIDE.md](DETECTOR_VISUAL_GUIDE.md)
 2. **File Details:** [FILE_ORGANIZATION_REPORT.md](FILE_ORGANIZATION_REPORT.md)
@@ -394,6 +394,6 @@ When consolidation is complete:
 
 ---
 
-**Status:** ✅ Analysis Complete - Ready to Execute Cleanup  
+**Status:**  Analysis Complete - Ready to Execute Cleanup  
 **Priority:** P1 (Affects code maintainability)  
 **Estimated Time:** 60 minutes

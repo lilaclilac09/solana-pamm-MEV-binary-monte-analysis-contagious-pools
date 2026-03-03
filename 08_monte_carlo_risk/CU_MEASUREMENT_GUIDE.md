@@ -1,4 +1,4 @@
-# 📊 CU Measurement Guide: Extracting Compute Unit Data from Your Prop AMM
+#  CU Measurement Guide: Extracting Compute Unit Data from Your Prop AMM
 
 **Goal**: Collect realistic CU consumption metrics for all 14 critical operations (3 updates × 4 scopes + 2 sides × 4 curves/mixed).
 
@@ -27,7 +27,7 @@ operation,cu,timestamp,slot,tx_hash,base_cu,remaining_cu
 
 ## 2. Where to Get CU Data
 
-### **Method A: From Solana RPC Logs** ✅ EASIEST
+### **Method A: From Solana RPC Logs**  EASIEST
 Extract from transaction confirmation response:
 
 ```json
@@ -67,7 +67,7 @@ quasar_escrow – CU Profile
 
 ---
 
-### **Method C: Local Simulation on Anchor/Rust** 🔬
+### **Method C: Local Simulation on Anchor/Rust** 
 If you still have access to your program:
 
 ```bash

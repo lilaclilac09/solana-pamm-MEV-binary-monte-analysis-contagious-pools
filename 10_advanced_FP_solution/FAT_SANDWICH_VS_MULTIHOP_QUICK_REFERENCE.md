@@ -91,12 +91,12 @@ Use this checklist when you only have 30 seconds:
 │              (MEV extraction)     │              pricing     │
 │                                                              │
 ├──────────────────────────────────┼──────────────────────────┤
-│ ✓ Mandatory: 2+ victims          │ ✓ Zero victims           │
-│ ✓ Token pair: Same throughout    │ ✓ Token path: Cyclic     │
-│ ✓ Pools: 1-2 (same pair)         │ ✓ Pools: 3+ (diverse)    │
-│ ✓ Net balance: >0 (profit kept)  │ ✓ Net balance: =0        │
-│ ✓ Oracle: 99.8% correlation      │ ✓ Oracle: 50% optional   │
-│ ✓ Timing: <50ms (critical)       │ ✓ Timing: Variable       │
+│  Mandatory: 2+ victims          │  Zero victims           │
+│  Token pair: Same throughout    │  Token path: Cyclic     │
+│  Pools: 1-2 (same pair)         │  Pools: 3+ (diverse)    │
+│  Net balance: >0 (profit kept)  │  Net balance: =0        │
+│  Oracle: 99.8% correlation      │  Oracle: 50% optional   │
+│  Timing: <50ms (critical)       │  Timing: Variable       │
 │                                                              │
 ├──────────────────────────────────┼──────────────────────────┤
 │ Regulatory: HARMFUL              │ Regulatory: NEUTRAL      │
@@ -210,11 +210,11 @@ Trade 3 (1100ms): VICTIM2  WSOL→PUMP (buy)
 Trade 4 (1150ms): ATTACKER PUMP→WSOL (sell)
 
 Checks:
-  ✓ Victims: 2
-  ✓ Same pair: PUMP/WSOL only
-  ✓ Pools: 1 (RAYDIUM_PUMP_WSOL)
-  ✗ Cycle: No (PUMP→WSOL→PUMP)
-  ✓ Oracle: Yes (just updated)
+   Victims: 2
+   Same pair: PUMP/WSOL only
+   Pools: 1 (RAYDIUM_PUMP_WSOL)
+   Cycle: No (PUMP→WSOL→PUMP)
+   Oracle: Yes (just updated)
 
 Score: 4/5 → DEFINITELY FAT SANDWICH
 ```
@@ -229,11 +229,11 @@ Trade 3 (2100ms): BOT TOKEN_B→USDC (Jupiter)
 Trade 4 (2150ms): BOT USDC→SOL (MarinadeDirect)
 
 Checks:
-  ✓ Victims: 0 (only 1 signer)
-  ✓ Cycle: Yes (SOL→...→USDC/SOL)
-  ✓ Pools: 3 different
-  ✓ Net balance: All zero
-  ✗ Oracle: No
+   Victims: 0 (only 1 signer)
+   Cycle: Yes (SOL→...→USDC/SOL)
+   Pools: 3 different
+   Net balance: All zero
+   Oracle: No
 
 Score: 4/5 → DEFINITELY MULTI-HOP
 ```
@@ -303,19 +303,19 @@ Conclusion: Depends on primary signer
 
 ## Common Mistakes to Avoid
 
-❌ **Mistake 1**: Counting self-trades as victims
+ **Mistake 1**: Counting self-trades as victims
 - Solution: Filter victims to different signers
 ```python
 victims = [s for s in middle_trades['signer'].unique() if s != attacker]
 ```
 
-❌ **Mistake 2**: Not normalizing token addresses
+ **Mistake 2**: Not normalizing token addresses
 - Solution: Convert to uppercase and remove 'wrapped_' prefixes
 ```python
 token = token.upper().replace('WRAPPED_', '')
 ```
 
-❌ **Mistake 3**: Using wrong time window boundaries
+ **Mistake 3**: Using wrong time window boundaries
 - Solution: Use exact slot start/end times from data
 ```python
 cluster = df[
@@ -324,14 +324,14 @@ cluster = df[
 ]
 ```
 
-❌ **Mistake 4**: Ignoring partial cycles
+ **Mistake 4**: Ignoring partial cycles
 - Solution: Check if ends in base asset (SOL/USDC)
 ```python
 last_token = trades.iloc[-1]['to_token']
 is_closed = (last_token == first_token) or (last_token in ['SOL', 'USDC'])
 ```
 
-❌ **Mistake 5**: Over-weighting oracle correlation
+ **Mistake 5**: Over-weighting oracle correlation
 - Solution: Use oracle as tiebreaker, not primary factor
 ```python
 # Oracle should only be 0.20 weight, not primary

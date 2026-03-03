@@ -4,19 +4,19 @@
 
 ---
 
-## ✅ 前置条件检查
+##  前置条件检查
 
 您的项目已完全准备好部署：
 
-- ✅ `mev_dashboard.py` - 已配置 `server = app.server`（用于部署）
-- ✅ `requirements.txt` - 包含所有依赖：dash、plotly、pandas、gunicorn
-- ✅ `Procfile` - 已配置：`web: gunicorn mev_dashboard:server`
-- ✅ `runtime.txt` - 指定 Python 3.12（与 numpy 1.26 兼容）
-- ✅ GitHub 仓库 - 代码已提交
+-  `mev_dashboard.py` - 已配置 `server = app.server`（用于部署）
+-  `requirements.txt` - 包含所有依赖：dash、plotly、pandas、gunicorn
+-  `Procfile` - 已配置：`web: gunicorn mev_dashboard:server`
+-  `runtime.txt` - 指定 Python 3.12（与 numpy 1.26 兼容）
+-  GitHub 仓库 - 代码已提交
 
 ---
 
-## 📋 Heroku 部署步骤
+##  Heroku 部署步骤
 
 ### 第1步：安装 Heroku CLI
 
@@ -181,14 +181,14 @@ heroku open
 ```
 
 #### 检查仪表板是否完全加载：
-- ✅ Tab 1：**概览** - 关键统计表格
-- ✅ Tab 2：**MEV 分布** - 3 个柱状图 + 1 个饼图
-- ✅ Tab 3：**顶级攻击者** - 柱状图 + 数据表
-- ✅ Tab 4：**传染网络** - 热力图 + 网络图
-- ✅ Tab 5：**验证者行为** - 柱状图
-- ✅ Tab 6：**Oracle 分析** - 2 个柱状图
-- ✅ Tab 7：**ML 模型** - 柱状图 + 表格
-- ✅ Tab 8：**关键发现** - 策略表格
+-  Tab 1：**概览** - 关键统计表格
+-  Tab 2：**MEV 分布** - 3 个柱状图 + 1 个饼图
+-  Tab 3：**顶级攻击者** - 柱状图 + 数据表
+-  Tab 4：**传染网络** - 热力图 + 网络图
+-  Tab 5：**验证者行为** - 柱状图
+-  Tab 6：**Oracle 分析** - 2 个柱状图
+-  Tab 7：**ML 模型** - 柱状图 + 表格
+-  Tab 8：**关键发现** - 策略表格
 
 #### 一旦域名生效，访问：
 ```
@@ -203,7 +203,7 @@ heroku ps
 
 ---
 
-## ⚙️ 环境变量（如果使用）
+## ️ 环境变量（如果使用）
 
 如果您的应用使用环境变量（来自 `.env.template`）：
 
@@ -218,7 +218,7 @@ heroku config
 
 ---
 
-## 🔄 更新您的应用
+##  更新您的应用
 
 每次修改代码后：
 
@@ -254,7 +254,7 @@ git push heroku main
 
 ---
 
-## 🔧 故障排除
+##  故障排除
 
 ### 构建失败
 
@@ -299,28 +299,28 @@ Heroku 会用最新的 3.12 patch（如 3.12.7）
 
 ---
 
-## 📊 部署架构比较
+##  部署架构比较
 
 | 平台 | 状态 | URL | 优点 | 缺点 |
 |------|------|-----|------|------|
-| **Render** | 🟢 LIVE | mev.aileena.xyz | Auto-deploy、稳定 | 已部署 |
-| **Heroku** | ⚪ 新部署 | mev-aileena.herokuapp.com | 免费、易用 | Dyno 休眠 |
+| **Render** |  LIVE | mev.aileena.xyz | Auto-deploy、稳定 | 已部署 |
+| **Heroku** |  新部署 | mev-aileena.herokuapp.com | 免费、易用 | Dyno 休眠 |
 | **Localhost** | 24/7 | :8050 | 完全控制 | 仅本地 |
 
 ---
 
-## 📈 Heroku 计费和限制
+##  Heroku 计费和限制
 
 ### 免费层：
-- ✅ 无需付款方式
+-  无需付款方式
 - ⏸️ 每月 550 dyno 小时（~22 天）
-- 💾 512 MB RAM
-- 📊 1 dyno
+-  512 MB RAM
+-  1 dyno
 
 ### Hobby 层（$7/月）：
-- ✅ 常开（无休眠）
-- 💾 512 MB RAM
-- 📈 更快性能
+-  常开（无休眠）
+-  512 MB RAM
+-  更快性能
 
 ### 检查使用情况：
 ```bash
@@ -330,7 +330,7 @@ heroku dyno-types
 
 ---
 
-## ✅ 检查清单
+##  检查清单
 
 部署前：
 - [ ] Heroku CLI 已安装
@@ -356,7 +356,7 @@ heroku dyno-types
 
 ---
 
-## 🎉 成功！
+##  成功！
 
 您的 MEV 仪表板现在在 Heroku 上运行！
 
@@ -377,7 +377,7 @@ https://dashboard.heroku.com/apps/mev-aileena-dashboard
 
 ---
 
-## 📚 有用的 Heroku 命令
+##  有用的 Heroku 命令
 
 ```bash
 heroku create APP_NAME          # 创建应用
@@ -395,7 +395,7 @@ git push heroku main            # 部署新版本
 
 ---
 
-## 💡 下一步
+##  下一步
 
 1. **部署到 Heroku**（按上述步骤）
 2. **配置自定义域名**（mev.aileena.xyz）
@@ -414,4 +414,4 @@ https://devcenter.heroku.com/articles/deploying-python
 
 ---
 
-**祝您部署顺利！🚀**
+**祝您部署顺利！**

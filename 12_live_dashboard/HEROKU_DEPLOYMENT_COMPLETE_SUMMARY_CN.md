@@ -1,17 +1,17 @@
-# 🎉 Heroku 部署 - 完整总结
+#  Heroku 部署 - 完整总结
 
 ## 现状
 
 您的 MEV 仪表板已在两个平台上配置完毕：
 
-### ✅ Render 部署 - **已上线** 🟢
+###  Render 部署 - **已上线** 
 
 - **URL：** https://mev.aileena.xyz
 - **状态：** 实时运行
 - **特点：** 自动从 GitHub 部署
 - **性能：** 始终在线
 
-### ⚪ Heroku 部署 - **就绪** 
+###  Heroku 部署 - **就绪** 
 
 - **URL：** https://mev-aileena-dashboard.herokuapp.com（部署后）
 - **状态：** 配置已完成，等待部署
@@ -20,25 +20,25 @@
 
 ---
 
-## 📦 已为您准备的文件
+##  已为您准备的文件
 
 在 `12_live_dashboard/` 目录中：
 
 | 文件 | 用途 |
 |------|------|
-| **heroku-deploy-cn.sh** | 🤖 自动部署脚本（中文）- 推荐使用 |
-| **heroku-deploy.sh** | 🤖 自动部署脚本（英文） |
-| **HEROKU_COMPLETE_GUIDE_CN.md** | 📖 完整部署指南（中文，400+ 行） |
-| **HEROKU_DEPLOYMENT_GUIDE.md** | 📖 完整部署指南（英文） |
-| **HEROKU_QUICK_START_CN.md** | ⚡ 3 分钟快速开始（中文） |
-| **Procfile** | ⚙️ 启动命令（已配置） |
-| **runtime.txt** | 🐍 Python 版本（已配置）|
-| **requirements.txt** | 📚 依赖列表（已配置） |
-| **mev_dashboard.py** | 📊 仪表板代码（748 行） |
+| **heroku-deploy-cn.sh** |  自动部署脚本（中文）- 推荐使用 |
+| **heroku-deploy.sh** |  自动部署脚本（英文） |
+| **HEROKU_COMPLETE_GUIDE_CN.md** |  完整部署指南（中文，400+ 行） |
+| **HEROKU_DEPLOYMENT_GUIDE.md** |  完整部署指南（英文） |
+| **HEROKU_QUICK_START_CN.md** |  3 分钟快速开始（中文） |
+| **Procfile** | ️ 启动命令（已配置） |
+| **runtime.txt** |  Python 版本（已配置）|
+| **requirements.txt** |  依赖列表（已配置） |
+| **mev_dashboard.py** |  仪表板代码（748 行） |
 
 ---
 
-## 🚀 立即部署（3 选 1）
+##  立即部署（3 选 1）
 
 ### 选项 1️⃣ - **最简单**（推荐）
 使用自动化脚本，3 分钟完成：
@@ -72,7 +72,7 @@ git push heroku main
 
 ---
 
-## ✅ 部署后检查
+##  部署后检查
 
 ```bash
 # 检查应用是否运行
@@ -84,14 +84,14 @@ heroku logs --tail
 # 打开应用
 heroku open
 
-# 应查看：✅ 所有 8 个标签页正确加载
-#        ✅ 所有 6 种图表类型可见
-#        ✅ 右上角显示 "Deployed by Copilot" 
+# 应查看： 所有 8 个标签页正确加载
+#         所有 6 种图表类型可见
+#         右上角显示 "Deployed by Copilot" 
 ```
 
 ---
 
-## 🌐 配置自定义域名（可选）
+##  配置自定义域名（可选）
 
 ```bash
 # 1. 在 Heroku 中添加域名
@@ -111,7 +111,7 @@ heroku domains:add mev.aileena.xyz
 
 ---
 
-## 📊 部署后功能
+##  部署后功能
 
 您的仪表板将包含：
 
@@ -128,14 +128,14 @@ heroku domains:add mev.aileena.xyz
 
 ---
 
-## 💡 重要说明
+##  重要说明
 
 ### 免费 Dyno 睡眠机制
 
 ```
-⚠️ 免费 dyno 每 30 分钟无活动后休眠
+️ 免费 dyno 每 30 分钟无活动后休眠
 ⏱️ 首次访问需要 5-10 秒唤醒
-✅ 解决方案：让浏览器每 5 分钟自动访问一次（使用 UptimeRobot）
+ 解决方案：让浏览器每 5 分钟自动访问一次（使用 UptimeRobot）
 ```
 
 ### 升级到付费（可选）
@@ -145,14 +145,14 @@ heroku domains:add mev.aileena.xyz
 heroku ps:scale web=1:standard-1x
 
 # 优点：
-# ✅ 随时在线（无睡眠）
-# ✅ 性能提升
-# ✅ 更多内存
+#  随时在线（无睡眠）
+#  性能提升
+#  更多内存
 ```
 
 ---
 
-## 📋 故障排除
+##  故障排除
 
 | 问题 | 解决方案 |
 |------|--------|
@@ -163,7 +163,7 @@ heroku ps:scale web=1:standard-1x
 
 ---
 
-## 🔄 更新应用
+##  更新应用
 
 **部署后，每次修改代码：**
 
@@ -186,7 +186,7 @@ git push heroku main
 
 ---
 
-## 📚 更多资源
+##  更多资源
 
 **完整文档：**
 - [HEROKU_COMPLETE_GUIDE_CN.md](HEROKU_COMPLETE_GUIDE_CN.md) - 详细指南（7 步部署流程）
@@ -203,7 +203,7 @@ git push heroku main
 
 ---
 
-## 🎯 下一步是什么？
+##  下一步是什么？
 
 ### 立即可做的事：
 
@@ -227,15 +227,15 @@ git push heroku main
 
 ### 后续改进方向：
 
-- 🔄 实时数据更新
-- 📊 添加更多分析图表
-- 🔐 添加用户认证
-- 📱 移动端优化
-- 🚀 性能调优
+-  实时数据更新
+-  添加更多分析图表
+-  添加用户认证
+-  移动端优化
+-  性能调优
 
 ---
 
-## 📞 需要帮助？
+##  需要帮助？
 
 **常见问题：**
 1. 部署卡住了？
@@ -252,23 +252,23 @@ git push heroku main
 
 ---
 
-## ✨ 您已准备好！
+##  您已准备好！
 
-- ✅ 代码已在 GitHub
-- ✅ Render 已上线
-- ✅ Heroku 配置完毕
-- ✅ 文档已完成
-- ✅ 脚本已就绪
-- ✅ 等待您的指令
+-  代码已在 GitHub
+-  Render 已上线
+-  Heroku 配置完毕
+-  文档已完成
+-  脚本已就绪
+-  等待您的指令
 
-**现在就部署吧！🚀**
+**现在就部署吧！**
 
 ---
 
 **部署时间预计：**
-- 🤖 自动脚本方式：3-5 分钟
-- 📝 手动方式：5-10 分钟（加上首次 Heroku CLI 登录）
-- 🌐 DNS 生效：5-60 分钟
+-  自动脚本方式：3-5 分钟
+-  手动方式：5-10 分钟（加上首次 Heroku CLI 登录）
+-  DNS 生效：5-60 分钟
 
 **所有步骤都在 [HEROKU_COMPLETE_GUIDE_CN.md](HEROKU_COMPLETE_GUIDE_CN.md) 中有详细说明。**
 

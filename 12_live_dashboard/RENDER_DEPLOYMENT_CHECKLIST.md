@@ -15,15 +15,15 @@
 - [ ] No large binary files in repo (< 100MB)
 
 ### Files Present
-- [ ] ✅ `mev_dashboard.py` (main app file)
-- [ ] ✅ `requirements.txt` (dependencies)
-- [ ] ✅ `Procfile` (startup configuration)
-- [ ] ✅ Python version compatible (3.8+)
+- [ ]  `mev_dashboard.py` (main app file)
+- [ ]  `requirements.txt` (dependencies)
+- [ ]  `Procfile` (startup configuration)
+- [ ]  Python version compatible (3.8+)
 
 ### Special Configuration
 - [ ] Check if app is in subdirectory: `12_live_dashboard/` → YES
-- [ ] App uses WSGI-compatible server: Dash with Flask ✅
-- [ ] Server variable is defined: `server = app.server` ✅
+- [ ] App uses WSGI-compatible server: Dash with Flask 
+- [ ] Server variable is defined: `server = app.server` 
 
 ## Render.com Setup Steps
 
@@ -138,7 +138,7 @@ git push origin main
 
 ## Success Indicators
 
-✅ Dashboard is live when you see:
+ Dashboard is live when you see:
 - Green "Live" status in Render Dashboard
 - `.onrender.com` URL is responsive
 - Charts and data display correctly

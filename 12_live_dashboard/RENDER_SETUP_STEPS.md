@@ -1,8 +1,8 @@
 # Render Deployment - Step-by-Step Instructions
 
 ## Prerequisites
-✅ GitHub account with your code pushed to a repository  
-✅ All files ready in `12_live_dashboard/` folder
+ GitHub account with your code pushed to a repository  
+ All files ready in `12_live_dashboard/` folder
 
 ---
 
@@ -63,8 +63,8 @@ Click **"Advanced"** to add environment variables if needed:
 ## Step 6: Monitor Deployment
 
 Watch the deployment logs in real-time:
-- ✅ Green checkmarks = successful steps
-- 🔴 Red errors = check logs for details
+-  Green checkmarks = successful steps
+-  Red errors = check logs for details
 
 Common issues:
 - **Dependency errors**: Check `requirements.txt` syntax
@@ -84,9 +84,9 @@ Once deployed successfully:
 
 ## Free Plan Notes
 
-- ⚠️ **Auto-sleep**: App sleeps after 15 minutes of inactivity
-- ⚠️ **Wake-up time**: ~30 seconds on first request after sleep
-- ⚠️ **750 hours/month** free (resets monthly)
+- ️ **Auto-sleep**: App sleeps after 15 minutes of inactivity
+- ️ **Wake-up time**: ~30 seconds on first request after sleep
+- ️ **750 hours/month** free (resets monthly)
 - No credit card required
 
 ---
@@ -136,4 +136,4 @@ git push origin main
 
 ---
 
-**Your dashboard is configured and ready to deploy!** 🚀
+**Your dashboard is configured and ready to deploy!** 

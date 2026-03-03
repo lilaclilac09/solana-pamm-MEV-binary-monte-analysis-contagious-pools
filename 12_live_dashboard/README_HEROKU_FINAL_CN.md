@@ -1,58 +1,58 @@
-# 🎉 Heroku 部署完成 - 最终指南
+#  Heroku 部署完成 - 最终指南
 
-## 📊 完整清单
+##  完整清单
 
 您的 Heroku 部署已完全准备！以下是所有已为您创建的资源：
 
-### ✅ 中文文档（4 个）
+###  中文文档（4 个）
 
-1. **[HEROKU_QUICK_START_CN.md](HEROKU_QUICK_START_CN.md)** ⚡
+1. **[HEROKU_QUICK_START_CN.md](HEROKU_QUICK_START_CN.md)** 
    - 3 分钟快速参考
    - 复制粘贴即用命令
    - 最快上手方式
 
-2. **[HEROKU_COMPLETE_GUIDE_CN.md](HEROKU_COMPLETE_GUIDE_CN.md)** 📖
+2. **[HEROKU_COMPLETE_GUIDE_CN.md](HEROKU_COMPLETE_GUIDE_CN.md)** 
    - 完整 7 步部署流程
    - 15+ 种故障排除方案
    - 架构说明与对比
    - **推荐阅读**
 
-3. **[HEROKU_DEPLOYMENT_COMPLETE_SUMMARY_CN.md](HEROKU_DEPLOYMENT_COMPLETE_SUMMARY_CN.md)** 📋
+3. **[HEROKU_DEPLOYMENT_COMPLETE_SUMMARY_CN.md](HEROKU_DEPLOYMENT_COMPLETE_SUMMARY_CN.md)** 
    - 部署现状全面总结
    - 3 选 1 部署选项
    - 后续改进方向
 
-4. **[HEROKU_INDEX_CN.md](HEROKU_INDEX_CN.md)** 🗂️
+4. **[HEROKU_INDEX_CN.md](HEROKU_INDEX_CN.md)** ️
    - 文档导航与索引
    - 按需求快速查找
    - 学习路径建议
 
-### ✅ 自动化脚本（2 个）
+###  自动化脚本（2 个）
 
-1. **heroku-deploy-cn.sh** 🤖 - Chinese version
+1. **heroku-deploy-cn.sh**  - Chinese version
    - 完全自动化部署
    - 交互式菜单
    - 支持 2 种部署方式
    - **推荐使用**
 
-2. **heroku-deploy.sh** 🤖 - English version
+2. **heroku-deploy.sh**  - English version
    - 功能相同，仅语言不同
 
-### ✅ 配置文件（3 个）
+###  配置文件（3 个）
 
 1. **Procfile** - 启动命令配置
 2. **runtime.txt** - Python 3.12 指定
 3. **requirements.txt** - 所有依赖列表
 
-### ✅ 应用代码（1 个）
+###  应用代码（1 个）
 
 1. **mev_dashboard.py** - 完整仪表板（748 行）
 
 ---
 
-## 🚀 立即部署（3 种方式选择其一）
+##  立即部署（3 种方式选择其一）
 
-### ⚡ **方式 1：最简单（推荐）** - 一行命令
+###  **方式 1：最简单（推荐）** - 一行命令
 
 ```bash
 cd /Users/aileen/Downloads/pamm/solana-pamm-analysis/solana-pamm-MEV-binary-monte-analysis-contagious-pools/12_live_dashboard
@@ -68,7 +68,7 @@ chmod +x heroku-deploy-cn.sh
 
 ---
 
-### 📖 **方式 2：手动 - Git Subtree** - 与主仓库同步
+###  **方式 2：手动 - Git Subtree** - 与主仓库同步
 
 ```bash
 cd /Users/aileen/Downloads/pamm/solana-pamm-analysis/solana-pamm-MEV-binary-monte-analysis-contagious-pools
@@ -85,15 +85,15 @@ git subtree push --prefix 12_live_dashboard heroku main
 ```
 
 **优点：**
-- ✅ 与主仓库永久同步
-- ✅ 版本控制一致
-- ✅ 便于多人协作
+-  与主仓库永久同步
+-  版本控制一致
+-  便于多人协作
 
 **耗时：5-10 分钟**
 
 ---
 
-### 📁 **方式 3：手动 - 独立部署** - 一次性部署
+###  **方式 3：手动 - 独立部署** - 一次性部署
 
 ```bash
 mkdir ~/mev-heroku-deploy
@@ -116,15 +116,15 @@ heroku open
 ```
 
 **优点：**
-- ✅ 简单直观
-- ✅ 无需 git subtree 知识
-- ✅ 独立部署和管理
+-  简单直观
+-  无需 git subtree 知识
+-  独立部署和管理
 
 **耗时：5-10 分钟**
 
 ---
 
-## ✅ 部署后验证
+##  部署后验证
 
 ```bash
 # 1. 检查应用状态
@@ -137,14 +137,14 @@ heroku logs --tail
 heroku open
 
 # 应看到：
-# ✅ 8 个标签页正常
-# ✅ 所有图表加载
-# ✅ 没有红色错误
+#  8 个标签页正常
+#  所有图表加载
+#  没有红色错误
 ```
 
 ---
 
-## 🌐 配置自定义域名（可选）
+##  配置自定义域名（可选）
 
 ```bash
 # 1. 在 Heroku 中添加您的域名
@@ -166,7 +166,7 @@ heroku domains
 
 ---
 
-## 📊 您的仪表板功能
+##  您的仪表板功能
 
 部署成功后，您将获得：
 
@@ -184,19 +184,19 @@ heroku domains
 
 ---
 
-## 💡 重要信息
+##  重要信息
 
 ### 免费 Dyno 说明
 
 ```
-✋ 免费 Heroku dyno 做了什么：
-   📋 每 30 分钟无活动后自动休眠
+ 免费 Heroku dyno 做了什么：
+    每 30 分钟无活动后自动休眠
    ⏱️ 首次访问时需要 5-10 秒唤醒
-   💤 应用仍在运行，只是已暂停
+    应用仍在运行，只是已暂停
 
-✅ 解决方案：
-   🔗 使用 UptimeRobot 等工具每 5 分钟 ping 一次
-   💳 升级到付费 dyno（$7/月）可避免睡眠
+ 解决方案：
+    使用 UptimeRobot 等工具每 5 分钟 ping 一次
+    升级到付费 dyno（$7/月）可避免睡眠
 ```
 
 ### dyno 睡眠无法访问？
@@ -214,9 +214,9 @@ git push heroku main
 
 ---
 
-## 🔧 故障排除
+##  故障排除
 
-### ❌ 问题：部署失败
+###  问题：部署失败
 
 ```bash
 # 查看详细错误
@@ -233,7 +233,7 @@ heroku logs --tail
 # 3. 重试部署
 ```
 
-### ❌ 问题：应用崩溃
+###  问题：应用崩溃
 
 ```bash
 # 查看日志找到原因
@@ -248,7 +248,7 @@ heroku restart
 # 3. 内存是否足够
 ```
 
-### ❌ 问题：图表不显示
+###  问题：图表不显示
 
 ```bash
 # 解决方案：
@@ -261,18 +261,18 @@ heroku logs --tail
 
 ---
 
-## 📚 详细文档
+##  详细文档
 
 **想要更深入的信息？**
 
-- 📖 [HEROKU_COMPLETE_GUIDE_CN.md](HEROKU_COMPLETE_GUIDE_CN.md) - 完整指南（所有细节）
-- ⚡ [HEROKU_QUICK_START_CN.md](HEROKU_QUICK_START_CN.md) - 快速参考（常用命令）
-- 📋 [HEROKU_DEPLOYMENT_COMPLETE_SUMMARY_CN.md](HEROKU_DEPLOYMENT_COMPLETE_SUMMARY_CN.md) - 全面总结
-- 🗂️ [HEROKU_INDEX_CN.md](HEROKU_INDEX_CN.md) - 文档导航
+-  [HEROKU_COMPLETE_GUIDE_CN.md](HEROKU_COMPLETE_GUIDE_CN.md) - 完整指南（所有细节）
+-  [HEROKU_QUICK_START_CN.md](HEROKU_QUICK_START_CN.md) - 快速参考（常用命令）
+-  [HEROKU_DEPLOYMENT_COMPLETE_SUMMARY_CN.md](HEROKU_DEPLOYMENT_COMPLETE_SUMMARY_CN.md) - 全面总结
+- ️ [HEROKU_INDEX_CN.md](HEROKU_INDEX_CN.md) - 文档导航
 
 ---
 
-## 🎯 下一步行动
+##  下一步行动
 
 ### 现在就做：
 
@@ -297,14 +297,14 @@ heroku logs --tail
 
 ### 后续改进：
 
-- 🔄 实时数据更新
-- 📊 添加更多分析
-- 🚀 性能优化
-- 📱 移动端适配
+-  实时数据更新
+-  添加更多分析
+-  性能优化
+-  移动端适配
 
 ---
 
-## 📞 快速命令速查
+##  快速命令速查
 
 ```bash
 # 应用管理
@@ -331,18 +331,18 @@ heroku releases                  # 查看部署历史
 
 ---
 
-## 🎓 您已学会：
+##  您已学会：
 
-- ✅ 理解 Heroku 部署原理
-- ✅ 配置 Python 应用环境
-- ✅ 自动化部署流程
-- ✅ 监控应用日志
-- ✅ 配置自定义域名
-- ✅ 故障排除方法
+-  理解 Heroku 部署原理
+-  配置 Python 应用环境
+-  自动化部署流程
+-  监控应用日志
+-  配置自定义域名
+-  故障排除方法
 
 ---
 
-## 💯 部署检查清单
+##  部署检查清单
 
 ### 部署前
 - [ ] Heroku CLI 已安装
@@ -370,7 +370,7 @@ heroku releases                  # 查看部署历史
 
 ---
 
-## 🎊 准备好了吗？
+##  准备好了吗？
 
 ### 现在就开始部署！
 
@@ -383,11 +383,11 @@ cd 12_live_dashboard
 
 ---
 
-## 📊 对比：Render vs Heroku
+##  对比：Render vs Heroku
 
 | 特性 | Render | Heroku |
 |------|--------|--------|
-| **状态** | ✅ 已上线 | ⚪ 已准备 |
+| **状态** |  已上线 |  已准备 |
 | **URL** | mev.aileena.xyz | mev-aileena-dashboard.herokuapp.com |
 | **性能** | 始终在线 | 免费时睡眠 |
 | **费用** | $7/月 | 免费或 $7+/月 |
@@ -396,7 +396,7 @@ cd 12_live_dashboard
 
 ---
 
-## ✨ 最后话
+##  最后话
 
 您的仪表板已完全准备好部署！所有文档、脚本和配置都已就位。
 
@@ -406,6 +406,6 @@ cd 12_live_dashboard
 
 ---
 
-**🚀 立即开始您的 Heroku 之旅吧！**
+** 立即开始您的 Heroku 之旅吧！**
 
 *最后更新：2024 | 由您的 AI 助手准备*

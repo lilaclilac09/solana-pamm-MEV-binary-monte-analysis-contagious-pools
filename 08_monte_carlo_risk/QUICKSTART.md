@@ -12,18 +12,18 @@ jupyter notebook 09_binary_monte_carlo_contagion.ipynb
 
 ## What You'll Get
 
-### 📊 CSV Results (3 files, 100k rows each)
+###  CSV Results (3 files, 100k rows each)
 - `monte_carlo_jito_baseline_*.csv` — 14.9% attack rate, 3.99 cascades
 - `monte_carlo_bam_privacy_*.csv` — 14.97% attack rate, 1.41 cascades (64% reduction)
 - `monte_carlo_harmony_multibuilder_*.csv` — 15.03% attack rate, 1.93 cascades (52% reduction)
 
-### 📈 Visualizations (4 PNG files)
+###  Visualizations (4 PNG files)
 1. **Cascade distribution histograms** — Compare distributions across scenarios
 2. **Infrastructure comparison** — Risk metrics side-by-side
 3. **Box plots** — Quartiles for cascades, slots, losses
 4. **Oracle lag correlation** — 2D heatmaps showing relationships
 
-### 📋 Summary Statistics
+###  Summary Statistics
 ```
 Infrastructure               Attack % | Mean Cascades | P90 Slots | Mean Loss | High Risk %
 ────────────────────────────────────────────────────────────────────────────────────────

@@ -122,7 +122,7 @@ Free
 │ │ Start Command:                          │ │
 │ │ [cd 12_live_dashboard && gunicorn...] │ │
 │ │                                         │ │
-│ │ ☑ Auto-Deploy on Push                   │ │
+│ │  Auto-Deploy on Push                   │ │
 │ └─────────────────────────────────────────┘ │
 │                                             │
 │ Instance Type                               │
@@ -216,7 +216,7 @@ cd 12_live_dashboard && gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 120 
 
 ## Common Mistakes & Fixes
 
-### ❌ Wrong Build Command
+###  Wrong Build Command
 ```
 pip install -r requirements.txt
           ← Missing "12_live_dashboard/"
@@ -226,7 +226,7 @@ pip install -r requirements.txt
 pip install -r 12_live_dashboard/requirements.txt
 ```
 
-### ❌ Wrong Start Command (Missing cd)
+###  Wrong Start Command (Missing cd)
 ```
 gunicorn --bind 0.0.0.0:$PORT mev_dashboard:server
   ↑ Missing "cd 12_live_dashboard &&" prefix
@@ -236,7 +236,7 @@ gunicorn --bind 0.0.0.0:$PORT mev_dashboard:server
 cd 12_live_dashboard && gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 120 mev_dashboard:server
 ```
 
-### ❌ Wrong Start Command (Wrong server variable)
+###  Wrong Start Command (Wrong server variable)
 ```
 cd 12_live_dashboard && gunicorn mev_dashboard:app
                                                  ↑ Should be "server" not "app"
@@ -247,7 +247,7 @@ cd 12_live_dashboard && gunicorn mev_dashboard:server
                                                 ↑ Correct variable
 ```
 
-### ❌ Wrong Environment Selection
+###  Wrong Environment Selection
 ```
 Environment: Python 3.11
      ↑ Should be "Python 3" not the version number
@@ -360,6 +360,6 @@ git push origin main
 
 ---
 
-**You have everything you need. Your dashboard is ready to deploy!** ✅
+**You have everything you need. Your dashboard is ready to deploy!** 
 
-Print this page or keep it open in one window, Render dashboard in another. 📋
+Print this page or keep it open in one window, Render dashboard in another. 

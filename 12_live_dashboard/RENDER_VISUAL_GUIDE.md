@@ -9,7 +9,7 @@ https://mev-dashboard.onrender.com
 
 ---
 
-## ⚙️ Step 1: Prepare Your Project for Deployment
+## ️ Step 1: Prepare Your Project for Deployment
 
 ### A. Make sure everything is committed to GitHub
 
@@ -43,7 +43,7 @@ chmod +x render_precheck.sh
 
 ---
 
-## 🌐 Step 2: Create Render Account
+##  Step 2: Create Render Account
 
 1. **Visit:** https://render.com
 2. **Click:** Sign Up (top right)
@@ -53,7 +53,7 @@ chmod +x render_precheck.sh
 
 ---
 
-## 🚀 Step 3: Create a New Web Service
+##  Step 3: Create a New Web Service
 
 ### A. Go to Dashboard
 - Visit: https://render.com/dashboard
@@ -76,7 +76,7 @@ After connecting, configure:
 
 ---
 
-## 📋 Step 4: Configure Service Settings
+##  Step 4: Configure Service Settings
 
 You'll see a form. Fill in **EXACTLY** as shown:
 
@@ -92,13 +92,13 @@ You'll see a form. Fill in **EXACTLY** as shown:
 
 ### Build & Deploy Section
 
-#### 🔨 Build Command
+####  Build Command
 **Exact value to paste:**
 ```
 pip install -r 12_live_dashboard/requirements.txt
 ```
 
-> ⚠️ **IMPORTANT:** The path `12_live_dashboard/requirements.txt` is required because your app is in a subdirectory!
+> ️ **IMPORTANT:** The path `12_live_dashboard/requirements.txt` is required because your app is in a subdirectory!
 
 #### ▶️ Start Command
 **Exact value to paste:**
@@ -106,7 +106,7 @@ pip install -r 12_live_dashboard/requirements.txt
 cd 12_live_dashboard && gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 120 mev_dashboard:server
 ```
 
-> ⚠️ **IMPORTANT:** This command:
+> ️ **IMPORTANT:** This command:
 > - Changes to the `12_live_dashboard/` directory
 > - Starts gunicorn with proper configuration
 > - Uses `mev_dashboard:server` (your Flask app variable)
@@ -136,11 +136,11 @@ If your dashboard needs API keys or secrets:
 
 ---
 
-## ✅ Step 5: Deploy!
+##  Step 5: Deploy!
 
 1. **Verify all settings one more time:**
-   - Build Command: ✓ `pip install -r 12_live_dashboard/requirements.txt`
-   - Start Command: ✓ `cd 12_live_dashboard && gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 120 mev_dashboard:server`
+   - Build Command:  `pip install -r 12_live_dashboard/requirements.txt`
+   - Start Command:  `cd 12_live_dashboard && gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 120 mev_dashboard:server`
 
 2. **Click:** **Create Web Service** (blue button at bottom)
 
@@ -153,7 +153,7 @@ If your dashboard needs API keys or secrets:
 
 ---
 
-## 📊 Step 6: Monitor Deployment
+##  Step 6: Monitor Deployment
 
 ### A. View Build Progress
 
@@ -173,7 +173,7 @@ Starting service...
 
 Top of the page shows:
 - **Building** (in progress)
-- **Live** (ready to use!) ✅
+- **Live** (ready to use!) 
 - **Failed** (debug from logs)
 
 ### C. Access Your Dashboard
@@ -182,11 +182,11 @@ Once status is **Live**:
 
 1. Render shows your public URL (e.g., `https://mev-dashboard.onrender.com`)
 2. Click the link OR copy-paste into browser
-3. Your dashboard loads! 🎉
+3. Your dashboard loads! 
 
 ---
 
-## 🧪 Step 7: Verify It Works
+##  Step 7: Verify It Works
 
 ### Test Your Dashboard
 
@@ -211,7 +211,7 @@ Once status is **Live**:
 
 ---
 
-## 🔄 Step 8: Auto-Deployment on Updates
+##  Step 8: Auto-Deployment on Updates
 
 Render automatically redeploys when you push to `main`:
 
@@ -230,7 +230,7 @@ git push origin main
 
 ---
 
-## 📱 Share Your Dashboard
+##  Share Your Dashboard
 
 Your public URL (once live):
 ```
@@ -245,7 +245,7 @@ https://mev-dashboard.onrender.com
 
 ---
 
-## 🔐 Security Note
+##  Security Note
 
 Your dashboard is **publicly accessible** by default.
 
@@ -256,26 +256,26 @@ If you need authentication:
 
 ---
 
-## 📈 Performance Tips
+##  Performance Tips
 
 ### Free Plan (What you get):
-- ✅ Automatic sleep after 15 minutes of inactivity
-- ✅ Auto-wake when accessed again
-- ✅ Zero downtime deployments
-- ✅ Auto-redeploy on git push
-- ❌ Slower than paid plans
-- ❌ Limited to 1 concurrent request
+-  Automatic sleep after 15 minutes of inactivity
+-  Auto-wake when accessed again
+-  Zero downtime deployments
+-  Auto-redeploy on git push
+-  Slower than paid plans
+-  Limited to 1 concurrent request
 
 ### Upgrade to Starter ($7/month):
-- ✅ Always on (no sleep)
-- ✅ Better performance (2 workers)
-- ✅ Custom domain support
-- ✅ Higher quotas
-- ✅ Priority support
+-  Always on (no sleep)
+-  Better performance (2 workers)
+-  Custom domain support
+-  Higher quotas
+-  Priority support
 
 ---
 
-## 🚨 Troubleshooting
+##  Troubleshooting
 
 ### Build Failed
 **Check:**
@@ -297,8 +297,8 @@ git push origin main
 
 ### Start Command Failed
 **Check:**
-- Is `server = app.server` in `mev_dashboard.py`? (✅ Yes, you have it)
-- Is gunicorn in requirements.txt? (✅ Yes)
+- Is `server = app.server` in `mev_dashboard.py`? ( Yes, you have it)
+- Is gunicorn in requirements.txt? ( Yes)
 - Are Build/Start commands exact?
 
 **Most common issue:**
@@ -329,7 +329,7 @@ cd 12_live_dashboard && gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 120 
 
 ---
 
-## 📞 Getting Help
+##  Getting Help
 
 ### Render Support
 - Render Docs: https://render.com/docs
@@ -347,7 +347,7 @@ cd 12_live_dashboard && gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 120 
 
 ---
 
-## 📚 Quick Reference Cheat Sheet
+##  Quick Reference Cheat Sheet
 
 ### Essential URLs
 ```
@@ -385,7 +385,7 @@ cd 12_live_dashboard && gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 120 
 
 ---
 
-## ✨ Success Checklist
+##  Success Checklist
 
 - [ ] Code pushed to GitHub `main` branch
 - [ ] Render account created
@@ -396,7 +396,7 @@ cd 12_live_dashboard && gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 120 
 - [ ] Dashboard loads at `.onrender.com` URL
 - [ ] All charts and features work
 - [ ] URL works from different devices/browsers
-- [ ] Ready to share with the world! 🎉
+- [ ] Ready to share with the world! 
 
 ---
 
@@ -411,6 +411,6 @@ cd 12_live_dashboard && gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 120 
 
 ---
 
-**Your dashboard is ready to deploy! 🚀**
+**Your dashboard is ready to deploy! **
 
 Questions? Check the Logs tab on your Render dashboard for detailed error messages.

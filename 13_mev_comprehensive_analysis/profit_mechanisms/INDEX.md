@@ -1,13 +1,13 @@
-# 📊 12_mev_profit_mechanisms - Complete Analysis Folder
+#  12_mev_profit_mechanisms - Complete Analysis Folder
 
-## 🎯 Mission
+##  Mission
 Comprehensive analysis of **how MEV attackers generate profits** through front-running, sandwich attacks, and transaction manipulation on Solana.
 
 ---
 
-## 📁 Folder Contents
+##  Folder Contents
 
-### 📚 Documentation Files (READ THESE)
+###  Documentation Files (READ THESE)
 
 #### 1. **README.md** ← **START HERE**
    - Quick start guide
@@ -38,7 +38,7 @@ Comprehensive analysis of **how MEV attackers generate profits** through front-r
    - Validator selection importance
    - ~12 KB | 450+ lines
 
-### 🔧 Analysis Scripts (EXECUTABLE)
+###  Analysis Scripts (EXECUTABLE)
 
 #### 1. **mev_profit_analysis.py**
    ```bash
@@ -81,7 +81,7 @@ Comprehensive analysis of **how MEV attackers generate profits** through front-r
    **Runtime:** ~2 seconds
    **Size:** 15 KB | 430+ lines
 
-### 📊 Output Files
+###  Output Files
 
 #### CSVs (Generated Data)
 - **mev_profit_summary.csv** - All 20 attacks ranked by profit
@@ -94,7 +94,7 @@ Comprehensive analysis of **how MEV attackers generate profits** through front-r
 
 ---
 
-## 🚀 Getting Started (5 minutes)
+##  Getting Started (5 minutes)
 
 ### Step 1: Run Analysis
 ```bash
@@ -123,7 +123,7 @@ head -5 outputs/pool_exploitation_statistics.csv
 
 ---
 
-## 📈 Key Findings At-A-Glance
+##  Key Findings At-A-Glance
 
 ### The Money
 | Metric | Value |
@@ -170,7 +170,7 @@ head -5 outputs/pool_exploitation_statistics.csv
 
 ---
 
-## 💡 How Profits Are Made (Simple Version)
+##  How Profits Are Made (Simple Version)
 
 ### The Attack Sequence
 
@@ -208,7 +208,7 @@ Example Attack #1 (Top Profit):
 
 ---
 
-## 🎓 Learning Path
+##  Learning Path
 
 ### For Non-Technical People
 1. Read **QUICKSTART.md**
@@ -235,7 +235,7 @@ Example Attack #1 (Top Profit):
 
 ---
 
-## 🔗 Cross-References
+##  Cross-References
 
 ### Related Folders
 - **../02_mev_detection/** - Raw MEV data source
@@ -249,7 +249,7 @@ Example Attack #1 (Top Profit):
 
 ---
 
-## 📊 Analysis Methods
+##  Analysis Methods
 
 ### Statistical Approach
 - **Descriptive Statistics**: Means, medians, distributions
@@ -271,7 +271,7 @@ Example Attack #1 (Top Profit):
 
 ---
 
-## 🛡️ Defensive Applications
+## ️ Defensive Applications
 
 ### If You're Building a Protocol
 1. **Implement slippage limits** - Reject trades with >5% price movement
@@ -293,7 +293,7 @@ Example Attack #1 (Top Profit):
 
 ---
 
-## 🔑 Key Insights
+##  Key Insights
 
 ### 1. Economics Are Compelling
 - 900% ROI with 10% costs
@@ -327,7 +327,7 @@ Example Attack #1 (Top Profit):
 
 ---
 
-## 📝 File Statistics
+##  File Statistics
 
 | File | Type | Size | Lines | Purpose |
 |------|------|------|-------|---------|
@@ -341,17 +341,17 @@ Example Attack #1 (Top Profit):
 
 ---
 
-## ✅ Status
+##  Status
 
-- ✅ Analysis complete
-- ✅ Scripts tested and working
-- ✅ Output files generated
-- ✅ Documentation comprehensive
-- ✅ Ready for implementation
+-  Analysis complete
+-  Scripts tested and working
+-  Output files generated
+-  Documentation comprehensive
+-  Ready for implementation
 
 ---
 
-## 🚀 Next Steps
+##  Next Steps
 
 1. **Read README.md** (5 minutes)
 2. **Run the scripts** (5 minutes)

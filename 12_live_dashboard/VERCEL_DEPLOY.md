@@ -1,6 +1,6 @@
 # Deploy to mev.aileen.xyz - VERCEL (Easiest Method)
 
-## 🚀 5-Minute Setup
+##  5-Minute Setup
 
 ### Step 1: Install Vercel CLI
 ```bash
@@ -22,7 +22,7 @@ vercel --prod
 
 When deployment completes, you'll see:
 ```
-✅ Production: https://mev-dashboard-xxxxx.vercel.app
+ Production: https://mev-dashboard-xxxxx.vercel.app
 ```
 
 **Connect to mev.aileen.xyz:**
@@ -50,7 +50,7 @@ ns2.vercel-dns.com
 
 ---
 
-## ✅ Verification
+##  Verification
 
 Once deployed:
 ```bash
@@ -62,7 +62,7 @@ curl https://mev.aileen.xyz/
 
 ---
 
-## 🔄 Auto-Deploy on Push (Optional)
+##  Auto-Deploy on Push (Optional)
 
 Connect your GitHub repo for auto-deploy:
 
@@ -80,35 +80,35 @@ git push
 
 ---
 
-## 📊 Live Dashboard Features
+##  Live Dashboard Features
 
 Your dashboard at **mev.aileen.xyz** will have:
 
-- ✅ **13 Interactive Tabs**
+-  **13 Interactive Tabs**
   - Overview, MEV Distribution, Top Attackers
   - Event Analysis, Contagion, Oracle Analysis
   - Token Pair Risk, Validators, ML Models
   - Monte Carlo, Attack Animation
   - BisonFi Case Studies, Live Data Integration
 
-- ✅ **Real-Time Visualizations**
+-  **Real-Time Visualizations**
   - Network graphs of pool coordination
   - Oracle latency analysis
   - Animated sandwich attack simulation
   - Feature importance charts
 
-- ✅ **Custom Branding**
+-  **Custom Branding**
   - Purple gradient header (#667EEA → #764BA2)
   - aileen.xyz branding throughout
   - Professional color scheme
 
 ---
 
-## 🛠️ Troubleshooting
+## ️ Troubleshooting
 
 ### Domain not resolving?
 - Wait 15-30 minutes for DNS propagation
-- Check Vercel dashboard for domain status (should be ✅ Valid)
+- Check Vercel dashboard for domain status (should be  Valid)
 
 ### 502 Bad Gateway?
 - Check Vercel logs: Dashboard → Deployments → View logs
@@ -120,7 +120,7 @@ Your dashboard at **mev.aileen.xyz** will have:
 
 ---
 
-## 📝 Environment Variables (Optional)
+##  Environment Variables (Optional)
 
 If you add live data integration later, add env vars in Vercel:
 1. **Settings** → **Environment Variables**
@@ -129,7 +129,7 @@ If you add live data integration later, add env vars in Vercel:
 
 ---
 
-**You're all set! 🎉**
+**You're all set! **
 - Dashboard: https://mev.aileen.xyz
 - View logs: https://vercel.com/dashboard
 - Manage domain: https://vercel.com/dashboard/[project]/settings/domains

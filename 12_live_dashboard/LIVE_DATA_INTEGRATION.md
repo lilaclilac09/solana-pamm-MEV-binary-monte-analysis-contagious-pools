@@ -480,7 +480,7 @@ print(f"Devnet block #{test_slot-5}: {len(test_block['result']['transactions'])}
 Add health check tab:
 
 ```python
-dcc.Tab(label='🔧 System Health', children=[
+dcc.Tab(label=' System Health', children=[
     html.Div([
         html.H3('API Status'),
         html.Div(id='api-status-display'),
@@ -499,17 +499,17 @@ def check_api_health(n):
     try:
         fetcher = HeliusFetcher()
         fetcher.client.get_slot()
-        statuses.append(html.P('✅ Helius RPC: Connected', style={'color': 'green'}))
+        statuses.append(html.P(' Helius RPC: Connected', style={'color': 'green'}))
     except:
-        statuses.append(html.P('❌ Helius RPC: Failed', style={'color': 'red'}))
+        statuses.append(html.P(' Helius RPC: Failed', style={'color': 'red'}))
     
     # Check Jito
     try:
         monitor = JitoMonitor()
         monitor.get_recent_bundles()
-        statuses.append(html.P('✅ Jito API: Connected', style={'color': 'green'}))
+        statuses.append(html.P(' Jito API: Connected', style={'color': 'green'}))
     except:
-        statuses.append(html.P('⚠️ Jito API: Unavailable', style={'color': 'orange'}))
+        statuses.append(html.P('️ Jito API: Unavailable', style={'color': 'orange'}))
     
     return statuses
 ```

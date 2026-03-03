@@ -1,12 +1,12 @@
-# 🚀 CU Benchmark Workflow: Quick Start
+#  CU Benchmark Workflow: Quick Start
 
 This directory contains everything you need to measure Compute Unit (CU) consumption in your Prop AMM and generate the professional CU Percentile Heatmap.
 
 ---
 
-## 📋 What You Have
+##  What You Have
 
-### 1. **CU_MEASUREMENT_GUIDE.md** 📖
+### 1. **CU_MEASUREMENT_GUIDE.md** 
 Comprehensive guide explaining:
 - What CU is and why it matters
 - How different operations cost differently
@@ -19,7 +19,7 @@ Comprehensive guide explaining:
 
 ### 2. **Three Data Collection Scripts**
 
-#### **Option A: `simulate_cu_benchmark.py`** ⚡ (START HERE)
+#### **Option A: `simulate_cu_benchmark.py`**  (START HERE)
 **Best for: Testing the heatmap workflow immediately**
 
 Generates realistic synthetic CU data for all 14 operations.
@@ -36,7 +36,7 @@ python simulate_cu_benchmark.py --samples 500 --output outputs/cu_benchmark_logs
 
 ---
 
-#### **Option B: `extract_cu_from_rpc.py`** 🔗 (PRODUCTION DATA)
+#### **Option B: `extract_cu_from_rpc.py`**  (PRODUCTION DATA)
 **Best for: Collecting real CU data from your deployed program**
 
 Queries Solana RPC to extract CU metrics from live transactions.
@@ -64,7 +64,7 @@ pip install solders httpx pandas
 
 ---
 
-#### **Option C: `extract_cu_from_logs.py`** 📄 (FROM FILES)
+#### **Option C: `extract_cu_from_logs.py`**  (FROM FILES)
 **Best for: If you already have logs or exported data**
 
 Parses Solana logs or CSV files to extract CU values.
@@ -84,7 +84,7 @@ python extract_cu_from_logs.py \
 
 ---
 
-### 3. **CU_PERCENTILE_HEATMAP.ipynb** 📊
+### 3. **CU_PERCENTILE_HEATMAP.ipynb** 
 Jupyter notebook that:
 - Loads CU benchmark data
 - Computes percentiles (min, p50, p75, p90, p95, p99, max)
@@ -94,7 +94,7 @@ Jupyter notebook that:
 
 ---
 
-## 🎯 Quick Start Workflow
+##  Quick Start Workflow
 
 ### Step 1: Choose Your Data Source (Pick ONE)
 
@@ -153,7 +153,7 @@ Output files:
 
 ---
 
-## 📊 Expected Output
+##  Expected Output
 
 ### Heatmap Visualization
 Shows all 14 operations with CU percentiles:
@@ -172,14 +172,14 @@ Swap Buy / Curve C       18,456   29,800   38,400   49,200   58,300   64,200   8
 
 ### Safety Analysis
 ```
-✓ Safe operations (p99 < 20k):    10/14
-⚠  Caution zone (20k–30k):         3/14
-❌ Danger zone (> 30k):             1/14
+ Safe operations (p99 < 20k):    10/14
+  Caution zone (20k–30k):         3/14
+ Danger zone (> 30k):             1/14
 ```
 
 ---
 
-## 🔍 Troubleshooting
+##  Troubleshooting
 
 ### "No CU data found"
 - **Cause**: CSV column names don't match
@@ -210,7 +210,7 @@ Swap Buy / Curve C       18,456   29,800   38,400   49,200   58,300   64,200   8
 
 ---
 
-## 💡 Pro Tips
+##  Pro Tips
 
 ### 1. **Quick Testing Loop**
 ```bash
@@ -256,7 +256,7 @@ python extract_cu_from_rpc.py \
 
 ---
 
-## 📈 Challenge Integration
+##  Challenge Integration
 
 **For Prop AMM Challenge submission:**
 
@@ -283,20 +283,20 @@ python extract_cu_from_rpc.py \
 
 ---
 
-## 📚 File Reference
+##  File Reference
 
 | File | Purpose | Status |
 |------|---------|--------|
-| `CU_MEASUREMENT_GUIDE.md` | Comprehensive documentation | ✅ Created |
-| `simulate_cu_benchmark.py` | Generate synthetic data | ✅ Created |
-| `extract_cu_from_rpc.py` | Extract from live program | ✅ Created |
-| `extract_cu_from_logs.py` | Parse logs/CSV files | ✅ Created |
-| `CU_PERCENTILE_HEATMAP.ipynb` | Generate visualization | ✅ Created |
-| `CU_EXTRACTION_QUICKSTART.md` | This file | ✅ You are here |
+| `CU_MEASUREMENT_GUIDE.md` | Comprehensive documentation |  Created |
+| `simulate_cu_benchmark.py` | Generate synthetic data |  Created |
+| `extract_cu_from_rpc.py` | Extract from live program |  Created |
+| `extract_cu_from_logs.py` | Parse logs/CSV files |  Created |
+| `CU_PERCENTILE_HEATMAP.ipynb` | Generate visualization |  Created |
+| `CU_EXTRACTION_QUICKSTART.md` | This file |  You are here |
 
 ---
 
-## 🎯 Next Steps
+##  Next Steps
 
 ### Immediate (Now):
 - [ ] Read `CU_MEASUREMENT_GUIDE.md`
@@ -318,7 +318,7 @@ python extract_cu_from_rpc.py \
 
 ---
 
-## ❓ Questions?
+##  Questions?
 
 Refer to:
 1. **"How do I measure CU?"** → `CU_MEASUREMENT_GUIDE.md` Section 2–3
@@ -328,4 +328,4 @@ Refer to:
 
 ---
 
-**Happy profiling! 🚀 Let's crush the CU leaderboard!**
+**Happy profiling!  Let's crush the CU leaderboard!**

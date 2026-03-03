@@ -1,10 +1,10 @@
-# 🎯 MEV Threat Intelligence - Quick Reference Card
+#  MEV Threat Intelligence - Quick Reference Card
 
 **TL;DR:** Everything is ready. Run these 3 commands to deploy.
 
 ---
 
-## ⚡ The Absolute Quickest Deploy (Copy-Paste Ready)
+##  The Absolute Quickest Deploy (Copy-Paste Ready)
 
 ```bash
 # STEP 1: Test locally (ctrl+C to stop)
@@ -27,20 +27,20 @@ git add -A && git commit -m "Deploy MEV dashboard" && git push origin main
 
 ---
 
-## 📁 What You Have (File Inventory)
+##  What You Have (File Inventory)
 
 | What | Where | Status | Size |
 |------|-------|--------|------|
-| Main page | `index.html` | ✅ Ready | 44K |
-| Dash app | `app/index.py` | ✅ Ready | 407 lines |
-| Visualizations | `app/assets/*.png` | ✅ Ready | 1.3 MB |
-| Top stories | `TOP_STORIES_ATTACK_CASE_STUDIES.md` | ✅ Ready | 500+ lines |
-| Setup guide | `DEPLOYMENT_CHECKLIST.md` | ✅ Created | Full |
-| Deploy script | `deploy.sh` | ✅ Created | Bash |
+| Main page | `index.html` |  Ready | 44K |
+| Dash app | `app/index.py` |  Ready | 407 lines |
+| Visualizations | `app/assets/*.png` |  Ready | 1.3 MB |
+| Top stories | `TOP_STORIES_ATTACK_CASE_STUDIES.md` |  Ready | 500+ lines |
+| Setup guide | `DEPLOYMENT_CHECKLIST.md` |  Created | Full |
+| Deploy script | `deploy.sh` |  Created | Bash |
 
 ---
 
-## 🎯 What's on Each Page
+##  What's on Each Page
 
 ### **mev.aileena.xyz/** (Static HTML)
 - Executive summary (6 metrics)
@@ -59,7 +59,7 @@ git add -A && git commit -m "Deploy MEV dashboard" && git push origin main
 
 ---
 
-## 📊 Attack Data at a Glance
+##  Attack Data at a Glance
 
 | Metric | Value |
 |--------|-------|
@@ -74,7 +74,7 @@ git add -A && git commit -m "Deploy MEV dashboard" && git push origin main
 
 ---
 
-## ✅ After Deployment, Verify:
+##  After Deployment, Verify:
 
 ### Local Test
 - [ ] Dash starts on localhost:8050
@@ -93,7 +93,7 @@ git add -A && git commit -m "Deploy MEV dashboard" && git push origin main
 
 ---
 
-## 🚨 Common Issues & Fixes
+##  Common Issues & Fixes
 
 | Problem | Fix |
 |---------|-----|
@@ -105,7 +105,7 @@ git add -A && git commit -m "Deploy MEV dashboard" && git push origin main
 
 ---
 
-## 📞 File Locations (Reference)
+##  File Locations (Reference)
 
 ```
 /Users/aileen/Downloads/pamm/solana-pamm-analysis/
@@ -126,11 +126,11 @@ git add -A && git commit -m "Deploy MEV dashboard" && git push origin main
 
 ---
 
-## 🎬 Start Here
+##  Start Here
 
 **Choose Your Path:**
 
-### 👤 I want to test locally first
+###  I want to test locally first
 ```bash
 source .venv/bin/activate
 cd app
@@ -138,19 +138,19 @@ python index.py
 # Visit http://localhost:8050
 ```
 
-### 🌐 I want to deploy now
+###  I want to deploy now
 ```bash
 bash deploy.sh all  # Runs all 3 steps automatically
 ```
 
-### 📖 I want detailed steps
+###  I want detailed steps
 ```bash
 cat DEPLOYMENT_CHECKLIST.md
 ```
 
 ---
 
-## 💡 Pro Tips
+##  Pro Tips
 
 1. **First time?** Start with `bash deploy.sh local` to verify everything works
 2. **Working now?** `scp` copies files instantly. Network dependent only.
@@ -160,9 +160,9 @@ cat DEPLOYMENT_CHECKLIST.md
 
 ---
 
-## 🏁 Expected Outcome
+##  Expected Outcome
 
-### ✅ After Following Guide:
+###  After Following Guide:
 
 **You will have:**
 - Live static website at mev.aileena.xyz with complete MEV analysis
@@ -176,18 +176,18 @@ cat DEPLOYMENT_CHECKLIST.md
 
 ---
 
-## 🚀 You're 90% Done
+##  You're 90% Done
 
 Everything is ready to go. Just need to:
 
-1. ☑️ Run local test: `bash deploy.sh local`
-2. ☑️ Deploy website: `bash deploy.sh website`  
-3. ☑️ Deploy dashboard: `bash deploy.sh vercel`
+1. ️ Run local test: `bash deploy.sh local`
+2. ️ Deploy website: `bash deploy.sh website`  
+3. ️ Deploy dashboard: `bash deploy.sh vercel`
 
-**That's it!** 🎉
+**That's it!** 
 
 ---
 
-**Status:** 🟢 PRODUCTION READY  
+**Status:**  PRODUCTION READY  
 **Next Step:** `bash deploy.sh local`  
 **Questions?** See DEPLOYMENT_CHECKLIST.md

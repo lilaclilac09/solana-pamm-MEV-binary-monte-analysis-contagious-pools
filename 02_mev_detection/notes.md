@@ -23,7 +23,7 @@
 10. Total Attackers: 171, Showing Top 10
 11. Total Attackers: 157, Showing Top 10
 12. Total Attackers: 115, Showing Top 10
-13. ✓ Per pAMM Top 10 MEV stats (top 10 per pAMM) saved to: per_pamm_top10_mev_with_validator.csv
+13.  Per pAMM Top 10 MEV stats (top 10 per pAMM) saved to: per_pamm_top10_mev_with_validator.csv
 14. Top 10 Validators by Bot Count:
 15. validator  trade_count  bot_count  bot_ratio_%  fat_sandwich  sandwich  front_running  back_running
 

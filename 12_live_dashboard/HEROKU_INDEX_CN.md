@@ -1,32 +1,32 @@
-# 📑 Heroku 部署资源索引
+#  Heroku 部署资源索引
 
-## 🚀 快速导航
+##  快速导航
 
 | 需求 | 文件 | 说明 |
 |------|------|------|
-| **⚡ 快速开始** | [HEROKU_QUICK_START_CN.md](HEROKU_QUICK_START_CN.md) | 3 分钟快速参考 |
-| **📖 详细指南** | [HEROKU_COMPLETE_GUIDE_CN.md](HEROKU_COMPLETE_GUIDE_CN.md) | 完整 7 步指南 + 故障排除 |
-| **📊 总结概览** | [HEROKU_DEPLOYMENT_COMPLETE_SUMMARY_CN.md](HEROKU_DEPLOYMENT_COMPLETE_SUMMARY_CN.md) | 全面总结 + 下一步 |
-| **🤖 自动部署** | [heroku-deploy-cn.sh](heroku-deploy-cn.sh) | 一键自动化脚本 |
-| **📋 英文版本** | [HEROKU_DEPLOYMENT_GUIDE.md](HEROKU_DEPLOYMENT_GUIDE.md) | 完整英文指南 |
-| **🤖 英文脚本** | [heroku-deploy.sh](heroku-deploy.sh) | 英文自动化脚本 |
+| ** 快速开始** | [HEROKU_QUICK_START_CN.md](HEROKU_QUICK_START_CN.md) | 3 分钟快速参考 |
+| ** 详细指南** | [HEROKU_COMPLETE_GUIDE_CN.md](HEROKU_COMPLETE_GUIDE_CN.md) | 完整 7 步指南 + 故障排除 |
+| ** 总结概览** | [HEROKU_DEPLOYMENT_COMPLETE_SUMMARY_CN.md](HEROKU_DEPLOYMENT_COMPLETE_SUMMARY_CN.md) | 全面总结 + 下一步 |
+| ** 自动部署** | [heroku-deploy-cn.sh](heroku-deploy-cn.sh) | 一键自动化脚本 |
+| ** 英文版本** | [HEROKU_DEPLOYMENT_GUIDE.md](HEROKU_DEPLOYMENT_GUIDE.md) | 完整英文指南 |
+| ** 英文脚本** | [heroku-deploy.sh](heroku-deploy.sh) | 英文自动化脚本 |
 
 ---
 
-## 👤 按用户类型选择
+##  按用户类型选择
 
-### 👨‍💻 我是开发者，想快速部署
+### ‍ 我是开发者，想快速部署
 
 **推荐路径：**
 1. 阅读：[HEROKU_QUICK_START_CN.md](HEROKU_QUICK_START_CN.md)（2 分钟）
 2. 执行：`./heroku-deploy-cn.sh`（3 分钟）
 3. 验证：访问 https://mev-aileena-dashboard.herokuapp.com
 
-**总耗时：5 分钟** ✅
+**总耗时：5 分钟** 
 
 ---
 
-### 📚 我想了解所有细节
+###  我想了解所有细节
 
 **推荐路径：**
 1. 阅读：[HEROKU_DEPLOYMENT_COMPLETE_SUMMARY_CN.md](HEROKU_DEPLOYMENT_COMPLETE_SUMMARY_CN.md)（5 分钟）
@@ -34,36 +34,36 @@
 3. 执行部署步骤
 4. 查阅故障排除
 
-**总耗时：30 分钟** 📖
+**总耗时：30 分钟** 
 
 ---
 
-### 🎯 我只想复制粘贴命令
+###  我只想复制粘贴命令
 
 **推荐路径：**
 1. 打开：[HEROKU_QUICK_START_CN.md](HEROKU_QUICK_START_CN.md)
 2. 复制"第 2 步：选择部署方式"下的命令
 3. 粘贴到终端
-4. 完成 ✅
+4. 完成 
 
-**总耗时：3 分钟** ⚡
+**总耗时：3 分钟** 
 
 ---
 
-### 🐛 我遇到错误需要排查
+###  我遇到错误需要排查
 
 **推荐路径：**
 1. 查阅：[HEROKU_COMPLETE_GUIDE_CN.md](HEROKU_COMPLETE_GUIDE_CN.md) → "故障排除"部分
 2. 如果问题未解决，查阅"常见问题"
 3. 如果仍未解决，检查 `heroku logs --tail`
 
-**所有常见问题的解决方案都在文档中** 🔧
+**所有常见问题的解决方案都在文档中** 
 
 ---
 
-## 📂 文件详细说明
+##  文件详细说明
 
-### 🎯 核心文件
+###  核心文件
 
 #### 1. HEROKU_QUICK_START_CN.md
 - **大小：** ~200 行
@@ -98,18 +98,18 @@
   - 后续改进方向
 - **适合：** 想了解全貌、计划下一步
 
-### 🚀 自动化脚本
+###  自动化脚本
 
 #### heroku-deploy-cn.sh
 ```bash
 # 功能：完全自动化中文部署
 # 调用方式：./heroku-deploy-cn.sh
 # 优点：
-#   ✅ 自动检查环境
-#   ✅ 交互式菜单选择方式
-#   ✅ 自动创建应用
-#   ✅ 自动推送代码
-#   ✅ 彩色输出，清晰易读
+#    自动检查环境
+#    交互式菜单选择方式
+#    自动创建应用
+#    自动推送代码
+#    彩色输出，清晰易读
 # 时间：3-5 分钟
 ```
 
@@ -120,7 +120,7 @@
 # 仅语言不同
 ```
 
-### ⚙️ 配置文件
+### ️ 配置文件
 
 #### runtime.txt
 ```
@@ -139,45 +139,45 @@ web: gunicorn mev_dashboard:server --bind 0.0.0.0:$PORT --workers 4 --timeout 12
 
 ---
 
-## 📖 使用流程图
+##  使用流程图
 
 ```
 开始
   ↓
 选择您的情况
-  ├─→ 我很着急 → HEROKU_QUICK_START_CN.md → ./heroku-deploy-cn.sh → 完成 ✅
-  ├─→ 我想了解 → HEROKU_COMPLETE_GUIDE_CN.md → 按步骤部署 → 完成 ✅
-  ├─→ 我想全面 → HEROKU_DEPLOYMENT_COMPLETE_SUMMARY_CN.md → HEROKU_COMPLETE_GUIDE_CN.md → 部署 → 完成 ✅
-  └─→ 我有问题 → HEROKU_COMPLETE_GUIDE_CN.md（故障排除） → 解决 → 完成 ✅
+  ├─→ 我很着急 → HEROKU_QUICK_START_CN.md → ./heroku-deploy-cn.sh → 完成 
+  ├─→ 我想了解 → HEROKU_COMPLETE_GUIDE_CN.md → 按步骤部署 → 完成 
+  ├─→ 我想全面 → HEROKU_DEPLOYMENT_COMPLETE_SUMMARY_CN.md → HEROKU_COMPLETE_GUIDE_CN.md → 部署 → 完成 
+  └─→ 我有问题 → HEROKU_COMPLETE_GUIDE_CN.md（故障排除） → 解决 → 完成 
 ```
 
 ---
 
-## 🎯 按步骤分类
+##  按步骤分类
 
 ### 部署前准备
-- 📄 阅读：[HEROKU_QUICK_START_CN.md](HEROKU_QUICK_START_CN.md) 第 1 步
-- ✅ 检查：Heroku 账户、GitHub 账户、Git 安装
+-  阅读：[HEROKU_QUICK_START_CN.md](HEROKU_QUICK_START_CN.md) 第 1 步
+-  检查：Heroku 账户、GitHub 账户、Git 安装
 
 ### 部署执行
-- 🚀 执行：`./heroku-deploy-cn.sh`
-- 📖 参考：[HEROKU_QUICK_START_CN.md](HEROKU_QUICK_START_CN.md) 第 2-3 步
+-  执行：`./heroku-deploy-cn.sh`
+-  参考：[HEROKU_QUICK_START_CN.md](HEROKU_QUICK_START_CN.md) 第 2-3 步
 
 ### 部署后验证
-- 📋 检查：[HEROKU_QUICK_START_CN.md](HEROKU_QUICK_START_CN.md) - "检查状态" 部分
-- ✅ 确认：仪表板在线，所有图表加载
+-  检查：[HEROKU_QUICK_START_CN.md](HEROKU_QUICK_START_CN.md) - "检查状态" 部分
+-  确认：仪表板在线，所有图表加载
 
 ### 配置域名（可选）
-- 🌐 指南：[HEROKU_QUICK_START_CN.md](HEROKU_QUICK_START_CN.md) - "添加自定义域名" 部分
-- 📖 详细：[HEROKU_COMPLETE_GUIDE_CN.md](HEROKU_COMPLETE_GUIDE_CN.md) - 第 5 步
+-  指南：[HEROKU_QUICK_START_CN.md](HEROKU_QUICK_START_CN.md) - "添加自定义域名" 部分
+-  详细：[HEROKU_COMPLETE_GUIDE_CN.md](HEROKU_COMPLETE_GUIDE_CN.md) - 第 5 步
 
 ### 故障排除
-- 🔧 参考：[HEROKU_COMPLETE_GUIDE_CN.md](HEROKU_COMPLETE_GUIDE_CN.md) - "故障排除" 部分
-- 📊 日志：`heroku logs --tail`
+-  参考：[HEROKU_COMPLETE_GUIDE_CN.md](HEROKU_COMPLETE_GUIDE_CN.md) - "故障排除" 部分
+-  日志：`heroku logs --tail`
 
 ---
 
-## 📊 对比表：选择哪个文档？
+##  对比表：选择哪个文档？
 
 | 文档 | 长度 | 时间 | 环境 | 包含内容 |
 |------|------|------|------|--------|
@@ -187,7 +187,7 @@ web: gunicorn mev_dashboard:server --bind 0.0.0.0:$PORT --workers 4 --timeout 12
 
 ---
 
-## ✨ 推荐流程
+##  推荐流程
 
 ### 首次用户：
 ```
@@ -197,7 +197,7 @@ HEROKU_QUICK_START_CN.md
     ↓
 heroku open
     ↓
-✅ 完成！
+ 完成！
 ```
 
 ### 需要帮助：
@@ -210,7 +210,7 @@ HEROKU_COMPLETE_GUIDE_CN.md → 故障排除部分
     ↓
 按说明解决
     ↓
-✅ 完成！
+ 完成！
 ```
 
 ### 严谨用户：
@@ -223,12 +223,12 @@ HEROKU_COMPLETE_GUIDE_CN.md (详细)
     ↓
 测试和验证
     ↓
-✅ 完成！
+ 完成！
 ```
 
 ---
 
-## 🔗 相关资源
+##  相关资源
 
 ### 仪表板相关
 - [mev_dashboard.py](mev_dashboard.py) - 仪表板源代码
@@ -245,7 +245,7 @@ HEROKU_COMPLETE_GUIDE_CN.md (详细)
 
 ---
 
-## 📋 快速检查清单
+##  快速检查清单
 
 部署前：
 - [ ] 已安装 Heroku CLI
@@ -267,12 +267,12 @@ HEROKU_COMPLETE_GUIDE_CN.md (详细)
 
 ---
 
-## 🎓 学习路径
+##  学习路径
 
 **初级（快速上手）：**
 1. HEROKU_QUICK_START_CN.md
 2. 执行脚本
-3. 完成 ✅
+3. 完成 
 
 **中级（理解原理）：**
 1. HEROKU_DEPLOYMENT_COMPLETE_SUMMARY_CN.md
@@ -288,7 +288,7 @@ HEROKU_COMPLETE_GUIDE_CN.md (详细)
 
 ---
 
-## 💬 选择语言
+##  选择语言
 
 | 您的语言 | 推荐文件 |
 |--------|--------|
@@ -297,7 +297,7 @@ HEROKU_COMPLETE_GUIDE_CN.md (详细)
 
 ---
 
-## 🎯 即刻开始
+##  即刻开始
 
 **最快的方式（推荐）：**
 ```bash
@@ -313,6 +313,6 @@ heroku open
 
 ---
 
-**准备好了吗？开始部署吧！🚀**
+**准备好了吗？开始部署吧！**
 
 *选择上面的任何一个文档，按照指南操作，5-15 分钟内完成部署。*

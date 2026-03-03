@@ -44,7 +44,7 @@ main
 Python 3.11
 ```
 
-#### 🔨 BUILD COMMAND (Copy the entire thing)
+####  BUILD COMMAND (Copy the entire thing)
 ```
 pip install -r 12_live_dashboard/requirements.txt
 ```
@@ -53,7 +53,7 @@ pip install -r 12_live_dashboard/requirements.txt
 - Click field
 - Select all (Cmd+A)
 - Paste from above
-- Verify: ✓ Path includes `12_live_dashboard/`
+- Verify:  Path includes `12_live_dashboard/`
 
 ---
 
@@ -66,8 +66,8 @@ cd 12_live_dashboard && gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 120 
 - Click field  
 - Select all (Cmd+A)
 - Paste from above
-- Verify: ✓ Includes `cd 12_live_dashboard &&`
-- Verify: ✓ Ends with `mev_dashboard:server`
+- Verify:  Includes `cd 12_live_dashboard &&`
+- Verify:  Ends with `mev_dashboard:server`
 
 ---
 
@@ -95,7 +95,7 @@ git commit -m "Prepare MEV dashboard for Render deployment"
 # Push to GitHub
 git push origin main
 
-# ✅ Verify on GitHub.com - you should see updated files
+#  Verify on GitHub.com - you should see updated files
 ```
 
 ---
@@ -121,12 +121,12 @@ git push origin main
 1. Click the `.onrender.com` link
 2. Dashboard should load
 3. Check:
-   - Charts visible? ✓
-   - Interactive elements work? ✓
-   - No red errors? ✓
+   - Charts visible? 
+   - Interactive elements work? 
+   - No red errors? 
 4. Open **Logs** tab:
    - Look for: `Starting app...` or similar
-   - No Python errors? ✓
+   - No Python errors? 
 
 ---
 
@@ -153,8 +153,8 @@ git add .
 git commit -m "Update dashboard"
 git push origin main
 
-# ✅ Render auto-rebuilds (watch logs)
-# ✅ New version live in 2-3 minutes
+#  Render auto-rebuilds (watch logs)
+#  New version live in 2-3 minutes
 ```
 
 ---
@@ -162,10 +162,10 @@ git push origin main
 ## Key Files in Your Project
 
 **These must exist:**
-- ✅ `mev_dashboard.py` - Your Dash app
-- ✅ `requirements.txt` - Dependencies
-- ✅ `Procfile` - Startup configuration (Render optional)
-- ✅ `server = app.server` - In mev_dashboard.py
+-  `mev_dashboard.py` - Your Dash app
+-  `requirements.txt` - Dependencies
+-  `Procfile` - Startup configuration (Render optional)
+-  `server = app.server` - In mev_dashboard.py
 
 **Directory structure:**
 ```
@@ -182,7 +182,7 @@ your-repo/
 
 ## Common Settings Mistakes
 
-❌ **WRONG:**
+ **WRONG:**
 ```
 Build: pip install -r requirements.txt
 (Missing 12_live_dashboard/)
@@ -191,7 +191,7 @@ Start: gunicorn --bind 0.0.0.0:$PORT mev_dashboard:server
 (Missing cd 12_live_dashboard &&)
 ```
 
-✅ **RIGHT:**
+ **RIGHT:**
 ```
 Build: pip install -r 12_live_dashboard/requirements.txt
 
@@ -232,10 +232,10 @@ If you see red errors:
 ## Your Dashboard is Ready!
 
 **Your file structure is correct:**
-- ✅ mev_dashboard.py exists
-- ✅ server = app.server is defined  
-- ✅ requirements.txt has all dependencies
-- ✅ gunicorn is listed
+-  mev_dashboard.py exists
+-  server = app.server is defined  
+-  requirements.txt has all dependencies
+-  gunicorn is listed
 
 **You can proceed with deployment immediately!**
 
@@ -258,4 +258,4 @@ If you see red errors:
 
 Questions? Click "Logs" tab on Render for detailed error messages.
 
-Good luck! 🚀
+Good luck! 

@@ -117,18 +117,6 @@ app.layout = html.Div([
         html.P("High-risk token pairs exhibit systematic vulnerability to MEV exploitation due to low liquidity, high volatility, and oracle latency.",
                style={"fontSize": "14px", "color": "#6b7280", "marginBottom": "16px"}),
         
-        dash_table.DataTable(
-            data=token_pairs.to_dict('records'),
-            columns=[{"name": i, "id": i} for i in token_pairs.columns],
-            style_cell={"padding": "12px", "fontSize": "13px", "textAlign": "left"},
-            style_header={"backgroundColor": "#f3f4f6", "fontWeight": 700, "fontSize": "13px"},
-            style_data_conditional=[
-                {"if": {"filter_query": "{Tier} = 'HIGH'"}, "backgroundColor": "#fee2e2"},
-                {"if": {"filter_query": "{Tier} = 'MODERATE'"}, "backgroundColor": "#fef3c7"},
-                {"if": {"filter_query": "{Tier} = 'LOW'"}, "backgroundColor": "#d1fae5"},
-            ],
-        ),
-        
         html.Div([
             dcc.Graph(
                 figure=px.bar(token_pairs, x="Token Pair", y="Risk Score", 
@@ -137,14 +125,6 @@ app.layout = html.Div([
                 config={"displayModeBar": False}
             ),
         ], style={"marginTop": "20px"}),
-        
-        html.H3("Risk Factor Breakdown", style={"fontSize": "18px", "fontWeight": 700, "marginTop": "24px", "marginBottom": "12px"}),
-        dash_table.DataTable(
-            data=token_risk_factors.to_dict('records'),
-            columns=[{"name": i, "id": i} for i in token_risk_factors.columns],
-            style_cell={"padding": "12px", "fontSize": "13px"},
-            style_header={"backgroundColor": "#f3f4f6", "fontWeight": 700},
-        ),
     ], style={"marginBottom": "40px"}),
     
     # Section 2: Pool Liquidity & Slippage Analysis
@@ -267,7 +247,7 @@ app.layout = html.Div([
     # Section 5b: TOP STORIES - Attack Case Studies (FEATURED)
     html.Div([
         html.Div([
-            html.H2("🔴 TOP STORIES: Real-World Attack Case Studies",
+                html.H2("TOP STORIES: Real-World Attack Case Studies",
                     style={"fontSize": "22px", "fontWeight": 700, "marginBottom": "16px", "color": "#dc2626"}),
             html.P("Four detailed case studies from January 7, 2026 dataset analyzing real MEV attackers with millisecond-level precision",
                    style={"fontSize": "14px", "color": "#6b7280", "marginBottom": "24px"}),
@@ -321,16 +301,12 @@ app.layout = html.Div([
         ], style={"fontSize": "13px", "color": "#374151", "backgroundColor": "#f9fafb", "padding": "16px", "borderRadius": "6px", 
                   "lineHeight": "1.8", "marginTop": "16px", "marginBottom": "0"}),
         
-        html.A("📖 View Full Attack Case Studies Report", 
-               href="/assets/TOP_STORIES_mev_aileen.html", target="_blank",
-               style={"display": "inline-block", "marginTop": "16px", "padding": "12px 20px", "backgroundColor": "#dc2626", 
-                      "color": "white", "borderRadius": "6px", "textDecoration": "none", "fontWeight": 600, "fontSize": "14px"}),
-        
+
     ], style={"marginBottom": "40px", "backgroundColor": "white", "padding": "20px", "borderRadius": "8px"}),
     
     # Section 5c: Threat Intelligence Visualizations
     html.Div([
-        html.H2("🎨 Section 5c: Threat Intelligence Visualizations",
+        html.H2("Section 5c: Threat Intelligence Visualizations",
                 style={"fontSize": "22px", "fontWeight": 700, "marginBottom": "16px", "color": "#1f2937"}),
         html.P("High-resolution visualizations of MEV attack patterns, oracle latency vulnerabilities, and protocol-specific threat landscape.",
                style={"fontSize": "14px", "color": "#6b7280", "marginBottom": "24px"}),
@@ -403,4 +379,4 @@ app.layout = html.Div([
           "backgroundColor": "#ffffff"})
 
 if __name__ == "__main__":
-    app.run_server(debug=False, host="0.0.0.0", port=8050)
+    app.run(debug=False, host="0.0.0.0", port=8050)

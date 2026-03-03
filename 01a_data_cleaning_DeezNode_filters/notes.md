@@ -21,10 +21,10 @@
 9. Total matches (bot address OR validator address): 0
 10. No matches found.
 11. DEBUG: validator_counts is None: False
-12. ✓ Saved 24,215 sandwich patterns to: /Users/aileen/Downloads/pamm/solana-pamm-analysis/notebooks/01a_data_cleaning_DeezNode_filters/outputs/csv/sandwich_patterns.csv
-13. ✓ Saved 367,162 fat sandwich patterns to: /Users/aileen/Downloads/pamm/solana-pamm-analysis/notebooks/01a_data_cleaning_DeezNode_filters/outputs/csv/fat_sandwich_patterns.csv
-14. ✓ Saved top 20 validators to: /Users/aileen/Downloads/pamm/solana-pamm-analysis/notebooks/01a_data_cleaning_DeezNode_filters/outputs/csv/top_validators_by_volume.csv
-15. ✓ Saved top sandwich validators to: /Users/aileen/Downloads/pamm/solana-pamm-analysis/notebooks/01a_data_cleaning_DeezNode_filters/outputs/csv/top_validators_by_sandwich_count.csv
+12.  Saved 24,215 sandwich patterns to: /Users/aileen/Downloads/pamm/solana-pamm-analysis/notebooks/01a_data_cleaning_DeezNode_filters/outputs/csv/sandwich_patterns.csv
+13.  Saved 367,162 fat sandwich patterns to: /Users/aileen/Downloads/pamm/solana-pamm-analysis/notebooks/01a_data_cleaning_DeezNode_filters/outputs/csv/fat_sandwich_patterns.csv
+14.  Saved top 20 validators to: /Users/aileen/Downloads/pamm/solana-pamm-analysis/notebooks/01a_data_cleaning_DeezNode_filters/outputs/csv/top_validators_by_volume.csv
+15.  Saved top sandwich validators to: /Users/aileen/Downloads/pamm/solana-pamm-analysis/notebooks/01a_data_cleaning_DeezNode_filters/outputs/csv/top_validators_by_sandwich_count.csv
 
 ### Generated Files
 

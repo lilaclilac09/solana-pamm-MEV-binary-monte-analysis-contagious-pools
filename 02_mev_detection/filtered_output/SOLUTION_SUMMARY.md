@@ -13,15 +13,15 @@
   - **Multi-Hop Arbitrage** (removed) - different attack mechanism
 
 ### Results
-- ✅ **617 valid Fat Sandwich cases** (41.1%) identified and kept
-- ❌ **865 Failed Sandwich attempts** (57.6%) removed
-- ❌ **19 Multi-Hop Arbitrage** cases (1.3%) removed
+-  **617 valid Fat Sandwich cases** (41.1%) identified and kept
+-  **865 Failed Sandwich attempts** (57.6%) removed
+-  **19 Multi-Hop Arbitrage** cases (1.3%) removed
 
 ---
 
 ## CLASSIFICATION BREAKDOWN
 
-### 1. FAT SANDWICH (KEPT) ✅ 617 Cases
+### 1. FAT SANDWICH (KEPT)  617 Cases
 | Metric | Value |
 |--------|-------|
 | **Count** | 617 cases (41.1%) |
@@ -37,7 +37,7 @@
 
 ---
 
-### 2. FAILED SANDWICH (REMOVED) ❌ 865 Cases
+### 2. FAILED SANDWICH (REMOVED)  865 Cases
 | Metric | Value |
 |--------|-------|
 | **Count** | 865 cases (57.6%) |
@@ -54,7 +54,7 @@
 
 ---
 
-### 3. MULTI-HOP ARBITRAGE (REMOVED) ❌ 19 Cases
+### 3. MULTI-HOP ARBITRAGE (REMOVED)  19 Cases
 | Metric | Value |
 |--------|-------|
 | **Count** | 19 cases (1.3%) |
@@ -151,29 +151,29 @@
 
 ## KEY FINDINGS & CONCLUSIONS
 
-### Finding 1: High-Quality Filtered Dataset ✅
+### Finding 1: High-Quality Filtered Dataset 
 - **617 proven successful fat sandwich cases**
 - **100% have positive profit** (no edge cases)
 - **Average profit: 0.1822 SOL per attack**
 - **All cases "high" confidence** - validated patterns
 
-### Finding 2: HumidiFi is Primary Target 🎯
+### Finding 2: HumidiFi is Primary Target 
 - **27.0% of all attacks target HumidiFi** (167 cases)
 - **Highest average profit per case: 0.1169 SOL**
 - **Single case profit: 13.716 SOL** (nearly 150x average)
 - **Indicates systematic, repeated exploitability**
 
-### Finding 3: Profitability is Concentrated 💰
+### Finding 3: Profitability is Concentrated 
 - **Top 20 cases = 55.521 SOL** (49.38% of all fat-sandwich profit)
 - **Top 5 cases = 28.071 SOL** (50.56% of top-20 profit)
 - **Indicates high-value targets are repeatedly exploited**
 
-### Finding 4: Validator Concentration 📍
+### Finding 4: Validator Concentration 
 - **Multiple different validators process MEV**
 - **Some validators appear repeatedly** in top cases
 - **Suggests validator characteristics affect attack success**
 
-### Finding 5: Attack Pattern Consistency ✓
+### Finding 5: Attack Pattern Consistency 
 - **All top cases follow standard sandwich pattern:**
   - 1. Front-run transaction  
   - 2. Victim transaction  
@@ -203,10 +203,10 @@
 4. **Coordinate with other validators** - attacks may target specific validator sets
 
 ### For Continued Analysis
-1. ✅ Use cleaned dataset for all future analysis
-2. ✅ Archive original classification for audit purposes
-3. ✅ Track new attacks over time - update this analysis monthly
-4. ✅ Build visualization of attack patterns by protocol/validator
+1.  Use cleaned dataset for all future analysis
+2.  Archive original classification for audit purposes
+3.  Track new attacks over time - update this analysis monthly
+4.  Build visualization of attack patterns by protocol/validator
 
 ---
 
@@ -215,20 +215,20 @@
 ### Classification Logic
 ```
 FAT_SANDWICH when:
-  ✓ net_profit_sol > 0
-  ✓ sandwich_complete = 1 OR (sandwich >= 1 AND fat_sandwich >= 1)
-  ✓ Clear attacker → victim → attacker sequence detected
-  ✓ Same signer executes front-run AND back-run
+   net_profit_sol > 0
+   sandwich_complete = 1 OR (sandwich >= 1 AND fat_sandwich >= 1)
+   Clear attacker → victim → attacker sequence detected
+   Same signer executes front-run AND back-run
 
 FAILED_SANDWICH when:
-  ✗ net_profit_sol = 0
-  ✗ No victims found between attacker's front-run and back-run
-  ✗ Either: (1) no one traded, or (2) victim traded but bot failed to backrun
+   net_profit_sol = 0
+   No victims found between attacker's front-run and back-run
+   Either: (1) no one traded, or (2) victim traded but bot failed to backrun
 
 MULTI_HOP_ARBITRAGE when:
-  ✓ Multiple distinct token pairs in single transaction
-  ✓ Typical aggregator routing (e.g., USDC→SOL→ETH)
-  ✓ Different mechanism: arbitrage vs. sandwich
+   Multiple distinct token pairs in single transaction
+   Typical aggregator routing (e.g., USDC→SOL→ETH)
+   Different mechanism: arbitrage vs. sandwich
 ```
 
 ### Data Quality
@@ -256,4 +256,4 @@ MULTI_HOP_ARBITRAGE when:
 
 **Analysis Date:** February 8, 2026  
 **Data Coverage:** Complete Solana pAMM MEV dataset  
-**Status:** ✅ Analysis Complete - Ready for Production Use
+**Status:**  Analysis Complete - Ready for Production Use

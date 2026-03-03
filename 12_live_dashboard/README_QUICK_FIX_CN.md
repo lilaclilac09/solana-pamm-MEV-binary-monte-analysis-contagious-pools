@@ -1,18 +1,18 @@
-# 🎯 Homebrew 网络问题 - 快速修复（3 步）
+#  Homebrew 网络问题 - 快速修复（3 步）
 
-## ⚠️ 当前状态
+## ️ 当前状态
 
 ```
 问题：GitHub 连接超时 (port 443)
 原因：网络延迟高 (75+ ms) + 网络波动
-状态：🔄 正在修复...（Heroku CLI 正在后台下载）
+状态： 正在修复...（Heroku CLI 正在后台下载）
 ```
 
 ---
 
-## ✅ 现在立即做这 3 件事
+##  现在立即做这 3 件事
 
-### 🔧 第 1 步：等待后台下载完成
+###  第 1 步：等待后台下载完成
 
 ```bash
 # ⏳ 等待 5-10 分钟（Heroku CLI 约 11.6 MB）
@@ -27,7 +27,7 @@
 
 ---
 
-### 🔐 第 2 步：等待完成后，检查并登录
+###  第 2 步：等待完成后，检查并登录
 
 ```bash
 # 5-10 分钟后，运行此命令检查
@@ -44,7 +44,7 @@ heroku login
 
 ---
 
-### 🚀 第 3 步：一键部署！
+###  第 3 步：一键部署！
 
 ```bash
 # 进入项目目录
@@ -59,7 +59,7 @@ chmod +x heroku-quick-start.sh
 
 ---
 
-## 📊 预期时间表
+##  预期时间表
 
 | 事项 | 时间 | 说明 |
 |------|------|------|
@@ -70,9 +70,9 @@ chmod +x heroku-quick-start.sh
 
 ---
 
-## 🎯 您现在应该做什么
+##  您现在应该做什么
 
-### ✅ 立即可做的事
+###  立即可做的事
 
 1. **打开新终端窗口**
    ```bash
@@ -116,20 +116,20 @@ cd 12_live_dashboard
 
 ## 🆘 如果遇到问题
 
-### ❌ 问题：下载仍在进行，我想现在部署
+###  问题：下载仍在进行，我想现在部署
 
 ```bash
-# ✅ 解决方案：等待！通常 5-10 分钟会完成
+#  解决方案：等待！通常 5-10 分钟会完成
 # 在另一个终端窗口可以提前准备：
 cd 12_live_dashboard
 ls -la *.sh  # 检查脚本是否齐全
 cat requirements.txt  # 检查依赖
 ```
 
-### ❌ 问题：Heroku CLI 下载失败，显示超时
+###  问题：Heroku CLI 下载失败，显示超时
 
 ```bash
-# ✅ 解决方案：重试
+#  解决方案：重试
 brew install heroku
 
 # 或手动指定镜像
@@ -137,10 +137,10 @@ HOMEBREW_BREW_GIT_REMOTE="https://mirrors.aliyun.com/homebrew/brew.git" \
   brew install heroku
 ```
 
-### ❌ 问题：部署时 `git push heroku` 超时
+###  问题：部署时 `git push heroku` 超时
 
 ```bash
-# ✅ 解决方案：重试（网络波动）
+#  解决方案：重试（网络波动）
 # 等 30 秒后重新运行：
 git push heroku main
 
@@ -150,7 +150,7 @@ git config --global http.lowSpeedTime 600
 
 ---
 
-## 📞 完整故障排除指南
+##  完整故障排除指南
 
 更详细的解决方案请查看：
 - [HOMEBREW_NETWORK_TROUBLESHOOTING_CN.md](HOMEBREW_NETWORK_TROUBLESHOOTING_CN.md) - 完整网络诊断
@@ -159,26 +159,26 @@ git config --global http.lowSpeedTime 600
 
 ---
 
-## 🎊 完成后
+##  完成后
 
 部署成功后，您将拥有：
 
 ```
-✅ 第一个 MEV 仪表板（已上线）
+ 第一个 MEV 仪表板（已上线）
    URL: https://mev.aileena.xyz
    状态: Render（稳定）
 
-✅ 第二个 MEV 仪表板（部署中）
+ 第二个 MEV 仪表板（部署中）
    URL: https://mev-aileena-dashboard.herokuapp.com
    状态: Heroku（备选）
 
-✅ 自动化部署能力
+ 自动化部署能力
    更新代码 → git push → 自动在线
 ```
 
 ---
 
-## 📝 完整命令速查
+##  完整命令速查
 
 ```bash
 # 检查 Heroku
@@ -205,7 +205,7 @@ heroku domains:add mev.aileena.xyz
 
 ---
 
-## ✨ 底线
+##  底线
 
 ```
 网络问题 ≠ 您的错误
@@ -218,14 +218,14 @@ heroku domains:add mev.aileena.xyz
 
 ---
 
-## 🚀 现在就开始
+##  现在就开始
 
 1. **让后台下载继续** ⏳
 2. **5-10 分钟后** → `heroku --version`
 3. **然后** → `./heroku-quick-start.sh`
 4. **完成** → `heroku open`
 
-**就是这样！您的第二个 MEV 仪表板就在 Heroku 上了！** 🎉
+**就是这样！您的第二个 MEV 仪表板就在 Heroku 上了！** 
 
 ---
 

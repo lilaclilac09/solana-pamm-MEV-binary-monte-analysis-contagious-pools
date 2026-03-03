@@ -2,11 +2,11 @@
 
 This document outlines the plan to organize, clean, and improve all scripts with solid code and visuals.
 
-**⚠️ IMPORTANT: All code stays in `.ipynb` notebooks - NO `.py` file extraction**
+**️ IMPORTANT: All code stays in `.ipynb` notebooks - NO `.py` file extraction**
 
 ---
 
-## 📍 Quick Code Reference - All Notebook Locations
+##  Quick Code Reference - All Notebook Locations
 
 | **Analysis Type** | **Notebook Location** | **Key Cell(s)** | **Purpose** |
 |-------------------|----------------------|-----------------|-------------|
@@ -33,7 +33,7 @@ This document outlines the plan to organize, clean, and improve all scripts with
 
 **Purpose**: These case studies serve as the foundational reference and fact-check for all MEV detection algorithms and analysis. They define the expected patterns and behaviors that our detection methods should identify.
 
-**📍 Source Document**: `scripts/mev_analysis/docs/Hypothetical MEV Bot & Attack Case Studies.md`
+** Source Document**: `scripts/mev_analysis/docs/Hypothetical MEV Bot & Attack Case Studies.md`
 
 ### Case Study Overview
 
@@ -92,7 +92,7 @@ The case studies document provides **hypothetical yet realistic** MEV attack sce
 - **Bot Address**: `vpeNALD89BZ4KxNUFjdLmFXBCwtyqBDQ85ouNoax38b`
 - **Validator Address**: `HM5H6FAYWEMcm9PCXFbbiUFfFVLTN9UGyAqmMQjdMRA`
 
-**📍 Code Location**: `scripts/mev_tasks_ipynb_with_readme/task1_deeznode_filter.ipynb` - **Cell 2**
+** Code Location**: `scripts/mev_tasks_ipynb_with_readme/task1_deeznode_filter.ipynb` - **Cell 2**
 
 **Filtering Logic** (from notebook):
 ```python
@@ -152,7 +152,7 @@ def filter_deeznode(trades_df: pd.DataFrame) -> pd.DataFrame:
     return trades_df[~deeznode_filter]
 ```
 
-**📍 Notebook Source**: `scripts/mev_tasks_ipynb_with_readme/task1_deeznode_filter.ipynb`
+** Notebook Source**: `scripts/mev_tasks_ipynb_with_readme/task1_deeznode_filter.ipynb`
 - **Cell 2**: DeezNode address filtering code
 - **Cell 3+**: MEV detection after filtering
 
@@ -180,7 +180,7 @@ JITO_TIP_ADDRESSES = [
 ]
 ```
 
-**📍 Code Location**: `scripts/mev_tasks_ipynb_with_readme/task2_jito_tip_sandwich.ipynb` - **Cell 2**
+** Code Location**: `scripts/mev_tasks_ipynb_with_readme/task2_jito_tip_sandwich.ipynb` - **Cell 2**
 
 **Filtering Logic** (from notebook):
 ```python
@@ -254,7 +254,7 @@ def filter_jito_tips(trades_df: pd.DataFrame) -> pd.DataFrame:
     return trades_df[~jito_filter]
 ```
 
-**📍 Notebook Source**: `scripts/mev_tasks_ipynb_with_readme/task2_jito_tip_sandwich.ipynb`
+** Notebook Source**: `scripts/mev_tasks_ipynb_with_readme/task2_jito_tip_sandwich.ipynb`
 - **Cell 2**: Jito tip address filtering code
 - **Cell 3+**: Sandwich detection near tips
 
@@ -266,7 +266,7 @@ def filter_jito_tips(trades_df: pd.DataFrame) -> pd.DataFrame:
 
 ### Combined Filtering Module
 
-**📍 Notebook Location**: Create new notebook `notebooks/01_data_cleaning.ipynb` or add to existing cleaning notebook
+** Notebook Location**: Create new notebook `notebooks/01_data_cleaning.ipynb` or add to existing cleaning notebook
 
 **Quick Reference**:
 - **DeezNode Filter**: `scripts/mev_tasks_ipynb_with_readme/task1_deeznode_filter.ipynb` - Cell 2
@@ -329,7 +329,7 @@ def apply_all_filters(trades_df: pd.DataFrame,
 - Filtering should be applied in data cleaning phase
 - Filter statistics should be logged and reported
 
-**📍 Notebooks**:
+** Notebooks**:
 - **Data Cleaning**: `scripts/prop_amm_analysis/notebooks/pamm_df_cleaned_parquet.ipynb`
 - **DeezNode Filter**: `scripts/mev_tasks_ipynb_with_readme/task1_deeznode_filter.ipynb`
 - **Jito Tip Filter**: `scripts/mev_tasks_ipynb_with_readme/task2_jito_tip_sandwich.ipynb`
@@ -379,23 +379,23 @@ solana-pamm-analysis/
 │
 ├── scripts/                           # Existing scripts (reference only)
 │   ├── mev_tasks_ipynb_with_readme/  # Filtering notebooks
-│   │   ├── task1_deeznode_filter.ipynb      # 📍 DeezNode filter code
-│   │   ├── task2_jito_tip_sandwich.ipynb     # 📍 Jito tip filter code
+│   │   ├── task1_deeznode_filter.ipynb      #  DeezNode filter code
+│   │   ├── task2_jito_tip_sandwich.ipynb     #  Jito tip filter code
 │   │   └── task3_slippage_sandwich.ipynb
 │   ├── mev_analysis/
 │   │   ├── notebooks/
-│   │   │   └── MEV Toxic MEV Stats & Validator Analysis #2.ipynb  # 📍 Main MEV detection
+│   │   │   └── MEV Toxic MEV Stats & Validator Analysis #2.ipynb  #  Main MEV detection
 │   │   └── docs/
-│   │       └── Hypothetical MEV Bot & Attack Case Studies.md  # 📍 Case studies
+│   │       └── Hypothetical MEV Bot & Attack Case Studies.md  #  Case studies
 │   ├── prop_amm_analysis/
 │   │   └── notebooks/
-│   │       └── pamm_df_cleaned_parquet.ipynb  # 📍 Data cleaning code
+│   │       └── pamm_df_cleaned_parquet.ipynb  #  Data cleaning code
 │   ├── token_pair_pool_analysis/
 │   │   └── notebooks/
-│   │       └── deep_dive_pool_mev_analysis.ipynb  # 📍 Token pair analysis
+│   │       └── deep_dive_pool_mev_analysis.ipynb  #  Token pair analysis
 │   ├── validator_analysis/
 │   │   └── notebooks/
-│   │       └── Top_Validator_AMM_MEV_Analysis.ipynb  # 📍 Validator analysis
+│   │       └── Top_Validator_AMM_MEV_Analysis.ipynb  #  Validator analysis
 │   └── ... (other existing scripts)
 │
 ├── notebooks/                         # Jupyter notebooks (execution)
@@ -484,7 +484,7 @@ solana-pamm-analysis/
 **Goal**: Extract reusable code from notebooks into `src/` modules
 
 1. **Data Cleaning** (Keep in Notebook - NO .py extraction)
-   - **📍 Source**: `scripts/prop_amm_analysis/notebooks/pamm_df_cleaned_parquet.ipynb`
+   - ** Source**: `scripts/prop_amm_analysis/notebooks/pamm_df_cleaned_parquet.ipynb`
    - **Cell 1**: Original data loading
    - **Cell 2**: Missing value detection
    - **Cell 3**: Parse `account_updates` column → `parse_account_update()` logic
@@ -493,24 +493,24 @@ solana-pamm-analysis/
    - **Reference**: Use this notebook as template for `notebooks/01_data_cleaning.ipynb`
 
 1a. **Transaction Filters** (Keep in Notebooks - NO .py extraction)
-   - **📍 DeezNode Filter**: `scripts/mev_tasks_ipynb_with_readme/task1_deeznode_filter.ipynb` - Cell 2
+   - ** DeezNode Filter**: `scripts/mev_tasks_ipynb_with_readme/task1_deeznode_filter.ipynb` - Cell 2
      - Code: DeezNode address extraction and filtering
      - Addresses: `vpeNALD89BZ4KxNUFjdLmFXBCwtyqBDQ85ouNoax38b` (bot), `HM5H6FAYWEMcm9PCXFbbiUFfFVLTN9UGy9AqmMQjdMRA` (validator)
-   - **📍 Jito Tip Filter**: `scripts/mev_tasks_ipynb_with_readme/task2_jito_tip_sandwich.ipynb` - Cell 2
+   - ** Jito Tip Filter**: `scripts/mev_tasks_ipynb_with_readme/task2_jito_tip_sandwich.ipynb` - Cell 2
      - Code: Jito tip address filtering (8 known addresses)
      - Addresses: See notebook Cell 2 for full list
    - **Integration**: Add filtering cells to `notebooks/01_data_cleaning.ipynb`
 
 2. **MEV Detection Algorithms** (Keep in Notebooks - NO .py extraction)
-   - **📍 Main MEV Detection**: `scripts/mev_analysis/notebooks/MEV Toxic MEV Stats & Validator Analysis #2.ipynb`
+   - ** Main MEV Detection**: `scripts/mev_analysis/notebooks/MEV Toxic MEV Stats & Validator Analysis #2.ipynb`
      - **Cell 2**: Fat sandwich detection (≥5 TRADEs, same attacker, victims in between)
      - **Cell 2**: Classic sandwich detection (3-4 TRADEs pattern)
      - **Cell 4**: Back-running detection (oracle update → trade timing)
-   - **📍 Improved Algorithms**: `scripts/mev_analysis/code/improved_fat_sandwich_detection.py` (reference for notebook)
-   - **📍 Improved Front-Running**: `scripts/mev_analysis/code/improved_front_running_detection.py` (reference for notebook)
-   - **📍 Cross-Slot Sandwich**: `scripts/mev_tasks_ipynb_with_readme/task2_jito_tip_sandwich.ipynb` - Cell 3+
-   - **📍 Slippage Sandwich**: `scripts/mev_tasks_ipynb_with_readme/task3_slippage_sandwich.ipynb`
-   - **📍 Bot Diagnostic**: `scripts/mev_analysis/code/mev_bot_diagnostic_analysis.py` (reference for notebook)
+   - ** Improved Algorithms**: `scripts/mev_analysis/code/improved_fat_sandwich_detection.py` (reference for notebook)
+   - ** Improved Front-Running**: `scripts/mev_analysis/code/improved_front_running_detection.py` (reference for notebook)
+   - ** Cross-Slot Sandwich**: `scripts/mev_tasks_ipynb_with_readme/task2_jito_tip_sandwich.ipynb` - Cell 3+
+   - ** Slippage Sandwich**: `scripts/mev_tasks_ipynb_with_readme/task3_slippage_sandwich.ipynb`
+   - ** Bot Diagnostic**: `scripts/mev_analysis/code/mev_bot_diagnostic_analysis.py` (reference for notebook)
    - **Reference**: Consolidate all algorithms into `notebooks/02_mev_detection.ipynb`
 
 3. **Oracle Analyzer** (`src/oracle_analyzer.py`)
@@ -521,7 +521,7 @@ solana-pamm-analysis/
      - `identify_top_updaters()`
 
 4. **Validator Analysis** (Keep in Notebook - NO .py extraction)
-   - **📍 Source**: `scripts/validator_analysis/notebooks/Top_Validator_AMM_MEV_Analysis.ipynb`
+   - ** Source**: `scripts/validator_analysis/notebooks/Top_Validator_AMM_MEV_Analysis.ipynb`
    - **Cell 2+**: Validator MEV breakdown analysis
    - **Cell 3+**: Bot ratio calculations
    - **Cell 4+**: Validator clustering and heatmaps
@@ -529,13 +529,13 @@ solana-pamm-analysis/
    - **Reference**: Use this notebook as template for `notebooks/04_validator_analysis.ipynb`
 
 5. **Pool Analysis** (Keep in Notebook - NO .py extraction)
-   - **📍 Source**: `scripts/token_pair_pool_analysis/notebooks/deep_dive_pool_mev_analysis.ipynb`
+   - ** Source**: `scripts/token_pair_pool_analysis/notebooks/deep_dive_pool_mev_analysis.ipynb`
    - **Cell 2+**: Pool MEV analysis
    - **Cell 3+**: Token pair validation
    - **Cell 4+**: Pool density calculations
 
 6. **Token Pair Analysis** (Keep in Notebook - NO .py extraction) - NEW
-   - **📍 Source**: `scripts/token_pair_pool_analysis/notebooks/deep_dive_pool_mev_analysis.ipynb`
+   - ** Source**: `scripts/token_pair_pool_analysis/notebooks/deep_dive_pool_mev_analysis.ipynb`
    - **Cell 2+**: Single AMM token pair MEV analysis
    - **Cell 3+**: Pool coordination detection
    - **Cell 4+**: ML training data generation
@@ -544,9 +544,9 @@ solana-pamm-analysis/
    - **Reference**: Use this notebook as template for `notebooks/05_token_pair_analysis.ipynb`
 
 7. **Aggregator + MEV Classification** (Keep in Notebook - NO .py extraction) - NEW
-   - **📍 Source**: `scripts/mev_analysis/code/create_comprehensive_mev_table.py` (reference)
-   - **📍 Source**: `scripts/machine_learning/code/comprehensive_mev_attacker_verification.py` (reference)
-   - **📍 ML Notebook**: `scripts/machine_learning/notebooks/ml_mev_detection_test.ipynb`
+   - ** Source**: `scripts/mev_analysis/code/create_comprehensive_mev_table.py` (reference)
+   - ** Source**: `scripts/machine_learning/code/comprehensive_mev_attacker_verification.py` (reference)
+   - ** ML Notebook**: `scripts/machine_learning/notebooks/ml_mev_detection_test.ipynb`
      - **Cell 2+**: Aggregator likelihood calculation (pool count method)
      - **Cell 3+**: Attacker classification logic
      - **Cell 4+**: Comprehensive MEV table generation
@@ -554,7 +554,7 @@ solana-pamm-analysis/
    - **Reference**: Use ML notebook as template for `notebooks/09_aggregator_mev_analysis.ipynb`
 
 8. **ML Classification** (Keep in Notebook - NO .py extraction)
-   - **📍 Source**: `scripts/machine_learning/notebooks/ml_mev_detection_test.ipynb`
+   - ** Source**: `scripts/machine_learning/notebooks/ml_mev_detection_test.ipynb`
    - **Cell 2+**: Feature preparation
    - **Cell 3+**: Model training
    - **Cell 4+**: Model evaluation
@@ -562,16 +562,16 @@ solana-pamm-analysis/
    - **Reference**: Use this notebook as template for `notebooks/07_ml_classification.ipynb`
 
 9. **Monte Carlo Risk Analysis** (Keep in Notebook - NO .py extraction)
-   - **📍 Source**: `scripts/monte_carlo/notebooks/monte_carlo_mev_risk_analysis.ipynb`
+   - ** Source**: `scripts/monte_carlo/notebooks/monte_carlo_mev_risk_analysis.ipynb`
    - **Cell 2+**: Risk scenario simulation
    - **Cell 3+**: Risk percentile calculations
    - **Reference**: Use this notebook as template for `notebooks/08_monte_carlo_risk.ipynb`
 
 10. **Visualizations** (Keep in Notebooks - NO .py extraction)
-   - **📍 MEV Visualizations**: `scripts/mev_analysis/notebooks/MEV Toxic MEV Stats & Validator Analysis #2.ipynb` - Visualization cells
-   - **📍 Oracle Visualizations**: `scripts/oracle_analysis/notebooks/oracle_trade_timing_analysis.ipynb` - Visualization cells
-   - **📍 Validator Visualizations**: `scripts/validator_analysis/notebooks/Top_Validator_AMM_MEV_Analysis.ipynb` - Heatmap/clustering cells
-   - **📍 Token Pair Visualizations**: `scripts/token_pair_pool_analysis/notebooks/deep_dive_pool_mev_analysis.ipynb` - Timeline/activity cells
+   - ** MEV Visualizations**: `scripts/mev_analysis/notebooks/MEV Toxic MEV Stats & Validator Analysis #2.ipynb` - Visualization cells
+   - ** Oracle Visualizations**: `scripts/oracle_analysis/notebooks/oracle_trade_timing_analysis.ipynb` - Visualization cells
+   - ** Validator Visualizations**: `scripts/validator_analysis/notebooks/Top_Validator_AMM_MEV_Analysis.ipynb` - Heatmap/clustering cells
+   - ** Token Pair Visualizations**: `scripts/token_pair_pool_analysis/notebooks/deep_dive_pool_mev_analysis.ipynb` - Timeline/activity cells
    - **Reference**: Consolidate visualization code into respective analysis notebooks
 
 ---

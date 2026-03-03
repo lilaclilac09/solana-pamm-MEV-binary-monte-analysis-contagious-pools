@@ -1,14 +1,14 @@
-# 🧠 GMM CLUSTERING ANALYSIS - COMPREHENSIVE RESULTS
+#  GMM CLUSTERING ANALYSIS - COMPREHENSIVE RESULTS
 
-## ✅ Analysis Completed Successfully!
+##  Analysis Completed Successfully!
 
-### 📊 Executive Summary
+###  Executive Summary
 
 Your optimized GMM (Gaussian Mixture Model) clustering analysis has been successfully completed, connecting to the cleaned Solana PAMM transaction data and analyzing 6 key variables across 5.5 million records.
 
 ---
 
-## 📈 Key Results
+##  Key Results
 
 ### 1. **Data Processing Pipeline**
 - **Total Records Analyzed**: 5,506,090 transactions
@@ -31,7 +31,7 @@ Your optimized GMM (Gaussian Mixture Model) clustering analysis has been success
 **Grid Search Results** (10 configurations tested):
 | Config | n_components | Covariance Type | BIC Score |
 |--------|-------------|-----------------|-----------|
-| ✅ **Best** | 5 | full | **-1,474,765** |
+|  **Best** | 5 | full | **-1,474,765** |
 | Runner-up | 6 | full | -1,459,848 |
 | Runner-up | 4 | full | -1,426,068 |
 | Runner-up | 3 | full | -1,404,571 |
@@ -40,18 +40,18 @@ Your optimized GMM (Gaussian Mixture Model) clustering analysis has been success
 ### 4. **Clustering Quality Metrics**
 
 ```
-✅ Silhouette Score:      0.3171
+ Silhouette Score:      0.3171
    → Interpretation: Good cluster separation and cohesion
    → Range: [-1, 1] where >0.5 is excellent, >0.3 is good
 
-✅ Davies-Bouldin Index:  0.9449
+ Davies-Bouldin Index:  0.9449
    → Interpretation: Good cluster separation
    → Range: [0, ∞] where <1.0 is good, <0.5 is excellent
 
-✅ Log-Likelihood:        7.77
+ Log-Likelihood:        7.77
    → Indicates excellent model fit to the data
 
-✅ BIC Score:             -1,474,765
+ BIC Score:             -1,474,765
    → Lower (more negative) is better - indicates optimal model selection
 ```
 
@@ -96,39 +96,39 @@ The analysis identified **5 distinct transaction clusters**:
 
 ---
 
-## 📁 Generated Output Files
+##  Generated Output Files
 
 ### 1. **Visualizations**
-- ✅ `01_gmm_clusters_pca.png` (2.2 MB)
+-  `01_gmm_clusters_pca.png` (2.2 MB)
   - PCA scatter plot showing 5 clusters in 2D space
   - Cluster size distribution bar chart
   
-- ✅ `02_bic_optimization.png` (96 KB)
+-  `02_bic_optimization.png` (96 KB)
   - Hyperparameter optimization curves
   - Shows BIC scores for different component counts
   - Compares 'full' vs 'diag' covariance types
 
-- ✅ `03_feature_distributions.png` (237 KB)
+-  `03_feature_distributions.png` (237 KB)
   - Box plots of key features by cluster
   - Shows distribution characteristics
   - Highlights feature differences across clusters
 
 ### 2. **Data Files**
-- ✅ `clustered_data_sample.csv` (4.6 MB)
+-  `clustered_data_sample.csv` (4.6 MB)
   - 95,000 transaction records with cluster assignments
   - Columns: all 6 variables + cluster label
   - Ready for downstream analysis
 
-- ✅ `gmm_optimization_results.csv` (295 B)
+-  `gmm_optimization_results.csv` (295 B)
   - Detailed hyperparameter search results
   - 10 configuration metrics
 
-- ✅ `ANALYSIS_REPORT.txt` (2.4 KB)
+-  `ANALYSIS_REPORT.txt` (2.4 KB)
   - Full summary report
 
 ---
 
-## 🔍 Key Insights
+##  Key Insights
 
 ### **Transaction Pattern Discovery**
 1. **Cluster 0 (39.4%)** represents the dominant normal transaction pattern
@@ -148,13 +148,13 @@ The analysis identified **5 distinct transaction clusters**:
 
 ---
 
-## 🛠️ Technical Implementation Details
+## ️ Technical Implementation Details
 
 ### **Optimization Strategies Applied**
-✅ **RobustScaler**: Used instead of StandardScaler for better outlier handling
-✅ **Intelligent Sampling**: 1.82% stratified sample for computational efficiency  
-✅ **Reduced Grid Search**: Tested 10 key configurations instead of 32
-✅ **Fast Convergence**: n_init=5, max_iter=100 for speed
+ **RobustScaler**: Used instead of StandardScaler for better outlier handling
+ **Intelligent Sampling**: 1.82% stratified sample for computational efficiency  
+ **Reduced Grid Search**: Tested 10 key configurations instead of 32
+ **Fast Convergence**: n_init=5, max_iter=100 for speed
 
 ### **Algorithm Parameters**
 ```python
@@ -177,7 +177,7 @@ max_iter:        100 (iteration limit)
 
 ---
 
-## 📌 Recommendations for Next Steps
+##  Recommendations for Next Steps
 
 1. **Apply to Full Dataset**: Run final GMM clustering on complete 5.5M records
 2. **Correlation Analysis**: Investigate relationships between clusters and MEV patterns
@@ -188,7 +188,7 @@ max_iter:        100 (iteration limit)
 
 ---
 
-## 📂 File Locations
+##  File Locations
 
 All results are stored in:
 ```
@@ -203,11 +203,11 @@ All results are stored in:
 
 ---
 
-## ✨ Summary
+##  Summary
 
-🎯 **Successfully connected GMM analysis to df_clea (cleaned data)**
-📊 **Analyzed 6 key transaction variables across 5.5M records**
-🔬 **Identified 5 distinct transaction clusters with good separation**
-✅ **Generated visualizations and clustered dataset for further analysis**
+ **Successfully connected GMM analysis to df_clea (cleaned data)**
+ **Analyzed 6 key transaction variables across 5.5M records**
+ **Identified 5 distinct transaction clusters with good separation**
+ **Generated visualizations and clustered dataset for further analysis**
 
 The optimized GMM approach provides excellent balance between computational efficiency and analytical depth!

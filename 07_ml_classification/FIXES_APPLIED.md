@@ -10,7 +10,7 @@ This document describes all the fixes applied to address the issues identified i
 
 ## Fixes Applied
 
-### 1. ✅ Lowered MEV Detection Thresholds
+### 1.  Lowered MEV Detection Thresholds
 
 **Problem**: MEV threshold was too high (0.3), causing most MEV cases to be missed.
 
@@ -20,7 +20,7 @@ This document describes all the fixes applied to address the issues identified i
 
 **Location**: Classification logic in data loading cell
 
-### 2. ✅ Added Comprehensive Data Diagnostics
+### 2.  Added Comprehensive Data Diagnostics
 
 **Problem**: No visibility into data quality, class distribution, or feature statistics.
 
@@ -35,7 +35,7 @@ This document describes all the fixes applied to address the issues identified i
 
 **Location**: New cell after data loading (cell index 2)
 
-### 3. ✅ Added SMOTE Oversampling
+### 3.  Added SMOTE Oversampling
 
 **Problem**: Severe class imbalance (MEV ~7.6%, Aggregator ~88.6%) causing models to ignore minority classes.
 
@@ -52,7 +52,7 @@ This document describes all the fixes applied to address the issues identified i
 pip install imbalanced-learn
 ```
 
-### 4. ✅ Fixed Models to Handle Class Imbalance
+### 4.  Fixed Models to Handle Class Imbalance
 
 **Problem**: Models didn't account for class imbalance, leading to trivial predictions.
 
@@ -68,7 +68,7 @@ pip install imbalanced-learn
 
 **Location**: Model definition cells for Random Forest and XGBoost
 
-### 5. ✅ Added Monte Carlo Simulation
+### 5.  Added Monte Carlo Simulation
 
 **Problem**: No robustness testing - single train/test split can be misleading.
 
@@ -81,7 +81,7 @@ pip install imbalanced-learn
 
 **Location**: New cell before results saving (cell index 30)
 
-### 6. ✅ Added SMOTE Import
+### 6.  Added SMOTE Import
 
 **Problem**: SMOTE not available in imports.
 

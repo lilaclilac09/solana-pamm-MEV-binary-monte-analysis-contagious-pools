@@ -1,6 +1,6 @@
-# 🚀 Solana MEV Dashboard - 快速启动指南
+#  Solana MEV Dashboard - 快速启动指南
 
-## ⚡ 30 秒启动
+##  30 秒启动
 
 ```bash
 cd /Users/aileen/Downloads/pamm/solana-pamm-analysis/solana-pamm-MEV-binary-monte-analysis-contagious-pools/12_live_dashboard
@@ -15,7 +15,7 @@ bash RUN_DASHBOARD.sh
 python3 mev_dashboard.py
 ```
 
-## 🌐 浏览器访问
+##  浏览器访问
 
 启动后，在浏览器中打开：
 
@@ -29,28 +29,28 @@ http://127.0.0.1:8050
 http://YOUR_IP:8050
 ```
 
-## ✨ 您会看到这些功能
+##  您会看到这些功能
 
 **9 个交互式标签页：**
 
-1. 📊 **Overview** - 关键统计数据展示
-2. 💰 **MEV Distribution** - MEV 利润分布（柱状图、饼图、攻击计数）
-3. 🎯 **Top Attackers** - 排名前 5 的攻击者及详情
-4. 🔗 **Contagion Analysis** - 协议间攻击者重叠热力图 + 网络拓扑
-5. ⚡ **Validator Behavior** - 验证器 Bot 活动比例分析
-6. 🔮 **Oracle Analysis** - 预言机延迟和更新频率
-7. 🎲 **Token Pair Risk** - 代币对脆弱性分析
-8. 🤖 **ML Models** - 机器学习模型性能对比
-9. 📈 **Monte Carlo Risk** - 蒙特卡洛模拟风险评估
+1.  **Overview** - 关键统计数据展示
+2.  **MEV Distribution** - MEV 利润分布（柱状图、饼图、攻击计数）
+3.  **Top Attackers** - 排名前 5 的攻击者及详情
+4.  **Contagion Analysis** - 协议间攻击者重叠热力图 + 网络拓扑
+5.  **Validator Behavior** - 验证器 Bot 活动比例分析
+6.  **Oracle Analysis** - 预言机延迟和更新频率
+7.  **Token Pair Risk** - 代币对脆弱性分析
+8.  **ML Models** - 机器学习模型性能对比
+9.  **Monte Carlo Risk** - 蒙特卡洛模拟风险评估
 
-## 🎯 所有图表类型
+##  所有图表类型
 
-✓ 柱状图（Bar Charts）× 6  
-✓ 饼图（Pie Charts）× 1  
-✓ 热力图（Heatmap）× 1  
-✓ 散点图（Scatter Plot）× 2  
-✓ 交互式网络图（Network Graph）× 1  
-✓ 数据表格（Data Tables）× 5
+ 柱状图（Bar Charts）× 6  
+ 饼图（Pie Charts）× 1  
+ 热力图（Heatmap）× 1  
+ 散点图（Scatter Plot）× 2  
+ 交互式网络图（Network Graph）× 1  
+ 数据表格（Data Tables）× 5
 
 ## ⏹️ 停止服务
 
@@ -58,14 +58,14 @@ http://YOUR_IP:8050
 
 ## 🆘 故障排除
 
-### ❌ "ModuleNotFoundError: No module named 'dash'"
+###  "ModuleNotFoundError: No module named 'dash'"
 
 ```bash
 # 安装依赖
 python3 -m pip install -r requirements.txt
 ```
 
-### ❌ "Address already in use"
+###  "Address already in use"
 
 ```bash
 # 端口 8050 被占用，用其他端口
@@ -77,14 +77,14 @@ m.app.run(port=8051)
 "
 ```
 
-### ❌ "Permission denied" (bash 脚本)
+###  "Permission denied" (bash 脚本)
 
 ```bash
 # 添加执行权限
 chmod +x RUN_DASHBOARD.sh RUN_DASHBOARD.py
 ```
 
-## 📊 部署这个应用
+##  部署这个应用
 
 一旦本地测试成功，部署到云端：
 
@@ -108,19 +108,19 @@ heroku create mev-aileena-dashboard
 git push heroku main
 ```
 
-## 🔧 配置文件已齐全
+##  配置文件已齐全
 
 ```
-✅ mev_dashboard.py      (主应用，748 行)
-✅ requirements.txt      (Python 依赖)
-✅ Procfile             (部署启动命令)
-✅ runtime.txt          (Python 3.11.7)
-✅ vercel.json          (Vercel 配置)
-✅ RUN_DASHBOARD.sh     (Bash 启动脚本)
-✅ start_dashboard.py   (Python 启动脚本)
+ mev_dashboard.py      (主应用，748 行)
+ requirements.txt      (Python 依赖)
+ Procfile             (部署启动命令)
+ runtime.txt          (Python 3.11.7)
+ vercel.json          (Vercel 配置)
+ RUN_DASHBOARD.sh     (Bash 启动脚本)
+ start_dashboard.py   (Python 启动脚本)
 ```
 
-## 📝 生成数据来源
+##  生成数据来源
 
 所有数据来自：
 - Solana pAMM MEV 研究分析
@@ -129,13 +129,13 @@ git push heroku main
 - 机器学习分类（XGBoost, SVM, LR）
 - 蒙特卡洛模拟（10,000 次迭代）
 
-## 💡 提示
+##  提示
 
 - 仪表板完全交互式：可缩放、悬停、导出为 PNG
 - 适用于学术研究、投资分析、安全审计
 - 实时更新：修改 `mev_dashboard.py` → 刷新浏览器 → 看到变化
 
-## 🎓 代码结构
+##  代码结构
 
 ```python
 # 数据准备（第 1-150 行）
@@ -163,7 +163,7 @@ if __name__ == '__main__':
 
 ---
 
-**现在就启动吧！** 🚀
+**现在就启动吧！** 
 
 ```bash
 python3 start_dashboard.py

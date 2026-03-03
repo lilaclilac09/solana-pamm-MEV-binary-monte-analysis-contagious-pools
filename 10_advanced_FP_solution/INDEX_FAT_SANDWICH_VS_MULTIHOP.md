@@ -1,6 +1,6 @@
 # Fat Sandwich vs Multi-Hop Arbitrage: Complete Implementation Index
 
-## 📋 Quick Navigation
+##  Quick Navigation
 
 ### For First-Time Users
 1. Start with **[Quick Reference Guide](FAT_SANDWICH_VS_MULTIHOP_QUICK_REFERENCE.md)** (5 min read)
@@ -28,7 +28,7 @@
 
 ---
 
-## 📁 File Descriptions
+##  File Descriptions
 
 ### Core Implementation
 
@@ -136,12 +136,12 @@ print(f"Type: {result['attack_type']}, Confidence: {result['confidence']:.0%}")
 8. **Comparison Table** - Feature summary
 
 **Key Features**:
-- ✅ Runnable Python examples
-- ✅ Sample cluster demonstrations
-- ✅ Step-by-step output traces
-- ✅ Two pattern examples (both types)
-- ✅ Production workflow code
-- ✅ Interactive `classify_mev_attack()` demo
+-  Runnable Python examples
+-  Sample cluster demonstrations
+-  Step-by-step output traces
+-  Two pattern examples (both types)
+-  Production workflow code
+-  Interactive `classify_mev_attack()` demo
 
 **When to Use**:
 - Learning the methodology
@@ -198,7 +198,7 @@ print(f"Type: {result['attack_type']}, Confidence: {result['confidence']:.0%}")
 
 ---
 
-## 🎯 Role-Based Usage Matrix
+##  Role-Based Usage Matrix
 
 ### Data Analyst
 ```
@@ -238,7 +238,7 @@ Output: Deployment plan, resource estimates
 
 ---
 
-## 🔍 Method Lookup Quick Reference
+##  Method Lookup Quick Reference
 
 ### Need to check...
 
@@ -269,7 +269,7 @@ Output: Deployment plan, resource estimates
 
 ---
 
-## 📊 Feature Comparison Quick View
+##  Feature Comparison Quick View
 
 | Feature | Fat Sandwich | Multi-Hop | Check In |
 |---------|---|---|---|
@@ -283,7 +283,7 @@ Output: Deployment plan, resource estimates
 
 ---
 
-## 🔧 Implementation Checklist
+##  Implementation Checklist
 
 - [ ] Read Quick Reference (5 min)
 - [ ] Review decision tree (2 min)
@@ -297,7 +297,7 @@ Output: Deployment plan, resource estimates
 
 ---
 
-## 📈 Performance Summary
+##  Performance Summary
 
 | Metric | Value |
 |--------|-------|
@@ -312,7 +312,7 @@ Output: Deployment plan, resource estimates
 
 ---
 
-## ⚡ Quick Answers (FAQ)
+##  Quick Answers (FAQ)
 
 **Q: How fast can I classify clusters?**
 A: ~0.5-1 second for single cluster, ~2-5 seconds for 1000 clusters. [Details](IMPLEMENTATION_SUMMARY.md#performance-characteristics)
@@ -331,7 +331,7 @@ A: Fat Sandwich (harms retail), Multi-Hop Arbitrage (neutral). [Regulatory](FAT_
 
 ---
 
-## 🚀 Quick Start Examples
+##  Quick Start Examples
 
 ### Example 1: 60-Second Analysis
 ```
@@ -362,7 +362,7 @@ Output: Detailed breakdown + decision
 
 ---
 
-## 📞 Support Guide
+##  Support Guide
 
 ### For conceptual questions:
 - **Read**: Comprehensive Guide Sections 1-7
@@ -386,7 +386,7 @@ Output: Detailed breakdown + decision
 
 ---
 
-## 🎓 Learning Path
+##  Learning Path
 
 **Beginner** (30 minutes):
 1. Quick Reference intro
@@ -408,15 +408,15 @@ Output: Detailed breakdown + decision
 
 ---
 
-## 📋 Files at a Glance
+##  Files at a Glance
 
 ```
-📄 improved_fat_sandwich_detection.py      [Code: 485 lines, 6 new functions]
-📘 FAT_SANDWICH_VS_MULTIHOP_CLASSIFICATION.md    [Guide: 14 sections, 30 min read]
-📗 FAT_SANDWICH_VS_MULTIHOP_QUICK_REFERENCE.md   [Reference: 12 sections, 5 min read]
-📓 11_fat_sandwich_vs_multihop_classification.ipynb  [Notebook: 8 sections, runnable]
-📙 IMPLEMENTATION_SUMMARY.md            [Overview: Complete summary]
-📌 This file (INDEX.md)                [Navigation: You are here]
+ improved_fat_sandwich_detection.py      [Code: 485 lines, 6 new functions]
+ FAT_SANDWICH_VS_MULTIHOP_CLASSIFICATION.md    [Guide: 14 sections, 30 min read]
+ FAT_SANDWICH_VS_MULTIHOP_QUICK_REFERENCE.md   [Reference: 12 sections, 5 min read]
+ 11_fat_sandwich_vs_multihop_classification.ipynb  [Notebook: 8 sections, runnable]
+ IMPLEMENTATION_SUMMARY.md            [Overview: Complete summary]
+ This file (INDEX.md)                [Navigation: You are here]
 ```
 
 ---
@@ -427,7 +427,7 @@ Output: Detailed breakdown + decision
 - **Solana pAMM Ecosystem**: Raydium, Orca, Jupiter, Marinade
 - **Base Detection Module**: `improved_fat_sandwich_detection.py` (rolling time windows)
 - **Enhancement**: Fat Sandwich vs Multi-Hop Arbitrage Classification
-- **Status**: ✅ Production Ready
+- **Status**:  Production Ready
 
 ---
 

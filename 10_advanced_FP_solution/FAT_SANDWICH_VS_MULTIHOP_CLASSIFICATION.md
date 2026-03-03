@@ -12,7 +12,7 @@ This guide provides a complete framework for differentiating between **Fat Sandw
 
 | Dimension | Fat Sandwich | Multi-Hop Arbitrage |
 |-----------|-------------|-------------------|
-| **Wrapped Victims** | ✓ Mandatory (≥2) | ✗ None required |
+| **Wrapped Victims** |  Mandatory (≥2) |  None required |
 | **Token Path** | Same pair (A→B, B→A) | Cycle (A→B→C→A) |
 | **Pool Count** | 1-2 pools | 3+ pools |
 | **Primary Goal** | Extract victim slippage | Exploit pool imbalances |
@@ -242,12 +242,12 @@ def analyze_pool_diversity(cluster_trades, signer):
 ```
 If unique_pools >= 3:
   └─ If token_pairs >= 3:
-      └─ Multi-Hop Arbitrage ✓
+      └─ Multi-Hop Arbitrage 
   └─ Else (token_pairs == 1 or 2):
       └─ Fat Sandwich (multi-pool attack on same pair)
 
 Else (unique_pools <= 2):
-  └─ Fat Sandwich ✓
+  └─ Fat Sandwich 
 ```
 
 ---
@@ -387,8 +387,8 @@ def analyze_timing_triggers(cluster_trades, oracle_updates_in_slot):
 ### Trigger Detection
 
 ```
-Fast Execution (<50ms) + Oracle Burst → Fat Sandwich ✓
-Slower/Multi-slot + No Oracle → Multi-Hop ✓
+Fast Execution (<50ms) + Oracle Burst → Fat Sandwich 
+Slower/Multi-slot + No Oracle → Multi-Hop 
 ```
 
 ---
@@ -466,12 +466,12 @@ def classify_mev_attack(cluster_trades, attacker_signer, oracle_burst_in_slot=No
 
 | Criteria | Check | Fat Sandwich | Multi-Hop |
 |----------|-------|---|---|
-| **Victims** | Count unique victim signers | ≥2 ✓ | 0 ✓ |
-| **Token Path** | Is it same pair? | Yes ✓ | No (cycle) ✓ |
-| **Pools** | How many? | 1-2 ✓ | 3+ ✓ |
-| **Net Balance** | All tokens = 0? | No ✓ | Yes ✓ |
-| **Oracle Burst** | Did Oracle update? | Yes (99.8%) ✓ | Maybe (50%) ✓ |
-| **Timing** | How long (ms)? | <50 ✓ | Variable |
+| **Victims** | Count unique victim signers | ≥2  | 0  |
+| **Token Path** | Is it same pair? | Yes  | No (cycle)  |
+| **Pools** | How many? | 1-2  | 3+  |
+| **Net Balance** | All tokens = 0? | No  | Yes  |
+| **Oracle Burst** | Did Oracle update? | Yes (99.8%)  | Maybe (50%)  |
+| **Timing** | How long (ms)? | <50  | Variable |
 
 **Scoring**: Count check marks in each column. Highest count wins.
 
@@ -496,11 +496,11 @@ cluster = {
 }
 
 Analysis:
-✓ Victims: 2 found
-✓ Token pair: PUMP/WSOL only
-✓ Pools: 1 (Raydium)
-✓ Time span: 150ms
-✓ Oracle burst: Yes
+ Victims: 2 found
+ Token pair: PUMP/WSOL only
+ Pools: 1 (Raydium)
+ Time span: 150ms
+ Oracle burst: Yes
 
 Classification: FAT SANDWICH (confidence: 95%)
 ```
@@ -518,11 +518,11 @@ cluster = {
 }
 
 Analysis:
-✓ Victims: 0 found
-✓ Token pairs: 4 different (cycle: SOL→A→B→C→SOL)
-✓ Pools: 3 different protocols
-✓ Net balance: All tokens = 0
-✓ Time span: 150ms (but multi-hop route)
+ Victims: 0 found
+ Token pairs: 4 different (cycle: SOL→A→B→C→SOL)
+ Pools: 3 different protocols
+ Net balance: All tokens = 0
+ Time span: 150ms (but multi-hop route)
 
 Classification: MULTI-HOP ARBITRAGE (confidence: 98%)
 ```

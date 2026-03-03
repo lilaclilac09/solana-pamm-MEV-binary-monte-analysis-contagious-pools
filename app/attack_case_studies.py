@@ -208,7 +208,7 @@ profit_mechanisms = pd.DataFrame({
 def render_case_study_1():
     """Render Case 1: JUP/WSOL Launch Attack"""
     return html.Div([
-        html.H3("📋 Case 1: JUP/WSOL Launch Attack", 
+        html.H3("Case 1: JUP/WSOL Launch Attack", 
                 style={"fontSize": "18px", "fontWeight": 700, "marginTop": "32px", "marginBottom": "16px", "color": "#1f2937"}),
         
         html.Div([
@@ -234,7 +234,7 @@ def render_case_study_1():
             html.Strong("Operation:"), " 12 derivative wallets (professional)"
         ], style={"fontSize": "12px", "color": "#6b7280", "marginBottom": "16px"}),
         
-        html.H4("⏱️ Attack Timeline", style={"fontSize": "14px", "fontWeight": 700, "marginBottom": "12px", "color": "#1f2937"}),
+        html.H4("Attack Timeline", style={"fontSize": "14px", "fontWeight": 700, "marginBottom": "12px", "color": "#1f2937"}),
         dash_table.DataTable(
             data=case1_timeline.to_dict('records'),
             columns=[{"name": i, "id": i} for i in case1_timeline.columns],
@@ -245,7 +245,7 @@ def render_case_study_1():
             ],
         ),
         
-        html.H4("💰 Financial Analysis", style={"fontSize": "14px", "fontWeight": 700, "marginBottom": "12px", "marginTop": "20px", "color": "#1f2937"}),
+        html.H4("Financial Analysis", style={"fontSize": "14px", "fontWeight": 700, "marginBottom": "12px", "marginTop": "20px", "color": "#1f2937"}),
         dash_table.DataTable(
             data=case1_financials.to_dict('records'),
             columns=[{"name": i, "id": i} for i in case1_financials.columns],
@@ -280,7 +280,7 @@ def render_case_study_1():
 def render_case_study_2():
     """Render Case 2: PYTH/WSOL Multi-Slot Attack"""
     return html.Div([
-        html.H3("📋 Case 2: PYTH/WSOL Multi-Slot Attack", 
+        html.H3("Case 2: PYTH/WSOL Multi-Slot Attack", 
                 style={"fontSize": "18px", "fontWeight": 700, "marginTop": "32px", "marginBottom": "16px", "color": "#1f2937"}),
         
         html.Div([
@@ -306,7 +306,7 @@ def render_case_study_2():
             html.Strong("Profile:"), " Elite operator: 9,364 transactions across 8 protocols; 849.19 SOL lifetime"
         ], style={"fontSize": "12px", "color": "#6b7280", "marginBottom": "16px"}),
         
-        html.H4("⏱️ Multi-Slot Timeline", style={"fontSize": "14px", "fontWeight": 700, "marginBottom": "12px", "color": "#1f2937"}),
+        html.H4("Multi-Slot Timeline", style={"fontSize": "14px", "fontWeight": 700, "marginBottom": "12px", "color": "#1f2937"}),
         dash_table.DataTable(
             data=case2_timeline.to_dict('records'),
             columns=[{"name": i, "id": i} for i in case2_timeline.columns],
@@ -317,7 +317,7 @@ def render_case_study_2():
             ],
         ),
         
-        html.H4("💰 Financial Analysis", style={"fontSize": "14px", "fontWeight": 700, "marginBottom": "12px", "marginTop": "20px", "color": "#1f2937"}),
+        html.H4("Financial Analysis", style={"fontSize": "14px", "fontWeight": 700, "marginBottom": "12px", "marginTop": "20px", "color": "#1f2937"}),
         dash_table.DataTable(
             data=case2_financials.to_dict('records'),
             columns=[{"name": i, "id": i} for i in case2_financials.columns],
@@ -329,7 +329,7 @@ def render_case_study_2():
         ),
         
         html.Div([
-            html.P("🔑 Key Innovation: Dual revenue extraction via sandwich capture + LP fee accumulation", 
+            html.P("Key Innovation: Dual revenue extraction via sandwich capture + LP fee accumulation", 
                   style={"fontSize": "12px", "color": "#374151", "backgroundColor": "#fffbeb", "padding": "12px", "borderRadius": "6px", "margin": "16px 0 0 0"}),
         ]),
     ])
@@ -337,7 +337,7 @@ def render_case_study_2():
 def render_case_study_2b():
     """Render Case 2b: BisonFi Cross-Pool Arbitrage"""
     return html.Div([
-        html.H3("📋 Case 2b: BisonFi Cross-Pool Arbitrage (WIF/SOL + BONK/SOL)", 
+        html.H3("Case 2b: BisonFi Cross-Pool Arbitrage (WIF/SOL + BONK/SOL)", 
                 style={"fontSize": "18px", "fontWeight": 700, "marginTop": "32px", "marginBottom": "16px", "color": "#1f2937"}),
         
         html.Div([
@@ -363,7 +363,7 @@ def render_case_study_2b():
             html.Strong("Career:"), " 864 lifetime attacks across BisonFi, GoonFi, ZeroFi"
         ], style={"fontSize": "12px", "color": "#6b7280", "marginBottom": "16px"}),
         
-        html.H4("📊 Three-Phase Attack Breakdown", style={"fontSize": "14px", "fontWeight": 700, "marginBottom": "12px", "color": "#1f2937"}),
+        html.H4("Three-Phase Attack Breakdown", style={"fontSize": "14px", "fontWeight": 700, "marginBottom": "12px", "color": "#1f2937"}),
         dash_table.DataTable(
             data=case2b_phases.to_dict('records'),
             columns=[{"name": i, "id": i} for i in case2b_phases.columns],
@@ -374,7 +374,7 @@ def render_case_study_2b():
             ],
         ),
         
-        html.H4("💰 Financial Analysis", style={"fontSize": "14px", "fontWeight": 700, "marginBottom": "12px", "marginTop": "20px", "color": "#1f2937"}),
+        html.H4("Financial Analysis", style={"fontSize": "14px", "fontWeight": 700, "marginBottom": "12px", "marginTop": "20px", "color": "#1f2937"}),
         dash_table.DataTable(
             data=case2b_financials.to_dict('records'),
             columns=[{"name": i, "id": i} for i in case2b_financials.columns],
@@ -386,7 +386,7 @@ def render_case_study_2b():
         ),
         
         html.Div([
-            html.H4("🎯 BisonFi Vulnerability Factors", style={"fontSize": "13px", "fontWeight": 700, "marginTop": "20px", "marginBottom": "12px"}),
+            html.H4("BisonFi Vulnerability Factors", style={"fontSize": "13px", "fontWeight": 700, "marginTop": "20px", "marginBottom": "12px"}),
             dash_table.DataTable(
                 data=bisonfi_vulnerabilities.to_dict('records'),
                 columns=[{"name": i, "id": i} for i in bisonfi_vulnerabilities.columns],
@@ -399,7 +399,7 @@ def render_case_study_2b():
 def render_case_study_3():
     """Render Case 3: SOL/USDC Crisis Exploitation"""
     return html.Div([
-        html.H3("📋 Case 3: SOL/USDC Reserve Depletion (Crisis Exploitation)", 
+        html.H3("Case 3: SOL/USDC Reserve Depletion (Crisis Exploitation)", 
                 style={"fontSize": "18px", "fontWeight": 700, "marginTop": "32px", "marginBottom": "16px", "color": "#1f2937"}),
         
         html.Div([
@@ -429,11 +429,11 @@ def render_case_study_3():
             html.P([
                 html.Strong("Crisis Context:"), " BisonFi pool emergency - LP withdrew $180K USDC, dropping reserves from $850K → $75K (91% depletion) within 5 slots",
                 html.Br(),
-                "👉 Attacker exploited extreme slippage conditions by cascading 3 sandwich attacks across 2 slots"
+                "Attacker exploited extreme slippage conditions by cascading 3 sandwich attacks across 2 slots"
             ], style={"fontSize": "12px", "color": "#374151", "backgroundColor": "#fee2e2", "padding": "12px", "borderRadius": "6px", "marginBottom": "16px"})
         ]),
         
-        html.H4("⚡ Rapid-Fire Attack Burst", style={"fontSize": "14px", "fontWeight": 700, "marginBottom": "12px", "color": "#1f2937"}),
+        html.H4("Rapid-Fire Attack Burst", style={"fontSize": "14px", "fontWeight": 700, "marginBottom": "12px", "color": "#1f2937"}),
         dash_table.DataTable(
             data=case3_attacks.to_dict('records'),
             columns=[{"name": i, "id": i} for i in case3_attacks.columns],
@@ -444,7 +444,7 @@ def render_case_study_3():
             ],
         ),
         
-        html.H4("💰 Financial Analysis", style={"fontSize": "14px", "fontWeight": 700, "marginBottom": "12px", "marginTop": "20px", "color": "#1f2937"}),
+        html.H4("Financial Analysis", style={"fontSize": "14px", "fontWeight": 700, "marginBottom": "12px", "marginTop": "20px", "color": "#1f2937"}),
         dash_table.DataTable(
             data=case3_financials.to_dict('records'),
             columns=[{"name": i, "id": i} for i in case3_financials.columns],
@@ -459,7 +459,7 @@ def render_case_study_3():
 def render_comparative_analysis():
     """Render comparative analysis of all cases"""
     return html.Div([
-        html.H3("📊 Comparative Analysis: All Cases", 
+        html.H3("Comparative Analysis: All Cases", 
                 style={"fontSize": "18px", "fontWeight": 700, "marginTop": "32px", "marginBottom": "16px", "color": "#1f2937"}),
         
         dash_table.DataTable(
@@ -494,7 +494,7 @@ def render_comparative_analysis():
 def render_validator_coordination():
     """Render validator coordination analysis"""
     return html.Div([
-        html.H3("✅ Validator Coordination & Role Analysis", 
+        html.H3("Validator Coordination & Role Analysis", 
                 style={"fontSize": "18px", "fontWeight": 700, "marginTop": "32px", "marginBottom": "16px", "color": "#1f2937"}),
         
         dash_table.DataTable(
@@ -507,14 +507,14 @@ def render_validator_coordination():
             ],
         ),
         
-        html.P("🔍 Finding: All attacks required active validator participation for transaction ordering. Fee structures range from 28-35% in normal conditions up to 33% during crises.",
+          html.P("Finding: All attacks required active validator participation for transaction ordering. Fee structures range from 28-35% in normal conditions up to 33% during crises.",
               style={"fontSize": "12px", "color": "#374151", "backgroundColor": "#f0fdf4", "padding": "12px", "borderRadius": "6px", "marginTop": "16px"}),
     ])
 
 def render_profit_mechanisms():
     """Render profit extraction mechanisms"""
     return html.Div([
-        html.H3("💡 Profit Extraction Mechanisms", 
+        html.H3("Profit Extraction Mechanisms", 
                 style={"fontSize": "18px", "fontWeight": 700, "marginTop": "32px", "marginBottom": "16px", "color": "#1f2937"}),
         
         dash_table.DataTable(
@@ -524,14 +524,14 @@ def render_profit_mechanisms():
             style_header={"backgroundColor": "#f3f4f6", "fontWeight": 700, "fontSize": "12px"},
         ),
         
-        html.P("📈 Key Insight: Sophisticated operators combine multiple mechanisms (sandwich + arbitrage + LP fees) in single attacks to maximize profit",
+          html.P("Key Insight: Sophisticated operators combine multiple mechanisms (sandwich + arbitrage + LP fees) in single attacks to maximize profit",
               style={"fontSize": "12px", "color": "#374151", "backgroundColor": "#fffbeb", "padding": "12px", "borderRadius": "6px", "marginTop": "16px"}),
     ])
 
 def render_economics_summary():
     """Render overall economics summary"""
     return html.Div([
-        html.H3("📈 Overall Economics Summary", 
+        html.H3("Overall Economics Summary", 
                 style={"fontSize": "18px", "fontWeight": 700, "marginTop": "32px", "marginBottom": "16px", "color": "#1f2937"}),
         
         html.Div([

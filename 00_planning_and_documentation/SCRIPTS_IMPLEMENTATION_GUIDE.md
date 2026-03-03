@@ -344,7 +344,7 @@ python scripts/07_extend_monte_carlo_with_top_attackers.py
 python scripts/08_generate_final_report_pdf.py
 python scripts/09_post_report_to_x.py
 
-echo "✅ All scripts completed!"
+echo " All scripts completed!"
 ```
 
 ---
@@ -362,13 +362,13 @@ echo "✅ All scripts completed!"
 
 ## Next Steps
 
-1. ✅ Verify all dependencies installed
-2. ✅ Confirm data file paths are correct
-3. ✅ Run scripts 1-3 sequentially (foundation layer)
-4. ✅ Run scripts 4-5 (parallel validation)
-5. ✅ Run scripts 6-7 (Monte Carlo analysis)
-6. ✅ Generate report (script 8)
-7. ✅ Post findings (script 9)
+1.  Verify all dependencies installed
+2.  Confirm data file paths are correct
+3.  Run scripts 1-3 sequentially (foundation layer)
+4.  Run scripts 4-5 (parallel validation)
+5.  Run scripts 6-7 (Monte Carlo analysis)
+6.  Generate report (script 8)
+7.  Post findings (script 9)
 
 ---
 

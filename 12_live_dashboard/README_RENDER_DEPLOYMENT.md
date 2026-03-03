@@ -1,6 +1,6 @@
-# 🚀 Render Deployment - Ready to Deploy Summary
+#  Render Deployment - Ready to Deploy Summary
 
-**Status: ✅ READY FOR IMMEDIATE DEPLOYMENT**
+**Status:  READY FOR IMMEDIATE DEPLOYMENT**
 
 ---
 
@@ -29,7 +29,7 @@ git push origin main
 
 ## Exact Settings to Enter
 
-### 🔧 Configuration Fields
+###  Configuration Fields
 
 | Field | Value |
 |-------|-------|
@@ -39,7 +39,7 @@ git push origin main
 | **Branch** | `main` |
 | **Plan** | `Free` |
 
-### 🔨 Build Command (Copy Exactly)
+###  Build Command (Copy Exactly)
 ```
 pip install -r 12_live_dashboard/requirements.txt
 ```
@@ -53,10 +53,10 @@ cd 12_live_dashboard && gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 120 
 
 ## Why This Works
 
-✅ Your app has `server = app.server` (line 173 in mev_dashboard.py)  
-✅ Your requirements.txt has gunicorn  
-✅ Your code is in a subdirectory (12_live_dashboard/)  
-✅ Settings account for subdirectory path  
+ Your app has `server = app.server` (line 173 in mev_dashboard.py)  
+ Your requirements.txt has gunicorn  
+ Your code is in a subdirectory (12_live_dashboard/)  
+ Settings account for subdirectory path  
 
 ---
 
@@ -100,7 +100,7 @@ git push origin main
 
 ---
 
-## 🎯 Next Step
+##  Next Step
 
 **Open:** https://render.com/dashboard
 
@@ -110,7 +110,7 @@ git push origin main
 
 ---
 
-**Everything is configured. You're ready to deploy! 🎉**
+**Everything is configured. You're ready to deploy! **
 
 Run this to verify everything is set up:
 ```bash

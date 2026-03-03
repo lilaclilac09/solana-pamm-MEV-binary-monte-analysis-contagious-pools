@@ -189,7 +189,7 @@ colors = {
 app.layout = html.Div([
     # Gradient Header
     html.Div([
-        html.H1('🚀 Solana MEV Intelligence', 
+        html.H1('Solana MEV Intelligence', 
                style={
                    'color': 'white',
                    'marginBottom': '5px',
@@ -227,12 +227,12 @@ app.layout = html.Div([
         
         # ========== TAB 1: OVERVIEW ==========
         dcc.Tab(
-            label='📊 Overview',
+            label='Overview',
             style={'padding': '12px', 'fontWeight': 'bold'},
             selected_style={'padding': '12px', 'fontWeight': 'bold', 'borderTop': f'3px solid {colors["primary"]}'},
             children=[
                 html.Div([
-                    html.H3('📈 Key Statistics', 
+                    html.H3('Key Statistics', 
                            style={
                                'color': colors['text'],
                                'borderLeft': f'4px solid {colors["primary"]}',
@@ -280,7 +280,7 @@ app.layout = html.Div([
         
         # ========== TAB 2: MEV DISTRIBUTION ==========
         dcc.Tab(
-            label='💰 MEV Distribution',
+            label='MEV Distribution',
             style={'padding': '12px', 'fontWeight': 'bold'},
             selected_style={'padding': '12px', 'fontWeight': 'bold', 'borderTop': f'3px solid {colors["secondary"]}'},
             children=[
@@ -340,7 +340,7 @@ app.layout = html.Div([
         
         # ========== TAB 3: TOP ATTACKERS ==========
         dcc.Tab(
-            label='🎯 Top Attackers',
+            label='Top Attackers',
             style={'padding': '12px', 'fontWeight': 'bold'},
             selected_style={'padding': '12px', 'fontWeight': 'bold', 'borderTop': f'3px solid {colors["accent"]}'},
             children=[
@@ -398,7 +398,7 @@ app.layout = html.Div([
         
         # ========== TAB 4: CONTAGION ANALYSIS ==========
         dcc.Tab(
-            label='🔗 Contagion Analysis',
+            label='Contagion Analysis',
             style={'padding': '12px', 'fontWeight': 'bold'},
             selected_style={'padding': '12px', 'fontWeight': 'bold', 'borderTop': f'3px solid {colors["primary"]}'},
             children=[
@@ -431,7 +431,7 @@ app.layout = html.Div([
         
         # ========== TAB 5: VALIDATOR BEHAVIOR ==========
         dcc.Tab(
-            label='⚡ Validator Behavior',
+            label='Validator Behavior',
             style={'padding': '12px', 'fontWeight': 'bold'},
             selected_style={'padding': '12px', 'fontWeight': 'bold', 'borderTop': f'3px solid {colors["secondary"]}'},
             children=[
@@ -467,7 +467,7 @@ app.layout = html.Div([
         
         # ========== TAB 6: ORACLE ANALYSIS ==========
         dcc.Tab(
-            label='🔮 Oracle Analysis',
+            label='Oracle Analysis',
             style={'padding': '12px', 'fontWeight': 'bold'},
             selected_style={'padding': '12px', 'fontWeight': 'bold', 'borderTop': f'3px solid {colors["accent"]}'},
             children=[
@@ -514,7 +514,7 @@ app.layout = html.Div([
         
         # ========== TAB 7: TOKEN PAIR RISK ==========
         dcc.Tab(
-            label='🎲 Token Pair Risk',
+            label='Token Pair Risk',
             style={'padding': '12px', 'fontWeight': 'bold'},
             selected_style={'padding': '12px', 'fontWeight': 'bold', 'borderTop': f'3px solid {colors["primary"]}'},
             children=[
@@ -573,7 +573,7 @@ app.layout = html.Div([
         
         # ========== TAB 8: ML MODELS ==========
         dcc.Tab(
-            label='🤖 ML Models',
+            label='ML Models',
             style={'padding': '12px', 'fontWeight': 'bold'},
             selected_style={'padding': '12px', 'fontWeight': 'bold', 'borderTop': f'3px solid {colors["secondary"]}'},
             children=[
@@ -623,7 +623,7 @@ app.layout = html.Div([
         
         # ========== TAB 9: MONTE CARLO RISK ==========
         dcc.Tab(
-            label='📈 Monte Carlo Risk',
+            label='Monte Carlo Risk',
             style={'padding': '12px', 'fontWeight': 'bold'},
             selected_style={'padding': '12px', 'fontWeight': 'bold', 'borderTop': f'3px solid {colors["accent"]}'},
             children=[
@@ -653,9 +653,9 @@ app.layout = html.Div([
                     ),
                     html.H4('Risk Distribution', style={'color': colors['text'], 'marginTop': '30px', 'marginBottom': '15px'}),
                     html.Div([
-                        html.P('📊 Median sandwich risk: 8.7% | HumidiFi elevated risk: 24.3%', style={'marginBottom': '10px'}),
-                        html.P('💰 Expected loss per vulnerable transaction: 0.023 SOL', style={'marginBottom': '10px'}),
-                        html.P('⚠️ 95th percentile loss (high-risk scenarios): 0.341 SOL', style={'marginBottom': '10px'}),
+                        html.P('Median sandwich risk: 8.7% | HumidiFi elevated risk: 24.3%', style={'marginBottom': '10px'}),
+                        html.P('Expected loss per vulnerable transaction: 0.023 SOL', style={'marginBottom': '10px'}),
+                        html.P('Warning: 95th percentile loss (high-risk scenarios): 0.341 SOL', style={'marginBottom': '10px'}),
                     ], style={'padding': '20px', 'backgroundColor': colors['light'], 'borderRadius': '8px', 'color': colors['text']}),
                     html.P('Note: Simulations based on 10,000 iterations across historical attack patterns',
                            style={'color': colors['text'], 'fontStyle': 'italic', 'marginTop': '20px'})
@@ -740,9 +740,9 @@ def update_network(_):
 # ========== RUN SERVER ==========
 
 if __name__ == '__main__':
-    print("🚀 Starting Solana pAMM MEV Dashboard...")
-    print("📊 Access the dashboard at: http://127.0.0.1:8050/")
-    print("🌐 Or from network devices at: http://0.0.0.0:8050/")
-    print("📝 Use Ctrl+C to stop the server")
+    print("Starting Solana pAMM MEV Dashboard...")
+    print("Access the dashboard at: http://127.0.0.1:8050/")
+    print("Or from network devices at: http://0.0.0.0:8050/")
+    print("Use Ctrl+C to stop the server")
     print("=" * 60)
     app.run(debug=True, host='0.0.0.0', port=8050)
