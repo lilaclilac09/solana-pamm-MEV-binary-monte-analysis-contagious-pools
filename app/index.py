@@ -342,15 +342,12 @@ app.layout = html.Div([
     html.Div([
         html.P("Solana pAMM MEV Analysis | XGBoost + SMOTE Classification | BisonFi Oracle-Lag Root Cause",
                style={"textAlign": "center", "color": "#9ca3af", "fontSize": "12px", "margin": "0 0 16px 0"}),
-        html.A(
-            html.Button("Follow @A01DZ3RO on X/Twitter", 
-                       style={"backgroundColor": "#1DA1F2", "color": "white", "border": "none", 
-                              "padding": "10px 20px", "borderRadius": "6px", "fontSize": "14px", 
-                              "fontWeight": 600, "cursor": "pointer", "boxShadow": "0 2px 4px rgba(0,0,0,0.1)"}),
-            href="https://x.com/A01DZ3RO",
-            target="_blank",
-            style={"textDecoration": "none", "display": "inline-block"}
-        ),
+        html.P([
+            "any further questions or discussion pls Follow ",
+            html.A("@A01DZ3RO", href="https://x.com/A01DZ3RO", target="_blank",
+                   style={"color": "#6b7280", "textDecoration": "none"}),
+            " on X and dm"
+        ], style={"textAlign": "center", "color": "#9ca3af", "fontSize": "12px", "margin": "0"}),
     ], style={"textAlign": "center"}),
     
 ], style={"maxWidth": "1400px", "margin": "0 auto", "padding": "40px 24px", 
