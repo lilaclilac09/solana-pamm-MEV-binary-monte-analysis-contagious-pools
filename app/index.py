@@ -93,7 +93,7 @@ case_studies = pd.DataFrame({
 app.layout = html.Div([
     # Header
     html.Div([
-        html.H1("Solana pAMM MEV Analysis Report", 
+        html.H1("Solana MEV Report", 
                 style={"margin": "0", "fontSize": "32px", "fontWeight": 700, "color": "#1a1a1a"}),
         html.P("Comprehensive Analysis of MEV Attack Patterns Across 8 pAMM Protocols",
                style={"margin": "8px 0 0 0", "fontSize": "14px", "color": "#666"}),
