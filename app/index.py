@@ -243,6 +243,29 @@ app.layout = html.Div([
             ], style={"backgroundColor": "#eff6ff", "padding": "16px", "borderRadius": "8px", "border": "2px solid #93c5fd"}),
         ], style={"display": "grid", "gridTemplateColumns": "repeat(3, 1fr)", "gap": "16px", "marginBottom": "20px"}),
         
+        # Shared Attackers Definition
+        html.Div([
+            html.H4("📌 What are \"Shared Attackers\"?", style={"fontSize": "16px", "fontWeight": 700, "marginBottom": "12px", "color": "#1f2937"}),
+            html.P([
+                html.Strong("Definition: "),
+                "Unique MEV bot wallet addresses (signers) that executed sandwich attacks across multiple pools."
+            ], style={"fontSize": "14px", "marginBottom": "12px", "lineHeight": "1.6"}),
+            html.P([
+                html.Strong("Source Data: "),
+                "Extracted from ",
+                html.Code("attacker_*_detailed_activity.csv"),
+                " files where the same ",
+                html.Code("signer"),
+                " (MEV bot wallet address) appears in transaction logs for 2+ different pools."
+            ], style={"fontSize": "13px", "marginBottom": "12px", "lineHeight": "1.6", "color": "#4b5563"}),
+            html.P([
+                html.Strong("Why It Matters: "),
+                "High shared attacker counts indicate professional MEV operations systematically scanning multiple protocols. ",
+                "These are NOT victim traders — they are the MEV bots/searchers executing front-run and back-run transactions. ",
+                "Attackers operating across pools (e.g., BisonFi → HumidiFi) demonstrate cross-pool exploitation strategies and systemic risk."
+            ], style={"fontSize": "13px", "marginBottom": "0", "lineHeight": "1.6", "color": "#4b5563"}),
+        ], style={"backgroundColor": "#f0f9ff", "padding": "16px", "borderRadius": "8px", "border": "1px solid #bae6fd", "marginBottom": "20px"}),
+        
         dash_table.DataTable(
             data=pool_attacks.to_dict('records'),
             columns=[{"name": i, "id": i} for i in pool_attacks.columns],
@@ -292,7 +315,6 @@ app.layout = html.Div([
         html.H2("Section 7: Methodology",
                 style={"fontSize": "22px", "fontWeight": 700, "marginBottom": "16px", "color": "#1f2937"}),
         html.Ul([
-            html.Li([html.Strong("Data Collection: "), "5.5M blockchain events from 8 pAMM protocols (HumidiFi, BisonFi, SolFiV2, GoonFi, TesseraV, ZeroFi, DeezNode, Jito)"]),
             html.Li([html.Strong("ML Classification: "), "XGBoost with SMOTE balancing (F1=0.91, Recall=85%, Precision=88%)"]),
             html.Li([html.Strong("Feature Engineering: "), "Oracle lag, validator participation, price deltas, token pair volatility, liquidity depth"]),
             html.Li([html.Strong("Contagion Analysis: "), "Graph-based attacker tracking across pools with 5000ms time window"]),
