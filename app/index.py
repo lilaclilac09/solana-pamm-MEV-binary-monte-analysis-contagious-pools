@@ -62,11 +62,30 @@ token_risk_factors = pd.DataFrame({
 
 # Case Studies
 case_studies = pd.DataFrame({
-    "Case": ["BisonFi WIF/BONK Arbitrage", "PUMP/WSOL Fat Sandwich", "JUP/WSOL Single-Slot Attack", "PYTH/WSOL Multi-Slot"],
-    "Target": ["BisonFi WIF/SOL + BONK/SOL", "PUMP/WSOL across 5 pools", "JUP/WSOL on HumidiFi", "PYTH/WSOL on BisonFi"],
-    "Profit (SOL)": ["3.99 (209% ROI)", "2.84 (316% ROI)", "1.24 (285% ROI)", "4.82 (552% ROI)"],
-    "Method": ["Cross-pair arbitrage, 8 txs", "High-volume pair targeting", "Single-slot sandwich", "Multi-slot + LP fees"],
-    "Attacker": ["YubQzu18...N6tP", "YubVwWeg...NXQW", "AEB9dXBo...Sf4R", "E2MPTDnF...5VL2"]
+    "Case": [
+        "BisonFi WIF/BONK Arbitrage",
+        "JUP/WSOL Launch Flash Crash Extraction",
+        "PYTH/WSOL Multi-Slot Attack",
+        "PYTH/WSOL Oracle Lag Exploitation",
+        "SOL/USDC Critical Liquidity Drain"
+    ],
+    "Target": [
+        "BisonFi WIF/SOL + BONK/SOL",
+        "JUP/WSOL launch-period liquidity",
+        "PYTH/WSOL high-volatility window",
+        "PYTH/WSOL oracle-dependent pricing",
+        "SOL/USDC reserve depletion phase"
+    ],
+    "Attack Slot(s)": [
+        "391,935,880-391,935,882",
+        "460,701,000",
+        "391,934,112-391,934,116",
+        "461,628,000",
+        "463,311,000"
+    ],
+    "Profit (SOL)": ["3.99 (209% ROI)", "3.18 (91% ROI)", "4.61 gross (552% ROI)", "2.86 (102% ROI)", "n/a in summary feed"],
+    "Method": ["Cross-pair arbitrage + dual sandwich", "Single-slot flash-crash sandwich", "Multi-slot sandwich + LP fees", "Oracle-lag sandwich", "Liquidity drain + sandwich sequence"],
+    "Attacker": ["AEB9dXBo...Y3zP", "YubQzu18...N6tP", "AEB9dXBo...Sf4R", "YubVwWeg...NXQW", "(from CASE-003 record)"]
 })
 
 # ============ LAYOUT ============
@@ -85,7 +104,7 @@ app.layout = html.Div([
         html.Div([
                 html.H2("TOP STORIES: Real-World Attack Case Studies",
                     style={"fontSize": "22px", "fontWeight": 700, "marginBottom": "16px", "color": "#dc2626"}),
-            html.P("Four detailed case studies from January 7, 2026 dataset analyzing real MEV attackers with millisecond-level precision",
+                 html.P("Five detailed case studies with exact slot references from the analysis dataset",
                    style={"fontSize": "14px", "color": "#6b7280", "marginBottom": "24px"}),
         ], style={"backgroundColor": "#fef2f2", "border": "2px solid #dc2626", "padding": "20px", "borderRadius": "8px", "marginBottom": "24px"}),
         
@@ -127,13 +146,15 @@ app.layout = html.Div([
         html.P([
             html.Strong("Detailed Attack Breakdowns:"),
             html.Br(),
-            "• ", html.Strong("Case 1 (1.2s, WIF/SOL + BONK/SOL on BisonFi):"), " Cross-pair arbitrage sequence across two correlated pools; 3.99 SOL profit, 209% ROI, 2 victim traders impacted.",
+            "• ", html.Strong("Case 1 (slots 391,935,880-391,935,882 | WIF/SOL + BONK/SOL):"), " Cross-pair arbitrage sequence across two correlated pools; 3.99 SOL gross, 209% ROI, dual-sandwich path.",
             html.Br(),
-            "• ", html.Strong("Case 2 (865ms, PUMP/WSOL across 5 pools):"), " Cascading sandwich pattern that propagates after trigger-pool instability; 3 linked attacks with 2.84 SOL captured.",
+            "• ", html.Strong("Case 2 (slot 460,701,000 | JUP/WSOL launch):"), " Single-slot flash-crash extraction with front-run/victim/back-run ordering and rapid unwind.",
             html.Br(),
-            "• ", html.Strong("Case 3 (189ms, JUP/WSOL on HumidiFi):"), " Single-slot sandwich execution with precise front-run/back-run timing; 285% ROI from low-slippage entry and fast unwind.",
+            "• ", html.Strong("Case 3 (slots 391,934,112-391,934,116 | PYTH/WSOL):"), " Multi-slot sandwich + LP fee capture structure spanning 3 slots during high-volatility window.",
             html.Br(),
-            "• ", html.Strong("Case 4 (2.4s, PYTH/WSOL on BisonFi):"), " Multi-slot sandwich + LP fee capture strategy; 4.82 SOL profit and 552% ROI (highest in sample).",
+            "• ", html.Strong("Case 4 (slot 461,628,000 | PYTH/WSOL oracle lag):"), " Oracle-lag exploitation around victim execution in the same slot with coordinated tip/bundle placement.",
+            html.Br(),
+            "• ", html.Strong("Case 5 (slot 463,311,000 | SOL/USDC drain):"), " Critical liquidity drain attack window identified in CASE-003, associated with crisis-style depletion conditions.",
         ], style={"fontSize": "13px", "color": "#374151", "backgroundColor": "#f9fafb", "padding": "16px", "borderRadius": "6px", 
                   "lineHeight": "1.8", "marginTop": "16px", "marginBottom": "0"}),
 
