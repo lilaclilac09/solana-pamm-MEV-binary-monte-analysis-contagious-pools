@@ -1,0 +1,62 @@
+{
+  "description": "Example slot history data structure for testing slot jump detection",
+  "format_version": "1.0",
+  "data": [
+    {
+      "slot": 200000000,
+      "epoch": 462,
+      "leader": "Validator1PublicKeyExample1111111111111111111111",
+      "produced": true,
+      "timestamp": "2026-03-03T10:00:00.000Z",
+      "block_time": 0.398
+    },
+    {
+      "slot": 200000001,
+      "epoch": 462,
+      "leader": "Validator2PublicKeyExample1111111111111111111111",
+      "produced": true,
+      "timestamp": "2026-03-03T10:00:00.400Z",
+      "block_time": 0.405
+    },
+    {
+      "slot": 200000005,
+      "epoch": 462,
+      "leader": "Validator3PublicKeyExample1111111111111111111111",
+      "produced": true,
+      "timestamp": "2026-03-03T10:00:02.000Z",
+      "block_time": 1.612,
+      "comment": "Slot jump detected: slots 200000002-200000004 skipped"
+    },
+    {
+      "slot": 200000006,
+      "epoch": 462,
+      "leader": "Validator1PublicKeyExample1111111111111111111111",
+      "produced": true,
+      "timestamp": "2026-03-03T10:00:02.400Z",
+      "block_time": 0.402
+    },
+    {
+      "slot": 200000007,
+      "epoch": 462,
+      "leader": "DobleZeroValidator11111111111111111111111111111",
+      "produced": false,
+      "timestamp": null,
+      "block_time": null,
+      "comment": "Intentional skip by DobleZero validator"
+    },
+    {
+      "slot": 200000008,
+      "epoch": 462,
+      "leader": "Validator2PublicKeyExample1111111111111111111111",
+      "produced": true,
+      "timestamp": "2026-03-03T10:00:03.200Z",
+      "block_time": 0.811
+    }
+  ],
+  "notes": [
+    "In production, fetch this data from Solana RPC using getBlockProduction",
+    "Each slot should have: slot number, leader, produced status, timestamp",
+    "Missing slots indicate slot jumps (skipped slots)",
+    "block_time is the actual time taken to produce the block"
+  ]
+}

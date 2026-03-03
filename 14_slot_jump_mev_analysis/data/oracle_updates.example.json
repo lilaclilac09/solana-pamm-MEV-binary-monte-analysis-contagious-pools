@@ -1,0 +1,74 @@
+{
+  "description": "Example oracle price update data for staleness analysis",
+  "format_version": "1.0",
+  "data": [
+    {
+      "slot": 199999995,
+      "oracle_account": "PythSOLUSDOracle1111111111111111111111111111111",
+      "oracle_type": "pyth",
+      "asset_symbol": "SOL/USD",
+      "price": 100.50,
+      "confidence": 0.12,
+      "timestamp": "2026-03-03T09:59:58.000Z"
+    },
+    {
+      "slot": 199999998,
+      "oracle_account": "PythSOLUSDOracle1111111111111111111111111111111",
+      "oracle_type": "pyth",
+      "asset_symbol": "SOL/USD",
+      "price": 100.55,
+      "confidence": 0.11,
+      "timestamp": "2026-03-03T09:59:59.200Z",
+      "comment": "Last update before slot jump"
+    },
+    {
+      "slot": 200000006,
+      "oracle_account": "PythSOLUSDOracle1111111111111111111111111111111",
+      "oracle_type": "pyth",
+      "asset_symbol": "SOL/USD",
+      "price": 101.25,
+      "confidence": 0.15,
+      "timestamp": "2026-03-03T10:00:02.400Z",
+      "comment": "First update after jump - price moved significantly during staleness"
+    },
+    {
+      "slot": 199999996,
+      "oracle_account": "SwitchboardETHUSDOracle1111111111111111111111111",
+      "oracle_type": "switchboard",
+      "asset_symbol": "ETH/USD",
+      "price": 3850.75,
+      "confidence": 2.50,
+      "timestamp": "2026-03-03T09:59:58.400Z"
+    },
+    {
+      "slot": 200000001,
+      "oracle_account": "SwitchboardETHUSDOracle1111111111111111111111111",
+      "oracle_type": "switchboard",
+      "asset_symbol": "ETH/USD",
+      "price": 3851.20,
+      "confidence": 2.45,
+      "timestamp": "2026-03-03T10:00:00.400Z",
+      "comment": "Regular update - no staleness for this oracle"
+    },
+    {
+      "slot": 200000007,
+      "oracle_account": "SwitchboardETHUSDOracle1111111111111111111111111",
+      "oracle_type": "switchboard",
+      "asset_symbol": "ETH/USD",
+      "price": 3848.90,
+      "confidence": 2.60,
+      "timestamp": "2026-03-03T10:00:02.800Z"
+    }
+  ],
+  "notes": [
+    "Fetch oracle updates from on-chain accounts (Pyth, Switchboard, Chainlink)",
+    "Key fields: slot, oracle account, asset, price, timestamp",
+    "Compare update frequency during slot jumps vs normal operation",
+    "Large price deviations after staleness indicate MEV opportunity"
+  ],
+  "common_oracles": {
+    "pyth": "High-frequency price feeds, typically update every 1-3 slots",
+    "switchboard": "Decentralized oracle network, updates every 3-5 slots",
+    "chainlink": "Less common on Solana but growing adoption"
+  }
+}

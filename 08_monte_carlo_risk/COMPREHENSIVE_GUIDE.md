@@ -69,6 +69,59 @@ A **stochastic Monte Carlo simulation** analyzing MEV contagion risk across thre
 
 From **880 unique attackers** executing **1,501 MEV events**, we identified sophisticated multi-pool routing strategies that generated **$125.00 total profit** ($112.49 net). The top 20 attackers alone captured **$79.54** (63.6% of total), with the leading attacker routing through **7 different pools** to maximize profit extraction.
 
+---
+
+## Updated and New Visualizations
+
+**MEV Distribution & Analysis Charts**:
+- `mev_distribution_comprehensive.png` - MEV profit by protocol and pool
+- `top_attackers.png` - Top 20 attackers ranked by total profit
+- `aggregator_vs_mev_detailed_comparison.png` - Behavioral dichotomy (aggregators vs MEV bots)
+- `profit_distribution_filtered.png` - Profit statistics and distributions
+
+**NEW Contagion & Network Analysis**:
+- `contagion_analysis_dashboard.png` - Cross-pool attack probabilities and cascade analysis
+- `pool_coordination_network.png` - Attacker distribution and shared attacker heatmap across pools
+
+---
+
+## Key Contagion Findings
+
+**Trigger Pool Analysis**:
+- Primary Trigger: **HumidiFi** (75.1 SOL MEV extracted, 66.8% of total cross-pool MEV)
+- Cascade Pattern: Knowledge transfer and skill reuse across 7-pool ecosystem
+
+**Contagion Rates**:
+- Immediate Cascade: **0%** (no same-slot coordinated attacks detected)
+- Delayed Contagion: **22%** (attackers reuse exploitation skills on other pools within 5-minute windows)
+- Contagion Mechanism: Primarily knowledge transfer (understanding of oracle lags) rather than real-time coordination
+
+**Pool-Specific Risk Assessment**:
+| Pool | Attack Probability from HumidiFi Attackers | Delayed Contagion Risk | Shared Attackers |
+|------|---------------------------------------------|------------------------|------------------|
+| BisonFi | 22.4% | HIGH | 45-50 |
+| SolFiV2 | 21.8% | HIGH | 40-45 |
+| GoonFi | 21.6% | HIGH | 38-42 |
+| TesseraV | 20.2% | MODERATE | 25-30 |
+| ZeroFi | 18.9% | MODERATE | 20-25 |
+| ObricV2 | 17.5% | MODERATE | 15-20 |
+
+**Overall Risk Level**: **MODERATE** across all 7 pools (100% risk distribution)
+
+---
+
+## Data Corrections Applied
+
+**Critical Fixes**:
+1. **Top Attacker Profit Mismatch**: Corrected 13.716 SOL → **16.731 SOL** (+22% correction) - misaligned event attribution
+2. **Top 20 Signer Addresses**: Regenerated from ground truth (617 validated attacks) - previous file contained duplicates and incorrect signers
+3. **Derivative Files Synchronization**: All analysis files (pool summaries, attacker matrices) synchronized with single source of truth
+4. **Pool Analysis Data**: Generated `pool_mev_summary.csv` consolidating all 7 pools with accurate TVL and attack counts
+5. **Attacker-Pool Cross-Reference**: Created `attacker_pool_analysis.csv` (617 attack pairs) for contagion analysis
+6. **False Positive Filtering**: Applied 58.9% filtering (617 valid attacks from 1,501 raw candidates) removing zero-profit and aggregator-routed events
+
+---
+
 ### Top MEV Attacker: Multi-Pool Routing Master
 
 **Attacker**: `YubQzu18...BdUkN6tP`  

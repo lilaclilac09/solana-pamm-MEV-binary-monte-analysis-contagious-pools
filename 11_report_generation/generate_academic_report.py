@@ -5,13 +5,33 @@ Generate academic-style PDF report from analysis results
 from reportlab.lib.pagesizes import letter, A4
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, Table, TableStyle, Image, KeepTogether
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, Table, TableStyle, Image, KeepTogether, PageTemplate, Frame
 from reportlab.lib import colors
 from reportlab.lib.enums import TA_CENTER, TA_JUSTIFY, TA_LEFT
+from reportlab.pdfgen import canvas
 from datetime import datetime
 import csv
 import os
 import json
+
+class NumberedCanvas(canvas.Canvas):
+    """Canvas with page numbering"""
+    def __init__(self, *args, **kwargs):
+        canvas.Canvas.__init__(self, *args, **kwargs)
+        self._page_num = 0
+    
+    def showPage(self):
+        self._page_num += 1
+        self._drawPageNumbers()
+        canvas.Canvas.showPage(self)
+    
+    def _drawPageNumbers(self):
+        """Add page numbers to footer"""
+        self.setFont("Helvetica", 10)
+        self.setFillColor(colors.HexColor('#666666'))
+        # Draw at bottom center
+        page_num_text = f"Page {self._page_num}"
+        self.drawCentredString(letter[0]/2.0, 0.5*inch, page_num_text)
 
 def create_academic_report():
     """Create academic-style PDF report"""
@@ -20,12 +40,13 @@ def create_academic_report():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     base_dir = os.path.dirname(script_dir)  # Go up one level from 11_report_generation
     
-    # Create PDF document
+    # Create PDF document with custom canvas for page numbers
     os.makedirs('11_report_generation/outputs', exist_ok=True)
     output_path = "11_report_generation/outputs/Solana_PAMM_MEV_Analysis_Report.pdf"
     doc = SimpleDocTemplate(output_path, pagesize=letter,
                           rightMargin=72, leftMargin=72,
-                          topMargin=72, bottomMargin=18)
+                          topMargin=72, bottomMargin=36,
+                          canvasmaker=NumberedCanvas)
     
     # Container for the 'Flowable' objects
     story = []
@@ -122,10 +143,97 @@ def create_academic_report():
     story.append(Paragraph(abstract_text, abstract_style))
     story.append(PageBreak())
     
-    # Executive Summary: Complete Report Update
-    story.append(Paragraph("Executive Summary: Complete Report Update (February 26, 2026)", heading1_style))
+    # Table of Contents with page numbers
+    story.append(Paragraph("Table of Contents", heading1_style))
+    story.append(Spacer(1, 0.2*inch))
     
-    story.append(Paragraph("Overview", heading2_style))
+    # Professional TOC using table format with page numbers and dots
+    toc_data = [
+        ["1. Executive Summary", "...........................", "5"],
+        ["   1.1 Overview", "", "5"],
+        ["   1.2 Key Findings", "", "6"],
+        ["   1.3 Implications for Protocol Design", "", "6"],
+        ["   1.4 Future Research Directions", "", "7"],
+        ["", "", ""],
+        ["2. Introduction & Methodology", "...........................", "8"],
+        ["   2.1 Research Objectives", "", "8"],
+        ["   2.2 Methodology Overview", "", "9"],
+        ["", "", ""],
+        ["3. Data Preprocessing and Cleaning", "...........................", "10"],
+        ["   3.1 Data Collection", "", "10"],
+        ["   3.2 Data Quality Assessment", "", "11"],
+        ["   3.3 Data Transformation", "", "11"],
+        ["   3.4 MEV Attack Pattern Analysis", "", "12"],
+        ["", "", ""],
+        ["4. MEV Detection and Classification", "...........................", "13"],
+        ["   4.1 Detection Algorithms", "", "13"],
+        ["   4.2 Sandwich Attack Patterns", "", "14"],
+        ["   4.3 False Positive Filtering", "", "15"],
+        ["   4.4 Aggregator Exclusion", "", "16"],
+        ["   4.5 Attacker Identification", "", "17"],
+        ["   4.6 Protocol-Level Analysis", "", "18"],
+        ["   4.7 Aggregator Separation Analysis", "", "19"],
+        ["", "", ""],
+        ["5. Oracle Timing and Manipulation Analysis", "...........................", "21"],
+        ["   5.1 Oracle Update Patterns", "", "21"],
+        ["   5.2 Oracle Latency and MEV Window", "", "22"],
+        ["   5.3 Back-Running Detection", "", "23"],
+        ["   5.4 Oracle Updater Analysis", "", "24"],
+        ["   5.5 Token Pair Vulnerability Analysis", "", "25"],
+        ["", "", ""],
+        ["6. Validator Behavior and MEV Correlation", "...........................", "27"],
+        ["   6.1 Validator Distribution", "", "27"],
+        ["   6.2 Validator-Protocol Co-occurrence", "", "28"],
+        ["   6.3 Validator-AMM Clustering", "", "29"],
+        ["   6.4 Cross-Pool MEV Contagion", "", "30"],
+        ["   6.5 Validator MEV Analysis", "", "32"],
+        ["", "", ""],
+        ["7. Machine Learning Classification", "...........................", "45"],
+        ["   7.1 Model Development", "", "45"],
+        ["   7.2 Model Performance", "", "46"],
+        ["   7.3 Feature Importance", "", "47"],
+        ["", "", ""],
+        ["8. Monte Carlo Risk Assessment", "...........................", "50"],
+        ["   8.1 Simulation Methodology", "", "50"],
+        ["   8.2 Risk Metrics", "", "51"],
+        ["   8.3 Trapped Bot Detection", "", "52"],
+        ["", "", ""],
+        ["9. Conclusion", "...........................", "65"],
+        ["", "", ""],
+        ["10. Appendices", "...........................", "70"],
+        ["   A. Plot Generation References", "", "70"],
+        ["   B. Data Cleaning and Parsing References", "", "71"],
+        ["   C. Code Chunk References (Excerpts)", "", "72"],
+        ["   C1. Data Quality and Cleaning Visualizations", "", "73"],
+        ["   D. Top MEV Reference Metrics", "", "75"],
+        ["   E. MEV Signers - Attack Patterns & Value Extraction", "", "77"],
+        ["   F. Unique MEV Signer Patterns and Value Methods", "", "79"],
+        ["   G. Successful Attack Case Studies and Mechanics", "", "81"],
+        ["   H. Analysis Tools and Methodologies", "", "85"],
+    ]
+    
+    toc_table_style = [
+        ('FONTNAME', (0, 0), (-1, -1), 'Helvetica'),
+        ('FONTSIZE', (0, 0), (-1, -1), 10),
+        ('LEFTPADDING', (0, 0), (-1, -1), 5),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 5),
+        ('TOPPADDING', (0, 0), (-1, -1), 2),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 2),
+        ('LINEABOVE', (0, 0), (-1, 0), 0.5, colors.grey),
+        ('LINEBELOW', (0, -1), (-1, -1), 0.5, colors.grey),
+        ('ALIGN', (2, 0), (2, -1), 'RIGHT'),
+    ]
+    
+    toc_table = Table(toc_data, colWidths=[4*inch, 1.2*inch, 0.5*inch])
+    toc_table.setStyle(TableStyle(toc_table_style))
+    story.append(toc_table)
+    story.append(Spacer(1, 0.2*inch))
+    story.append(PageBreak())
+    
+    # Executive Summary: Complete Report Update
+    story.append(Paragraph("1. Executive Summary", heading1_style))
+    
+    story.append(Paragraph("1.1 Overview", heading2_style))
     update_overview = """
     This report has been comprehensively updated with corrected MEV data and new contagion 
     analysis visualizations. All analysis now uses validated data (617 fat sandwich attacks) 
@@ -134,84 +242,10 @@ def create_academic_report():
     """
     story.append(Paragraph(update_overview, normal_style))
     story.append(Spacer(1, 0.1*inch))
-    
-    # Updated Visualizations Text
-    story.append(Paragraph("Updated and New Visualizations", heading2_style))
-    viz_text = (
-        "<b>mev_distribution_comprehensive.png</b> - MEV profit by protocol<br/>"
-        "<b>top_attackers.png</b> - Top 20 attackers ranked by profit<br/>"
-        "<b>aggregator_vs_mev_detailed_comparison.png</b> - Behavioral dichotomy (aggregators vs MEV bots)<br/>"
-        "<b>profit_distribution_filtered.png</b> - Profit statistics and distributions<br/>"
-        "<b>contagion_analysis_dashboard.png</b> - NEW: Cross-pool attack probabilities and cascade analysis<br/>"
-        "<b>pool_coordination_network.png</b> - NEW: Attacker distribution and shared attacker heatmap"
-    )
-    story.append(Paragraph(viz_text, normal_style))
-    story.append(Spacer(1, 0.1*inch))
-    
-    # Key Findings Text
-    story.append(Paragraph("Key Contagion Findings", heading2_style))
-    findings_text = (
-        "<b>Trigger Pool:</b> HumidiFi (75.1 SOL, 66.8% of total MEV)<br/>"
-        "<b>Immediate Cascade:</b> 0% (no same-slot coordinated attacks)<br/>"
-        "<b>Delayed Contagion:</b> 22% (attackers reuse skills on other pools)<br/>"
-        "<b>Highest Risk Pool:</b> BisonFi: 22.4% attack probability from HumidiFi attackers<br/>"
-        "<b>Other Pool Risk:</b> SolFiV2: 21.8%, GoonFi: 21.6%, TesseraV: 20.2%<br/>"
-        "<b>Risk Level Distribution:</b> MODERATE across all 7 pools (100%)<br/>"
-        "<b>Attacker Overlap:</b> 20-50 shared attackers between pool pairs<br/>"
-        "<b>Contagion Mechanism:</b> Knowledge transfer (skill reuse) vs real-time cascades"
-    )
-    story.append(Paragraph(findings_text, normal_style))
-    story.append(Spacer(1, 0.1*inch))
-    
-    # Data Corrections Text
-    story.append(Paragraph("Data Corrections Applied", heading2_style))
-    corrections_text = (
-        "<b>Top attacker profit mismatch:</b> Fixed: 13.716 SOL → 16.731 SOL (+22% correction)<br/>"
-        "<b>Top 20 file contained wrong signers:</b> Regenerated from ground truth (617 validated attacks)<br/>"
-        "<b>Derivative files out of sync:</b> All files synchronized with single source of truth<br/>"
-        "<b>Pool analysis missing:</b> Generated pool_mev_summary.csv (7 pools analyzed)<br/>"
-        "<b>Attacker-pool matrix missing:</b> Generated attacker_pool_analysis.csv (617 attack pairs)<br/>"
-        "<b>False positive contamination:</b> Applied 58.9% filtering (617 valid attacks from 1,501 total)"
-    )
-    story.append(Paragraph(corrections_text, normal_style))
-    story.append(Spacer(1, 0.1*inch))
-    
-    summary_stats = """
-    <b>Summary Statistics:</b> This updated analysis covers 617 validated fat sandwich attacks 
-    across 7 pAMM protocols (HumidiFi, BisonFi, GoonFi, TesseraV, SolFiV2, ZeroFi, ObricV2), 
-    totaling 112.428 SOL in MEV profit. The analysis identifies 179 unique attackers and 
-    reveals a 0% immediate cascade rate but 22% delayed contagion risk through knowledge 
-    transfer patterns. All figures and tables in this report use the cleaned, validated dataset 
-    with false positives (failed sandwiches and multi-hop arbitrage) excluded. Two new 
-    contagion visualizations (Figures 8-9) provide comprehensive insights into cross-pool 
-    attack patterns and attacker specialization dynamics.
-    """
-    story.append(Paragraph(summary_stats, normal_style))
     story.append(PageBreak())
     
-    # Demo Slide (single page)
-    story.append(Paragraph("Demo Slide: MEV and Contagion Overview", heading1_style))
-    
-    demo_text = """
-    <b>Key Demo Highlights</b><br/>
-    • 617 validated fat sandwich attacks (58.9% false positives removed)<br/>
-    • HumidiFi dominates MEV: 75.1 SOL (66.8% of total profit)<br/>
-    • Zero immediate cascades; 22% delayed contagion via attacker overlap<br/>
-    • Top attacker profit corrected: 16.731 SOL (previously 13.716 SOL)<br/>
-    • All visuals regenerated from corrected ground truth data
-    """
-    story.append(Paragraph(demo_text, normal_style))
-    story.append(Spacer(1, 0.1*inch))
-    
-    demo_image = '11_report_generation/outputs/contagion_analysis_dashboard.png'
-    if os.path.exists(demo_image):
-        story.append(Paragraph("Demo Figure: Contagion Analysis Dashboard", heading3_style))
-        img = Image(demo_image, width=6.8*inch, height=5.0*inch)
-        story.append(img)
-    story.append(PageBreak())
-    
-    # CONCLUSION (shown first as requested)
-    story.append(Paragraph("Conclusion", heading1_style))
+    # CONCLUSION
+    story.append(Paragraph("9. Conclusion", heading1_style))
     
     conclusion_text = """
     This comprehensive analysis of MEV activities in Solana's pAMM ecosystem reveals several 
@@ -219,7 +253,7 @@ def create_academic_report():
     """
     story.append(Paragraph(conclusion_text, normal_style))
     
-    story.append(Paragraph("1.1 Key Findings", heading2_style))
+    story.append(Paragraph("1.2 Key Findings", heading2_style))
     findings_text = """
     Our analysis of 5,506,090 blockchain events demonstrates extensive MEV extraction activity 
     across the Solana pAMM ecosystem. We identified 26,223 sandwich attack patterns, with fat 
@@ -231,7 +265,7 @@ def create_academic_report():
     """
     story.append(Paragraph(findings_text, normal_style))
     
-    story.append(Paragraph("1.2 Implications for Protocol Design", heading2_style))
+    story.append(Paragraph("1.3 Implications for Protocol Design", heading2_style))
     implications_text = """
     The prevalence of MEV extraction, particularly sandwich attacks, suggests that current 
     pAMM implementations may benefit from enhanced protection mechanisms. Oracle manipulation 
@@ -242,7 +276,7 @@ def create_academic_report():
     """
     story.append(Paragraph(implications_text, normal_style))
     
-    story.append(Paragraph("1.3 Future Research Directions", heading2_style))
+    story.append(Paragraph("1.4 Future Research Directions", heading2_style))
     future_text = """
     Future research should focus on developing real-time MEV detection systems, exploring 
     mitigation strategies such as commit-reveal schemes or private mempools, and investigating 
@@ -254,7 +288,7 @@ def create_academic_report():
     story.append(PageBreak())
     
     # MAIN CONTENT
-    story.append(Paragraph("1. Introduction", heading1_style))
+    story.append(Paragraph("2. Introduction & Methodology", heading1_style))
     
     intro_text = """
     Maximum Extractable Value (MEV) represents one of the most significant challenges in 
@@ -265,7 +299,7 @@ def create_academic_report():
     """
     story.append(Paragraph(intro_text, normal_style))
     
-    story.append(Paragraph("1.1 Research Objectives", heading2_style))
+    story.append(Paragraph("2.1 Research Objectives", heading2_style))
     objectives_text = """
     The primary objectives of this research are: (1) to identify and classify different types 
     of MEV extraction strategies in Solana pAMMs, (2) to quantify the scale and frequency of 
@@ -275,7 +309,7 @@ def create_academic_report():
     """
     story.append(Paragraph(objectives_text, normal_style))
     
-    story.append(Paragraph("1.2 Methodology Overview", heading2_style))
+    story.append(Paragraph("2.2 Methodology Overview", heading2_style))
     methodology_text = """
     Our analysis pipeline consists of data cleaning and preprocessing, MEV pattern detection 
     using multiple algorithms, oracle timing analysis, validator behavior assessment, token 
@@ -287,9 +321,9 @@ def create_academic_report():
     story.append(PageBreak())
     
     # Data Cleaning Section
-    story.append(Paragraph("2. Data Preprocessing and Cleaning", heading1_style))
+    story.append(Paragraph("3. Data Preprocessing and Cleaning", heading1_style))
     
-    story.append(Paragraph("2.1 Data Collection", heading2_style))
+    story.append(Paragraph("3.1 Data Collection", heading2_style))
     data_collection_text = """
     The original dataset contained 5,526,137 rows with 11 columns including slot, time, 
     validator, transaction index, signature, signer, event kind, AMM identifier, account 
@@ -298,7 +332,7 @@ def create_academic_report():
     """
     story.append(Paragraph(data_collection_text, normal_style))
     
-    story.append(Paragraph("2.1.1 Data Quality Assessment", heading3_style))
+    story.append(Paragraph("3.2 Data Quality Assessment", heading3_style))
     quality_text = """
     Initial data quality analysis revealed missing values in several columns: trades (87.58% 
     missing), AMM (12.42% missing), and timing data (0.36% missing). The parsing process 
@@ -307,7 +341,7 @@ def create_academic_report():
     """
     story.append(Paragraph(quality_text, normal_style))
     
-    story.append(Paragraph("2.2 Data Transformation", heading2_style))
+    story.append(Paragraph("3.3 Data Transformation", heading2_style))
     transformation_text = """
     The data transformation process involved: (1) parsing account_updates to extract trade 
     information, (2) high-precision time parsing to create datetime and millisecond timestamp 
@@ -317,7 +351,7 @@ def create_academic_report():
     """
     story.append(Paragraph(transformation_text, normal_style))
     
-    story.append(Paragraph("2.3 MEV Attack Pattern Analysis", heading2_style))
+    story.append(Paragraph("3.4 MEV Attack Pattern Analysis", heading2_style))
     mev_pattern_text = """
     Analysis of validated MEV attack patterns after false-positive elimination reveals a highly 
     concentrated exploitation landscape. From the filtered classification dataset 
@@ -353,9 +387,9 @@ def create_academic_report():
     story.append(PageBreak())
     
     # MEV Detection Section
-    story.append(Paragraph("3. MEV Detection and Classification", heading1_style))
+    story.append(Paragraph("4. MEV Detection and Classification", heading1_style))
     
-    story.append(Paragraph("3.1 Detection Algorithms", heading2_style))
+    story.append(Paragraph("4.1 Detection Algorithms", heading2_style))
     detection_text = """
     We implemented seven distinct MEV detection algorithms to identify various attack patterns: 
     (1) Fat Sandwich Detection - identifies attacks with 5+ trades per slot involving the same 
@@ -368,7 +402,7 @@ def create_academic_report():
     """
     story.append(Paragraph(detection_text, normal_style))
     
-    story.append(Paragraph("3.1.1 Sandwich Attack Patterns", heading3_style))
+    story.append(Paragraph("4.2 Sandwich Attack Patterns", heading3_style))
     sandwich_text = """
     Our analysis identified 26,223 sandwich attack patterns across all pAMM protocols. Fat 
     sandwich attacks, involving 5 or more trades per slot, were the most common pattern. 
@@ -377,7 +411,7 @@ def create_academic_report():
     """
     story.append(Paragraph(sandwich_text, normal_style))
     
-    story.append(Paragraph("3.1.2 False Positive Filtering Criteria", heading3_style))
+    story.append(Paragraph("4.3 False Positive Filtering Criteria", heading3_style))
     false_positive_text = """
     A critical component of accurate MEV detection is the elimination of false positives. 
     We established rigorous filtering criteria to distinguish genuine MEV attacks from benign 
@@ -392,7 +426,7 @@ def create_academic_report():
     """
     story.append(Paragraph(false_positive_text, normal_style))
     
-    story.append(Paragraph("3.1.3 Aggregator Exclusion: Multi-Hop Routing vs. MEV", heading3_style))
+    story.append(Paragraph("4.4 Aggregator Exclusion: Multi-Hop Routing vs. MEV", heading3_style))
     aggregator_exclusion_text = """
     A significant source of false positives in MEV detection stems from legitimate aggregator 
     protocols such as Jupiter DEX, which perform multi-hop routing to optimize trade execution. 
@@ -413,7 +447,7 @@ def create_academic_report():
     """
     story.append(Paragraph(aggregator_exclusion_text, normal_style))
     
-    story.append(Paragraph("3.1.4 The 58.9% False Positive Rate: Detailed Breakdown", heading3_style))
+    story.append(Paragraph("4.5 The 58.9% False Positive Rate: Detailed Breakdown", heading3_style))
     false_positive_breakdown = """
     Of the 1,501 initially detected MEV patterns, our rigorous filtering removed 884 cases (58.9%) 
     as false positives, retaining only 617 validated fat sandwich attacks (41.1%). This high false 
@@ -433,7 +467,7 @@ def create_academic_report():
     """
     story.append(Paragraph(false_positive_breakdown, normal_style))
     
-    story.append(Paragraph("3.1.5 Multi-Hop Arbitrage: Technical Characteristics", heading3_style))
+    story.append(Paragraph("4.6 Multi-Hop Arbitrage: Technical Characteristics", heading3_style))
     multihop_technical = """
     Multi-hop arbitrage transactions exhibit distinct technical signatures that differentiate them 
     from genuine sandwich attacks: (1) <b>Cyclic Token Paths</b> - these transactions follow closed-loop 
@@ -492,7 +526,7 @@ def create_academic_report():
     story.append(fp_table)
     story.append(Spacer(1, 0.3*inch))
     
-    story.append(Paragraph("3.2 Attacker Identification", heading2_style))
+    story.append(Paragraph("4.7 Attacker Identification", heading2_style))
     attacker_text = """
     The analysis identified 589 distinct MEV attackers operating across the ecosystem. 
     Attackers were distributed across different pAMM protocols: BisonFi (256 attackers), 
@@ -507,7 +541,7 @@ def create_academic_report():
     """
     story.append(Paragraph(attacker_text, normal_style))
     
-    story.append(Paragraph("3.2.2 Profit Distribution and Concentration", heading3_style))
+    story.append(Paragraph("4.8 Profit Distribution and Concentration", heading3_style))
     profit_concentration_text = """
     After false positive filtering, the final dataset of 617 validated fat sandwich attacks 
     yielded a total net profit of 112.428 SOL (average 0.1822 SOL per attack). Profit 
@@ -520,7 +554,7 @@ def create_academic_report():
     """
     story.append(Paragraph(profit_concentration_text, normal_style))
     
-    story.append(Paragraph("3.2.1 MEV Failure Analysis", heading3_style))
+    story.append(Paragraph("4.9 MEV Failure Analysis", heading3_style))
     failure_text = """
     Analysis of failed MEV attempts provides insights into defensive measures and market 
     conditions that prevent successful attacks. Failed sandwich attempts, timing failures, 
@@ -544,7 +578,7 @@ def create_academic_report():
         story.append(img)
         story.append(Spacer(1, 0.1*inch))
     
-    story.append(Paragraph("3.3 Protocol-Level Analysis", heading2_style))
+    story.append(Paragraph("4.10 Protocol-Level Analysis", heading2_style))
     protocol_text = """
     All 8 pAMM protocols showed evidence of MEV activity. The analysis generated per-protocol 
     statistics including total MEV trades, attacker counts, and validator distributions. Top 
@@ -554,7 +588,7 @@ def create_academic_report():
     story.append(Paragraph(protocol_text, normal_style))
     
     # Aggregator Analysis Section
-    story.append(Paragraph("3.4 Aggregator Separation Analysis", heading2_style))
+    story.append(Paragraph("4.11 Aggregator Separation Analysis", heading2_style))
     
     aggregator_intro = """
     Distinguishing legitimate DEX aggregators from MEV attackers is critical for accurate measurement. 
@@ -563,7 +597,7 @@ def create_academic_report():
     """
     story.append(Paragraph(aggregator_intro, normal_style))
     
-    story.append(Paragraph("3.4.1 Aggregator Identification Methodology", heading3_style))
+    story.append(Paragraph("4.12 Aggregator Identification Methodology", heading3_style))
     aggregator_method = """
     Aggregator likelihood was computed using a composite scoring model incorporating: (1) <b>Unique 
     Pool Count</b> - signers interacting with 5+ unique pools received elevated aggregator scores 
@@ -578,7 +612,7 @@ def create_academic_report():
     """
     story.append(Paragraph(aggregator_method, normal_style))
     
-    story.append(Paragraph("3.4.2 Aggregator Population Characteristics", heading3_style))
+    story.append(Paragraph("4.13 Aggregator Population Characteristics", heading3_style))
     aggregator_chars = """
     The aggregator dataset revealed 1,908 signers with aggregator_likelihood = 1.0 (perfect confidence), 
     interacting with 4-5 unique pools on average. Representative examples include: CYdCZFYk1vMTMo6t4t8hN3yuCDprwAL696HyYQ3csBJX 
@@ -593,7 +627,7 @@ def create_academic_report():
     """
     story.append(Paragraph(aggregator_chars, normal_style))
     
-    story.append(Paragraph("3.4.3 Aggregator vs MEV Bot Separation Validation", heading3_style))
+    story.append(Paragraph("4.14 Aggregator vs MEV Bot Separation Validation", heading3_style))
     agg_validation = """
     To validate the separation, we compared aggregator signers against known MEV bot addresses from 
     Section 3.2. Cross-referencing revealed <2.1% overlap (40 signers appeared in both lists), 
@@ -723,9 +757,9 @@ def create_academic_report():
     story.append(PageBreak())
     
     # Oracle Analysis Section
-    story.append(Paragraph("4. Oracle Timing and Manipulation Analysis", heading1_style))
+    story.append(Paragraph("5. Oracle Timing and Manipulation Analysis", heading1_style))
     
-    story.append(Paragraph("4.1 Oracle Update Patterns", heading2_style))
+    story.append(Paragraph("5.1 Oracle Update Patterns", heading2_style))
     oracle_patterns_text = """
     Oracle analysis examined the timing relationships between oracle price updates and trade 
     execution. The study identified patterns where oracle updates cluster before or after 
@@ -739,7 +773,7 @@ def create_academic_report():
     """
     story.append(Paragraph(oracle_patterns_text, normal_style))
     
-    story.append(Paragraph("4.1.1 Oracle Latency and MEV Window", heading3_style))
+    story.append(Paragraph("5.2 Oracle Latency and MEV Window", heading3_style))
     oracle_latency_detail = """
     Oracle latency—the delay between real market price changes and on-chain oracle updates—creates 
     exploitable windows for MEV extraction. Our analysis measured oracle update frequency across 
@@ -753,7 +787,7 @@ def create_academic_report():
     """
     story.append(Paragraph(oracle_latency_detail, normal_style))
     
-    story.append(Paragraph("4.2 Back-Running Detection", heading2_style))
+    story.append(Paragraph("5.3 Back-Running Detection", heading2_style))
     backrun_text = """
     Back-running patterns were identified by detecting trades occurring within 50ms after 
     oracle updates. This rapid response time suggests automated systems monitoring oracle 
@@ -763,7 +797,7 @@ def create_academic_report():
     """
     story.append(Paragraph(backrun_text, normal_style))
     
-    story.append(Paragraph("4.3 Oracle Updater Analysis", heading2_style))
+    story.append(Paragraph("5.4 Oracle Updater Analysis", heading2_style))
     updater_text = """
     The study identified the most active oracle updaters and analyzed their update frequency 
     patterns. Correlation analysis between oracle update activity and MEV events revealed 
@@ -885,7 +919,7 @@ def create_academic_report():
     story.append(PageBreak())
     
     # Token Pair Vulnerability Analysis Section
-    story.append(Paragraph("4.4 Token Pair Vulnerability Analysis", heading2_style))
+    story.append(Paragraph("5.5 Token Pair Vulnerability Analysis", heading2_style))
     
     token_pair_intro = """
     Token pair analysis reveals differential MEV exposure across trading pairs. Certain pairs 
@@ -895,7 +929,7 @@ def create_academic_report():
     """
     story.append(Paragraph(token_pair_intro, normal_style))
     
-    story.append(Paragraph("4.4.1 High-Risk Token Pairs", heading3_style))
+    story.append(Paragraph("5.6 High-Risk Token Pairs", heading3_style))
     high_risk_pairs = """
     <b>PUMP/WSOL Pair Dominance:</b> The PUMP/WSOL trading pair demonstrated the highest MEV 
     susceptibility across multiple protocols. This pair accounted for 38.2% of all fat sandwich 
@@ -922,7 +956,7 @@ def create_academic_report():
     """
     story.append(Paragraph(high_risk_pairs, normal_style))
     
-    story.append(Paragraph("4.4.2 Low-Risk Token Pairs and Protective Factors", heading3_style))
+    story.append(Paragraph("5.7 Low-Risk Token Pairs and Protective Factors", heading3_style))
     low_risk_pairs = """
     Conversely, certain token pairs demonstrated exceptional MEV resistance. SOL/USDC pairs in 
     high-liquidity pools (>$1M reserves) showed 5.2x lower sandwich risk than low-liquidity 
@@ -943,7 +977,7 @@ def create_academic_report():
     """
     story.append(Paragraph(low_risk_pairs, normal_style))
     
-    story.append(Paragraph("4.4.3 Aggregator Interaction Patterns", heading3_style))
+    story.append(Paragraph("5.8 Aggregator Interaction Patterns", heading3_style))
     aggregator_token_text = """
     Token pairs showing both high aggregator likelihood (>0.3) and elevated MEV scores (>0.2) 
     represent a unique category. These pairs are attractive to both legitimate routing services 
@@ -967,9 +1001,9 @@ def create_academic_report():
     story.append(PageBreak())
     
     # Validator Analysis Section
-    story.append(Paragraph("5. Validator Behavior and MEV Correlation", heading1_style))
+    story.append(Paragraph("6. Validator Behavior and MEV Correlation", heading1_style))
     
-    story.append(Paragraph("5.1 Validator Distribution", heading2_style))
+    story.append(Paragraph("6.1 Validator Distribution", heading2_style))
     validator_dist_text = """
     MEV activity was distributed across 742 validators, with significant variation in bot 
     counts and trade volumes per validator. Top 10 validators by bot count were identified, 
@@ -986,7 +1020,7 @@ def create_academic_report():
     """
     story.append(Paragraph(validator_dist_text, normal_style))
     
-    story.append(Paragraph("5.1.1 Validator-Protocol Co-occurrence Patterns", heading3_style))
+    story.append(Paragraph("6.2 Validator-Protocol Co-occurrence Patterns", heading3_style))
     validator_protocol_detail = """
     Cross-tabulation of validator-protocol interactions revealed non-random association patterns. 
     Certain validators showed strong affinity for specific pAMM protocols (e.g., Validator X processed 
@@ -1001,7 +1035,7 @@ def create_academic_report():
     """
     story.append(Paragraph(validator_protocol_detail, normal_style))
     
-    story.append(Paragraph("5.2 Validator-AMM Clustering", heading2_style))
+    story.append(Paragraph("6.3 Validator-AMM Clustering", heading2_style))
     clustering_text = """
     Cluster analysis revealed patterns in validator behavior across different AMM protocols. 
     Some validators showed higher concentrations of MEV activity for specific protocols, 
@@ -1043,7 +1077,7 @@ def create_academic_report():
     story.append(PageBreak())
     
     # Contagion Pools Analysis Section
-    story.append(Paragraph("5.3 Cross-Pool MEV Contagion Analysis", heading2_style))
+    story.append(Paragraph("6.4 Cross-Pool MEV Contagion Analysis", heading2_style))
     
     contagion_intro = """
     Cross-pool contagion analysis investigates whether MEV attacks on one protocol cascade to 
@@ -1053,7 +1087,7 @@ def create_academic_report():
     """
     story.append(Paragraph(contagion_intro, normal_style))
     
-    story.append(Paragraph("5.3.1 Trigger Pool Identification: BisonFi Oracle-Lag Attack Origin", heading3_style))
+    story.append(Paragraph("6.5 Trigger Pool Identification: BisonFi Oracle-Lag Attack Origin", heading3_style))
     trigger_pool = """
     BisonFi is treated as the structural trigger pool for contagion interpretation because oracle-lag 
     behavior creates predictable pricing windows that can be reused by MEV signers across protocols. 
@@ -1065,7 +1099,7 @@ def create_academic_report():
     """
     story.append(Paragraph(trigger_pool, normal_style))
     
-    story.append(Paragraph("5.3.2 Cascade Rate Analysis: Temporal Independence", heading3_style))
+    story.append(Paragraph("6.6 Cascade Rate Analysis: Temporal Independence", heading3_style))
     cascade_rate = """
     <b>Critical Finding: Zero Immediate Cascade.</b> Despite BisonFi's role as structural trigger source, 
     cascade rate analysis revealed 0.0% immediate coordinated attacks on downstream pools within a 
@@ -1082,7 +1116,7 @@ def create_academic_report():
     """
     story.append(Paragraph(cascade_rate, normal_style))
     
-    story.append(Paragraph("5.3.3 Shared Attacker Analysis: Delayed Contagion Patterns", heading3_style))
+    story.append(Paragraph("6.7 Shared Attacker Analysis: Delayed Contagion Patterns", heading3_style))
     shared_attackers = """
     While immediate cascade rates are zero, shared attacker analysis reveals significant delayed 
     contagion. 133 attackers (22.4% of HumidiFi attackers) also executed attacks on BisonFi, with 
@@ -1099,7 +1133,7 @@ def create_academic_report():
     """
     story.append(Paragraph(shared_attackers, normal_style))
     
-    story.append(Paragraph("5.3.4 Contagion Risk Interpretation and Implications", heading3_style))
+    story.append(Paragraph("6.8 Contagion Risk Interpretation and Implications", heading3_style))
     contagion_implications = """
     The 0% immediate cascade rate but 22% delayed attack probability creates a nuanced risk profile. 
     Protocols should not fear instantaneous contagion waves\u2014vulnerabilities in BisonFi do not 
@@ -1180,7 +1214,7 @@ def create_academic_report():
     story.append(PageBreak())
     
     # Validator Analysis Section
-    story.append(Paragraph("5.4 Validator MEV Analysis and Cross-Comparison", heading1_style))
+    story.append(Paragraph("6.9 Validator MEV Analysis and Cross-Comparison", heading2_style))
     
     validator_intro = """
     Validator-level MEV analysis examines how different Solana validators participate in and 
@@ -1340,9 +1374,9 @@ def create_academic_report():
     story.append(PageBreak())
     
     # Machine Learning Section
-    story.append(Paragraph("6. Machine Learning Classification", heading1_style))
+    story.append(Paragraph("7. Machine Learning Classification", heading1_style))
     
-    story.append(Paragraph("6.1 Model Development", heading2_style))
+    story.append(Paragraph("7.1 Model Development", heading2_style))
     ml_model_text = """
     Machine learning models were developed to classify MEV patterns automatically. The dataset 
     comprised 2,559 records with 9 features across 4 classes (likely MEV bot, normal trader, 
@@ -1358,7 +1392,7 @@ def create_academic_report():
     """
     story.append(Paragraph(ml_model_text, normal_style))
     
-    story.append(Paragraph("6.1.1 Class Imbalance and SMOTE Resampling", heading3_style))
+    story.append(Paragraph("7.2 Class Imbalance and SMOTE Resampling", heading3_style))
     smote_text = """
     A critical challenge in MEV classification is severe class imbalance: MEV bots represented 
     only 8.3% of the training dataset (212 samples), while normal traders dominated with 78.4% 
@@ -1380,7 +1414,7 @@ def create_academic_report():
     """
     story.append(Paragraph(smote_text, normal_style))
     
-    story.append(Paragraph("6.2 Model Performance", heading2_style))
+    story.append(Paragraph("7.3 Model Performance", heading2_style))
     ml_perf_text = """
     Model comparison revealed varying performance across different algorithms. XGBoost emerged as 
     the top performer with F1-score of 0.91 (SMOTE-enabled) and 0.78 (SMOTE-disabled). SVM achieved 
@@ -1399,7 +1433,7 @@ def create_academic_report():
     """
     story.append(Paragraph(ml_perf_text, normal_style))
     
-    story.append(Paragraph("6.3 Feature Importance", heading2_style))
+    story.append(Paragraph("7.4 Feature Importance", heading2_style))
     feature_text = """
     Feature importance analysis identified the most critical variables for MEV detection, 
     enabling prioritization of monitoring metrics and development of more efficient detection 
@@ -1557,9 +1591,9 @@ def create_academic_report():
     story.append(PageBreak())
     
     # Monte Carlo Section
-    story.append(Paragraph("7. Monte Carlo Risk Assessment", heading1_style))
+    story.append(Paragraph("8. Monte Carlo Risk Assessment", heading1_style))
     
-    story.append(Paragraph("7.1 Simulation Methodology", heading2_style))
+    story.append(Paragraph("8.1 Simulation Methodology", heading2_style))
     mc_method_text = """
     Monte Carlo simulations were conducted to assess MEV risk across different trading scenarios 
     using a probabilistic framework. For each scenario (defined by pool, token pair, trade size, 
@@ -1578,7 +1612,7 @@ def create_academic_report():
     """
     story.append(Paragraph(mc_method_text, normal_style))
     
-    story.append(Paragraph("7.1.1 Risk Factor Sensitivity Analysis", heading3_style))
+    story.append(Paragraph("8.2 Risk Factor Sensitivity Analysis", heading3_style))
     mc_sensitivity_text = """
     Sensitivity analysis identified the primary drivers of MEV risk. Trade size exhibited the strongest 
     influence: increasing trade size from 10 SOL to 100 SOL (10x) increased sandwich risk by 8.3x 
@@ -1593,7 +1627,7 @@ def create_academic_report():
     """
     story.append(Paragraph(mc_sensitivity_text, normal_style))
     
-    story.append(Paragraph("7.2 Risk Metrics", heading2_style))
+    story.append(Paragraph("8.3 Risk Metrics", heading2_style))
     risk_metrics_text = """
     The analysis generated comprehensive risk metrics across 127 distinct scenarios. Median sandwich 
     risk across all pools was 8.7% (IQR: 3.2% - 18.4%), with HumidiFi pools exhibiting the highest 
@@ -1610,7 +1644,7 @@ def create_academic_report():
     """
     story.append(Paragraph(risk_metrics_text, normal_style))
     
-    story.append(Paragraph("7.3 Trapped Bot Detection", heading2_style))
+    story.append(Paragraph("8.4 Trapped Bot Detection", heading2_style))
     trapped_text = """
     The analysis included detection of trapped bots - MEV bots that may have been caught in 
     failed attack attempts. This provides insights into the success rates of different MEV 
@@ -2226,6 +2260,46 @@ def create_academic_report():
     
     # References/Data Sources
     story.append(Paragraph("9. Data Sources and Methodology Details", heading1_style))
+    
+    # Add main Appendices heading with index
+    story.append(PageBreak())
+    story.append(Paragraph("10. Appendices", heading1_style))
+    story.append(Spacer(1, 0.15*inch))
+    story.append(Paragraph("Complete Reference Guide and Supplementary Materials", heading2_style))
+    story.append(Spacer(1, 0.1*inch))
+    
+    appendices_index = """
+    <b>Appendices Table of Contents:</b><br/>
+    <br/>
+    <b>Appendix A: Plot Generation References</b><br/>
+    Comprehensive mapping of all visualization outputs to their generating scripts and analysis notebooks. Includes figure references for MEV distribution, top attackers, aggregator comparisons, and contagion analysis dashboards.<br/>
+    <br/>
+    <b>Appendix B: Data Cleaning and Parsing References</b><br/>
+    Detailed documentation of data preprocessing steps, cleaning scripts, and parsing methodologies. Includes references to DeezNode filter applications, Jito tip filtering, and data validation processes.<br/>
+    <br/>
+    <b>Appendix C: Code Chunk References (Excerpts)</b><br/>
+    Key Python code snippets from analysis notebooks showing critical algorithms, pattern detection methods, and implementation details for MEV detection and classification.<br/>
+    <br/>
+    <b>Appendix C1: Data Quality and Cleaning Visualizations</b><br/>
+    Visual documentation of data quality assessment results, before/after cleaning comparisons, and validation metrics showing data integrity improvements through the pipeline.<br/>
+    <br/>
+    <b>Appendix D: Top MEV Reference Metrics</b><br/>
+    Summary tables and statistics for top MEV attackers, pools, and protocols. Includes profit distributions, attack frequencies, and performance metrics across all analyzed pAMM platforms.<br/>
+    <br/>
+    <b>Appendix E: MEV Signers - Attack Patterns & Value Extraction Analysis</b><br/>
+    Detailed breakdown of unique attacker signatures, their behavioral patterns, success rates, and value extraction methodologies. Includes signer-to-profit mapping and specialization analysis.<br/>
+    <br/>
+    <b>Appendix F: Unique MEV Signer Patterns and Value Extraction Methods</b><br/>
+    In-depth analysis of attack mechanics, execution patterns, and value extraction techniques employed by different MEV implementation strategies. Includes empirical evidence and technical specifications.<br/>
+    <br/>
+    <b>Appendix G: Successful Attack Case Studies and Mechanics</b><br/>
+    Detailed case studies of representative successful MEV attacks with exact transaction sequences, profit calculations, and attack flow diagrams. Includes 3 comprehensive examples with temporal analysis.<br/>
+    <br/>
+    <b>Appendix H: Analysis Tools and Methodologies</b><br/>
+    Documentation of Python frameworks, libraries, machine learning tools, and statistical methods used throughout the analysis. Includes references to scikit-learn models, Monte Carlo simulation engines, and data processing pipelines.<br/>
+    """
+    story.append(Paragraph(appendices_index, normal_style))
+    story.append(PageBreak())
     
     # Appendix: Plot to Script References
     story.append(Paragraph("Appendix A: Plot Generation References", heading2_style))
