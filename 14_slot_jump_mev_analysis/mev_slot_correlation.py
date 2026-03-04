@@ -12,6 +12,7 @@ Date: March 3, 2026
 
 import json
 import argparse
+import re
 from datetime import datetime
 from typing import Dict, List, Tuple
 from dataclasses import dataclass, asdict
@@ -19,6 +20,25 @@ import pandas as pd
 import numpy as np
 from scipy import stats
 from collections import defaultdict
+
+
+def _repair_invalid_json_escapes(raw_text: str) -> str:
+    fixed_text = re.sub(r'(?<!\\)\\u(?![0-9a-fA-F]{4})', r'\\\\u', raw_text)
+    fixed_text = re.sub(r'(?<!\\)\\(?!["\\/bfnrtu])', r'\\\\', fixed_text)
+    return fixed_text
+
+
+def _load_json_safe(filepath: str):
+    with open(filepath, 'r', encoding='utf-8') as file_handle:
+        raw_text = file_handle.read()
+    try:
+        return json.loads(raw_text)
+    except json.JSONDecodeError:
+        repaired_text = _repair_invalid_json_escapes(raw_text)
+        if repaired_text != raw_text:
+            print(f"⚠️ Repaired invalid JSON escape sequences in {filepath}")
+            return json.loads(repaired_text)
+        raise
 
 
 @dataclass
@@ -68,16 +88,14 @@ class MEVSlotCorrelationAnalyzer:
     def load_slot_jumps(self, filepath: str) -> None:
         """Load slot jump analysis results"""
         print(f"Loading slot jump data from {filepath}...")
-        with open(filepath, 'r') as f:
-            data = json.load(f)
-            self.slot_jumps = data.get('jump_events', [])
+        data = _load_json_safe(filepath)
+        self.slot_jumps = data.get('jump_events', [])
         print(f"Loaded {len(self.slot_jumps)} slot jump events")
         
     def load_mev_events(self, filepath: str) -> None:
         """Load MEV event data"""
         print(f"Loading MEV event data from {filepath}...")
-        with open(filepath, 'r') as f:
-            self.mev_events = json.load(f)
+        self.mev_events = _load_json_safe(filepath)
         print(f"Loaded {len(self.mev_events)} MEV events")
         
     def correlate_mev_with_jumps(self) -> List[MEVSlotCorrelation]:

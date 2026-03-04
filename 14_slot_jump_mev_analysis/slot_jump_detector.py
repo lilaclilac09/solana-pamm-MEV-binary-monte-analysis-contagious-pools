@@ -12,12 +12,32 @@ Date: March 3, 2026
 
 import json
 import argparse
+import re
 from datetime import datetime
 from typing import Dict, List, Tuple, Optional
 from collections import defaultdict
 from dataclasses import dataclass, asdict
 import pandas as pd
 import numpy as np
+
+
+def _repair_invalid_json_escapes(raw_text: str) -> str:
+    fixed_text = re.sub(r'(?<!\\)\\u(?![0-9a-fA-F]{4})', r'\\\\u', raw_text)
+    fixed_text = re.sub(r'(?<!\\)\\(?!["\\/bfnrtu])', r'\\\\', fixed_text)
+    return fixed_text
+
+
+def _load_json_safe(filepath: str):
+    with open(filepath, 'r', encoding='utf-8') as file_handle:
+        raw_text = file_handle.read()
+    try:
+        return json.loads(raw_text)
+    except json.JSONDecodeError:
+        repaired_text = _repair_invalid_json_escapes(raw_text)
+        if repaired_text != raw_text:
+            print(f"⚠️ Repaired invalid JSON escape sequences in {filepath}")
+            return json.loads(repaired_text)
+        raise
 
 
 @dataclass
@@ -65,8 +85,7 @@ class SlotJumpDetector:
     def load_slot_history(self, filepath: str) -> None:
         """Load historical slot data from file"""
         print(f"Loading slot history from {filepath}...")
-        with open(filepath, 'r') as f:
-            self.slot_data = json.load(f)
+        self.slot_data = _load_json_safe(filepath)
         print(f"Loaded {len(self.slot_data)} slot records")
         
     def fetch_slot_history(self, start_epoch: int, end_epoch: int) -> List[Dict]:

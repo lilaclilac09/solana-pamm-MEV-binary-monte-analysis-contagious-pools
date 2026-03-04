@@ -12,11 +12,31 @@ Date: March 3, 2026
 
 import json
 import argparse
+import re
 from datetime import datetime
 from typing import Dict, List, Tuple, Optional
 from dataclasses import dataclass, asdict
 import numpy as np
 from collections import defaultdict
+
+
+def _repair_invalid_json_escapes(raw_text: str) -> str:
+    fixed_text = re.sub(r'(?<!\\)\\u(?![0-9a-fA-F]{4})', r'\\\\u', raw_text)
+    fixed_text = re.sub(r'(?<!\\)\\(?!["\\/bfnrtu])', r'\\\\', fixed_text)
+    return fixed_text
+
+
+def _load_json_safe(filepath: str):
+    with open(filepath, 'r', encoding='utf-8') as file_handle:
+        raw_text = file_handle.read()
+    try:
+        return json.loads(raw_text)
+    except json.JSONDecodeError:
+        repaired_text = _repair_invalid_json_escapes(raw_text)
+        if repaired_text != raw_text:
+            print(f"⚠️ Repaired invalid JSON escape sequences in {filepath}")
+            return json.loads(repaired_text)
+        raise
 
 
 @dataclass
@@ -69,23 +89,20 @@ class OracleStalenessAnalyzer:
     def load_slot_jumps(self, filepath: str) -> None:
         """Load slot jump data"""
         print(f"Loading slot jump data from {filepath}...")
-        with open(filepath, 'r') as f:
-            data = json.load(f)
-            self.slot_jumps = data.get('jump_events', [])
+        data = _load_json_safe(filepath)
+        self.slot_jumps = data.get('jump_events', [])
         print(f"Loaded {len(self.slot_jumps)} slot jump events")
         
     def load_oracle_updates(self, filepath: str) -> None:
         """Load oracle price update history"""
         print(f"Loading oracle update data from {filepath}...")
-        with open(filepath, 'r') as f:
-            self.oracle_updates = json.load(f)
+        self.oracle_updates = _load_json_safe(filepath)
         print(f"Loaded {len(self.oracle_updates)} oracle updates")
         
     def load_mev_events(self, filepath: str) -> None:
         """Load MEV events"""
         print(f"Loading MEV event data from {filepath}...")
-        with open(filepath, 'r') as f:
-            self.mev_events = json.load(f)
+        self.mev_events = _load_json_safe(filepath)
         print(f"Loaded {len(self.mev_events)} MEV events")
         
     def detect_staleness_events(self) -> List[OracleStalenessEvent]:

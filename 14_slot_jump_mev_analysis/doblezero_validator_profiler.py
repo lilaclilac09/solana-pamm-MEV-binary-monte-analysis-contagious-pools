@@ -12,11 +12,31 @@ Date: March 3, 2026
 
 import json
 import argparse
+import re
 from datetime import datetime
 from typing import Dict, List, Tuple
 from dataclasses import dataclass, asdict
 import numpy as np
 from collections import defaultdict
+
+
+def _repair_invalid_json_escapes(raw_text: str) -> str:
+    fixed_text = re.sub(r'(?<!\\)\\u(?![0-9a-fA-F]{4})', r'\\\\u', raw_text)
+    fixed_text = re.sub(r'(?<!\\)\\(?!["\\/bfnrtu])', r'\\\\', fixed_text)
+    return fixed_text
+
+
+def _load_json_safe(filepath: str):
+    with open(filepath, 'r', encoding='utf-8') as file_handle:
+        raw_text = file_handle.read()
+    try:
+        return json.loads(raw_text)
+    except json.JSONDecodeError:
+        repaired_text = _repair_invalid_json_escapes(raw_text)
+        if repaired_text != raw_text:
+            print(f"⚠️ Repaired invalid JSON escape sequences in {filepath}")
+            return json.loads(repaired_text)
+        raise
 
 
 @dataclass
@@ -67,16 +87,14 @@ class DobleZeroProfiler:
     def load_validator_profiles(self, filepath: str) -> None:
         """Load validator skip profiles from slot jump analysis"""
         print(f"Loading validator profiles from {filepath}...")
-        with open(filepath, 'r') as f:
-            data = json.load(f)
-            self.validators = data.get('validator_profiles', {})
+        data = _load_json_safe(filepath)
+        self.validators = data.get('validator_profiles', {})
         print(f"Loaded {len(self.validators)} validator profiles")
         
     def load_mev_data(self, filepath: str) -> None:
         """Load MEV extraction data"""
         print(f"Loading MEV data from {filepath}...")
-        with open(filepath, 'r') as f:
-            mev_events = json.load(f)
+        mev_events = _load_json_safe(filepath)
         
         # Organize MEV by validator
         for event in mev_events:
