@@ -4,9 +4,29 @@ Extract comprehensive validator and signer information for PDF report update
 """
 
 import json
+import re
 import pandas as pd
 from pathlib import Path
 from collections import defaultdict
+
+
+def _repair_invalid_json_escapes(raw_text):
+    fixed_text = re.sub(r'(?<!\\)\\u(?![0-9a-fA-F]{4})', r'\\\\u', raw_text)
+    fixed_text = re.sub(r'(?<!\\)\\(?!["\\/bfnrtu])', r'\\\\', fixed_text)
+    return fixed_text
+
+
+def _load_json_safe(file_path):
+    with open(file_path, 'r', encoding='utf-8') as file_handle:
+        raw_text = file_handle.read()
+    try:
+        return json.loads(raw_text)
+    except json.JSONDecodeError:
+        repaired_text = _repair_invalid_json_escapes(raw_text)
+        if repaired_text != raw_text:
+            print(f"⚠️ Repaired invalid JSON escape sequences in {file_path}")
+            return json.loads(repaired_text)
+        raise
 
 # Base directory
 base_dir = Path(__file__).parent
@@ -15,12 +35,10 @@ base_dir = Path(__file__).parent
 print("Loading validator and signer data...")
 
 # Load validator contagion graph
-with open(base_dir / 'validator_contagion_graph.json', 'r') as f:
-    validator_graph = json.load(f)
+validator_graph = _load_json_safe(base_dir / 'validator_contagion_graph.json')
 
 # Load contagion report with attacker signers
-with open(base_dir / 'contagion_report.json', 'r') as f:
-    contagion_data = json.load(f)
+contagion_data = _load_json_safe(base_dir / 'contagion_report.json')
 
 print(f"✓ Loaded validator contagion graph with {len(validator_graph['nodes'])} validators")
 print(f"✓ Loaded contagion report")

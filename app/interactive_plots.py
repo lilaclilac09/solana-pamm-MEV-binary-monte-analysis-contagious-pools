@@ -5,6 +5,26 @@ import plotly.graph_objects as go
 import plotly.express as px
 import pandas as pd
 import json
+import re
+
+
+def _repair_invalid_json_escapes(raw_text):
+    fixed_text = re.sub(r'(?<!\\)\\u(?![0-9a-fA-F]{4})', r'\\\\u', raw_text)
+    fixed_text = re.sub(r'(?<!\\)\\(?!["\\/bfnrtu])', r'\\\\', fixed_text)
+    return fixed_text
+
+
+def _load_json_safe(file_path):
+    with open(file_path, 'r', encoding='utf-8') as file_handle:
+        raw_text = file_handle.read()
+    try:
+        return json.loads(raw_text)
+    except json.JSONDecodeError:
+        repaired_text = _repair_invalid_json_escapes(raw_text)
+        if repaired_text != raw_text:
+            print(f"⚠️ Repaired invalid JSON escape sequences in {file_path}")
+            return json.loads(repaired_text)
+        raise
 
 def load_viz_data():
     """Load visualization data from JSON file or use embedded data."""
@@ -55,9 +75,8 @@ def load_viz_data():
     try:
         import os
         json_path = os.path.join(os.path.dirname(__file__), 'visualization_data.json')
-        with open(json_path, 'r') as f:
-            return json.load(f)
-    except:
+        return _load_json_safe(json_path)
+    except Exception:
         # Use embedded data in serverless environment
         return default_data
 

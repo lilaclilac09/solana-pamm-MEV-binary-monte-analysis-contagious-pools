@@ -9,6 +9,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import json
+import re
 from pathlib import Path
 import sys
 
@@ -21,14 +22,32 @@ print("="*80)
 print("GENERATING COMPREHENSIVE CONTAGION ANALYSIS VISUALIZATIONS")
 print("="*80)
 
+
+def _repair_invalid_json_escapes(raw_text):
+    fixed_text = re.sub(r'(?<!\\)\\u(?![0-9a-fA-F]{4})', r'\\\\u', raw_text)
+    fixed_text = re.sub(r'(?<!\\)\\(?!["\\/bfnrtu])', r'\\\\', fixed_text)
+    return fixed_text
+
+
+def _load_json_safe(file_path):
+    with open(file_path, 'r', encoding='utf-8') as file_handle:
+        raw_text = file_handle.read()
+    try:
+        return json.loads(raw_text)
+    except json.JSONDecodeError:
+        repaired_text = _repair_invalid_json_escapes(raw_text)
+        if repaired_text != raw_text:
+            print(f"⚠️ Repaired invalid JSON escape sequences in {file_path}")
+            return json.loads(repaired_text)
+        raise
+
 # Load contagion report
 contagion_report_path = 'contagion_report.json'
 if not Path(contagion_report_path).exists():
     print(f"⚠️  Contagion report not found: {contagion_report_path}")
     sys.exit(1)
 
-with open(contagion_report_path, 'r') as f:
-    contagion_data = json.load(f)
+contagion_data = _load_json_safe(contagion_report_path)
 
 print(f"\n✓ Loaded contagion report")
 print(f"  Key Finding: {contagion_data.get('key_finding', 'N/A')[:80]}...")
