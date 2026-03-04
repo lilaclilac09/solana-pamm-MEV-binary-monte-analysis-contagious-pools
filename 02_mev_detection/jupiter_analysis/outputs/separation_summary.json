@@ -1,0 +1,25 @@
+{
+  "total_trades": 683828,
+  "real_mev_sandwiches": {
+    "count": 0,
+    "percentage": 0.0,
+    "avg_victims": 0,
+    "avg_confidence": 0,
+    "avg_fat_sandwich_score": 0
+  },
+  "aggregator_false_positives": {
+    "count": 0,
+    "percentage": 0.0,
+    "multihop_percentage": 0,
+    "avg_unique_pools": 0,
+    "avg_multi_hop_score": 0
+  },
+  "ambiguous": {
+    "count": 683828,
+    "percentage": 100.0
+  },
+  "improvement": {
+    "false_positive_reduction": 0.0,
+    "accurate_mev_identified": 0.0
+  }
+}

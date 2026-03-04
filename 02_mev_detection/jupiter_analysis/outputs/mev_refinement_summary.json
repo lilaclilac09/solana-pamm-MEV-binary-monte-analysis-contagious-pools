@@ -1,0 +1,24 @@
+{
+  "total_trades": 5506090,
+  "true_mev_sandwiches": {
+    "count": 0,
+    "percentage": 0,
+    "avg_mev_confidence": 0,
+    "with_wrapped_victims": 0
+  },
+  "legitimate_multihop_bots": {
+    "count": 552250,
+    "percentage": 10.029803363185128,
+    "reason": "Multi-hop routes with NO sandwich indicators (legitimate aggregator routing)",
+    "avg_hops": 2.7768474422815754
+  },
+  "normal_trades": {
+    "count": 4953840,
+    "percentage": 89.97019663681488
+  },
+  "false_positive_reduction": {
+    "description": "These multi-hop transactions were previously misclassified as MEV",
+    "removed_from_mev": 552250,
+    "improvement_percentage": 100.0
+  }
+}
