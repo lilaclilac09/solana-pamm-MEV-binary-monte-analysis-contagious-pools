@@ -11,6 +11,7 @@ Date: March 3, 2026
 
 import json
 import argparse
+import re
 from pathlib import Path
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -23,6 +24,25 @@ sns.set_style("whitegrid")
 sns.set_palette("husl")
 
 
+def _repair_invalid_json_escapes(raw_text: str) -> str:
+    fixed_text = re.sub(r'(?<!\\)\\u(?![0-9a-fA-F]{4})', r'\\\\u', raw_text)
+    fixed_text = re.sub(r'(?<!\\)\\(?!["\\/bfnrtu])', r'\\\\', fixed_text)
+    return fixed_text
+
+
+def _load_json_safe(filepath: str):
+    with open(filepath, 'r', encoding='utf-8') as file_handle:
+        raw_text = file_handle.read()
+    try:
+        return json.loads(raw_text)
+    except json.JSONDecodeError:
+        repaired_text = _repair_invalid_json_escapes(raw_text)
+        if repaired_text != raw_text:
+            print(f"⚠️ Repaired invalid JSON escape sequences in {filepath}")
+            return json.loads(repaired_text)
+        raise
+
+
 class SlotJumpVisualizer:
     """Generate visualizations for slot jump MEV analysis"""
     
@@ -32,8 +52,7 @@ class SlotJumpVisualizer:
         
     def load_data(self, filepath: str) -> Dict:
         """Load analysis results JSON"""
-        with open(filepath, 'r') as f:
-            return json.load(f)
+        return _load_json_safe(filepath)
     
     def plot_jump_distribution(self, slot_data: Dict, filename: str = "jump_distribution.png"):
         """Plot distribution of slot jump sizes"""

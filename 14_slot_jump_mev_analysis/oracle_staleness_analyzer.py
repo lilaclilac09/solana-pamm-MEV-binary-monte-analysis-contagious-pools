@@ -96,13 +96,31 @@ class OracleStalenessAnalyzer:
     def load_oracle_updates(self, filepath: str) -> None:
         """Load oracle price update history"""
         print(f"Loading oracle update data from {filepath}...")
-        self.oracle_updates = _load_json_safe(filepath)
+        loaded = _load_json_safe(filepath)
+        if isinstance(loaded, list):
+            self.oracle_updates = loaded
+        elif isinstance(loaded, dict):
+            self.oracle_updates = loaded.get('updates', loaded.get('data', []))
+        else:
+            raise ValueError(f"Unexpected oracle updates format in {filepath}: {type(loaded)}")
+
+        if not isinstance(self.oracle_updates, list):
+            raise ValueError(f"Oracle updates payload must be a list after normalization: {filepath}")
         print(f"Loaded {len(self.oracle_updates)} oracle updates")
         
     def load_mev_events(self, filepath: str) -> None:
         """Load MEV events"""
         print(f"Loading MEV event data from {filepath}...")
-        self.mev_events = _load_json_safe(filepath)
+        loaded = _load_json_safe(filepath)
+        if isinstance(loaded, list):
+            self.mev_events = loaded
+        elif isinstance(loaded, dict):
+            self.mev_events = loaded.get('events', loaded.get('data', []))
+        else:
+            raise ValueError(f"Unexpected MEV event format in {filepath}: {type(loaded)}")
+
+        if not isinstance(self.mev_events, list):
+            raise ValueError(f"MEV event payload must be a list after normalization: {filepath}")
         print(f"Loaded {len(self.mev_events)} MEV events")
         
     def detect_staleness_events(self) -> List[OracleStalenessEvent]:

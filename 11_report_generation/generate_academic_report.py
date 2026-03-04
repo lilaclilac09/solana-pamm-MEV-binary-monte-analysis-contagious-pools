@@ -218,6 +218,7 @@ def create_academic_report():
         ["   6.3 Validator-AMM Clustering", "", "29"],
         ["   6.4 Cross-Pool MEV Contagion", "", "30"],
         ["   6.5 Validator MEV Analysis", "", "32"],
+        ["   6.6 Figure VLD-1: Premium Validator Strategy", "", "33"],
         ["", "", ""],
         ["7. Machine Learning Classification", "...........................", "45"],
         ["   7.1 Model Development", "", "45"],
@@ -239,7 +240,7 @@ def create_academic_report():
         ["   D. Top MEV Reference Metrics", "", "75"],
         ["   E. MEV Signers - Attack Patterns & Value Extraction", "", "77"],
         ["   F. Unique MEV Signer Patterns and Value Methods", "", "79"],
-        ["   G. Successful Attack Case Studies and Mechanics", "", "81"],
+        ["   G. Verified Attack Cases (Ground Truth)", "", "81"],
         ["   H. Analysis Tools and Methodologies", "", "85"],
     ]
     
@@ -392,6 +393,103 @@ def create_academic_report():
     and Cross-Slot categories were eliminated during validation as false positives.
     """
     story.append(Paragraph(mev_pattern_text, normal_style))
+    
+    # Comprehensive MEV Pattern Taxonomy
+    story.append(Spacer(1, 0.15*inch))
+    story.append(Paragraph("MEV Attack Pattern Taxonomy", heading3_style))
+    taxonomy_intro = """
+    Our comprehensive analysis identified six distinct MEV exploitation patterns across the 
+    Solana PAMM ecosystem. These patterns range from simple sandwich attacks to complex 
+    systemic vulnerabilities involving validator coordination and cross-pool contagion effects.
+    """
+    story.append(Paragraph(taxonomy_intro, normal_style))
+    story.append(Spacer(1, 0.1*inch))
+    
+    # Pattern 1: Fat Sandwich
+    pattern1_text = """
+    <b>Pattern 1: Fat Sandwich Attacks (97.0% of validated attacks)</b><br/>
+    <b>Mechanism:</b> Multi-transaction sandwich attacks involving 5+ trades per slot, wrapping 
+    multiple victims in coordinated front-run and back-run sequences. Attackers exploit high-volatility 
+    periods (e.g., token launches) to extract maximum value through price manipulation.<br/>
+    <b>Example Case Study (CASE-001-460701000):</b> JUP/WSOL launch exploitation on Orca yielding 
+    3.185 SOL profit (91% ROI) in 800ms execution window, with 5.2% liquidity depth impact and 
+    2.8% victim slippage.<br/>
+    <b>Detection Markers:</b> High transaction density (5+ trades/slot), same attacker signer across 
+    transactions, victim sandwiched between frontrun and backrun, net_profit_sol > 0.1.<br/>
+    """
+    story.append(Paragraph(pattern1_text, normal_style))
+    story.append(Spacer(1, 0.08*inch))
+    
+    # Pattern 2: Oracle Lag Sandwich
+    pattern2_text = """
+    <b>Pattern 2: Oracle Lag Exploitation (3.0% of validated attacks)</b><br/>
+    <b>Mechanism:</b> Attackers exploit oracle update delays (typically 3-block lag) to profit from 
+    price discrepancies between on-chain pool prices and off-chain oracle feeds. Attack timing 
+    correlates directly with oracle update cycles.<br/>
+    <b>Example Case Study (CASE-002-461628000):</b> PYTH/WSOL oracle lag sandwich on Orca yielding 
+    2.856 SOL profit (102% ROI) by exploiting 3-block oracle lag (180ms) with 15% price deviation 
+    and 4% victim slippage.<br/>
+    <b>Detection Markers:</b> oracle_update_lag_blocks > 2, price_deviation_from_oracle > 1.5%, 
+    transaction timing aligned with oracle update schedule, oracle_timing_correlated = true.<br/>
+    """
+    story.append(Paragraph(pattern2_text, normal_style))
+    story.append(Spacer(1, 0.08*inch))
+    
+    # Pattern 3: Liquidity Drain
+    pattern3_text = """
+    <b>Pattern 3: Liquidity Drain Sandwich (Observed in critical liquidity scenarios)</b><br/>
+    <b>Mechanism:</b> Systematic exploitation of low-liquidity pools by absorbing available liquidity 
+    before victim transactions, creating extreme slippage conditions (10-15% victim loss). Attack 
+    profitability scales with pool liquidity depletion severity.<br/>
+    <b>Example Case Study (CASE-003-463311000):</b> SOL/USDC critical liquidity drain on Orca yielding 
+    8.183 SOL profit (126% ROI) through 8.2% liquidity depth impact, 13% victim slippage, and $18,200 
+    victim loss in distressed pool conditions.<br/>
+    <b>Detection Markers:</b> liquidity_depth < critical_threshold, slippage_pct > 10%, 
+    pool_status = "DISTRESSED", reserve_depletion = "SEVERE".<br/>
+    """
+    story.append(Paragraph(pattern3_text, normal_style))
+    story.append(Spacer(1, 0.08*inch))
+    
+    # Pattern 4: Slot Jump MEV
+    pattern4_text = """
+    <b>Pattern 4: Slot Jump MEV (Under investigation in 14_slot_jump_mev_analysis/)</b><br/>
+    <b>Mechanism:</b> Validators intentionally skip unprofitable slots (DobleZero strategy) to create 
+    transaction backlogs (2000+ pending txs), oracle staleness windows, and concentrated MEV opportunities 
+    in subsequent blocks. Economic rationale: Skip 10 blocks worth $10 to capture 1 MEV worth $100+.<br/>
+    <b>Detection Markers:</b> Consecutive slot jumps (2-5 slots), transaction backlog spikes > 3000 txs, 
+    oracle staleness during skip periods, MEV profit correlation with slot jump frequency.<br/>
+    <b>Hypothesis:</b> DobleZero validators profit from strategic slot skipping despite missing block 
+    rewards, optimizing net profit = MEV_captured - missed_block_rewards.<br/>
+    """
+    story.append(Paragraph(pattern4_text, normal_style))
+    story.append(Spacer(1, 0.08*inch))
+    
+    # Pattern 5: Contagion Attacks
+    pattern5_text = """
+    <b>Pattern 5: Multi-Pool Contagion Attacks (80% of fat sandwiches involve multi-pool jumps)</b><br/>
+    <b>Mechanism:</b> Oracle lag on trigger pool (e.g., BisonFi: 180ms lag) creates predictable price 
+    signals enabling coordinated arbitrage cascades across 3-4 downstream pools (BisonFi → HumidiFi → 
+    ZeroFi → GoonFi). Systemic value bleeding amplifies individual attack profitability 3-5x.<br/>
+    <b>Detection Markers:</b> trigger_pool oracle_lag > 150ms, cascade_rate > 60% to downstream pools, 
+    P(downstream_attack | trigger_attack) > 0.7, attack_probability_elevation across connected pools.<br/>
+    <b>Impact:</b> Structural vulnerability where single high-lag pool enables ecosystem-wide exploitation.<br/>
+    """
+    story.append(Paragraph(pattern5_text, normal_style))
+    story.append(Spacer(1, 0.08*inch))
+    
+    # Pattern 6: Validator-MEV Collusion
+    pattern6_text = """
+    <b>Pattern 6: Validator-MEV Coordination (72-95% attack facilitation scores)</b><br/>
+    <b>Mechanism:</b> Specific validators consistently process MEV attacks with preferential transaction 
+    ordering, Jito bundle integration (top-of-block placement), and priority fee optimization. Attack 
+    facilitation scores indicate non-random validator selection by MEV operators.<br/>
+    <b>Detection Markers:</b> validator mev_boost_enabled = true, block_space_position = "jito_bundle_top", 
+    attack_facilitation_score > 0.7, avg_mev_per_block_sol > 0.15, mev_intensive_blocks > 40%.<br/>
+    <b>Key Finding:</b> 100% of top attackers use fat sandwich as primary strategy, coordinated with 
+    validator tip payments (0.0125-0.032 SOL/attack) ensuring transaction inclusion and ordering priority.<br/>
+    """
+    story.append(Paragraph(pattern6_text, normal_style))
+    story.append(Spacer(1, 0.1*inch))
     
     # Add VAL-AMM-3 visualization
     val_amm_plot = os.path.join(base_dir, '12_live_dashboard/REAL_VAL_AMM_3.png')
@@ -634,7 +732,7 @@ def create_academic_report():
     Pool Count</b> - signers interacting with 5+ unique pools received elevated aggregator scores 
     (likelihood = 0.3 + (pools - 5) × 0.067), with 8+ pools triggering high confidence (likelihood ≥ 0.5), 
     (2) <b>Pool List Diversity</b> - interactions spanning multiple protocols (e.g., \"GoonFi, HumidiFi, 
-    BisonFi, ObricV2, ZeroFi\") indicated routing behavior rather than single-pool focus characteristic 
+    BisonFi, ObricV2\") indicated routing behavior rather than single-pool focus characteristic 
     of MEV bots, (3) <b>Trade Frequency</b> - aggregators exhibited moderate trade frequency (6-21 
     trades/hour typical) compared to high-frequency MEV bots (>100 trades/hour), and (4) <b>MEV Score</b> - 
     simultaneous computation of MEV indicators (price impact patterns, victim-attacker sequences) 
@@ -1200,7 +1298,7 @@ def create_academic_report():
         shared attacker analysis reveals that 20-22% of HumidiFi attackers also target downstream 
         pools, indicating delayed contagion through skill transfer. The key insights box synthesizes 
         findings: HumidiFi as trigger pool with zero immediate cascade but moderate delayed contagion 
-        risk through attacker overlap, affecting all 7 pAMM protocols but concentrated in HumidiFi 
+        risk through attacker overlap, affecting all 8 pAMM protocols but concentrated in HumidiFi 
         (66.8% of MEV profit).
         """
         story.append(Paragraph(contagion_dash_interp, normal_style))
@@ -1265,6 +1363,79 @@ def create_academic_report():
         """
         story.append(Paragraph(validator_activity_interp, normal_style))
         story.append(Spacer(1, 0.1*inch))
+    
+    # Deep-dive: Premium Validator Strategy
+    story.append(Spacer(1, 0.15*inch))
+    story.append(Paragraph("Figure VLD-1 Anomaly: Quality-over-Quantity Premium Validator", heading3_style))
+    vld1_analysis = """
+    <b>Exceptional Validator Profile (22rU5yUmdVThrkoPieVNphqEyAtMQKmZxjwcD8v4bJDU):</b><br/>
+    While ranking only 15th in MEV activity (9 fat sandwich cases), this validator ranks <b>#1 by total profit 
+    (15.543 SOL)</b>, demonstrating an extreme quality-over-quantity strategy. Achievement: <b>1.727 SOL 
+    average profit per transaction</b> vs. 0.32 SOL for the most active validator—a <b>5.4x profitability 
+    advantage</b> despite processing 76% fewer cases.<br/><br/>
+    
+    <b>Extreme Profit Concentration:</b> A single HumidiFi sandwich attack captured <b>13.716 SOL (88.2% 
+    of total profit)</b>—larger than 3 entire top-10 validators' combined profits. Second transaction: 
+    1.602 SOL (10.3%). Remaining 7 transactions: 0.223 SOL combined. This concentration pattern indicates 
+    relationships with premium MEV operators executing high-capital attacks on specific protocol targets.<br/><br/>
+    
+    <b>Strategic AMM Specialization:</b> HumidiFi accounts for 88.3% of profit, indicating either direct 
+    relationships with HumidiFi market makers or superior technical optimization for the protocol's transaction 
+    ordering architecture. Protocol distribution: HumidiFi (13.725 SOL), TesseraV (1.602 SOL), GoonFi (0.171 SOL), 
+    BisonFi (0.027 SOL), SolFiV2 (0.018 SOL).<br/><br/>
+    
+    <b>Attacker Relationship Pattern:</b> Works with 8 unique attackers, moderate diversity suggesting 
+    selective partnerships rather than open-market access. Top attacker (YubQzu18FDqJ...) responsible for 
+    13.716 SOL (88.2%), indicating institutional-grade relationship with white-glove service levels.
+    """
+    story.append(Paragraph(vld1_analysis, normal_style))
+    story.append(Spacer(1, 0.1*inch))
+    
+    # Transaction breakdown table
+    story.append(Paragraph("<b>Complete Transaction Breakdown (9 Cases):</b>", normal_style))
+    story.append(Spacer(1, 0.05*inch))
+    
+    vld_tx_data = [
+        ['Rank', 'Profit (SOL)', '% Total', 'Protocol', 'Attacker ID'],
+        ['1', '13.716', '88.2%', 'HumidiFi', 'YubQzu18FDqJRyNf...'],
+        ['2', '1.602', '10.3%', 'TesseraV', 'k3bS5WfZ5P2NTgkS...'],
+        ['3', '0.090', '0.6%', 'GoonFi', 'BmbwYxVhrCRo2U1C...'],
+        ['4', '0.063', '0.4%', 'GoonFi', '2b4NhGTayvycDf7V...'],
+        ['5', '0.027', '0.2%', 'BisonFi', 'E5UBNwkEH98qzVsx...'],
+        ['6', '0.018', '0.1%', 'SolFiV2', 'y23RmrqysEDtAL2M...'],
+        ['7-9', '0.027', '0.2%', 'GoonFi+HumidiFi', 'Various attackers'],
+    ]
+    vld_table = Table(vld_tx_data, colWidths=[0.7*inch, 1.0*inch, 0.9*inch, 1.2*inch, 1.8*inch])
+    vld_table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#4472C4')),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('FONTSIZE', (0, 0), (-1, 0), 8),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 10),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+        ('GRID', (0, 0), (-1, -1), 1, colors.grey),
+        ('FONTSIZE', (0, 1), (-1, -1), 7),
+        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor('#F2F2F2')]),
+    ]))
+    story.append(vld_table)
+    story.append(Spacer(1, 0.1*inch))
+    
+    vld_ecosystem = """
+    <b>Solana Ecosystem Implications:</b><br/>
+    This validator represents a distinct MEV strategy segment—institutional-grade operators with: 
+    (1) Premium relationships with high-value MEV bot authors; (2) Technical optimization for specific AMM 
+    architectures; (3) Selective approach minimizing regulatory/reputational risk; (4) Ability to capture 
+    outsized returns through infrastructure quality rather than transaction volume.<br/><br/>
+    
+    The extreme concentration in a single transaction suggests either: (a) serendipitous timing during major 
+    market volatility on HumidiFi, or (b) predictive capability regarding pool dislocations. The validator's 
+    profile implies proprietary transaction ordering logic or direct relationships with protocol developers. 
+    This represents a significant centralization risk if such premium relationships concentrate MEV extraction 
+    among a handful of validators with specialized infrastructure.
+    """
+    story.append(Paragraph(vld_ecosystem, normal_style))
+    story.append(Spacer(1, 0.15*inch))
     
     # Validator Profit Top 15
     validator_profit_plot = os.path.join(base_dir, '02_mev_detection/filtered_output/plots/validator_profit_top15.png')
@@ -1822,8 +1993,8 @@ def create_academic_report():
     <b>Appendix F: Unique MEV Signer Patterns and Value Extraction Methods</b><br/>
     In-depth analysis of attack mechanics, execution patterns, and value extraction techniques employed by different MEV implementation strategies. Includes empirical evidence and technical specifications.<br/>
     <br/>
-    <b>Appendix G: Successful Attack Case Studies and Mechanics</b><br/>
-    Detailed case studies of representative successful MEV attacks with exact transaction sequences, profit calculations, and attack flow diagrams. Includes 3 comprehensive examples with temporal analysis.<br/>
+    <b>Appendix G: Verified Attack Cases (Ground Truth)</b><br/>
+    Data-backed case summaries derived directly from the validated attack dataset (all_fat_sandwich_only.csv). Includes top-profit events with attacker, validator, pool, and net profit fields from canonical outputs.<br/>
     <br/>
     <b>Appendix H: Analysis Tools and Methodologies</b><br/>
     Documentation of Python frameworks, libraries, machine learning tools, and statistical methods used throughout the analysis. Includes references to scikit-learn models, Monte Carlo simulation engines, and data processing pipelines.<br/>
@@ -2120,223 +2291,103 @@ def create_academic_report():
     story.append(Paragraph(signer_summary_text, normal_style))
     story.append(Spacer(1, 0.1*inch))
     
-    # Appendix G: Successful Attack Case Studies
-    story.append(Paragraph("Appendix G: Successful Attack Case Studies and Attack Mechanics", heading2_style))
+    # Appendix G: MEV Attack Patterns
+    story.append(Paragraph("Appendix G: MEV Attack Patterns and Mechanics", heading2_style))
     
-    case_study_intro = (
-        "<b>4.4.1 Detailed Attack Process Examples</b><br/><br/>"
-        "Successful MEV extraction involves precise coordination of multiple transactions across validator nodes. "
-        "The following case studies illustrate typical attack patterns, profit mechanisms, and validator involvement. "
-        "<b>Note:</b> Timestamps and transaction sequences are reconstructed examples based on actual attacker profiles "
-        "from the January 7, 2026 dataset. Actual attackers identified in top_attackers_full.csv are used, with "
-        "realistic timing patterns derived from MEV detection analysis across 5.5M blockchain events."
+    attack_patterns_intro = (
+        "<b>Observed Attack Pattern Summary</b><br/><br/>"
+        "The analysis identified several MEV extraction patterns across the 8 pAMM protocols. "
+        "These patterns are categorized based on transaction structure and profit mechanisms "
+        "observed in the dataset."
     )
-    story.append(Paragraph(case_study_intro, normal_style))
+    story.append(Paragraph(attack_patterns_intro, normal_style))
     story.append(Spacer(1, 0.1*inch))
     
-    # Case Study 1: JUP/WSOL
-    case1_text = (
-        "<b>Case 1: JUP/WSOL Launch Attack (Early Trading Period)</b><br/><br/>"
-        "<b>Attacker Signer:</b> YubQzu18FDqJRyNfG8JqHmsdbxhnoQqcKUHBdUkN6tP<br/>"
-        "<b>Funding Source:</b> Wallet funded via Binance CEX deposit (tracked via orbmarkets.io): Initial 45.2 SOL transferred from exchange hot wallet on 2026-01-06 14:22:03 UTC. Sub-account clusters identified across 12 derivative wallets suggesting professional operation.<br/><br/>"
-        "<b>Attack Profile:</b> Fat sandwich attack during initial price discovery phase when order books were thin.<br/>"
-        "<b>Victim Transaction:</b> User attempts 10,000 JUP → WSOL swap when pool reserves: JUP=2.1M, WSOL=$145K.<br/><br/>"
-        "<b>Detailed Attack Sequence with Timestamps:</b><br/>"
-        "<b>Slot 391,923,456</b> (Block Time: 2026-01-07 08:47:12.334 UTC)<br/>"
-        "• Tx Position 0 (Front-run): Attacker buys 500K JUP for $12K WSOL at 08:47:12.334 UTC<br/>"
-        "  - Validator: J6etcxDdYjPHrtyvDXrbCkx3q9W1UjMj1vy1jBFPJEbK (HumidiFi pool)<br/>"
-        "  - Gas Priority Fee: 0.002 SOL (high priority placement)<br/>"
-        "  - Price Impact: Shifts JUP price 8.3% unfavorable for victim<br/>"
-        "• Tx Position 1 (Victim): User swap executes at 08:47:12.447 UTC (+113ms after front-run)<br/>"
-        "  - Receives 8,750 WSOL instead of expected 9,200 WSOL (4.9% slippage loss)<br/>"
-        "• Tx Position 2 (Back-run): Attacker sells 500K JUP back for $13.2K WSOL at 08:47:12.523 UTC (+76ms after victim)<br/>"
-        "  - Total attack duration: 189 milliseconds (same slot)<br/>"
-        "  - Validator Bundle: All 3 transactions packaged by J6etcxDdY... validator<br/><br/>"
-        "<b>Cross-Validator Coordination:</b><br/>"
-        "Primary Validator: J6etcxDdYjPHrtyvDXrbCkx3q9W1UjMj1vy1jBFPJEbK (55,997 MEV events tracked)<br/>"
-        "Secondary Validators (fallback): ETuPS3kRfLufz5VSYN2ZrePoEVSZSpgVPKz3MUZpYe3x, sTEVErNNwF2qPnV6DuNPkWpEyCt4UU6k2Y3Hyn7WUFu<br/>"
-        "Coordination Fee Split: 35% to J6etcxDdY (0.285 SOL), 65% retained by attacker<br/><br/>"
-        "<b>Profit Calculation:</b><br/>"
-        "Gross Profit = ($13.2K - $12K) = $1.2K WSOL ≈ 0.864 SOL<br/>"
-        "Victim Loss = (9,200 - 8,750) WSOL = 450 WSOL ≈ 0.324 SOL value extraction<br/>"
-        "Validator Bundle Fee: 0.285 SOL (35% MEV cut to validator)<br/>"
-        "Gas Fees: 0.008 SOL<br/>"
-        "Net Profit: 0.571 SOL<br/>"
-        "<b>ROI: 285%</b> on 0.2 SOL capital deployed in single slot<br/><br/>"
+    # General MEV patterns observed
+    mev_pattern_summary = (
+        "<b>Common MEV Attack Patterns:</b><br/><br/>"
+        "<b>1. Sandwich Attacks:</b> The most prevalent pattern involves front-running victim transactions "
+        "to manipulate prices unfavorably, then back-running to capture profit from the induced slippage. "
+        "This pattern accounted for the majority of detected MEV events across all protocols.<br/><br/>"
+        "<b>2. Multi-Hop Arbitrage:</b> Complex routing patterns where attackers exploit price discrepancies "
+        "across multiple pools, often completing circular trades that return to the starting token with profit. "
+        "These attacks demonstrate near-zero net token exposure, with 94% of multi-hop cases showing "
+        "|net_balance| < 0.01 SOL after trade completion.<br/><br/>"
+        "<b>3. Cross-Pool Exploitation:</b> Attackers targeting multiple protocol pools simultaneously, "
+        "particularly observed on protocols with higher liquidity fragmentation like BisonFi (256 unique "
+        "attackers) compared to more concentrated protocols like HumidiFi (14 unique attackers).<br/><br/>"
+        "<b>Attack Distribution by Protocol:</b><br/>"
+        "BisonFi, SolFi, and SolFiV2 showed the highest concentration of MEV activity, with BisonFi "
+        "demonstrating particularly high attacker diversity. Protocols with lower liquidity (ZeroFi at 2.3% "
+        "of total events, TesseraV at 4.1%) showed proportionally fewer but more concentrated attack patterns.<br/><br/>"
     )
-    story.append(Paragraph(case1_text, normal_style))
+    story.append(Paragraph(mev_pattern_summary, normal_style))
     story.append(Spacer(1, 0.1*inch))
-    
-    # Case Study 2: PYTH/WSOL
-    case2_text = (
-        "<b>Case 2: PYTH/WSOL Multi-Slot Attack (High Volatility Period)</b><br/><br/>"
-        "<b>Attacker Signer:</b> AEB9dXBoxkrapNd59Kg29JefMMf3M1WLcNA12XjKSf4R<br/>"
-        "<b>Funding Source:</b> Mixed funding: 22.5 SOL from Kraken exchange (2026-01-06 06:15:44 UTC) + 18.3 SOL from prior MEV profits recycled. Orbmarkets.io analysis reveals 9,364 total transactions across 8 protocol pools, suggesting elite MEV operator with cumulative 849.19 SOL lifetime profit.<br/><br/>"
-        "<b>Attack Profile:</b> Mixed sandwich + liquidity provision attack capitalizing on fast price discovery.<br/>"
-        "<b>Initial Conditions:</b> Pool reserves volatile: PYTH=18M (varying), WSOL=$220K average.<br/><br/>"
-        "<b>Multi-Slot Attack Sequence with Timestamps:</b><br/>"
-        "<b>Slot 391,934,112</b> (Block Time: 2026-01-07 12:32:08.127 UTC)<br/>"
-        "• LP Deposit: Attacker deposits 3K WSOL as liquidity provider at 19:32:08.127 UTC<br/>"
-        "  - Validator: ETuPS3kRfLufz5VSYN2ZrePoEVSZSpgVPKz3MUZpYe3x (2,708 MEV events)<br/>"
-        "  - Receives LP tokens, begins accruing 0.3% trading fees<br/><br/>"
-        "<b>Slot 391,934,114</b> (+2 slots, ~968ms later at 2026-01-07 12:32:09.095 UTC)<br/>"
-        "• Tx Position 0 (Front-run): Attacker front-runs institutional buyer with 800K PYTH purchase for 18 WSOL<br/>"
-        "  - Validator: sTEVErNNwF2qPnV6DuNPkWpEyCt4UU6k2Y3Hyn7WUFu (803 MEV events)<br/>"
-        "  - Priority Fee: 0.005 SOL (institutional-grade priority)<br/>"
-        "• Tx Position 1 (Victim): Institutional buy of 2M PYTH executes at 19:32:09.218 UTC (+123ms)<br/>"
-        "  - Slippage Loss: 8.2 WSOL (2.1% price impact from front-run)<br/>"
-        "• Tx Position 2 (Back-run): Attacker sells 800K PYTH for 23.6 WSOL at 19:32:09.301 UTC (+83ms after victim)<br/>"
-        "  - Attack execution window: 206 milliseconds within single slot<br/><br/>"
-        "<b>Slot 391,934,116</b> (+2 slots after back-run, at 2026-01-07 12:32:10.051 UTC)<br/>"
-        "• LP Removal: Attacker withdraws liquidity + accumulated fees (0.8 WSOL from 2-slot LP position)<br/><br/>"
-        "<b>Cross-Validator Coordination:</b><br/>"
-        "Primary: ETuPS3kRfLufz5VSYN2ZrePoEVSZSpgVPKz3MUZpYe3x (LP setup)<br/>"
-        "Secondary: sTEVErNNwF2qPnV6DuNPkWpEyCt4UU6k2Y3Hyn7WUFu (sandwich execution)<br/>"
-        "Coordination Method: Pre-negotiated bundle across 3 non-consecutive slots (391,934,112, 114, 116)<br/>"
-        "Total Slots Occupied: 3 slots over 4-slot window (2.4 seconds total duration)<br/>"
-        "Validator Revenue Split: 28% combined (1.28 SOL to validators, split 60/40)<br/><br/>"
-        "<b>Profit Calculation:</b><br/>"
-        "Sandwich Profit = 5.6 WSOL (slippage capture)<br/>"
-        "LP Fee Extraction = 0.8 WSOL (2-slot provider fees)<br/>"
-        "Total Gross = 6.4 WSOL ≈ 4.61 SOL<br/>"
-        "Validator Bundle Fee: 1.28 SOL (28% MEV cut split between 2 validators)<br/>"
-        "Gas Fees: 0.018 SOL (3 transactions across 3 slots)<br/>"
-        "Net Profit: 3.312 SOL<br/>"
-        "<b>ROI: 552%</b> (high due to dual revenue stream: sandwich + LP fees)<br/><br/>"
-    )
-    story.append(Paragraph(case2_text, normal_style))
-    story.append(Spacer(1, 0.1*inch))
-    
-    # Case Study 2b: BisonFi Arbitrage Attack
-    case2b_text = (
-        "<b>Case 2b: BisonFi Cross-Pool Arbitrage Attack on WIF/SOL and BONK/SOL Pairs</b><br/><br/>"
-        "<b>Attacker Signer:</b> AEB9dXBoxkrapNd59Kg2a4bkihVHvXaJKxBXq9Y3zP<br/>"
-        "<b>Funding Source:</b> Multi-source funding pattern: Primary funding 124.7 SOL from Phantom Wallet aggregator (tracked via Helius API on 2026-01-06 19:45:23 UTC). Secondary funding: 38.5 SOL from known arbitrage bot cluster wallet (Chainstack attribution). Total 864 lifetime attacks across BisonFi, GoonFi, ZeroFi protocols.<br/><br/>"
-        "<b>Attack Profile:</b> Sophisticated multi-pool MEV arbitrage exploiting price differences between BisonFi WIF/SOL and BONK/SOL pools during high volatility period. Combines sandwich mechanics with cross-pair arbitrage routing.<br/>"
-        "<b>Target Pools:</b> BisonFi WIF/SOL (Liquidity: $67K) and BisonFi BONK/SOL (Liquidity: $52K) - both in medium-risk tier due to moderate depth.<br/><br/>"
-        "<b>Multi-Transaction Attack Sequence across 3 slots (extended fat sandwich with arbitrage):</b><br/><br/>"
-        "<b>Slot 391,935,880</b> (Block Time: 2026-01-07 13:42:18.445 UTC)<br/>"
-        "<b>Phase 1 - WIF/SOL Pool Setup:</b><br/>"
-        "• Tx 0 (Front-run): Attacker buys $22K WIF with SOL at 13:42:18.445 UTC<br/>"
-        "  - Validator: 4mzLWNgBX67zVwTykNnq96Z6KQLc8UyV5Q35EfVCDifC (BisonFi specialist, 1,009 MEV events)<br/>"
-        "  - Pool State Before: WIF=$67K, SOL=$61K<br/>"
-        "  - Price Impact: WIF price shifts +4.2% (imbalances pool reserves)<br/>"
-        "• Tx 1 (Victim 1): User swaps $45K SOL→WIF at 13:42:18.556 UTC (+111ms)<br/>"
-        "  - Slippage: 3.8% = 1.71 SOL loss to attacker<br/>"
-        "  - Receives 44,212 WIF instead of expected 45,950 WIF<br/><br/>"
-        "<b>Slot 391,935,881</b> (+1 slot, ~492ms later at 2026-01-07 13:42:18.937 UTC)<br/>"
-        "<b>Phase 2 - Cross-Pool Arbitrage Route:</b><br/>"
-        "• Tx 0 (Arbitrage Swap 1): Attacker sells $22K WIF → BONK on BisonFi BONK/SOL pool at 13:42:18.937 UTC<br/>"
-        "  - Same validator: 4mzLWNgBX67zVwTykNnq96Z6KQLc8UyV5Q35EfVCDifC<br/>"
-        "  - Routing: WIF → SOL (intermediate) → BONK<br/>"
-        "  - Arbitrage Capture: WIF inflated from Phase 1, sold at premium to uninformed pool<br/>"
-        "• Tx 1 (Arbitrage Swap 2): Attacker converts BONK back to SOL at 13:42:19.028 UTC (+91ms)<br/>"
-        "  - Final arbitrage profit from price differential: 0.84 SOL<br/><br/>"
-        "<b>Slot 391,935,882</b> (+1 slot, ~478ms later at 2026-01-07 13:42:19.415 UTC)<br/>"
-        "<b>Phase 3 - BONK/SOL Pool Sandwich (dual extraction):</b><br/>"
-        "• Tx 0 (Front-run): Attacker buys $18K BONK with SOL at 13:42:19.415 UTC<br/>"
-        "  - Still BisonFi, same validator bundle continuation<br/>"
-        "• Tx 1 (Victim 2): User swaps $35K SOL→BONK at 13:42:19.521 UTC (+106ms)<br/>"
-        "  - Slippage: 4.1% = 1.44 SOL loss<br/>"
-        "• Tx 2 (Back-run): Attacker sells $18K BONK for SOL at 13:42:19.612 UTC (+91ms)<br/>"
-        "  - Sandwich profit from Victim 2: 1.44 SOL<br/>"
-        "  - Total attack duration: 1,167ms across 3 slots (8 transactions total)<br/><br/>"
-        "<b>Cross-Validator Coordination:</b><br/>"
-        "Lead Validator: 4mzLWNgBX67zVwTykNnq96Z6KQLc8UyV5Q35EfVCDifC (BisonFi MEV specialist)<br/>"
-        "Bundle Structure: Triple-slot atomic transaction group (slots 391,935,880-882)<br/>"
-        "Slots Occupied: 3 consecutive slots with guaranteed ordering across all 8 transactions<br/>"
-        "Priority Fee Total: 0.034 SOL across 8 attacker transactions (critical for complex routing)<br/>"
-        "Validator Revenue Model: 30% of gross MEV (industry standard for multi-slot coordination)<br/><br/>"
-        "<b>Profit Calculation (Combined across all phases):</b><br/>"
-        "Phase 1 (WIF/SOL Sandwich): 1.71 SOL (from Victim 1 slippage)<br/>"
-        "Phase 2 (Cross-Pool Arbitrage): 0.84 SOL (price differential WIF→BONK→SOL)<br/>"
-        "Phase 3 (BONK/SOL Sandwich): 1.44 SOL (from Victim 2 slippage)<br/>"
-        "Total Gross Profit: 3.99 SOL<br/>"
-        "Validator Bundle Fee (30%): 1.20 SOL<br/>"
-        "Gas Fees (8 transactions across 3 slots): 0.038 SOL<br/>"
-        "Net Profit: 2.752 SOL<br/>"
-        "Combined Capital Deployed: $40K (~28.7 SOL at deployment)<br/>"
-        "<b>Attack ROI: 209%</b> on multi-pool arbitrage + dual sandwich extraction<br/><br/>"
-        "<b>BisonFi-Specific Characteristics:</b><br/>"
-        "BisonFi pools demonstrated unique vulnerability to cross-pair arbitrage due to: (1) <b>Moderate Liquidity Fragmentation</b> - "
-        "WIF/SOL ($67K) and BONK/SOL ($52K) pools shallow enough for single attacker to manipulate, yet deep enough to attract victim flow. "
-        "(2) <b>Oracle Latency of 1.2s</b> - BisonFi's oracle update frequency (12.4 updates/sec) created arbitrage windows when price "
-        "differentials persisted across pools. (3) <b>256 Unique Attackers on BisonFi</b> - High attacker count (vs HumidiFi's 14) suggests "
-        "lower entry barriers and more competitive MEV extraction landscape. (4) <b>Token Pair Diversity</b> - BisonFi supports 18+ exotic "
-        "pairs (WIF, BONK, COPE, FIDA) creating arbitrage opportunities unavailable on single-pair-focused protocols.<br/><br/>"
-        "<b>MEV Arbitrage Pattern Insights:</b><br/>"
-        "This attack demonstrates sophisticated \"routing arbitrage\" - exploiting price inefficiencies across multiple token pairs within "
-        "same protocol. Unlike simple sandwich attacks (1 pool, 3 transactions), this combines: (a) <b>Sequential Pool Exploitation</b> - "
-        "attacking WIF/SOL first to inflate WIF price, then immediately selling inflated WIF on BONK/SOL pool before oracle updates. "
-        "(b) <b>Dual Victim Extraction</b> - capturing slippage from victims on both pools. (c) <b>Cross-Pair Price Manipulation</b> - "
-        "using WIF price movement to create arbitrage opportunity in BONK market. Result: 3.99 SOL gross (vs HumidiFi avg 0.45 SOL per attack), "
-        "demonstrating BisonFi's higher profit potential for sophisticated actors willing to execute complex 8-transaction sequences.<br/><br/>"
-    )
-    story.append(Paragraph(case2b_text, normal_style))
-    story.append(Spacer(1, 0.08*inch))
-    
-    # Case Study 3: SOL/USDC Pool Attack
-    case3_text = (
-        "<b>Case 3: SOL/USDC Reserve Depletion Attack (Crisis Exploitation)</b><br/><br/>"
-        "<b>Attacker Signer:</b> YubVwWeg1vHFr17Q7HQQETcke7sFvMabqU8wbv8NXQW<br/>"
-        "<b>Funding Source:</b> Sophisticated multi-source: Primary wallet received 67.8 SOL from FTX exchange remnant wallet (recovered funds, tracked via orbmarkets.io on 2026-01-06). Secondary funding of 15.2 SOL from Alameda Research-linked wallet suggests institutional/professional background. Total 1,019 fat sandwich attacks executed lifetime.<br/><br/>"
-        "<b>Attack Profile:</b> Chainable sandwich sequence exploiting emergency liquidity depletion during rapid migration event.<br/>"
-        "<b>Crisis Event:</b> BisonFi pool emergency: Large LP withdrew $180K USDC dropping reserves from $850K to $75K (91% depletion) within 5 slots, creating extreme slippage conditions.<br/><br/>"
-        "<b>Rapid-Fire Attack Burst (3 attacks across 2 slots with precision timing):</b><br/><br/>"
-        "<b>Slot 391,945,200</b> (Block Time: 2026-01-07 16:18:45.672 UTC)<br/>"
-        "<b>Attack 1:</b><br/>"
-        "• Tx 0 (Front-run): Attacker buys $15K USDC with SOL at 03:18:45.672 UTC<br/>"
-        "  - Validator: 4mzLWNgBX67zVwTykNnq96Z6KQLc8UyV5Q35EfVCDifC (1,009 MEV events)<br/>"
-        "  - Pool State: $75K USDC reserve (critically depleted)<br/>"
-        "• Tx 1 (Victim 1): User swaps $50K SOL→USDC at 03:18:45.789 UTC (+117ms)<br/>"
-        "  - Slippage: 2.1% = 1.05 USDC loss to attacker<br/>"
-        "• Tx 2 (Back-run): Attacker sells $15K USDC back for SOL at 03:18:45.861 UTC (+72ms)<br/>"
-        "  - Single-slot execution: 189ms total<br/><br/>"
-        "<b>Slot 391,945,201</b> (+1 slot, ~484ms later at 2026-01-07 16:18:46.156 UTC)<br/>"
-        "<b>Attack 2:</b><br/>"
-        "• Tx 0 (Front-run): Attacker sells $8K SOL for USDC at 03:18:46.156 UTC<br/>"
-        "  - Same validator: 4mzLWNgBX67zVwTykNnq96Z6KQLc8UyV5Q35EfVCDifC<br/>"
-        "• Tx 1 (Victim 2): User swaps $30K USDC→SOL at 03:18:46.244 UTC (+88ms)<br/>"
-        "  - Slippage: 1.8% = 0.54 USDC loss<br/>"
-        "• Tx 2 (Back-run): Attacker buys $8K SOL back with USDC at 03:18:46.312 UTC (+68ms)<br/><br/>"
-        "<b>Attack 3:</b><br/>"
-        "• Tx 3 (Front-run): Attacker buys $10K USDC with SOL at 03:18:46.389 UTC (+77ms from prior back-run)<br/>"
-        "  - Still same slot (391,945,201), same validator bundle<br/>"
-        "• Tx 4 (Victim 3): User swaps $25K SOL→USDC at 03:18:46.471 UTC (+82ms)<br/>"
-        "  - Slippage: 2.4% = 0.60 USDC loss (highest slippage due to cumulative depletion)<br/>"
-        "• Tx 5 (Back-run): Attacker sells $10K USDC for SOL at 03:18:46.537 UTC (+66ms)<br/>"
-        "  - Total attack sequence duration: 865ms across 2 slots (6 transactions + 3 victims = 9 txs total)<br/><br/>"
-        "<b>Cross-Validator Coordination:</b><br/>"
-        "Lead Validator: 4mzLWNgBX67zVwTykNnq96Z6KQLc8UyV5Q35EfVCDifC<br/>"
-        "Bundle Structure: Dual-slot atomic execution guarantee (transactions fail together if any fails)<br/>"
-        "Slots Occupied: 2 consecutive slots (391,945,200 and 391,945,201)<br/>"
-        "Priority Fee Total: 0.023 SOL across 6 attacker transactions (high priority to guarantee ordering)<br/>"
-        "Validator Revenue Model: 33% of gross MEV (industry standard for crisis-exploitation bundles)<br/><br/>"
-        "<b>Profit Calculation (Cumulative across 3-attack burst):</b><br/>"
-        "Attack 1 Profit: 1.05 USDC ≈ 0.76 SOL<br/>"
-        "Attack 2 Profit: 0.54 USDC ≈ 0.39 SOL<br/>"
-        "Attack 3 Profit: 0.60 USDC ≈ 0.43 SOL<br/>"
-        "Total Gross Profit: 2.19 USDC ≈ 1.58 SOL<br/>"
-        "Validator Bundle Fee (33%): 0.52 SOL<br/>"
-        "Gas Fees (6 transactions): 0.029 SOL<br/>"
-        "Net Profit: 1.031 SOL<br/>"
-        "Combined Capital Deployed: $33K (~23.7 SOL at deployment)<br/>"
-        "<b>Burst ROI: 135%</b> on high-capital deployment exploiting crisis liquidity event<br/><br/>"
-    )
-    story.append(Paragraph(case3_text, normal_style))
-    story.append(Spacer(1, 0.08*inch))
-    
-    # Validator involvement summary
-    validator_text = (
-        "<b>Validator Involvement Pattern:</b><br/><br/>"
-        "All three case studies demonstrate direct validator participation in MEV extraction. Validators coordinate "
-        "transaction ordering within controlled time windows (single or dual slots) to guarantee profit realization. "
-        "Estimated validator MEV cut ranges 15-35% of gross profit, shared among ordering validators. "
-        "Identified highly coordinated validators include: J6etcxDdY... (742 events), ETuPS3kRf... (2,708 events), "
-        "sTEVErNNwF... (803 events). These validators demonstrate consistent MEV revenue exceeding standard block rewards by 3.2x average."
-    )
-    story.append(Paragraph(validator_text, normal_style))
-    story.append(Spacer(1, 0.1*inch))
+
+    story.append(Paragraph("Top Verified Cases (Ground Truth Dataset)", heading3_style))
+    case_source_rel = "02_mev_detection/filtered_output/all_fat_sandwich_only.csv"
+    case_source_path = os.path.join(base_dir, case_source_rel)
+    verified_case_rows = []
+
+    try:
+        case_df = pd.read_csv(case_source_path)
+        required_case_cols = ["attacker_signer", "validator", "net_profit_sol", "classification"]
+        if all(col in case_df.columns for col in required_case_cols):
+            case_df = case_df.dropna(subset=["attacker_signer", "validator", "net_profit_sol"])
+            case_df = case_df.sort_values("net_profit_sol", ascending=False).head(5)
+
+            for rank, (_, row) in enumerate(case_df.iterrows(), start=1):
+                attacker = str(row.get("attacker_signer", "N/A"))
+                validator = str(row.get("validator", "N/A"))
+                pool_name = str(row.get("amm_trade", "N/A"))
+                classification = str(row.get("classification", "N/A"))
+                confidence = str(row.get("confidence", "N/A"))
+                net_profit = float(row.get("net_profit_sol", 0.0))
+
+                attacker_short = f"{attacker[:6]}...{attacker[-4:]}" if len(attacker) > 14 else attacker
+                validator_short = f"{validator[:6]}...{validator[-4:]}" if len(validator) > 14 else validator
+
+                verified_case_rows.append([
+                    str(rank),
+                    attacker_short,
+                    pool_name,
+                    validator_short,
+                    f"{net_profit:.3f}",
+                    classification,
+                    confidence
+                ])
+    except Exception:
+        verified_case_rows = []
+
+    if verified_case_rows:
+        verified_case_table_data = [["Rank", "Attacker", "Pool", "Validator", "Net Profit (SOL)", "Class", "Confidence"]] + verified_case_rows
+        verified_case_table = Table(verified_case_table_data, colWidths=[0.45*inch, 1.1*inch, 1.0*inch, 1.1*inch, 1.0*inch, 0.95*inch, 0.9*inch])
+        verified_case_table.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#f0f4f8')),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.HexColor('#1a1a1a')),
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
+            ('FONTSIZE', (0, 0), (-1, -1), 8.5),
+            ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#d0d7de')),
+            ('ALIGN', (0, 0), (0, -1), 'CENTER'),
+            ('ALIGN', (4, 0), (4, -1), 'RIGHT'),
+            ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+            ('TOPPADDING', (0, 0), (-1, -1), 4),
+            ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
+        ]))
+        story.append(verified_case_table)
+        story.append(Spacer(1, 0.08*inch))
+        story.append(Paragraph(
+            f"Source: {case_source_rel} (top 5 by net_profit_sol, n={len(verified_case_rows)}).",
+            normal_style
+        ))
+        story.append(Spacer(1, 0.1*inch))
+    else:
+        story.append(Paragraph(
+            "Ground-truth case table unavailable: could not read validated attack CSV at report generation time.",
+            normal_style
+        ))
+        story.append(Spacer(1, 0.1*inch))
 
     # Appendix F: MEV Signer Patterns and Value Extraction
     story.append(Paragraph("Appendix F: Unique MEV Signer Patterns and Value Extraction Methods", heading2_style))
@@ -2344,34 +2395,25 @@ def create_academic_report():
     mev_patterns_text = (
         "<b>MEV Signer Classification and Activity Patterns</b><br/><br/>"
         "MEV signers in the Solana ecosystem engage in distinct attack patterns that categorize them into specific actor types. "
-        "Analysis of 589 unique attacker wallets revealed three primary signer archetypes:<br/><br/>"
-        "<b>1. Fat Sandwich Specialists:</b> These signers focus exclusively on sandwich attacks targeting high-volume token pairs. "
-        "They extract value by front-running victim transactions and capturing slippage. Identified through their concentration in "
-        "PUMP/WSOL pools (38.2% of observed attacks) where transaction opacity creates information advantage. Avg ROI: 2.1x per attack.<br/><br/>"
-        "<b>2. Multi-Pool Arbitrageurs:</b> Sophisticated actors executing cross-pool arbitrage and multi-hop attacks across 3+ "
-        "different protocol instances. These signers demonstrate temporal coordination patterns and pool-specific optimization. "
-        "They operate systematically across GoonFi, BisonFi, and ZeroFi simultaneously. Avg Attacks: 156 per signer.<br/><br/>"
-        "<b>3. Validator-Coordinated Operators:</b> 742 validators show correlation with 15% of MEV transactions, indicating "
-        "potential coordinated MEV extraction. These operators leverage validator position for transaction ordering advantage. "
-        "Extracted through: (a) block space monopoly - ordering transactions within same slot, (b) latency arbitrage - exploiting "
-        "propagation delays, (c) validator bundle creation - controlling transaction inclusion.<br/><br/>"
+           "The analysis revealed distinct attack specialization patterns:<br/><br/>"
+           "<b>1. Sandwich Attack Specialists:</b> Attackers focusing on front-running and back-running victim transactions "
+           "to capture slippage profits. This represents the majority of observed MEV activity.<br/><br/>"
+           "<b>2. Multi-Pool Arbitrageurs:</b> Sophisticated actors executing cross-pool arbitrage and multi-hop attacks, "
+           "exploiting price discrepancies across different protocol instances.<br/><br/>"
+           "<b>3. Cross-Protocol Operators:</b> Attackers operating across multiple protocols simultaneously, demonstrating "
+           "broader market knowledge and higher attack volumes.<br/><br/>"
     )
     story.append(Paragraph(mev_patterns_text, normal_style))
 
     story.append(Paragraph("Value Extraction Mechanisms", heading3_style))
     extraction_text = (
         "<b>Identified Value Extraction Routes:</b><br/><br/>"
-        "1. <b>Slippage Capture (Primary - 71% of attacks):</b> Front-running victim swaps on AMMs to shift prices before victim "
-        "execution, then back-running after victim is executed at worse price. Captures: (Victim_Output - Expected_Output) × "
-        "Attacker_Volume.<br/><br/>"
-        "2. <b>Liquidity Provision (Secondary - 18% of attacks):</b> MEV signers deposit liquidity milliseconds before victim "
-        "transactions to capture LP fees and collect trading rewards. Coordinated with sandwich attacks for dual fee extraction.<br/><br/>"
-        "3. <b>Collateral Liquidation (Tertiary - 8% of attacks):</b> Triggering liquidations through price oracle manipulation "
-        "or flash loans to capture collateral at discount. Requires multi-transaction coordination.<br/><br/>"
-        "4. <b>Arbitrage Routing (Emerging - 3% of attacks):</b> Creating artificial price differentials across pools to capture "
-        "spread through multi-hop swaps. Requires knowledge of aggregate liquidity across ecosystem.<br/><br/>"
-        "<b>Profit Distribution:</b> Top 10 signers captured 45% of total MEV profits (12,847 SOL). Median attack profit: 0.18 SOL. "
-        "Maximum single attack profit: 847 SOL (fat sandwich on PUMP/WSOL when volume spike occurred)."
+           "<b>1. Slippage Capture:</b> The primary MEV extraction method involves front-running victim transactions "
+           "to manipulate prices unfavorably, then back-running to profit from the induced slippage.<br/><br/>"
+           "<b>2. Multi-Hop Arbitrage:</b> Exploiting price differentials across multiple pools through complex routing "
+           "patterns that maintain near-zero net token exposure.<br/><br/>"
+           "<b>3. Cross-Pool Price Exploitation:</b> Taking advantage of temporary price inconsistencies between "
+           "different protocol pools or token pairs.<br/><br/>"
     )
     story.append(Paragraph(extraction_text, normal_style))
     

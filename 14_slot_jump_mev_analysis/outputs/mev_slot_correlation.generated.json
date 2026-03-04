@@ -1,0 +1,100 @@
+{
+  "analysis_timestamp": "2026-03-04T21:11:53.579247",
+  "total_mev_events": 5,
+  "total_slot_jumps": 1,
+  "correlations": [
+    {
+      "mev_transaction_id": "generated_sig_200000005_2",
+      "mev_type": "sandwich",
+      "mev_profit_usd": 81.9,
+      "slot": 200000005,
+      "nearest_jump_slot": 200000002,
+      "slots_after_jump": 1,
+      "jump_size": 3,
+      "jump_type": "consecutive",
+      "correlation_strength": 0.5598280344418076
+    },
+    {
+      "mev_transaction_id": "generated_sig_200000006_3",
+      "mev_type": "arbitrage",
+      "mev_profit_usd": 66.3,
+      "slot": 200000006,
+      "nearest_jump_slot": 200000002,
+      "slots_after_jump": 2,
+      "jump_size": 3,
+      "jump_type": "consecutive",
+      "correlation_strength": 0.6790494276517852
+    },
+    {
+      "mev_transaction_id": "generated_sig_200000008_4",
+      "mev_type": "sandwich",
+      "mev_profit_usd": 60.48,
+      "slot": 200000008,
+      "nearest_jump_slot": 200000002,
+      "slots_after_jump": 4,
+      "jump_size": 3,
+      "jump_type": "consecutive",
+      "correlation_strength": 0.45474174082269925
+    }
+  ],
+  "window_statistics": [
+    {
+      "window_type": "pre_jump",
+      "window_start_slot": 199999992,
+      "window_end_slot": 200000001,
+      "total_mev_transactions": 2,
+      "total_mev_value_usd": 367.8,
+      "avg_mev_per_tx": 183.9,
+      "sandwich_count": 1,
+      "arbitrage_count": 1,
+      "liquidation_count": 0,
+      "unique_attackers": 2
+    },
+    {
+      "window_type": "post_jump",
+      "window_start_slot": 200000005,
+      "window_end_slot": 200000024,
+      "total_mev_transactions": 3,
+      "total_mev_value_usd": 208.68,
+      "avg_mev_per_tx": 69.56,
+      "sandwich_count": 2,
+      "arbitrage_count": 1,
+      "liquidation_count": 0,
+      "unique_attackers": 3
+    }
+  ],
+  "statistical_tests": {
+    "mev_value_test": {
+      "test": "Independent t-test",
+      "hypothesis": "MEV value increases after slot jumps",
+      "t_statistic": NaN,
+      "p_value": NaN,
+      "significant": false,
+      "mean_pre_jump": 367.8,
+      "mean_post_jump": 208.68,
+      "percent_increase": -43.2626427406199
+    },
+    "jump_size_correlation": {
+      "test": "Pearson correlation",
+      "hypothesis": "Larger jumps correlate with higher MEV",
+      "correlation_coefficient": NaN,
+      "p_value": NaN,
+      "significant": false
+    },
+    "mev_spike_analysis": {
+      "test": "Spike frequency analysis",
+      "spike_threshold_usd": 432.36,
+      "post_jump_spike_rate": 0.0,
+      "total_post_jump_windows": 1,
+      "spike_count": 0
+    }
+  },
+  "summary": {
+    "total_correlations": 3,
+    "high_correlation_count": 0,
+    "avg_correlation_strength": 0.5645397343054307,
+    "total_correlated_mev_value": 0,
+    "avg_post_jump_mev_value": 208.68,
+    "liquidation_correlation_rate": 0
+  }
+}

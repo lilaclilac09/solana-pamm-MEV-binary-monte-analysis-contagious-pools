@@ -41,6 +41,12 @@ def _load_json_safe(filepath: str):
         raise
 
 
+def _json_scalar_default(obj):
+    if isinstance(obj, np.generic):
+        return obj.item()
+    raise TypeError(f"Object of type {obj.__class__.__name__} is not JSON serializable")
+
+
 @dataclass
 class MEVSlotCorrelation:
     """Correlation between MEV event and slot jump"""
@@ -369,7 +375,7 @@ class MEVSlotCorrelationAnalyzer:
         }
         
         with open(output_path, 'w') as f:
-            json.dump(results, f, indent=2)
+            json.dump(results, f, indent=2, default=_json_scalar_default)
         
         print(f"Results exported to {output_path}")
     

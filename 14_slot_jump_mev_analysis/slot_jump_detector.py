@@ -85,7 +85,16 @@ class SlotJumpDetector:
     def load_slot_history(self, filepath: str) -> None:
         """Load historical slot data from file"""
         print(f"Loading slot history from {filepath}...")
-        self.slot_data = _load_json_safe(filepath)
+        loaded = _load_json_safe(filepath)
+        if isinstance(loaded, list):
+            self.slot_data = loaded
+        elif isinstance(loaded, dict):
+            self.slot_data = loaded.get('data', loaded.get('slots', loaded.get('slot_history', [])))
+        else:
+            raise ValueError(f"Unexpected slot history format in {filepath}: {type(loaded)}")
+
+        if not isinstance(self.slot_data, list):
+            raise ValueError(f"Slot history payload must be a list after normalization: {filepath}")
         print(f"Loaded {len(self.slot_data)} slot records")
         
     def fetch_slot_history(self, start_epoch: int, end_epoch: int) -> List[Dict]:

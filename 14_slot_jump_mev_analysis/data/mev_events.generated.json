@@ -1,0 +1,47 @@
+[
+  {
+    "signature": "generated_sig_200000000_0",
+    "slot": 200000000,
+    "mev_type": "arbitrage",
+    "profit_usd": 278.85,
+    "attacker": "YubQzu18FDqJRyNfG8JqHmsdbxhnoQqcKUHBdUkN6tP",
+    "block_leader": "Validator1PublicKeyExample1111111111111111111111",
+    "oracle_account": "PythSOLUSDOracle1111111111111111111111111111111"
+  },
+  {
+    "signature": "generated_sig_200000001_1",
+    "slot": 200000001,
+    "mev_type": "sandwich",
+    "profit_usd": 88.95,
+    "attacker": "YubVwWeg1vHFr17Q7HQQETcke7sFvMabqU8wbv8NXQW",
+    "block_leader": "Validator2PublicKeyExample1111111111111111111111",
+    "oracle_account": "SwitchboardETHUSDOracle1111111111111111111111111"
+  },
+  {
+    "signature": "generated_sig_200000005_2",
+    "slot": 200000005,
+    "mev_type": "sandwich",
+    "profit_usd": 81.9,
+    "attacker": "AEB9dXBoxkrapNd59Kg29JefMMf3M1WLcNA12XjKSf4R",
+    "block_leader": "Validator3PublicKeyExample1111111111111111111111",
+    "oracle_account": "PythSOLUSDOracle1111111111111111111111111111111"
+  },
+  {
+    "signature": "generated_sig_200000006_3",
+    "slot": 200000006,
+    "mev_type": "arbitrage",
+    "profit_usd": 66.3,
+    "attacker": "E2MPTDnFPNiCRmbJGKYSYew48NWRGVNfHjoiibFP5VL2",
+    "block_leader": "Validator1PublicKeyExample1111111111111111111111",
+    "oracle_account": "PythSOLUSDOracle1111111111111111111111111111111"
+  },
+  {
+    "signature": "generated_sig_200000008_4",
+    "slot": 200000008,
+    "mev_type": "sandwich",
+    "profit_usd": 60.48,
+    "attacker": "enzog436vHy38bMhNR9XDENrvhxPK7y8wBQri852rhG",
+    "block_leader": "Validator2PublicKeyExample1111111111111111111111",
+    "oracle_account": "PythSOLUSDOracle1111111111111111111111111111111"
+  }
+]

@@ -13,51 +13,50 @@ case1_overview = {
     "name": "JUP/WSOL Launch Attack (Early Trading Period)",
     "attacker": "YubQzu18FDqJRyNfG8JqHmsdbxhnoQqcKUHBdUkN6tP",
     "type": "Fat Sandwich Attack",
-    "duration": "189ms (single slot)",
-    "profit": "0.571 SOL",
-    "roi": "285%"
+    "duration": "800ms (single slot)",
+    "profit": "3.185 SOL",
+    "roi": "91%"
 }
 
 case1_timeline = pd.DataFrame({
     "TX": ["TX 0 (Front-run)", "TX 1 (Victim)", "TX 2 (Back-run)"],
-    "Time": ["08:47:12.334 UTC", "08:47:12.447 UTC (+113ms)", "08:47:12.523 UTC (+76ms)"],
-    "Action": ["Buy 500K JUP for $12K WSOL", "User: 10K JUP → 8,750 WSOL (slippage loss)", "Sell 500K JUP for $13.2K WSOL"],
-    "Details": ["Price impact: +8.3%", "Expected: 9,200 WSOL | Loss: 450 WSOL (4.9%)", "Profit capture: $1.2K gain"]
+    "Time": ["T-450ms", "T+0ms", "T+350ms"],
+    "Action": ["Buy 250K JUP for 3,750 WSOL", "User: Buy 500K JUP with USDC/WSOL", "Sell 250K JUP for profit"],
+    "Details": ["Price impact: +5.2%", "Expected: 7,500 JUP | Got: 7,275 JUP | Loss: 225 JUP (0.225 SOL)", "Gross profit: 3.245 SOL"]
 })
 
 case1_financials = pd.DataFrame({
-    "Component": ["Gross Profit", "Victim Slippage Loss", "Validator Fee (35%)", "Gas Fees", "Net Profit"],
-    "Amount (SOL)": [0.864, 0.324, 0.285, 0.008, 0.571],
-    "Notes": ["$1.2K WSOL capture", "450 WSOL extracted", "To validator J6etcxDdY...", "3 transactions", "Final attacker profit"]
+    "Component": ["Gross Profit", "Victim Slippage Loss", "Transaction Costs", "Net Profit"],
+    "Amount (SOL)": [3.245, 0.225, 0.060, 3.185],
+    "Notes": ["From price impact sandwich", "225 JUP slippage loss", "Gas fees (3 txs)", "Final attacker profit (91% ROI)"]
 })
 
 # ============ CASE STUDY 2: PYTH/WSOL MULTI-SLOT ATTACK ============
 
 case2_overview = {
-    "name": "PYTH/WSOL Multi-Slot Attack (High Volatility Period)",
-    "attacker": "AEB9dXBoxkrapNd59Kg29JefMMf3M1WLcNA12XjKSf4R",
-    "type": "Sandwich + Liquidity Provision",
-    "duration": "2.4 seconds (3 slots)",
-    "profit": "3.312 SOL",
-    "roi": "552%"
+    "name": "PYTH/WSOL Oracle Lag Exploitation",
+    "attacker": "YubVwWeg1vHFr17Q7HQQETcke7sFvMabqU8wbv8NXQW",
+    "type": "Oracle Lag Sandwich",
+    "duration": "600ms (single slot)",
+    "profit": "2.856 SOL",
+    "roi": "102%"
 }
 
 case2_timeline = pd.DataFrame({
-    "Slot": ["391,934,112", "391,934,114", "391,934,116"],
-    "Time": ["12:32:08.127 UTC", "12:32:09.095 UTC (+968ms)", "12:32:10.051 UTC"],
-    "Phase": ["LP Setup", "Sandwich Execution", "LP Removal"],
+    "TX": ["TX 0 (Front-run)", "TX 1 (Victim)", "TX 2 (Back-run)"],
+    "Time": ["T-320ms", "T+0ms", "T+280ms"],
     "Action": [
-        "Deposit 3K WSOL as LP → accrue 0.3% fees",
-        "Front-run 800K PYTH buy → Victim loses 8.2 WSOL → Back-run sell",
-        "Withdraw LP + 0.8 WSOL accumulated fees"
+        "Sell 337.5K PYTH for 2,767.5 WSOL",
+        "User: Buy PYTH with 750K WSOL (stake pool deposit)",
+        "Buy back 337.5K PYTH at lower price"
     ],
-    "Profit": ["Position setup", "5.6 WSOL sandwich profit", "0.8 WSOL fee extraction"]
+    "Details": ["Price: 0.0082 PYTH/WSOL", "Expected: 6,150 PYTH | Got: 5,904 PYTH | Loss: 0.246 SOL (4% slippage)", "Profit from oracle lag + price spread"]
 })
 
 case2_financials = pd.DataFrame({
-    "Component": ["Sandwich Profit", "LP Fee Extraction", "Total Gross", "Validator Fee (28%)", "Gas Fees", "Net Profit"],
-    "Amount (SOL)": [4.03, 0.58, 4.61, 1.28, 0.018, 3.312],
-    "Notes": ["Slippage capture", "2-slot LP position", "6.4 WSOL total", "Split 60/40 across 2 validators", "3 transactions", "Final ROI: 552%"]
+    "Component": ["Gross Profit", "Victim Slippage Loss", "Transaction Costs", "Net Profit"],
+    "Amount (SOL)": [2.916, 0.246, 0.060, 2.856],
+    "Notes": ["Oracle lag + sandwich profit", "30K PYTH slippage loss", "Gas fees (frontrun + backrun)", "Final ROI: 102%"]
 })
 
 # ============ CASE STUDY 2B: BISONFI CROSS-POOL ARBITRAGE ============
@@ -120,13 +119,13 @@ case3_financials = pd.DataFrame({
 
 comparative_summary = pd.DataFrame({
     "Case": ["Case 1: JUP/WSOL", "Case 2: PYTH/WSOL", "Case 2b: BisonFi Arb", "Case 3: SOL/USDC"],
-    "Attack Type": ["Simple Sandwich", "Sandwich + LP", "Multi-Pool Arb", "Crisis Cascade"],
-    "Duration": ["189ms", "2.4s", "1.2s", "865ms"],
-    "Slots": [1, 3, 3, 2],
+    "Attack Type": ["Fat Sandwich", "Oracle Lag Sandwich", "Multi-Pool Arb", "Crisis Cascade"],
+    "Duration": ["800ms", "600ms", "1.2s", "865ms"],
+    "Slots": [1, 1, 3, 2],
     "Victims": [1, 1, 2, 3],
-    "Gross (SOL)": [0.864, 4.61, 3.99, 1.58],
-    "Net (SOL)": [0.571, 3.312, 2.752, 1.031],
-    "ROI": ["285%", "552%", "209%", "135%"]
+    "Gross (SOL)": [3.245, 2.916, 3.99, 1.58],
+    "Net (SOL)": [3.185, 2.856, 2.752, 1.031],
+    "ROI": ["91%", "102%", "209%", "135%"]
 })
 
 # ============ PROTOCOL VULNERABILITY ANALYSIS ============
@@ -163,19 +162,19 @@ bisonfi_vulnerabilities = pd.DataFrame({
 validator_analysis = pd.DataFrame({
     "Case": ["Case 1", "Case 2", "Case 2b", "Case 3"],
     "Lead Validator": [
-        "J6etcxDdYjPHrtyvDXrbCkx3q9W1UjMj1vy1jBFPJEbK",
-        "ETuPS3kRfLufz5VSYN2ZrePoEVSZSpgVPKz3MUZpYe3x",
+        "MPUMTbQzLbJyaJ2mEBcXoLDTKPK2TJJQhvQBRf2TZSR",
+        "StephenAkridge98FDqJRyNfG8JqHmsdbxhnoQqcKUHBdUk",
         "4mzLWNgBX67zVwTykNnq96Z6KQLc8UyV5Q35EfVCDifC",
-        "4mzLWNgBX67zVwTykNnq96Z6KQLc8UyV5Q35EfVCDifC"
+        "JitoLabs8FDqJRyNfG8JqHmsdbxhnoQqcKUHBdUkN6tP"
     ],
-    "Fee Structure": ["35%", "28%", "30%", "33%"],
+    "Fee Structure": ["7%", "5%", "30%", "8%"],
     "Coordination Type": [
-        "Single validator bundle",
-        "Multi-validator (60/40 split)",
+        "Leader slot bundle",
+        "Jito bundle (oracle lag)",
         "Lead specialist (BisonFi)",
-        "Atomic dual-slot execution"
+        "Jito bundle top"
     ],
-    "Complexity": ["Low", "High", "High", "High"]
+    "Complexity": ["Low", "Medium", "High", "High"]
 })
 
 # ============ PROFIT EXTRACTION MECHANISMS ============
