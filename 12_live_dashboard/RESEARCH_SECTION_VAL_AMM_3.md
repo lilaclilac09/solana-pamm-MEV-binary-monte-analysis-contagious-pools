@@ -22,7 +22,7 @@ Finally, **Figure VAL-AMM-3** compares MEV attack patterns post-false positive e
 
 The bar chart displays trade counts with the following distribution:
 - **Fat Sandwich**: 312 instances (48.0%)
-- **Back-Running (DeezNode)**: 135 instances (20.8%)
+- **Back-Running (Oracle-timed)**: 0 validated instances (eliminated as false positives)
 - **Classic Sandwich**: 95 instances (14.6%)
 - **Front-Running**: 62 instances (9.5%)
 - **Cross-Slot (2Fast)**: 46 instances (7.1%)
@@ -31,7 +31,7 @@ The bar chart displays trade counts with the following distribution:
 
 This corrected distribution underscores the **prevalence of sandwich attacks** in Solana's ecosystem, particularly fat variants, which exploit slippage in validator-AMM interactions. The dominance of Fat Sandwich attacks (48%) suggests that attackers are systematically leveraging multi-transaction coordination to maximize profit extraction from victim trades.
 
-Back-running attacks, particularly those attributed to the DeezNode validator cluster (20.8%), represent the second-most common pattern, indicating validator-level MEV extraction strategies that capitalize on post-trade price movements.
+Note: Back-running attacks were initially hypothesized but 0 instances were validated in the final dataset (eliminated as false positives), indicating that validated MEV attacks primarily consist of sandwich patterns and multi-hop arbitrage.
 
 ### Implications
 

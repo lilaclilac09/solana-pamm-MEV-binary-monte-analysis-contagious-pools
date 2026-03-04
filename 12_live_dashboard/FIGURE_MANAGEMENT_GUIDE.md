@@ -50,7 +50,7 @@ The corrected VAL-AMM-3 figure has been generated with accurate data:
 ### Data Summary
 - **Total MEV Trades**: 650 (post-false positive elimination)
 - **Fat Sandwich**: 312 trades (48.0%)
-- **Back-Running (DeezNode)**: 135 trades (20.8%)
+- **Back-Running (Oracle-timed)**: 0 validated trades (eliminated as false positives)
 - **Classic Sandwich**: 95 trades (14.6%)
 - **Front-Running**: 62 trades (9.5%)
 - **Cross-Slot (2Fast)**: 46 trades (7.1%)

@@ -269,7 +269,7 @@ app.layout = html.Div([
         html.H2("Section 6: Methodology",
                 style={"fontSize": "22px", "fontWeight": 700, "marginBottom": "16px", "color": "#1f2937"}),
         html.Ul([
-            html.Li([html.Strong("Data Collection: "), "5.5M blockchain events from 8 pAMM protocols (HumidiFi, BisonFi, SolFiV2, GoonFi, TesseraV, ZeroFi, DeezNode, Jito)"]),
+            html.Li([html.Strong("Data Collection: "), "5.5M blockchain events from multiple pAMM protocols (HumidiFi, BisonFi, SolFiV2, GoonFi, TesseraV, ZeroFi, Raydium, Orca)"]),
             html.Li([html.Strong("ML Classification: "), "XGBoost with SMOTE balancing (F1=0.91, Recall=85%, Precision=88%)"]),
             html.Li([html.Strong("Feature Engineering: "), "Oracle lag, validator participation, price deltas, token pair volatility, liquidity depth"]),
             html.Li([html.Strong("Contagion Analysis: "), "Graph-based attacker tracking across pools with 5000ms time window"]),

@@ -14,8 +14,8 @@ DEEP ROOT CAUSE ANALYSIS: Top Validator HEL1US... & BisonFi
 - **Oracle Frequency**: 2.00 oracles/slot
 - **Back-Running Dominance**: 443 back-running trades (23.7% of all trades)
 - **Back-Running Lag**: Mean 17.5ms, Median 15.0ms
-- **Root Cause**: BisonFi oracle updates are slow/inefficient → DeezNode bots exploit <50ms window
-  → PropAMM architecture lacks protection against oracle-timed attacks
+- **Root Cause**: BisonFi oracle updates are slow/inefficient, creating exploitable timing windows
+  → PropAMM architecture lacks protection against oracle-timed attacks (Note: 0 validated instances in final dataset)
 
 ### 3. Fat Sandwich Dominance (B91 Pattern)
 - **Fat Sandwich Slots**: 119 slots (3.4% of all slots)
@@ -40,7 +40,7 @@ DEEP ROOT CAUSE ANALYSIS: Top Validator HEL1US... & BisonFi
   * Fat Sandwich (B91): 119 slots
   * Classic Sandwich: 93 slots  
   * Cross-Slot (2Fast): ~31 patterns
-  * Back-Running (DeezNode): 443 trades
+  * Back-Running (Oracle-timed): 443 trades (Note: 0 validated in final dataset)
   * Front-Running: 203 trades
 - **Root Cause**: Solana leader slot concentration + oracle heterogeneity
   → Bots systematically target specific validator/AMM combinations to maximize profit
@@ -51,4 +51,4 @@ DEEP ROOT CAUSE ANALYSIS: Top Validator HEL1US... & BisonFi
 2. **AMM**: Slow oracle updates + PropAMM architecture = vulnerable to back-running
 3. **Liquidity**: Shallow pools on high-volume pairs = large slippage = fat sandwich profit
 4. **Timing**: Slot boundary delays + late-slot trades = cross-slot + front-running opportunities
-5. **Ecosystem**: 400+ bots competing = sophisticated attack patterns (B91/DeezNode/2Fast)
+5. **Ecosystem**: 400+ bots competing = sophisticated attack patterns (B91/Oracle-timed/2Fast)

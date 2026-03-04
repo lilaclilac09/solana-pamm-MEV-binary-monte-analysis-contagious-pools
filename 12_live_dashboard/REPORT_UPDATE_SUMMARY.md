@@ -12,7 +12,7 @@
 | Pattern | Trades | Percentage | Patterns/Slots |
 |---------|--------|------------|----------------|
 | **Fat Sandwich (B91 Bot)** | 1,023 | 48.0% | 119 patterns |
-| **Back-Running (DeezNode)** | 443 | 20.8% | - |
+| **Back-Running (Oracle-timed)** | 0 | 0% | Eliminated as false positives |
 | **Classic Sandwich** | 310 | 14.6% | 93 patterns |
 | **Front-Running** | 203 | 9.5% | - |
 | **Cross-Slot (2Fast Bot)** | 151 | 7.1% | 31 patterns |
@@ -32,7 +32,7 @@
 - **Title**: "MEV Attack Pattern Analysis"
 - **Content**: Analysis of 2,130 MEV trades across five attack patterns
 - **Figure**: VAL-AMM-3 with comprehensive interpretation
-- **Insights**: Includes validator-specific MEV extraction analysis (DeezNode back-running at 20.8%)
+- **Insights**: Includes validator-specific MEV extraction analysis (0 validated back-running attacks)
 
 ### 3. Figure DC-3 (Missing Value Heatmap)
 
@@ -52,7 +52,7 @@
   - Wraps multiple victims in single slots
 
 ### Validator-Level MEV
-- **Back-Running (DeezNode)**: 20.8% attributed to specific validator cluster
+- **Back-Running (Oracle-timed)**: 0 validated instances (eliminated as false positives)
   - Suggests validator-affiliated MEV extraction
   - Post-oracle-update exploitation strategy
   - Raises validator accountability concerns
@@ -115,7 +115,7 @@ This will create an updated PDF report with:
 
 ### Color Scheme
 - **Pink/Red**: Fat Sandwich (#FF6B9D), Front-Running (#FF4757)
-- **Purple**: Back-Running DeezNode (#9B59B6)
+- **Purple**: Reserved for future pattern types
 - **Teal/Cyan**: Classic Sandwich (#1ABC9C), Cross-Slot (#3498DB)
 
 ---

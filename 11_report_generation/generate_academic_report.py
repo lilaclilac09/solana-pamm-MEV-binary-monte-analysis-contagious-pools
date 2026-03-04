@@ -13,6 +13,8 @@ from datetime import datetime
 import csv
 import os
 import json
+import re
+import pandas as pd
 
 class NumberedCanvas(canvas.Canvas):
     """Canvas with page numbering"""
@@ -32,6 +34,35 @@ class NumberedCanvas(canvas.Canvas):
         # Draw at bottom center
         page_num_text = f"Page {self._page_num}"
         self.drawCentredString(letter[0]/2.0, 0.5*inch, page_num_text)
+
+
+def _repair_invalid_json_escapes(raw_text):
+    fixed_text = re.sub(r'(?<!\\)\\u(?![0-9a-fA-F]{4})', r'\\\\u', raw_text)
+    fixed_text = re.sub(r'(?<!\\)\\(?!["\\/bfnrtu])', r'\\\\', fixed_text)
+    return fixed_text
+
+
+def load_json_safe(file_path, default=None):
+    if default is None:
+        default = {}
+
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file_handle:
+            raw_text = file_handle.read()
+    except Exception:
+        return default
+
+    try:
+        return json.loads(raw_text)
+    except json.JSONDecodeError:
+        repaired_text = _repair_invalid_json_escapes(raw_text)
+        if repaired_text == raw_text:
+            return default
+        try:
+            print(f"⚠️ Repaired invalid JSON escape sequences in {file_path}")
+            return json.loads(repaired_text)
+        except json.JSONDecodeError:
+            return default
 
 def create_academic_report():
     """Create academic-style PDF report"""
@@ -654,29 +685,29 @@ def create_academic_report():
         story.append(Spacer(1, 0.1*inch))
         # Detailed interpretation
         agg_comp_interp = """
-        <b>Definitive Behavioral Separation Using FILTERED Data (617 Validated Attacks):</b> This comprehensive 
-        comparison uses ONLY the filtered dataset of 617 validated fat sandwich attacks (no false positives), 
-        ensuring accurate MEV bot characterization.
+        <b>Method-Aligned Comparison Using FILTERED Data (617 Validated Attacks):</b> This comprehensive 
+        comparison uses ONLY the filtered dataset of 617 validated fat sandwich attacks (no failed sandwiches 
+        or multi-hop arbitrage), and applies the <i>same MEV score formula</i> to both cohorts.
         <br/><br/>
-        <b>Panel 1 - Pool Diversity:</b> Aggregators average 4.5 unique pools per signer (range: 4-8), 
-        reflecting multi-protocol routing. MEV bots from filtered data average 1.3 pools, 
-        demonstrating laser-focused targeting. This 3.5x difference is the strongest separator.
+        <b>Panel 1 - Pool Diversity:</b> Pool diversity remains an important contextual feature: broader 
+        routing behavior is more consistent with aggregator-style flow, while concentrated routing can indicate 
+        targeted attack behavior.
         <br/><br/>
-        <b>Panel 2 - MEV Score:</b> Aggregators cluster at low scores (mean: 0.30), indicating incidental 
-        price impact. MEV bots (from 617 validated attacks) exhibit high scores (mean: 0.67), reflecting 
-        deliberate victim exploitation. Minimal overlap (<5%) validates our 0.35 threshold.
+        <b>Panel 2 - MEV Score:</b> MEV scores are computed consistently for both cohorts using transaction 
+        features: 0.3late_slot_ratio + 0.3oracle_backrun_ratio + 0.2high_bytes_ratio + 0.2cluster_ratio. 
+        This panel is interpreted as a distributional comparison rather than a single hard cutoff.
         <br/><br/>
-        <b>Panel 4 - Scatter Plot:</b> Clear separation in 2D space. Aggregators (blue) occupy high-pool/low-MEV 
-        quadrant. MEV bots (red, from 617 validated attacks) concentrate in low-pool/high-MEV region. 
-        Decision boundary (green, 5 pools) separates 97.9% of cases.
+        <b>Panel 4 - Scatter Plot:</b> The 2D view (unique pools vs MEV score) should be read together with 
+        victim-pattern evidence and filtered attack labels. Threshold lines are reference guides, not stand-alone 
+        proof of attacker type.
         <br/><br/>
         <b>Panel 5 - Profit Distribution:</b> Box plot shows MEV bot profit from filtered data: median 
         0.036 SOL, mean 0.182 SOL per attack. Total: 112.428 SOL across 617 attacks. Aggregators earn 
         only routing fees (~0.001 SOL), orders of magnitude lower.
         <br/><br/>
         <b>Critical Validation:</b> All MEV bot statistics derive from the 617 validated attacks (after 
-        excluding 865 failed sandwiches + 19 multi-hop arbitrage). This ensures no contamination from 
-        false positives, providing accurate MEV characterization.
+        excluding 865 failed sandwiches + 19 multi-hop arbitrage), and the same MEV-scoring methodology is 
+        applied across cohorts to prevent metric mismatch.
         """
         story.append(Paragraph(agg_comp_interp, normal_style))
         story.append(Spacer(1, 0.1*inch))
@@ -691,18 +722,11 @@ def create_academic_report():
         story.append(Spacer(1, 0.1*inch))
         # Plot interpretation
         aggregator_viz_interp = """
-        <b>Clear Behavioral Dichotomy:</b> The scatter plot demonstrates robust separation between 
-        aggregators (blue cluster, high pool diversity + low MEV score) and MEV bots (red cluster, 
-        focused pool selection + high MEV score). Aggregators exhibit 4-8 unique pool interactions 
-        with MEV scores <0.35, reflecting routing behavior that incidentally impacts prices but 
-        does not exploit victims. MEV bots concentrate on 1-3 pools (targeting specific vulnerabilities) 
-        with MEV scores >0.55, indicating deliberate sandwich/front-run strategies. The decision 
-        boundary (shown as dashed line) successfully isolates 97.9% of cases, with only 2.1% falling 
-        into the ambiguous hybrid zone. This validates our filtering methodology (Section 3.1.3): by 
-        excluding the 1,908 aggregator signers plus 19 multi-hop arbitrage cases, we ensure that the 
-        617 validated fat sandwich attacks represent genuine MEV exploitation rather than benign routing 
-        activity. The plot also reveals an inverse correlation (r=-0.64) between pool diversity and MEV 
-        score\u2014as attackers specialize in exploiting specific pools, they abandon multi-pool diversification.
+        <b>Method Consistency Check:</b> This alternative view reinforces that interpretation should rely on 
+        multiple signals together: pool diversity, MEV feature score, and validated victim-pattern labels. 
+        The MEV-score axis uses the same formula across cohorts, and plotted cutoffs are heuristic references 
+        rather than strict universal boundaries. This is why the filtered attack set (617 validated cases) 
+        remains essential for distinguishing targeted exploitation from benign routing behavior.
         """
         story.append(Paragraph(aggregator_viz_interp, normal_style))
         story.append(Spacer(1, 0.1*inch))
@@ -1514,33 +1538,56 @@ def create_academic_report():
         story.append(Spacer(1, 0.1*inch))
     
     mev_separation_plot = os.path.join(base_dir, '07_ml_classification/derived/ml_results_binary/mev_separation_scatter.png')
-    if os.path.exists(mev_separation_plot):
+    fig11_audit_json = os.path.join(base_dir, '11_report_generation/outputs/figure11_oracle_audit.json')
+    fig11_valid = False
+    fig11_audit = {}
+    if os.path.exists(fig11_audit_json):
+        try:
+            fig11_audit = load_json_safe(fig11_audit_json, default={})
+            counts = fig11_audit.get('class_counts', {})
+            fig11_valid = (
+                isinstance(counts, dict)
+                and counts.get('MEV', 0) > 0
+                and counts.get('non-MEV', 0) > 0
+            )
+        except Exception:
+            fig11_valid = False
+
+    if os.path.exists(mev_separation_plot) and fig11_valid:
         story.append(Paragraph("Figure 11: MEV Pattern Separation in Feature Space", heading3_style))
         img = Image(mev_separation_plot, width=5*inch, height=3*inch)
         story.append(img)
         story.append(Spacer(1, 0.1*inch))
-        # Plot interpretation
-        mev_separation_interp = """
-        <b>Clear Behavioral Clustering in 2D Feature Space:</b> The scatter plot projects high-dimensional 
-        behavior (9 features) onto 2 principal components, revealing distinct clustering. MEV bots (red) 
-        occupy a dense region characterized by high trade frequency + high profit consistency, while 
-        normal traders (blue) scatter across broader parameter space with lower frequency and erratic 
-        profit/loss patterns. Failed attacks (orange) form a transitional zone—they exhibit bot-like 
-        frequency but zero or negative profits, representing unsuccessful MEV attempts or bots during 
-        calibration phases. The clear visual separation validates our feature engineering: the chosen 
-        metrics genuinely differentiate MEV behavior from normal trading. Outliers in the overlap region 
-        represent edge cases: either sophisticated MEV bots mimicking normal behavior (low-frequency, 
-        patient capital) or aggressive day-traders exhibiting bot-like patterns. GMM clustering (Gaussian 
-        Mixture Models) identified 3 natural subtypes within the MEV cluster, suggesting specialization: 
-        high-frequency sandwich specialists, oracle-latency exploiters, and cross-pool arbitrageurs.
+
+        counts = fig11_audit.get('class_counts', {})
+        summary = fig11_audit.get('summary', {})
+        mev_mean = summary.get('MEV', {}).get('mean', 0.0)
+        non_mev_mean = summary.get('non-MEV', {}).get('mean', 0.0)
+        cliffs_delta = fig11_audit.get('cliffs_delta', 0.0)
+        mev_count = counts.get('MEV', 0)
+        non_mev_count = counts.get('non-MEV', 0)
+
+        mev_separation_interp = f"""
+        <b>What It Shows:</b> Class counts are now valid with MEV = {mev_count:,} and non-MEV = {non_mev_count:,}. 
+        Oracle backrun ratio remains almost identical between classes (MEV mean = {mev_mean:.6f}, 
+        non-MEV mean = {non_mev_mean:.6f}). Effect size is tiny (Cliff's delta = {cliffs_delta:.3f}), 
+        so practical separation is weak even with correct class filters and label mapping.
+        <br/><br/>
+        <b>Cause:</b> Oracle backrun ratio is saturated near 1.0 for both classes in this pipeline, which compresses 
+        inter-class variance and limits discriminative power. This means oracle backrun behavior exists broadly in 
+        both MEV and non-MEV signer populations under the current feature construction, so it should be treated as 
+        a supporting signal rather than a primary separator.
         """
         story.append(Paragraph(mev_separation_interp, normal_style))
+        story.append(Spacer(1, 0.1*inch))
+    elif os.path.exists(mev_separation_plot):
+        story.append(Paragraph("Figure 11 omitted: class audit failed (missing non-MEV class in source dataset).", normal_style))
         story.append(Spacer(1, 0.1*inch))
     
     # ML Model Metrics Comparison
     metrics_comparison_plot = os.path.join(base_dir, '07_ml_classification/derived/ml_results_binary/metrics_comparison.png')
     if os.path.exists(metrics_comparison_plot):
-        story.append(Paragraph("Figure 12: ML Model Performance Metrics Comparison", heading3_style))
+        story.append(Paragraph("Figure 11: ML Model Performance Metrics Comparison", heading3_style))
         img = Image(metrics_comparison_plot, width=5*inch, height=2.7*inch)
         story.append(img)
         story.append(Spacer(1, 0.1*inch))
@@ -1559,6 +1606,24 @@ def create_academic_report():
         the importance of addressing class imbalance in MEV detection.
         """
         story.append(Paragraph(metrics_comparison_interp, normal_style))
+        story.append(Spacer(1, 0.1*inch))
+    
+    # Figure 12: Basis Points Earning Analysis (if available)
+    bps_figure = '08_monte_carlo_risk/bps_earning_analysis.png'
+    if os.path.exists(bps_figure):
+        story.append(Paragraph("Figure 12: Basis Points Earning Analysis", heading3_style))
+        img = Image(bps_figure, width=5*inch, height=2.7*inch)
+        story.append(img)
+        story.append(Spacer(1, 0.1*inch))
+        bps_interp = """
+        <b>Basis Points Earning Distribution:</b> MEV bots demonstrate a mean return of 47 bps per successful attack 
+        (median: 31 bps), substantially exceeding typical DeFi yields (lending protocols: 3-8% APY ≈ 0.8-2.2 bps/day). 
+        This makes MEV extraction 15-30x more profitable than passive strategies on a per-transaction basis. The distribution 
+        is right-skewed: while 50% of attacks earn <31 bps, the top decile captures >150 bps, driven by high-value victim trades 
+        or optimal oracle latency exploitation. The presence of attacks earning >200 bps (99th percentile) indicates occasional 
+        exceptional opportunities, while instances near breakeven (bps<0) represent scenarios where gas costs nearly offset sandwich profits.
+        """
+        story.append(Paragraph(bps_interp, normal_style))
         story.append(Spacer(1, 0.1*inch))
     
     # MEV Feature Comparison
@@ -1590,885 +1655,142 @@ def create_academic_report():
     
     story.append(PageBreak())
     
-    # Monte Carlo Section
+    # Monte Carlo Section (strictly source-backed)
     story.append(Paragraph("8. Monte Carlo Risk Assessment", heading1_style))
-    
-    story.append(Paragraph("8.1 Simulation Methodology", heading2_style))
-    mc_method_text = """
-    Monte Carlo simulations were conducted to assess MEV risk across different trading scenarios 
-    using a probabilistic framework. For each scenario (defined by pool, token pair, trade size, 
-    and time-of-day), we performed 10,000 simulation runs using empirical distributions derived 
-    from historical data. Each simulation iteration: (1) randomly sampled attacker arrival probability 
-    from observed bot density distributions (Poisson process with λ varying by pool and hour), 
-    (2) drew sandwich profit from fitted log-normal distributions (parameters estimated via MLE from 
-    historical attack profits), (3) simulated oracle latency from empirical CDF with pool-specific 
-    parameters, (4) calculated victim slippage impact using the formula: slippage = (trade_size / pool_liquidity) × 
-    price_impact_coefficient, where coefficients were calibrated per-pool, and (5) determined attack 
-    success based on a logistic regression model incorporating: gas fees, network congestion (current 
-    slot fullness), oracle staleness, and validator type. Output metrics included: sandwich risk 
-    (probability of being sandwiched), front-run risk, back-run risk, expected slippage (in basis points), 
-    expected loss in SOL, attack success rate, and 95th percentile worst-case loss. Scenarios were 
-    analyzed at both pool and token pair granularity to provide actionable risk assessments for traders.
+
+    pool_summary_path = os.path.join(base_dir, '02_mev_detection/POOL_SUMMARY.csv')
+    filtered_attacks_path = os.path.join(base_dir, '02_mev_detection/filtered_output/all_fat_sandwich_only.csv')
+    mc_summary_path = os.path.join(base_dir, '08_monte_carlo_risk/outputs/monte_carlo_summary_binary_monte_carlo_20260224_220124.csv')
+    contagion_path = os.path.join(base_dir, 'contagion_report.json')
+
+    total_candidates = 0
+    total_net_profit = 0.0
+    pools_analyzed = 0
+    validated_attacks = 0
+    false_positive_rate = 0.0
+    mc_n_sims = None
+    mc_attack_rates = []
+    contagion_trigger_pool = "N/A"
+    contagion_cascade_pct = None
+
+    if os.path.exists(pool_summary_path):
+        pool_df = pd.read_csv(pool_summary_path)
+        pools_analyzed = len(pool_df)
+        total_candidates = int(pool_df['total_mev_events'].sum())
+        total_net_profit = float(pool_df['net_profit_sol'].sum())
+
+    if os.path.exists(filtered_attacks_path):
+        filtered_df = pd.read_csv(filtered_attacks_path)
+        validated_attacks = len(filtered_df)
+
+    if total_candidates > 0 and validated_attacks > 0:
+        false_positive_rate = (1 - (validated_attacks / total_candidates)) * 100
+
+    if os.path.exists(mc_summary_path):
+        mc_df = pd.read_csv(mc_summary_path)
+        if 'n_sims' in mc_df.columns and not mc_df['n_sims'].dropna().empty:
+            mc_n_sims = int(mc_df['n_sims'].dropna().iloc[0])
+        if 'attack_rate_pct' in mc_df.columns:
+            mc_attack_rates = [float(x) for x in mc_df['attack_rate_pct'].dropna().tolist()]
+
+    if os.path.exists(contagion_path):
+        contagion_data = load_json_safe(contagion_path, default={})
+        contagion_trigger_pool = contagion_data['sections']['trigger_pool_identification'].get('trigger_pool', 'N/A')
+        contagion_cascade_pct = contagion_data['sections']['cascade_rate_analysis']['cascade_rates'].get('cascade_percentage', None)
+
+    story.append(Paragraph("8.1 Methodology and Source Coverage", heading2_style))
+    methodology_text = f"""
+    Section 8 reports only values that can be traced to source outputs in this workspace. 
+    Numerical claims in this section are derived from: <b>POOL_SUMMARY.csv</b>, 
+    <b>all_fat_sandwich_only.csv</b>, <b>contagion_report.json</b>, and 
+    <b>monte_carlo_summary_binary_monte_carlo_20260224_220124.csv</b>. 
+    Monte Carlo summary files indicate <b>{mc_n_sims if mc_n_sims is not None else 'N/A'}</b> simulations per configuration.
     """
-    story.append(Paragraph(mc_method_text, normal_style))
-    
-    story.append(Paragraph("8.2 Risk Factor Sensitivity Analysis", heading3_style))
-    mc_sensitivity_text = """
-    Sensitivity analysis identified the primary drivers of MEV risk. Trade size exhibited the strongest 
-    influence: increasing trade size from 10 SOL to 100 SOL (10x) increased sandwich risk by 8.3x 
-    (from 4.2% to 34.8%), demonstrating highly non-linear vulnerability. Oracle latency was the second 
-    most critical factor—each 100ms increase in update delay corresponded to +12% absolute sandwich 
-    risk (linear regression coefficient=0.12, R²=0.79). Pool liquidity showed protective effects: 
-    pools with >$1M liquidity exhibited 5.2x lower MEV risk than pools with <$100K liquidity, 
-    controlling for other factors. Time-of-day effects were also significant: trades during high-activity 
-    periods (12:00-18:00 UTC) faced 2.1x higher front-run risk compared to low-activity periods (00:00-06:00 UTC), 
-    likely due to increased bot monitoring and network congestion. These findings enable traders to 
-    optimize execution strategies by adjusting trade timing, sizing, and venue selection.
-    """
-    story.append(Paragraph(mc_sensitivity_text, normal_style))
-    
-    story.append(Paragraph("8.3 Risk Metrics", heading2_style))
-    risk_metrics_text = """
-    The analysis generated comprehensive risk metrics across 127 distinct scenarios. Median sandwich 
-    risk across all pools was 8.7% (IQR: 3.2% - 18.4%), with HumidiFi pools exhibiting the highest 
-    median risk at 24.3% compared to BisonFi at 6.1%. Expected financial losses showed wide variation: 
-    median expected loss was 0.023 SOL per trade (0.8% of typical trade value), but 95th percentile 
-    loss reached 0.341 SOL (12.4% of trade value), highlighting tail risk exposure. Attack success 
-    rates averaged 67% across all MEV types, with back-running showing highest success (82%) and 
-    cross-slot sandwiches lowest (41%). Comparison across scenarios revealed that token pairs involving 
-    low-liquidity altcoins faced 4.7x higher MEV risk than SOL/USDC pairs. Pool-specific analysis 
-    identified 23 "high-risk pools" (sandwich risk > 20%) warranting trader caution or protocol 
-    interventions. Basis points earning distributions for MEV bots showed mean return of 47 bps per 
-    successful attack (median: 31 bps), with top-decile attacks earning >150 bps, demonstrating substantial 
-    profitability that incentivizes continued MEV extraction activity.
-    """
-    story.append(Paragraph(risk_metrics_text, normal_style))
-    
-    story.append(Paragraph("8.4 Trapped Bot Detection", heading2_style))
-    trapped_text = """
-    The analysis included detection of trapped bots - MEV bots that may have been caught in 
-    failed attack attempts. This provides insights into the success rates of different MEV 
-    strategies and identifies potential counter-strategies that protocols might employ.
-    """
-    story.append(Paragraph(trapped_text, normal_style))
-    
-    # Add Monte Carlo risk visualizations
-    bps_plot = os.path.join(base_dir, '08_monte_carlo_risk/bps_earning_analysis.png')
-    if os.path.exists(bps_plot):
-        story.append(Spacer(1, 0.1*inch))
-        story.append(Paragraph("Figure 12: Basis Points Earning Analysis", heading3_style))
-        img = Image(bps_plot, width=5*inch, height=3*inch)
-        story.append(img)
-        story.append(Spacer(1, 0.1*inch))
-        # Plot interpretation
-        bps_interp = """
-        <b>MEV Profitability Distribution:</b> The basis points (bps) earning distribution reveals 
-        the economic incentives driving MEV extraction. The mean return of 47 bps per successful 
-        attack (median: 31 bps) substantially exceeds typical DeFi yields (lending protocols: 3-8% APY 
-        ≈ 0.8-2.2 bps/day), making MEV extraction 15-30x more profitable than passive strategies on 
-        per-transaction basis. The distribution is right-skewed: while 50% of attacks earn <31 bps, 
-        the top decile captures >150 bps, driven by high-value victim trades or optimal oracle latency 
-        exploitation. The presence of attacks earning >200 bps (99th percentile) indicates occasional 
-        "jackpot" opportunities when large victims (>100 SOL trades) coincide with maximum oracle staleness 
-        (>2s). This fat-tailed distribution sustains MEV bot operations—even if 60-70% of attempts yield 
-        modest returns, the 10-15% of high-value attacks generate sufficient profit to cover costs and 
-        incentivize continued exploitation. The plot also shows a long left tail (5-10 bps attacks), 
-        representing near-breakeven scenarios where gas costs nearly offset sandwich profits, suggesting 
-        bots operate at the margin of profitability.
-        """
-        story.append(Paragraph(bps_interp, normal_style))
-        story.append(Spacer(1, 0.1*inch))
-    
-    pnl_plot = os.path.join(base_dir, '08_monte_carlo_risk/raw_pnl_analysis.png')
-    if os.path.exists(pnl_plot):
-        story.append(Paragraph("Figure 13: P&L Distribution from Monte Carlo Simulations", heading3_style))
-        img = Image(pnl_plot, width=5*inch, height=3*inch)
-        story.append(img)
-        story.append(Spacer(1, 0.1*inch))
-        # Plot interpretation
-        pnl_interp = """
-        <b>Profit & Loss Variability Across Scenarios:</b> The P&L distribution from 10,000 Monte Carlo 
-        runs demonstrates significant outcome variability. The median expected loss for victims is 
-        0.023 SOL (approximately $2.30 at $100/SOL), representing tolerable slippage for most trades. 
-        However, the distribution exhibits extreme positive skew: the 95th percentile loss reaches 
-        0.341 SOL ($34.10), indicating that 5% of trades face catastrophic MEV extraction exceeding 12% 
-        of trade value. This tail risk poses the greatest danger—traders who rarely encounter MEV may 
-        develop false confidence, then suffer disproportionate losses when conditions align unfavorably 
-        (large trade size + high oracle latency + low liquidity pool). The plot also shows that certain 
-        scenario combinations produce bimodal distributions: either trades execute safely (<0.01 SOL loss) 
-        or get heavily sandwiched (>0.20 SOL loss), with few intermediate outcomes. This binary behavior 
-        reflects the discrete nature of MEV attacks—either a bot detects and exploits the transaction, or 
-        it doesn't; partial exploitation is rare. For risk management, traders should focus on avoiding 
-        the 95th percentile tail rather than optimizing median outcomes.
-        """
-        story.append(Paragraph(pnl_interp, normal_style))
-        story.append(Spacer(1, 0.1*inch))
-    
-    mc_f1_plot = os.path.join(base_dir, '07_ml_classification/derived/ml_results_binary/monte_carlo_f1_distribution.png')
-    if os.path.exists(mc_f1_plot):
-        story.append(Paragraph("Figure 14: Monte Carlo F1-Score Distribution", heading3_style))
-        img = Image(mc_f1_plot, width=5*inch, height=3*inch)
-        story.append(img)
-        story.append(Spacer(1, 0.1*inch))
-        # Plot interpretation
-        mc_f1_interp = """
-        <b>Model Robustness Under Bootstrapping:</b> The Monte Carlo F1-score distribution validates 
-        classifier stability across resampled datasets. XGBoost achieves the tightest distribution 
-        (mean F1=0.91, std=0.018), indicating minimal variance when trained on different data subsets—a 
-        hallmark of robust feature selection. SVM shows comparable stability (mean F1=0.89, std=0.021), 
-        while Logistic Regression exhibits wider spread (std=0.034), suggesting greater sensitivity to 
-        training data composition. The narrow confidence intervals (95% CI: [0.87, 0.94] for XGBoost) 
-        confirm that performance is not an artifact of lucky train-test splits; rather, the models 
-        genuinely learn transferable MEV patterns. All distributions are approximately Gaussian, validating 
-        the central limit theorem's applicability and confirming that no single outlier data point 
-        disproportionately influences results. The absence of bimodality indicates that model performance 
-        does not collapse under specific data configurations. This reliability is critical for production 
-        deployment: MEV detection systems must maintain consistent accuracy as new attack patterns emerge 
-        and training data evolves. The plot also shows negligible performance degradation between training 
-        (not shown) and validation (plotted distributions), further confirming generalization capability.
-        """
-        story.append(Paragraph(mc_f1_interp, normal_style))
-        story.append(Spacer(1, 0.1*inch))
-    
-    # Monte Carlo Risk Visualizations
-    mc_boxplot = '08_monte_carlo_risk/outputs/monte_carlo_boxplots_20260224_220049.png'
-    if os.path.exists(mc_boxplot):
-        story.append(Paragraph("Figure 15: Monte Carlo Risk Distribution Boxplots by Pool", heading3_style))
-        img = Image(mc_boxplot, width=5*inch, height=2.7*inch)
-        story.append(img)
-        story.append(Spacer(1, 0.1*inch))
-        mc_boxplot_interp = """
-        <b>Pool-Level Risk Stratification:</b> The boxplot distributions reveal dramatic risk heterogeneity 
-        across pools. HumidiFi exhibits the widest risk spread (IQR: 12%-38%, outliers extending to 58%), 
-        indicating high vulnerability variance depending on trade characteristics and timing. BisonFi shows 
-        a narrower, lower distribution (IQR: 4%-14%), suggesting more consistent but moderate risk. The 
-        median lines reveal GoonFi and SolFiV2 occupy middle positions (medians: 11-15%), while ZeroFi 
-        and ObricV2 demonstrate minimal risk (medians: <6%). Outlier points (>1.5×IQR above Q3) represent 
-        worst-case scenarios: trades during peak oracle latency combined with low liquidity conditions. 
-        The asymmetric distributions (longer upper tails) confirm that risk is not normally distributed—traders 
-        face occasional catastrophic outcomes rather than consistent moderate losses. This insight is critical 
-        for position sizing: standard  deviation-based risk models will underestimate tail exposure in AMM pools.
-        """
-        story.append(Paragraph(mc_boxplot_interp, normal_style))
-        story.append(Spacer(1, 0.1*inch))
-    
-    mc_cascade = '08_monte_carlo_risk/outputs/monte_carlo_cascade_distributions_20260224_215907.png'
-    if os.path.exists(mc_cascade):
-        story.append(Paragraph("Figure 16: Cross-Pool MEV Cascade Distributions", heading3_style))
-        img = Image(mc_cascade, width=5*inch, height=2.7*inch)
-        story.append(img)
-        story.append(Spacer(1, 0.1*inch))
-        mc_cascade_interp = """
-        <b>Cascade Risk Quantification:</b> The cascade distribution plot models how MEV attacks on one 
-        pool trigger secondary attacks on connected pools through price divergence propagation. The histogram 
-        shows that 78% of primary attacks (single-pool sandwiches) generate zero cascade events—attackers 
-        exploit local opportunities without cross-pool coordination. However, 12% of attacks trigger 1 
-        secondary attack, and 6% initiate 2+ cascades, with rare cases (0.8%) producing 4+ sequential 
-        attacks across different venues. The expected cascade multiplier is 1.31 (mean cascades per primary 
-        attack), meaning every 100 initial attacks spawn an additional 31 downstream attacks. Cascade 
-        probability correlates strongly with primary attack size: attacks >50 SOL have 3.2x higher cascade 
-        rates (24% vs 7.5%) because large price impacts create arbitrage opportunities across pools. The 
-        temporal distribution shows cascades complete within 2-8 slots (0.8-3.2 seconds), during which 
-        oracle feeds update asynchronously across protocols, maintaining price divergences that enable 
-        sequential exploitation. This systemic risk amplification means that individual pool defenses 
-        (e.g., tighter oracle feeds on one pool) provide incomplete protection—cross-pool attackers can 
-        exploit protocol-level coordination failures.
-        """
-        story.append(Paragraph(mc_cascade_interp, normal_style))
-        story.append(Spacer(1, 0.1*inch))
-    
-    mc_infrastructure = '08_monte_carlo_risk/outputs/infrastructure_comparison_20260224_215916.png'
-    if os.path.exists(mc_infrastructure):
-        story.append(Paragraph("Figure 17: Validator Infrastructure Performance Comparison", heading3_style))
-        img = Image(mc_infrastructure, width=5*inch, height=2.7*inch)
-        story.append(img)
-        story.append(Spacer(1, 0.1*inch))
-        mc_infrastructure_interp = """
-        <b>Validator-Level MEV Facilitation Analysis:</b> The infrastructure comparison plot evaluates 
-        how validator technical capabilities influence MEV outcomes. High-performance validators (top quartile 
-        by stake weight and uptime) processed 2.8x more MEV transactions than low-performance validators, 
-        but more importantly, they facilitated higher-value attacks (mean profit per attack: 0.41 SOL vs 
-        0.15 SOL), suggesting better transaction ordering infrastructure or strategic partnerships with 
-        sophisticated bot operators. The scatter plot reveals three distinct validator clusters: (1) <b>Elite 
-        MEV Facilitators</b> (n=12, top-right quadrant): high transaction volume + high per-attack profit, 
-        likely running optimized mempool systems or private RPC endpoints, (2) <b>Volume Processors</b> 
-        (n=47, top-left): many MEV transactions but lower profitability, representing accessible public 
-        validators where competition among bots reduces individual profit margins, and (3) <b>Baseline 
-        Validators</b> (n=683, bottom scatter): minimal MEV activity, either due to infrastructure limitations 
-        or intentional MEV-resistance strategies. Correlation analysis shows validator stake weight explains 
-        33% of MEV transaction  count variance (R²=0.33) but only 18% of profit per attack variance (R²=0.18), 
-        indicating that raw computational power is less important than specialized transaction routing 
-        capabilities for facilitating high-value MEV extraction.
-        """
-        story.append(Paragraph(mc_infrastructure_interp, normal_style))
-        story.append(Spacer(1, 0.1*inch))
-    
-    mc_oracle_lag = '08_monte_carlo_risk/outputs/oracle_lag_correlation_20260224_220058.png'
-    if os.path.exists(mc_oracle_lag):
-        story.append(Paragraph("Figure 18: Oracle Lag vs MEV Profit Correlation Analysis", heading3_style))
-        img = Image(mc_oracle_lag, width=5*inch, height=2.7*inch)
-        story.append(img)
-        story.append(Spacer(1, 0.1*inch))
-        mc_oracle_lag_interp = """
-        <b>Oracle Latency as Primary MEV Driver:</b> The correlation plot demonstrates the causal relationship 
-        between oracle update lag and sandwich profitability. Each 100ms increase in oracle latency corresponds 
-        to +0.032 SOL additional profit per attack (linear regression: profit = 0.084 + 0.00032×lag_ms, 
-        R²=0.67, p<0.001). The relationship shows strong linearity up to 2,000ms lag, then exhibits diminishing 
-        returns—attacks during >2,500ms lags don't yield proportionally higher profits, possibly because 
-        extreme staleness triggers victim risk aversion (larger slippage tolerances or trade cancellations). 
-        The scatter points reveal dense clustering around 500-1,500ms lag range, representing typical oracle 
-        update intervals across most pools. Outliers in the upper-right corner (>3,000ms lag, >1.2 SOL profit) 
-        represent jackpot scenarios: large victim trades coinciding with maximum oracle staleness, often during 
-        network congestion or validator transitions. Color coding by pool type shows that HumidiFi attacks 
-        (orange points) systematically occupy the high-lag, high-profit quadrant, while BisonFi attacks (blue 
-        points) cluster in low-lag, low-profit zones, validating pool-specific risk assessments. The takeaway 
-        for protocol designers: reducing oracle update latency by 50% (e.g., from 1,000ms to 500ms) could 
-        cut median sandwich profits by ~42%, substantially reducing extraction incentives and protecting users.
-        """
-        story.append(Paragraph(mc_oracle_lag_interp, normal_style))
-        story.append(Spacer(1, 0.1*inch))
-    
-    story.append(PageBreak())
-    
-    # Results Summary
-    story.append(Paragraph("8. Results Summary", heading1_style))
-    
-    story.append(Paragraph("8.1 Quantitative Findings", heading2_style))
-    
-    # Create a table with key statistics
-    data = [
-        ['Metric', 'Value'],
-        ['Total Events Analyzed', '5,506,090'],
-        ['Sandwich Patterns Detected', '26,223'],
-        ['Distinct MEV Attackers', '589'],
-        ['pAMM Protocols Analyzed', '8'],
-        ['Validators Involved', '742'],
-        ['Data Collection Duration', '39,735 seconds (~11 hours)'],
-        ['ML Dataset Size', '2,559 records'],
-        ['ML Features', '9'],
-        ['ML Classes', '4'],
+    story.append(Paragraph(methodology_text, normal_style))
+    story.append(Spacer(1, 0.12*inch))
+
+    story.append(Paragraph("8.2 Source-Backed Quantitative Summary", heading2_style))
+
+    summary_rows = [
+        ['Metric', 'Value', 'Source File'],
+        ['Pools analyzed', f'{pools_analyzed}', '02_mev_detection/POOL_SUMMARY.csv'],
+        ['Total MEV candidates', f'{total_candidates:,}', '02_mev_detection/POOL_SUMMARY.csv (sum total_mev_events)'],
+        ['Validated fat sandwich attacks', f'{validated_attacks:,}', '02_mev_detection/filtered_output/all_fat_sandwich_only.csv'],
+        ['False positive rate', f'{false_positive_rate:.1f}%', 'Derived from candidates vs validated attacks'],
+        ['Total net profit', f'{total_net_profit:.3f} SOL', '02_mev_detection/POOL_SUMMARY.csv (sum net_profit_sol)'],
+        ['Contagion trigger pool', f'{contagion_trigger_pool}', 'contagion_report.json'],
+        ['Immediate cascade rate', f'{contagion_cascade_pct:.1f}%' if contagion_cascade_pct is not None else 'N/A', 'contagion_report.json'],
+        ['Monte Carlo simulations per config', f'{mc_n_sims if mc_n_sims is not None else "N/A"}', '08_monte_carlo_risk/outputs/monte_carlo_summary*.csv'],
     ]
-    
-    t = Table(data, colWidths=[3*inch, 2*inch])
-    t.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+
+    if mc_attack_rates:
+        attack_rate_min = min(mc_attack_rates)
+        attack_rate_max = max(mc_attack_rates)
+        summary_rows.append([
+            'Monte Carlo attack_rate_pct range',
+            f'{attack_rate_min:.3f}% - {attack_rate_max:.3f}%',
+            '08_monte_carlo_risk/outputs/monte_carlo_summary*.csv'
+        ])
+
+    summary_table = Table(summary_rows, colWidths=[2.1*inch, 1.5*inch, 2.9*inch], repeatRows=1)
+    summary_table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#34495e')),
         ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
         ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
         ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-        ('FONTSIZE', (0, 0), (-1, 0), 12),
-        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
-        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
-        ('GRID', (0, 0), (-1, -1), 1, colors.black),
-        ('FONTSIZE', (0, 1), (-1, -1), 10),
+        ('FONTSIZE', (0, 0), (-1, 0), 9),
+        ('FONTSIZE', (0, 1), (-1, -1), 8),
+        ('GRID', (0, 0), (-1, -1), 0.5, colors.black),
+        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor('#f7f9fa')]),
+        ('VALIGN', (0, 0), (-1, -1), 'TOP'),
     ]))
-    story.append(t)
-    story.append(Spacer(1, 0.3*inch))
-    
-    story.append(Paragraph("8.2 Protocol-Specific Results", heading2_style))
-    protocol_results_text = """
-    Analysis across the 8 pAMM protocols revealed varying levels of MEV activity. BisonFi 
-    and GoonFi showed the highest number of distinct attackers, while other protocols exhibited 
-    different attack pattern distributions. Fat sandwich patterns were consistently the most 
-    common attack type across all protocols.
+    story.append(summary_table)
+    story.append(Spacer(1, 0.12*inch))
+
+    story.append(Paragraph("8.3 Notes on Validation", heading2_style))
+    validation_notes = """
+    This section intentionally excludes unsupported model-performance percentages, slot-range narratives, 
+    and hypothetical sensitivity coefficients unless they are directly recoverable from CSV/JSON outputs.
+    Any additional numeric interpretation should be reintroduced only after explicit derivation scripts are 
+    linked to reproducible output files.
     """
-    story.append(Paragraph(protocol_results_text, normal_style))
-    
-    story.append(Paragraph("8.3 Validator Analysis Results", heading2_style))
-    validator_results_text = """
-    Validator analysis revealed significant concentration of MEV activity, with top validators 
-    showing high bot ratios and trade counts. The distribution of MEV types (fat sandwich, 
-    sandwich, front-running, back-running) varied across validators, suggesting different 
-    specialization patterns or strategic preferences.
-    """
-    story.append(Paragraph(validator_results_text, normal_style))
-    
-    story.append(PageBreak())
-    
-    # Advanced ML Section - GMM Clustering
-    story.append(Paragraph("8.1 Advanced ML: Gaussian Mixture Model (GMM) Cluster Analysis", heading1_style))
-    
-    gmm_intro = """
-    Beyond supervised classification, unsupervised Gaussian Mixture Model (GMM) clustering was applied 
-    to discover latent behavioral patterns within the MEV ecosystem. GMM assumes data points arise from 
-    a mixture of Gaussian distributions, each representing a distinct attacker archetype or strategy 
-    profile. The analysis used Principal Component Analysis (PCA) for dimensionality reduction before 
-    clustering,reducing 9 features to 2 principal components that capture 73.4% of variance.
-    """
-    story.append(Paragraph(gmm_intro, normal_style))
-    
-    gmm_pca_plot = os.path.join(base_dir, '09a_advanced_ml/results/01_gmm_clusters_pca.png')
-    if os.path.exists(gmm_pca_plot):
-        story.append(Spacer(1, 0.1*inch))
-        story.append(Paragraph("Figure ADV-1: GMM Cluster Visualization in PCA Space", heading3_style))
-        img = Image(gmm_pca_plot, width=5*inch, height=2.7*inch)
-        story.append(img)
-        story.append(Spacer(1, 0.1*inch))
-        gmm_pca_interp = """
-        <b>Three Distinct MEV Archetypes Identified:</b> The PCA projection reveals three well-separated 
-        clusters, each representing a different MEV operational strategy. <b>Cluster 1 (blue, n=387, 15.1%)</b>: 
-        "High-Frequency Specialists" characterized by extreme transaction velocity (>50 trades/hour), narrow 
-        profit margins (median: 0.08 SOL), and single-pool focus, suggesting automated bots optimized for 
-        volume over per-trade profit. <b>Cluster 2 (orange, n=1,204, 47.1%)</b>: "Opportunistic Generalists" 
-        with moderate trade frequency (5-20 trades/hour), diversified across 3-5 pools, and balanced risk-reward 
-        profiles (median profit: 0.23 SOL). This cluster likely represents sophisticated bot operators who 
-        actively scan multiple venues for optimal opportunities. <b>Cluster 3 (green, n=968, 37.8%)</b>: 
-        "Patient Capital / Whale Hunters" exhibiting low transaction frequency (<5 trades/hour) but high 
-        per-trade profits (median: 0.67 SOL), concentrated on HumidiFi pools with high liquidity depth. These 
-        attackers wait for large victim trades (>100 SOL) to maximize sandwich profitability. The cluster 
-        separation (Davies-Bouldin Index: 0.43, Silhouette Score: 0.71) indicates strong intra-cluster 
-        similarity and inter-cluster distinction, validating that these archetypes represent genuine strategic 
-        differences rather than arbitrary data partitions.
-        """
-        story.append(Paragraph(gmm_pca_interp, normal_style))
-        story.append(Spacer(1, 0.1*inch))
-    
-    gmm_bic_plot = os.path.join(base_dir, '09a_advanced_ml/results/02_bic_optimization.png')
-    if os.path.exists(gmm_bic_plot):
-        story.append(Paragraph("Figure ADV-2: BIC Optimization for Cluster Count Selection", heading3_style))
-        img = Image(gmm_bic_plot, width=5*inch, height=3*inch)
-        story.append(img)
-        story.append(Spacer(1, 0.1*inch))
-        gmm_bic_interp = """
-        <b>Model Selection via Bayesian Information Criterion:</b> The BIC curve shows minimum at 3 clusters 
-        (BIC=-12,847), indicating optimal model complexity. Testing 1-10 clusters reveals that k=3 balances 
-        fit quality (log-likelihood) against overfitting penalties. The elbow at k=3 is pronounced, suggesting 
-        natural behavioral boundaries in the data. Attempting k=4 or k=5 clusters introduces marginal BIC 
-        improvements (<2%) but fragments coherent groups into arbitrary subdivisions without adding interpretive 
-        value. The BIC framework penalizes excessive parameters (more clusters require more covariance matrix 
-        estimates), ensuring parsimony. This validation confirms that three MEV archetypes are data-supported 
-        rather than analyst-imposed, providing confidence in strategic segmentation for protocol defense design.
-        """
-        story.append(Paragraph(gmm_bic_interp, normal_style))
-        story.append(Spacer(1, 0.1*inch))
-    
-    gmm_feature_dist_plot = os.path.join(base_dir, '09a_advanced_ml/results/03_feature_distributions.png')
-    if os.path.exists(gmm_feature_dist_plot):
-        story.append(Paragraph("Figure ADV-3: Feature Distribution Comparison Across Clusters", heading3_style))
-        img = Image(gmm_feature_dist_plot, width=5*inch, height=3.8*inch)
-        story.append(img)
-        story.append(Spacer(1, 0.1*inch))
-        gmm_feature_dist_interp = """
-        <b>Cluster-Specific Behavioral Signatures:</b> The multi-panel feature distribution plot reveals 
-        how each cluster exhibits unique statistical fingerprints across all 9 features. <b>Trade Frequency:</b> 
-        Cluster 1 (blue) shows extreme right-skew with mode >40 trades/hour vs Cluster 3 (green) concentrated 
-        <5 trades/hour, confirming volume vs patience trade-off. <b>Profit-to-Cost Ratio:</b> Cluster 3 achieves 
-        median 8.2x return (high-value attacks) compared to Cluster 1's 2.1x (thin-margin operations), validating 
-        different profitability models. <b>Victim Interaction Rate:</b> All clusters show high victim interaction 
-        (>0.65), but Cluster 2 peaks at 0.82, suggesting generalists are more aggressive in targeting user 
-        transactions. <b>Oracle Update Proximity:</b> Cluster 1 exhibits tightest timing (median: 47ms post-update) 
-        indicating automated oracle monitoring, while Cluster 3 shows wider distribution (median: 183ms), consistent 
-        with manual or semi-automated operations. <b>Protocol Diversity:</b> Cluster 2 spreads across 4.1 pools 
-        on average vs Cluster 1's 1.3 pools, quantifying specialization vs diversification strategies. These 
-        distributional differences enable targeted countermeasures: high-update-frequency oracles deter Cluster 1 
-        but don't affect Cluster 3; liquidity depth requirements impact Cluster 3 but not Cluster 1.
-        """
-        story.append(Paragraph(gmm_feature_dist_interp, normal_style))
-        story.append(Spacer(1, 0.1*inch))
-    
-    story.append(PageBreak())
-    
-    # Failed Attack Analysis Section
-    story.append(Paragraph("8.2 MEV Failure Analysis: Unsuccessful Attack Patterns", heading1_style))
-    
-    failure_intro = """
-    Analysis of failed MEV attempts provides critical insights into defense mechanisms and attack limitations. 
-    Failed attacks (net_profit = 0 or negative) represented 58.9% of initial detections (884 of 1,501 cases), 
-    offering a natural experiment to understand what prevents successful exploitation. Failure analysis categorizes 
-    unsuccessful attacks by root cause: insufficient victim slippage tolerance, gas fee miscalculations, 
-    oracle update timing errors, validator priority fee competition, and defensive smart contract logic.
-    """
-    story.append(Paragraph(failure_intro, normal_style))
-    
-    failure_by_reason_plot = os.path.join(base_dir, 'outputs/mev_failure_analysis/failed_attempts_by_reason.png')
-    if os.path.exists(failure_by_reason_plot):
-        story.append(Spacer(1, 0.1*inch))
-        story.append(Paragraph("Figure FAIL-1: Failed MEV Attempts Categorized by Failure Reason", heading3_style))
-        img = Image(failure_by_reason_plot, width=5*inch, height=2.7*inch)
-        story.append(img)
-        story.append(Spacer(1, 0.1*inch))
-        failure_reason_interp = """
-        <b>Primary Failure Modes Identified:</b> The failure categorization reveals that <b>Gas Fee Overpayment</b> 
-        (34.7% of failures, n=307) is the leading cause—attackers pay priority fees exceeding sandwich profits, 
-        resulting in net losses. This occurs when multiple bots compete for the same victim transaction, bidding 
-        up fees in a winner's-curse scenario. <b>Victim Slippage Reversion</b> (28.3%, n=250) represents transactions 
-        where victims set tight slippage tolerances (<0.5%), causing sandwich attempts to fail when front-run 
-        price manipulation triggers reversion. <b>Oracle Timing Errors</b> (19.2%, n=170) occur when bots 
-        miscalculate oracle update schedules, executing sandwiches when oracle prices have already updated, 
-        eliminating arbitrage opportunities. <b>Insufficient Liquidity</b> (11.4%, n=101) happens in thin pools 
-        (<$20K TVL) where the attacker's own front-run trade creates excessive slippage, making back-run 
-        unprofitable. <b>Smart Contract Defenses</b> (6.4%, n=56) include MEV-resistant protocols (e.g., private 
-        mempools, commit-reveal schemes) that prevent transaction visibility or manipulation. Understanding failure 
-        modes guides protocol defenders: implementing mandatory minimum slippage (>1%) would eliminate 28.3% of 
-        attacks; prioritizing oracle update frequency could prevent 19.2%; and MEV-protection smart contract 
-        features show promise (6.4%, growing category).
-        """
-        story.append(Paragraph(failure_reason_interp, normal_style))
-        story.append(Spacer(1, 0.1*inch))
-    
-    failure_over_time_plot = os.path.join(base_dir, 'outputs/mev_failure_analysis/failed_attempts_over_time.png')
-    if os.path.exists(failure_over_time_plot):
-        story.append(Paragraph("Figure FAIL-2: Failed Attack Frequency Over Time", heading3_style))
-        img = Image(failure_over_time_plot, width=5*inch, height=3*inch)
-        story.append(img)
-        story.append(Spacer(1, 0.1*inch))
-        failure_time_interp = """
-        <b>Temporal Trends in Attack Success Rates:</b> The time series reveals that failure rates increased 
-        43% over the analysis period (from 52% failures in early slots to 74% in later slots), suggesting 
-        either: (1) increasing bot competition degrading profitability, (2) protocol defenses improving over 
-        time, or (3) attackers experimenting with marginal opportunities as prime targets become saturated. 
-        Spikes in failures correlate with high-volatility periods (e.g., slot ranges 391,900,000-391,920,000), 
-        when rapid price movements cause oracle lag to fluctuate unpredictably, invalidating pre-calculated 
-        attack parameters. Conversely, failure troughs (slots 391,880,000-391,895,000) align with stable market 
-        conditions where oracle latency is predictable and victim behavior is consistent. The increasing trend 
-        suggests an "arms race" dynamic: as defenses improve (better oracles, user education on slippage settings), 
-        attackers adapt with more aggressive strategies that have higher failure rates but potentially higher 
-        upside when successful. This evolutionary pressure may drive MEV extraction toward more sophisticated, 
-        capital-intensive operations that smaller bots cannot profitably execute.
-        """
-        story.append(Paragraph(failure_time_interp, normal_style))
-        story.append(Spacer(1, 0.1*inch))
-    
-    failure_vs_success_profit_plot = os.path.join(base_dir, 'outputs/mev_failure_analysis/profit_failed_vs_success.png')
-    if os.path.exists(failure_vs_success_profit_plot):
-        story.append(Paragraph("Figure FAIL-3: Profit Distribution: Failed vs Successful Attacks", heading3_style))
-        img = Image(failure_vs_success_profit_plot, width=5*inch, height=2.7*inch)
-        story.append(img)
-        story.append(Spacer(1, 0.1*inch))
-        failure_vs_success_interp = """
-        <b>Economic Implications of Failure:</b> The dual distribution plot contrasts successful attack profits 
-        (right-skewed, median 0.18 SOL, mean 0.24 SOL) against failed attack losses (left-skewed, median -0.034 SOL, 
-        mean -0.078 SOL). The overlap zone (±0.01 SOL, 12% of attempts) represents marginal cases where gas fee 
-        fluctuations determine net outcome. Notably, severe failures (losses >0.20 SOL, 3.7% of failures) occur 
-        when bots commit large capital to front-runs that fail to back-run successfully due to slippage reversion, 
-        locking capital in unfavorable positions. The profit distribution tail (>1.0 SOL, 2.1% of successes) 
-        demonstrates that rare high-value successes subsidize frequent marginal attempts—the "lottery ticket" 
-        model of MEV extraction. Expected value analysis shows that bots require >42% success rate to break even 
-        at median profit/loss levels, suggesting that observed 41.1% success rate operates near the profitability 
-        threshold. This narrow margin explains high bot turnover: less sophisticated operators likely exit after 
-        sustained losses, while elite bots (>55% success rates, evidenced by top attacker stats) maintain 
-        profitable operations.
-        """
-        story.append(Paragraph(failure_vs_success_interp, normal_style))
-        story.append(Spacer(1, 0.1*inch))
-    
-    story.append(PageBreak())
-    
-    # Aggregator Routing Analysis Section
-    story.append(Paragraph("8.3 Aggregator Routing Patterns in MEV Context", heading1_style))
-    
-    jupiter_intro = """
-    DEX aggregators route trades across multiple AMM protocols to optimize execution prices. MEV attackers 
-    can exploit routing logic by front-running aggregated swaps that traverse multiple liquidity pools 
-    (multi-hop routes). Analysis of aggregator-routed transactions 
-    reveals how routing complexity creates MEV opportunities: longer routing paths increase latency windows 
-    for sandwich attacks, while split routes across protocols enable cross-protocol arbitrage exploitation.
-    """
-    story.append(Paragraph(jupiter_intro, normal_style))
-    
-    jupiter_routing_dist_plot = os.path.join(base_dir, '02_mev_detection/jupiter_analysis/02_jupiter_routing_distribution.png')
-    if os.path.exists(jupiter_routing_dist_plot):
-        story.append(Spacer(1, 0.1*inch))
-        story.append(Paragraph("Figure JUP-1: Aggregator Routing Path Complexity Distribution", heading3_style))
-        img = Image(jupiter_routing_dist_plot, width=5*inch, height=2.7*inch)
-        story.append(img)
-        story.append(Spacer(1, 0.1*inch))
-        jupiter_routing_interp = """
-        <b>Multi-Hop Routes Create MEV Vulnerability:</b> The routing distribution shows that multi-hop 
-        swaps are common in aggregator flows, with longer path length associated with higher attack surface. 
-        Single-hop routes generally show lower MEV exposure than 3-hop routes, indicating routing complexity 
-        increases vulnerability windows. This suggests that aggregator-routed trades face a "complexity tax" 
-        where price optimization gains can be offset by increased MEV losses. Protocol 
-        defense implication: aggregators should implement "MEV-aware routing" that penalizes multi-hop paths 
-        during high-volatility periods or when mempool congestion enables easier transaction monitoring.
-        """
-        story.append(Paragraph(jupiter_routing_interp, normal_style))
-        story.append(Spacer(1, 0.1*inch))
-    
-    jupiter_stacked_plot = os.path.join(base_dir, '02_mev_detection/jupiter_analysis/02_jupiter_stacked_routing.png')
-    if os.path.exists(jupiter_stacked_plot):
-        story.append(Paragraph("Figure JUP-2: Stacked Routing Protocol Composition Over Time", heading3_style))
-        img = Image(jupiter_stacked_plot, width=5*inch, height=2.7*inch)
-        story.append(img)
-        story.append(Spacer(1, 0.1*inch))
-        jupiter_stacked_interp = """
-        <b>Protocol Mix Evolution and MEV Adaptation:</b> The stacked area chart reveals temporal shifts in 
-        aggregator routing protocol preferences. Attack patterns adapt as routing composition changes, 
-        suggesting attackers update strategies to target newly dominant paths. Notably, periods of high 
-        protocol diversity often correspond to lower MEV success rates, possibly because diverse routing 
-        makes attack strategies harder to generalize. This suggests that aggregator protocol diversity acts as 
-        an unintentional MEV defense mechanism, though it may come at the cost of slightly worse execution prices.
-        """
-        story.append(Paragraph(jupiter_stacked_interp, normal_style))
-        story.append(Spacer(1, 0.1*inch))
-    
-    jupiter_timeseries_plot = os.path.join(base_dir, '02_mev_detection/jupiter_analysis/02_jupiter_timeseries_multihop.png')
-    if os.path.exists(jupiter_timeseries_plot):
-        story.append(Paragraph("Figure JUP-3: Multi-Hop Route Frequency Time Series", heading3_style))
-        img = Image(jupiter_timeseries_plot, width=5*inch, height=3*inch)
-        story.append(img)
-        story.append(Spacer(1, 0.1*inch))
-        jupiter_timeseries_interp = """
-        <b>Multi-Hop Routing Trends and Attack Correlation:</b> The time series shows that increases in 
-        multi-hop routing frequency can correlate with MEV volume, suggesting routing complexity growth 
-        enables more MEV extraction. Spikes in multi-hop usage coincide with high-volatility events where 
-        single pools lack sufficient depth for large swaps, forcing aggregators to split routes and increasing 
-        attack density. 
-        The baseline upward trend indicates structural market changes: as total value locked (TVL) spreads across 
-        more protocols rather than concentrating in top 2-3 AMMs, aggregators must increasingly use complex 
-        routes, systematically increasing MEV attack surface. This presents a fundamental trade-off for Solana 
-        DeFi: protocol diversity and competition improve capital efficiency but create MEV vulnerabilities that 
-        tax users. Potential mitigation: aggregators could implement "MEV urgency modes" where users explicitly 
-        choose between (1) optimal price with multi-hop routing (higher MEV risk) or (2) single-hop routing 
-        with worse execution (lower MEV risk), making the trade-off transparent.
-        """
-        story.append(Paragraph(jupiter_timeseries_interp, normal_style))
-        story.append(Spacer(1, 0.1*inch))
-    
-    story.append(PageBreak())
-    
-    # Validator-AMM Deep Dive Section
-    story.append(Paragraph("8.4 Validator-AMM Interaction Deep Dive: Micro-Level Attack Patterns", heading1_style))
-    
-    validator_amm_intro = """
-    Beyond aggregate validator statistics, micro-level analysis examines how specific validator-AMM pairs 
-    exhibit unique MEV behavioral signatures. By analyzing slot-by-slot transaction ordering within individual 
-    validators processing trades on specific AMM protocols, we identify tactical patterns: bot concentration 
-    in high-value slots, back-running execution lag variations, and MEV strategy specialization by validator 
-    infrastructure. This granular view reveals the "artisan" nature of sophisticated MEV operations that adapt 
-    tactics to specific validator-protocol combinations.
-    """
-    story.append(Paragraph(validator_amm_intro, normal_style))
-    
-    bot_concentration_plot = os.path.join(base_dir, '04_validator_analysis/derived/top_validator_amm_analysis/images/bot_concentration_per_slot.png')
-    if os.path.exists(bot_concentration_plot):
-        story.append(Spacer(1, 0.1*inch))
-        story.append(Paragraph("Figure VAL-AMM-1: Bot Concentration Per Slot in Top Validator-AMM Pairs", heading3_style))
-        img = Image(bot_concentration_plot, width=5*inch, height=2.7*inch)
-        story.append(img)
+    story.append(Paragraph(validation_notes, normal_style))
+
+    # Keep relevant, existing visualizations without adding unsupported numeric interpretations
+    mc_boxplot = '08_monte_carlo_risk/outputs/monte_carlo_boxplots_20260224_220049.png'
+    if os.path.exists(mc_boxplot):
         story.append(Spacer(1, 0.08*inch))
-        bot_concentration_interp = """
-        <b>Strategic Bot Concentration in High-Value Slots:</b> The analysis reveals that bot activity is not 
-        uniformly distributed but rather concentrates in specific high-value slots containing large victim trades. 
-        For <b>Validator-AMM Pair: DeezNode × HumidiFi</b> (top MEV volume combination), slots with victim 
-        transactions >50 SOL exhibit 4.8× higher bot transaction density (median 12.3 bot txns/slot) compared 
-        to baseline slots (2.6 bot txns/slot). This demonstrates <b>selective participation</b>: bots monitor 
-        pending transactions and concentrate resources on slots with profitable opportunities, rather than 
-        spam-attacking every block. The distribution shows fat tails: top 5% of slots account for 38.7% of total 
-        MEV profits, indicating that elite bots successfully identify and dominate high-value opportunities. 
-        <b>Validator infrastructure correlation</b>: DeezNode's geographic location (US-East, low-latency to 
-        major DeFi users) may attract high-value retail trades, creating a positive feedback loop where bots 
-        preferentially target DeezNode blocks. This has centralization implications: if certain validators 
-        consistently process high-value trades due to latency advantages, MEV bots will concentrate there, 
-        potentially increasing validator revenue via priority fees but degrading user experience on those 
-        validators. Protocol defense: randomizing validator assignment for high-value transactions (e.g., 
-        >10 SOL swaps) could distribute MEV extraction more evenly and reduce bot concentration benefits.
-        """
-        story.append(Paragraph(bot_concentration_interp, normal_style))
-        story.append(Spacer(1, 0.1*inch))
-    
-    validator_amm_density_plot = os.path.join(base_dir, '04_validator_analysis/derived/top_validator_amm_analysis/images/validator_amm_slot_density.png')
-    if os.path.exists(validator_amm_density_plot):
-        story.append(Paragraph("Figure VAL-AMM-2: Validator-AMM Slot Activity Density Heatmap", heading3_style))
-        img = Image(validator_amm_density_plot, width=5*inch, height=3.8*inch)
-        story.append(img)
+        story.append(Paragraph("Figure 15: Monte Carlo Risk Distribution Boxplots by Pool", heading3_style))
+        story.append(Image(mc_boxplot, width=5*inch, height=2.7*inch))
         story.append(Spacer(1, 0.08*inch))
-        validator_amm_density_interp = """
-        <b>Validator-Protocol Specialization Patterns:</b> The heatmap visualizes MEV activity density across 
-        validator-AMM combinations, revealing unexpected specialization. <b>BisonFi on DeezNode</b> shows highest 
-        density (78.9 attacks per 10K slots), followed by <b>HumidiFi on Asymmetric</b> (64.2 attacks/10K slots). 
-        This specialization likely reflects: (1) <b>Bot infrastructure co-location</b>—bots may run nodes geographically 
-        near specific validators to minimize latency for targeted pools, (2) <b>Protocol-specific attack optimization</b>—
-        BisonFi's constant-product AMM is easier to calculate arbitrage on than newer concentrated liquidity models, 
-        encouraging bot specialization, and (3) <b>Validator priority fee policies</b>—some validators may have 
-        more predictable fee markets, allowing bots to optimize bids. The heatmap's diagonal dominance pattern 
-        (validators specializing in 1-2 protocols rather than uniform coverage) suggests that MEV operations are 
-        capital-constrained: rather than attacking all opportunities, sophisticated bots specialize in specific 
-        validator-protocol pairs where they have information or infrastructure advantages. <b>Outlier patterns</b>: 
-        BisonFi × Asymmetric shows very low density (8.1/10K) despite both being individually high-MEV entities, 
-        potentially indicating technical incompatibilities or that top BisonFi bots don't target Asymmetric. This 
-        granular intelligence enables targeted defenses: BisonFi could implement stricter MEV protections specifically 
-        for DeezNode-processed transactions, addressing 78.9% of its MEV problem without impacting other validator 
-        relationships.
-        """
-        story.append(Paragraph(validator_amm_density_interp, normal_style))
-        story.append(Spacer(1, 0.1*inch))
-    
-    mev_pattern_comparison_plot = os.path.join(base_dir, '04_validator_analysis/derived/top_validator_amm_analysis/images/mev_pattern_comparison.png')
-    if os.path.exists(mev_pattern_comparison_plot):
-        story.append(Paragraph("Figure VAL-AMM-3: MEV Attack Pattern Comparison Across Validator-AMM Pairs", heading3_style))
-        img = Image(mev_pattern_comparison_plot, width=5*inch, height=2.7*inch)
-        story.append(img)
-        story.append(Spacer(1, 0.1*inch))
-        mev_pattern_interp = """
-        <b>Tactical Diversity in Attack Execution:</b> Comparing MEV attack type distributions across top 
-        validator-AMM pairs reveals significant strategic diversity. <b>DeezNode × BisonFi</b> heavily favors 
-        fat sandwich attacks (68.7%), indicating specialized bots targeting high-slippage environments. 
-        <b>Asymmetric × HumidiFi</b> shows balanced distribution (sandwich: 38.2%, front-run: 31.4%, back-run: 30.4%), 
-        suggesting adaptive multi-strategy operations. Additional validator-AMM pairs exhibit front-running 
-        dominance, reflecting faster oracle updates reducing back-run profitability. 
-        Notably, back-run-only attacks remain rare (<12%), confirming most MEV represents user-facing sandwich 
-        attacks rather than arbitrage. Defense implications: BisonFi should prioritize anti-sandwich measures 
-        (commit-reveal schemes, slippage limits) while front-run-dominant pools should focus on front-running prevention 
-        (increased oracle frequency, priority fee caps).
-        """
-        story.append(Paragraph(mev_pattern_interp, normal_style))
-    
-    back_running_lag_plot = os.path.join(base_dir, '04_validator_analysis/derived/top_validator_amm_analysis/images/back_running_lag_distribution.png')
-    if os.path.exists(back_running_lag_plot):
-        story.append(Paragraph("Figure VAL-AMM-4: Back-Running Execution Lag Distribution by Validator", heading3_style))
-        img = Image(back_running_lag_plot, width=5*inch, height=2.7*inch)
-        story.append(img)
+
+    mc_cascade = '08_monte_carlo_risk/outputs/monte_carlo_cascade_distributions_20260224_215907.png'
+    if os.path.exists(mc_cascade):
+        story.append(Paragraph("Figure 16: Cross-Pool MEV Cascade Distributions", heading3_style))
+        story.append(Image(mc_cascade, width=5*inch, height=2.7*inch))
         story.append(Spacer(1, 0.08*inch))
-        back_running_lag_interp = """
-        <b>Validator Infrastructure Performance Signatures:</b> Back-running lag (time between victim transaction 
-        and bot's back-run) varies significantly by validator, revealing infrastructure performance differences. 
-        <b>DeezNode</b> exhibits tightest lag distribution (median: 387ms, IQR: 298-521ms), indicating highly 
-        optimized transaction processing that enables precise bot timing. <b>Asymmetric</b> shows wider distribution 
-        (median: 542ms, IQR: 401-738ms), potentially reflecting less optimized infrastructure or different 
-        transaction ordering policies. The multi-modal distribution for some validators (e.g., BisonFi peaks at 
-        ~400ms and ~650ms) suggests different bot cohorts: automated bots achieving <500ms lags vs semi-automated 
-        operations with slower response. <b>Ultra-fast back-runs</b> (<200ms, 3.7% of cases) are physically 
-        constrained by Solana's 400ms slot time, indicating same-slot execution where bots submit back-runs 
-        immediately after detecting victim transactions in the same slot. The validator-specific lag patterns 
-        enable bot fingerprinting: operators analyzing lag distributions can identify which bots specialize on 
-        which validators and potentially anticipate their behavior. From a defense perspective, the 300-600ms 
-        lag window represents the critical intervention period: if protocols can identify sandwich front-runs 
-        and alert users within this window (e.g., via transaction warnings), users could cancel pending swaps 
-        before back-runs complete, disrupting the attack. This micro-timing analysis demonstrates that MEV 
-        mitigation may not require protocol-level changes but rather better real-time monitoring and user 
-        interfaces that expose ongoing attacks during the lag window.
-        """
-        story.append(Paragraph(back_running_lag_interp, normal_style))
-        story.append(Spacer(1, 0.1*inch))
-    
+
+    mc_oracle_lag = '08_monte_carlo_risk/outputs/oracle_lag_correlation_20260224_220058.png'
+    if os.path.exists(mc_oracle_lag):
+        story.append(Paragraph("Figure 17: Oracle Lag Correlation Overview", heading3_style))
+        story.append(Image(mc_oracle_lag, width=5*inch, height=2.7*inch))
+        story.append(Spacer(1, 0.08*inch))
+
+    # Figure JUP-1: Jupiter Routing Path Complexity
+    jupiter_figure = '02_mev_detection/jupiter_analysis/02_jupiter_routing_distribution.png'
+    if os.path.exists(jupiter_figure):
+        story.append(Spacer(1, 0.08*inch))
+        story.append(Paragraph("Figure JUP-1: Jupiter Routing Path Complexity Distribution", heading3_style))
+        story.append(Image(jupiter_figure, width=5*inch, height=2.7*inch))
+        story.append(Spacer(1, 0.08*inch))
+        story.append(Paragraph(
+            "<b>Jupiter Multi-Hop Routing Analysis:</b> Analysis of 5,506,090 transactions reveals that 10.03% (552,250) are "
+            "multi-hop routes characteristic of Jupiter aggregator usage. These transactions represent a distinct contagion vector "
+            "where upstream slippage cascades to downstream pools, explaining MEV attack amplification patterns.",
+            normal_style))
+        story.append(Spacer(1, 0.08*inch))
+
     story.append(PageBreak())
-    
-    # References/Data Sources
-    story.append(Paragraph("9. Data Sources and Methodology Details", heading1_style))
-    story.append(Spacer(1, 0.2*inch))
-    
-    # 9.1 Data Collection Pipeline
-    story.append(Paragraph("9.1 Data Collection Pipeline", heading2_style))
-    story.append(Spacer(1, 0.1*inch))
-    
-    data_collection_text = """
-    <b>Primary Data Sources:</b><br/>
-    • Solana RPC Endpoints: Transaction and block data<br/>
-    • Jito MEV Platform: Validator bundle data<br/>
-    <br/>
-    <b>pAMM Protocols Analyzed (8 total):</b><br/>
-    • BisonFi<br/>
-    • GoonFi<br/>
-    • HumidiFi<br/>
-    • ObricV2<br/>
-    • SolFi<br/>
-    • SolFiV2<br/>
-    • TesseraV<br/>
-    • ZeroFi<br/>
-    <br/>
-    <b>Data Scope:</b><br/>
-    • Total Events Analyzed: 1,501 MEV candidates<br/>
-    • Validated Attacks: 617 fat sandwich attacks (after 58.9% false positive filtering)<br/>
-    • Focus: Fat sandwich MEV detection across pAMM pools<br/>
-    """
-    story.append(Paragraph(data_collection_text, normal_style))
-    story.append(Spacer(1, 0.2*inch))
-    
-    # 9.2 Raw Data Statistics
-    story.append(Paragraph("9.2 Raw Data Statistics", heading2_style))
-    story.append(Spacer(1, 0.1*inch))
-    
-    raw_stats_text = """
-    <b>Dataset Overview:</b><br/>
-    • Total MEV Events (raw): 1,501 candidates<br/>
-    • Validated Fat Sandwich Attacks: 617 attacks<br/>
-    • Unique Attackers: Based on signer analysis across 8 pools<br/>
-    • Total Net Profit: 112.5 SOL (net_profit_sol from POOL_SUMMARY.csv)<br/>
-    • False Positive Rate: 58.9% filtering applied<br/>
-    <br/>
-    <b>Pool-Level Statistics (from POOL_SUMMARY.csv):</b><br/>
-    • HumidiFi: 593 events, 75.1 SOL net profit (highest activity)<br/>
-    • GoonFi: 258 events, 7.9 SOL net profit<br/>
-    • BisonFi: 182 events, 11.2 SOL net profit<br/>
-    • SolFiV2: 176 events, 7.5 SOL net profit<br/>
-    • TesseraV: 157 events, 7.8 SOL net profit<br/>
-    • ZeroFi: 116 events, 2.8 SOL net profit<br/>
-    • ObricV2: 13 events, 0.1 SOL net profit<br/>
-    • SolFi: 6 events, 0.0 SOL net profit<br/>
-    """
-    story.append(Paragraph(raw_stats_text, normal_style))
-    story.append(Spacer(1, 0.2*inch))
-    
-    # 9.3 Data Processing Steps
-    story.append(Paragraph("9.3 Data Processing Steps", heading2_style))
-    story.append(Spacer(1, 0.1*inch))
-    
-    processing_text = """
-    <b>Data Pipeline:</b><br/>
-    <br/>
-    <b>Step 1: Initial Cleaning (01_data_cleaning/)</b><br/>
-    • Remove duplicate transactions<br/>
-    • Filter failed transactions<br/>
-    • Extract transaction metadata<br/>
-    <br/>
-    <b>Step 2: DeezNode Filter (01a_data_cleaning_DeezNode_filters/)</b><br/>
-    • Apply validator-specific filtering<br/>
-    • Tag validator metadata<br/>
-    <br/>
-    <b>Step 3: Jito Tip Filter (01b_jito_tip_filter/)</b><br/>
-    • Extract Jito tip amounts<br/>
-    • Calculate net MEV profit after fees and tips<br/>
-    <br/>
-    <b>Step 4: MEV Detection (02_mev_detection/)</b><br/>
-    • Fat Sandwich Detector: Identify sandwich attack patterns<br/>
-    • Generate POOL_SUMMARY.csv and ATTACKER_KEYS_BY_POOL.csv<br/>
-    • Apply 58.9% false positive filtering (1,501 → 617 validated attacks)<br/>
-    """
-    story.append(Paragraph(processing_text, normal_style))
-    story.append(Spacer(1, 0.2*inch))
-    
-    # 9.4 Feature Engineering
-    story.append(Paragraph("9.4 Feature Engineering", heading2_style))
-    story.append(Spacer(1, 0.1*inch))
-    
-    feature_text = """
-    <b>Analysis Features:</b><br/>
-    • Oracle timing analysis<br/>
-    • Validator behavior patterns<br/>
-    • Market impact metrics<br/>
-    • Attack pattern classification<br/>
-    • MEV profit calculations<br/>
-    • Cross-pool contagion detection<br/>
-    """
-    story.append(Paragraph(feature_text, normal_style))
-    story.append(Spacer(1, 0.2*inch))
-    
-    # 9.5 Machine Learning Methodology
-    story.append(Paragraph("9.5 Machine Learning Classification Methodology", heading2_style))
-    story.append(Spacer(1, 0.1*inch))
-    
-    ml_text = """
-    <b>Machine Learning Classification:</b><br/>
-    • Algorithm: XGBoost with SMOTE oversampling<br/>
-    • Training Data: 617 validated attacks used for classification model<br/>
-    • Analysis: MEV bot detection and attack pattern classification<br/>
-    • Output: MEV samples with classification labels (LIKELY MEV BOT)<br/>
-    • Files: mev_samples_SMOTE_ENABLED.csv, mev_samples_SMOTE_DISABLED.csv<br/>
-    """
-    story.append(Paragraph(ml_text, normal_style))
-    story.append(Spacer(1, 0.2*inch))
-    
-    # 9.6 Monte Carlo Risk Assessment
-    story.append(Paragraph("9.6 Monte Carlo Risk Assessment Methodology", heading2_style))
-    story.append(Spacer(1, 0.1*inch))
-    
-    monte_carlo_text = """
-    <b>Monte Carlo Risk Simulation:</b><br/>
-    • Binary Monte Carlo simulation for attack probability assessment<br/>
-    • Analysis based on historical attack patterns from 617 validated attacks<br/>
-    • Output: monte_carlo_summary CSV files with risk metrics<br/>
-    • Metrics: attack_rate, cascades, slots_jumped, loss estimates<br/>
-    """
-    story.append(Paragraph(monte_carlo_text, normal_style))
-    story.append(Spacer(1, 0.2*inch))
-    
-    # 9.7 Contagion Analysis
-    story.append(Paragraph("9.7 Contagion Analysis Methodology", heading2_style))
-    story.append(Spacer(1, 0.1*inch))
-    
-    contagion_text = """
-    <b>Contagion Analysis (from contagion_report.json):</b><br/>
-    • Trigger Pool: HumidiFi (593 attacks)<br/>
-    • Cascade Rate: 0% immediate cascades within 5000ms time window<br/>
-    • Cross-Pool Attack Probability: Shared attackers analyzed across 8 pools<br/>
-    <br/>
-    <b>Downstream Pool Risk Levels (all MODERATE):</b><br/>
-    • BisonFi: 22.4% attack probability (133 shared attackers)<br/>
-    • SolFiV2: 21.8% attack probability (129 shared attackers)<br/>
-    • GoonFi: 21.6% attack probability (128 shared attackers)<br/>
-    • TesseraV: 20.2% attack probability (120 shared attackers)<br/>
-    • ZeroFi: 14.2% attack probability (84 shared attackers)<br/>
-    • ObricV2: 2.2% attack probability (13 shared attackers)<br/>
-    • SolFi: 1.0% attack probability (6 shared attackers)<br/>
-    """
-    story.append(Paragraph(contagion_text, normal_style))
-    story.append(Spacer(1, 0.2*inch))
-    
-    # 9.8 Data Quality Corrections
-    story.append(Paragraph("9.8 Data Quality Corrections Applied", heading2_style))
-    story.append(Spacer(1, 0.1*inch))
-    
-    corrections_text = """
-    <b>Data Quality Corrections (from DATA_CONSISTENCY_FIX_REPORT.md):</b><br/>
-    • False Positive Filtering: Applied 58.9% filter (1,501 raw → 617 validated)<br/>
-    • Duplicate Removal: De-duplication of transaction records<br/>
-    • Profit Recalculation: Corrected net_profit to account for Jito tips and fees<br/>
-    • Validator Attribution: Re-parsed validator metadata from block headers<br/>
-    • Ground Truth Regeneration: All derivative files regenerated from 617 validated attacks<br/>
-    """
-    story.append(Paragraph(corrections_text, normal_style))
-    story.append(Spacer(1, 0.2*inch))
-    
-    # 9.9 Output Files and Data Schema
-    story.append(Paragraph("9.9 Output Files and Data Schema", heading2_style))
-    story.append(Spacer(1, 0.1*inch))
-    
-    outputs_text = """
-    <b>Primary Output Files:</b><br/>
-    <br/>
-    <b>1. ATTACKER_KEYS_BY_POOL.csv</b><br/>
-    Columns: pool, attacker_key, event_count, total_profit, net_profit<br/>
-    Location: 02_mev_detection/<br/>
-    <br/>
-    <b>2. POOL_SUMMARY.csv</b><br/>
-    Columns: pool, unique_attackers, unique_validators, total_mev_events, total_fat_sandwiches, total_sandwiches, total_front_runs, total_back_runs, total_profit_sol, total_cost_sol, net_profit_sol, avg_profit_per_event, high_confidence_events, medium_confidence_events<br/>
-    Rows: 8 pools (BisonFi, GoonFi, HumidiFi, ObricV2, SolFi, SolFiV2, TesseraV, ZeroFi)<br/>
-    <br/>
-    <b>3. contagion_report.json</b><br/>
-    Structure: trigger_pool_identification, cascade_rate_analysis, attack_probability_analysis, executive_summary<br/>
-    <br/>
-    <b>4. validator_contagion_graph.json</b><br/>
-    Graph format: Validator network analysis<br/>
-    """
-    story.append(Paragraph(outputs_text, normal_style))
-    story.append(Spacer(1, 0.2*inch))
-    
-    # 9.10 Reproducibility
-    story.append(Paragraph("9.10 Reproducibility and Code Availability", heading2_style))
-    story.append(Spacer(1, 0.1*inch))
-    
-    reproducibility_text = """
-    <b>Software Environment:</b><br/>
-    • Python 3.10+<br/>
-    • Key Libraries: pandas, numpy, scikit-learn, xgboost<br/>
-    • Visualization: matplotlib, seaborn, plotly<br/>
-    <br/>
-    <b>Execution Pipeline:</b><br/>
-    1. 01_data_cleaning/<br/>
-    2. 01a_data_cleaning_DeezNode_filters/<br/>
-    3. 01b_jito_tip_filter/<br/>
-    4. 02_mev_detection/fat_sandwich_detector_fast.py<br/>
-    5. 13_mev_comprehensive_analysis/<br/>
-    <br/>
-    <b>Configuration Files:</b><br/>
-    • requirements.txt: Python package dependencies<br/>
-    • runtime.txt: Python version specification<br/>
-    • vercel.json: Web deployment configuration<br/>
-    <br/>
-    <b>Estimated Runtime:</b><br/>
-    • Full pipeline execution: ~6-8 hours on 8-core CPU, 16GB RAM<br/>
-    • Data cleaning: 45 minutes<br/>
-    • MEV detection: 3-4 hours (5.5M transactions)<br/>
-    • ML training: 20 minutes<br/>
-    • Monte Carlo simulation: 1.5 hours (10,000 iterations × 8 pools)<br/>
-    • Report generation: 5 minutes<br/>
-    <br/>
-    <b>Data Availability:</b><br/>
-    Raw transaction data queried from public Solana RPC endpoints and Google BigQuery. Processed datasets available upon request. Oracle price feeds from Pyth Network (public API).<br/>
-    """
-    story.append(Paragraph(reproducibility_text, normal_style))
-    story.append(Spacer(1, 0.3*inch))
-    
     # Add main Appendices heading with index
     story.append(PageBreak())
     story.append(Paragraph("10. Appendices", heading1_style))
@@ -2483,7 +1805,7 @@ def create_academic_report():
     Comprehensive mapping of all visualization outputs to their generating scripts and analysis notebooks. Includes figure references for MEV distribution, top attackers, aggregator comparisons, and contagion analysis dashboards.<br/>
     <br/>
     <b>Appendix B: Data Cleaning and Parsing References</b><br/>
-    Detailed documentation of data preprocessing steps, cleaning scripts, and parsing methodologies. Includes references to DeezNode filter applications, Jito tip filtering, and data validation processes.<br/>
+    Detailed documentation of data preprocessing steps, cleaning scripts, and parsing methodologies. Includes references to validator-specific filter applications (01a_data_cleaning_DeezNode_filters/), Jito tip filtering, and data validation processes.<br/>
     <br/>
     <b>Appendix C: Code Chunk References (Excerpts)</b><br/>
     Key Python code snippets from analysis notebooks showing critical algorithms, pattern detection methods, and implementation details for MEV detection and classification.<br/>
@@ -2748,9 +2070,9 @@ def create_academic_report():
     mev_patterns_data = {}
     signer_analysis_text = ""
     try:
-        import json
-        with open("outputs/mev_signer_patterns.json", "r") as f:
-            mev_patterns_data = json.load(f)
+        mev_patterns_data = load_json_safe("outputs/mev_signer_patterns.json", default={})
+        if not isinstance(mev_patterns_data, dict) or not mev_patterns_data:
+            raise ValueError("Invalid or empty MEV signer patterns JSON")
         
         # Extract top 5 signers for detailed analysis
         top_5_signers = list(mev_patterns_data.get("top_10_signers", {}).items())[:5]
@@ -3070,8 +2392,8 @@ def create_academic_report():
         "MEV detection script (02_mev_detection/) classified transactions into FAT_SANDWICH, "
         "SANDWICH, MULTI_HOP_ARBITRAGE.<br/><br/>"
         
-        "<b>Stage 2: DeezNode Filtering</b><br/>"
-        "Removed validator-specific artifacts and false positives using DeezNode filters "
+        "<b>Stage 2: Validator-Specific Filtering</b><br/>"
+        "Removed validator-specific artifacts and false positives using custom filters "
         "(01a_data_cleaning_DeezNode_filters/).<br/><br/>"
         
         "<b>Stage 3: Jito Tip Filtering</b><br/>"

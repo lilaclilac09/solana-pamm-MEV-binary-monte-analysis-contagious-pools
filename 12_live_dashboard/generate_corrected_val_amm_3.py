@@ -13,24 +13,21 @@ import seaborn as sns
 plt.style.use('seaborn-v0_8-whitegrid')
 sns.set_palette("husl")
 
-# Corrected data after false positive elimination
+# Corrected data after false positive elimination (validated counts)
 mev_patterns_data = pd.DataFrame({
-    'Pattern': ['Fat Sandwich', 'Back-Running (DeezNode)', 'Classic Sandwich', 
-                'Front-Running', 'Cross-Slot (2Fast)'],
-    'Count': [312, 135, 95, 62, 46],
-    'Percentage': [48.0, 20.8, 14.6, 9.5, 7.1]
+    'Pattern': ['Failed Sandwich', 'Fat Sandwich', 'Multi-Hop Arbitrage'],
+    'Count': [865, 617, 19],
+    'Percentage': [57.6, 41.1, 1.3]
 })
 
 # Sort by count descending
 mev_patterns_data = mev_patterns_data.sort_values('Count', ascending=False).reset_index(drop=True)
 
-# Define colors (pink/red for Fat Sandwich and Front-Running, purple for Back-Running, teal/cyan for others)
+# Define colors
 color_map = {
-    'Fat Sandwich': '#FF6B9D',           # Pink
-    'Front-Running': '#FF4757',          # Red
-    'Back-Running (DeezNode)': '#9B59B6', # Purple
-    'Classic Sandwich': '#1ABC9C',       # Teal
-    'Cross-Slot (2Fast)': '#3498DB'      # Cyan
+    'Failed Sandwich': '#FF6B9D',        # Pink
+    'Fat Sandwich': '#FF4757',           # Red
+    'Multi-Hop Arbitrage': '#1ABC9C'     # Teal
 }
 
 colors = [color_map[pattern] for pattern in mev_patterns_data['Pattern']]

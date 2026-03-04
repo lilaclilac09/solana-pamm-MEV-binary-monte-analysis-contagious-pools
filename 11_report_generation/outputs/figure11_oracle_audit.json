@@ -1,0 +1,35 @@
+{
+  "rows_total": 3518,
+  "class_col": "binary_label",
+  "feature_col": "oracle_backrun_ratio",
+  "unique_raw_labels": [
+    "0",
+    "1"
+  ],
+  "unmapped_labels": [],
+  "class_counts": {
+    "MEV": 2318,
+    "non-MEV": 1200
+  },
+  "summary": {
+    "MEV": {
+      "count": 2318,
+      "mean": 0.9935558493818853,
+      "median": 1.0,
+      "std": 0.07158689682722301,
+      "q10": 1.0,
+      "q90": 1.0
+    },
+    "non-MEV": {
+      "count": 1200,
+      "mean": 0.9927763509899317,
+      "median": 1.0,
+      "std": 0.04799185704274077,
+      "q10": 1.0,
+      "q90": 1.0
+    }
+  },
+  "cliffs_delta": 0.04003271498418177,
+  "mann_whitney_p": 2.98384011127083e-12,
+  "ks_p": 0.1384264766002631
+}

@@ -423,8 +423,8 @@ def create_enhanced_report():
     <b>Arsc Bot Pattern:</b> Cross-slot sandwich attacks combined with oracle manipulation, 
     demonstrating sophisticated multi-slot coordination.
     
-    <b>DeezNode Bot Pattern:</b> Oracle-timed back-running with trades executed within 50ms 
-    after oracle updates, indicating real-time oracle monitoring.
+    <b>Oracle-timed Back-Running (hypothesized):</b> Oracle-timed back-running with trades executed within 50ms 
+    after oracle updates. Note: 0 validated instances in final dataset (eliminated as false positives).
     
     <b>2Fast Bot Pattern:</b> Cross-slot wide sandwich attacks with 4-6 trades across 2+ slots, 
     showing ability to coordinate attacks across slot boundaries.

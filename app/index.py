@@ -243,6 +243,54 @@ app.layout = html.Div([
             ),
         ], style={"marginTop": "20px"}),
     ], style={"marginBottom": "40px"}),
+
+    # Section 2a: Why MEV Happens (Narrative)
+    html.Div([
+        html.H2("Section 2a: Why MEV Happens (Causal Narrative)",
+                style={"fontSize": "22px", "fontWeight": 700, "marginBottom": "16px", "color": "#1f2937"}),
+        html.P([
+            "MEV appears when three conditions overlap: ",
+            html.Strong("oracle delay windows"),
+            ", ",
+            html.Strong("fast searcher execution"),
+            ", and ",
+            html.Strong("enough liquidity/volatility to monetize stale prices"),
+            ". In practical terms, attackers exploit the brief gap between external price movement and oracle-aligned pool pricing."
+        ], style={"fontSize": "14px", "lineHeight": "1.7", "color": "#374151", "marginBottom": "16px"}),
+
+        html.Div([
+            html.Div([
+                html.H4("Mechanism Timeline", style={"fontSize": "16px", "fontWeight": 700, "marginBottom": "10px", "color": "#1f2937"}),
+                html.Ul([
+                    html.Li([html.Strong("t0: "), "External market price moves, but pool pricing still reflects prior oracle state."]),
+                    html.Li([html.Strong("t0 + 0.3-2.1s: "), "Stale-price window exists; this is the exploitable interval for MEV bots."]),
+                    html.Li([html.Strong("t0 + Δ: "), "Searchers submit priority transactions (front-run/back-run or arbitrage legs)."]),
+                    html.Li([html.Strong("t0 + Δ2: "), "Oracle catches up and extractable edge decays until next lag event."]),
+                ], style={"fontSize": "13px", "lineHeight": "1.8", "color": "#374151", "margin": "0", "paddingLeft": "18px"}),
+            ], style={"backgroundColor": "#f9fafb", "padding": "16px", "borderRadius": "8px", "border": "1px solid #e5e7eb"}),
+
+            html.Div([
+                html.H4("BisonFi Oracle-Lag Explanation", style={"fontSize": "16px", "fontWeight": 700, "marginBottom": "10px", "color": "#1f2937"}),
+                html.P([
+                    html.Strong("Why BisonFi matters: "),
+                    "BisonFi operates as a trigger pool in this dataset. Its slower oracle update behavior creates repeated stale-price windows that bots can detect and trade against."
+                ], style={"fontSize": "13px", "lineHeight": "1.7", "color": "#374151", "marginBottom": "10px"}),
+                html.Ul([
+                    html.Li([html.Strong("Observed role: "), "Trigger source for cross-pool cascades into HumidiFi, SolFiV2, and GoonFi."]),
+                    html.Li([html.Strong("Lag signal: "), "Reported oracle lag windows (up to ~2.1s in analysis summaries) are long enough for automated extraction."]),
+                    html.Li([html.Strong("Economic effect: "), "BisonFi contributes 11.2 SOL (10.0%) — lower than HumidiFi but still structurally important as an enabling venue."]),
+                ], style={"fontSize": "13px", "lineHeight": "1.8", "color": "#374151", "margin": "0", "paddingLeft": "18px"}),
+            ], style={"backgroundColor": "#eff6ff", "padding": "16px", "borderRadius": "8px", "border": "1px solid #93c5fd"}),
+        ], style={"display": "grid", "gridTemplateColumns": "1fr 1fr", "gap": "16px", "marginBottom": "16px"}),
+
+        html.Div([
+            html.H4("What This Means", style={"fontSize": "16px", "fontWeight": 700, "marginBottom": "10px", "color": "#1f2937"}),
+            html.P([
+                "The concentration results are a consequence of mechanism quality, not random bot behavior. Pools that combine lag + depth + volatility become repeat extraction zones. "
+                "HumidiFi is currently the primary battlefield (66.8% profit share), while BisonFi remains a secondary but critical risk source due to oracle-timing exposure."
+            ], style={"fontSize": "13px", "lineHeight": "1.8", "color": "#374151", "margin": "0"}),
+        ], style={"backgroundColor": "#f0fdf4", "padding": "16px", "borderRadius": "8px", "border": "1px solid #86efac"}),
+    ], style={"marginBottom": "40px", "backgroundColor": "#ffffff", "padding": "20px", "borderRadius": "8px", "border": "1px solid #e5e7eb"}),
     
     # Section 3: Cross-Pool Contagion Analysis
     html.Div([

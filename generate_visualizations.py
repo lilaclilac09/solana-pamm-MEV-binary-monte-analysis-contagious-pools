@@ -8,6 +8,7 @@ import argparse
 import json
 import os
 import shutil
+import re
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -71,12 +72,47 @@ def deep_merge(base, override):
     return merged
 
 
+def _repair_invalid_json_escapes(raw_text):
+    fixed_text = re.sub(r'(?<!\\)\\u(?![0-9a-fA-F]{4})', r'\\\\u', raw_text)
+    fixed_text = re.sub(r'(?<!\\)\\(?!["\\/bfnrtu])', r'\\\\', fixed_text)
+    return fixed_text
+
+
 def load_data(data_file=None):
     if not data_file:
         return DEFAULT_DATA
 
     with open(data_file, "r", encoding="utf-8") as file:
-        user_data = json.load(file)
+        raw_text = file.read()
+
+    try:
+        user_data = json.loads(raw_text)
+    except json.JSONDecodeError as error:
+        repaired_text = _repair_invalid_json_escapes(raw_text)
+        if repaired_text != raw_text:
+            try:
+                user_data = json.loads(repaired_text)
+                print(
+                    "⚠️ Repaired invalid JSON escape sequences in "
+                    f"{data_file}. Consider escaping backslashes as \\\\ in the source file."
+                )
+            except json.JSONDecodeError:
+                snippet_start = max(0, error.pos - 40)
+                snippet_end = min(len(raw_text), error.pos + 40)
+                snippet = raw_text[snippet_start:snippet_end]
+                raise ValueError(
+                    f"Invalid JSON in {data_file}: {error.msg} at line {error.lineno}, "
+                    f"column {error.colno}. Context: {snippet!r}"
+                ) from error
+        else:
+            snippet_start = max(0, error.pos - 40)
+            snippet_end = min(len(raw_text), error.pos + 40)
+            snippet = raw_text[snippet_start:snippet_end]
+            raise ValueError(
+                f"Invalid JSON in {data_file}: {error.msg} at line {error.lineno}, "
+                f"column {error.colno}. Context: {snippet!r}"
+            ) from error
+
     return deep_merge(DEFAULT_DATA, user_data)
 
 # ==================== PLOT 1: Token Pair Fragility ====================

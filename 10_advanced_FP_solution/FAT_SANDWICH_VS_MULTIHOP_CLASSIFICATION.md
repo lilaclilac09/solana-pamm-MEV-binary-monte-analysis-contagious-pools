@@ -16,7 +16,7 @@ This guide provides a complete framework for differentiating between **Fat Sandw
 | **Token Path** | Same pair (A→B, B→A) | Cycle (A→B→C→A) |
 | **Pool Count** | 1-2 pools | 3+ pools |
 | **Primary Goal** | Extract victim slippage | Exploit pool imbalances |
-| **Oracle Correlation** | 99.8% (DeezNode style) | ~50% (optional) |
+| **Oracle Correlation** | High (oracle-timed attacks) | ~50% (optional) |
 
 ---
 
@@ -341,7 +341,7 @@ Result: All zero → Multi-Hop Arbitrage (profit from execution, not holding)
 
 ### Oracle Burst Correlation
 
-**Fat Sandwich** (DeezNode style):
+**Fat Sandwich** (oracle-timed pattern):
 - 99.8% of attacks follow Oracle bursts
 - Bot waits for price signal to trigger
 - Executes front-run within milliseconds after Oracle update
@@ -612,7 +612,7 @@ Reasoning: Victim extraction is the primary value driver
 
 ## 14. References
 
-- **B91 Fat Sandwich**: Reference source material on DeezNode-style attacks
+- **B91 Fat Sandwich**: Reference source material on oracle-timed attack patterns
 - **Cycle Trading**: Arbitrage routing methodology
 - **Solana pAMM Ecosystem**: Raydium, Orca, Jupiter, Marinade pools
 - **Oracle Price Feeds**: Pyth Network, Switchboard oracles
