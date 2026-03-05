@@ -5,14 +5,17 @@ Synthesizes research findings from:
 - Section 5.5-5.7 of academic PDF report
 - 05_token_pair_analysis/ notebooks (liquidity vulnerability research)
 - all_fat_sandwich_only.csv (617 validated FAT_SANDWICH attacks)
+- 03_oracle_analysis/outputs/csv/oracle_updates_by_pool.csv (measured oracle lag)
 
 Key Insight: PUMP/WSOL pair = 38.2% attacks, 12.1% volume → 3.16x risk amplification
 Root causes: Low liquidity <$50K, high volatility >15%, cross-pool fragmentation 5+ venues
+Oracle lag >200ms enables extended MEV windows for sandwich attacks and liquidations
 """
 
 import pandas as pd
 from dash import html, dash_table
 import plotly.express as px
+from oracle_mechanics_component import get_oracle_lag_for_pair
 
 
 def build_dangerous_pairs_ranking():
@@ -40,6 +43,8 @@ def build_dangerous_pairs_ranking():
             "Risk Score": 3.16,
             "Attack Share %": 38.2,
             "Volume Share %": 12.1,
+            "Oracle Pool": "HumidiFi",
+            "Oracle Lag (ms)": 17,
             "Primary Causes": "Low Liquidity (<$50K TVL), High Volatility (15-40% swings), Fragmentation (5+ pools: HumidiFi $28K, BisonFi $19K, GoonFi $15K)",
             "Risk Tier": "CRITICAL"
         },
@@ -49,6 +54,8 @@ def build_dangerous_pairs_ranking():
             "Risk Score": 2.84,
             "Attack Share %": 11.4,
             "Volume Share %": 4.0,
+            "Oracle Pool": "ZeroFi",
+            "Oracle Lag (ms)": 41,
             "Primary Causes": "Exotic Altcoin, Concentrated Holder Base, Price Volatility >30%, Thin Order Books",
             "Risk Tier": "HIGH"
         },
@@ -58,6 +65,8 @@ def build_dangerous_pairs_ranking():
             "Risk Score": 2.67,
             "Attack Share %": 9.3,
             "Volume Share %": 3.5,
+            "Oracle Pool": "GoonFi",
+            "Oracle Lag (ms)": 102,
             "Primary Causes": "Meme Token Volatility, Low Liquidity Depth, Aggregator Route Predictability",
             "Risk Tier": "HIGH"
         },
@@ -67,7 +76,9 @@ def build_dangerous_pairs_ranking():
             "Risk Score": 2.25,
             "Attack Share %": 7.2,
             "Volume Share %": 3.2,
-            "Primary Causes": "Reserve Depth <$100K (vs. >$1M stable pools), Rapid Liquidity Migration Events, Temporary Thin Order Books",
+            "Oracle Pool": "BisonFi",
+            "Oracle Lag (ms)": 201,
+            "Primary Causes": "Reserve Depth <$100K (vs. >$1M stable pools), Rapid Liquidity Migration Events, Temporary Thin Order Books, High Oracle Lag",
             "Risk Tier": "HIGH"
         },
         {
@@ -76,7 +87,9 @@ def build_dangerous_pairs_ranking():
             "Risk Score": 2.10,
             "Attack Share %": 6.8,
             "Volume Share %": 3.2,
-            "Primary Causes": "First 24-48h Trading Window, Fast Price Discovery, No Established Liquidity Depth, High Oracle Lag",
+            "Oracle Pool": "TesseraV",
+            "Oracle Lag (ms)": 70,
+            "Primary Causes": "First 24-48h Trading Window, Fast Price Discovery, No Established Liquidity Depth, Oracle Lag Enables Extended MEV Window",
             "Risk Tier": "HIGH"
         },
         {
@@ -85,6 +98,8 @@ def build_dangerous_pairs_ranking():
             "Risk Score": 1.85,
             "Attack Share %": 4.6,
             "Volume Share %": 2.5,
+            "Oracle Pool": "SolFiV2",
+            "Oracle Lag (ms)": 94,
             "Primary Causes": "Moderate Liquidity Fragmentation, Aggregator Path Concentration, Tick-Range Gaps",
             "Risk Tier": "MODERATE"
         },
@@ -94,6 +109,8 @@ def build_dangerous_pairs_ranking():
             "Risk Score": 1.72,
             "Attack Share %": 3.9,
             "Volume Share %": 2.3,
+            "Oracle Pool": "SolFiV2",
+            "Oracle Lag (ms)": 94,
             "Primary Causes": "Liquidity Tier Shifts, Volatility During Announcements, Multi-Pool Arbitrage Windows",
             "Risk Tier": "MODERATE"
         },
@@ -103,6 +120,8 @@ def build_dangerous_pairs_ranking():
             "Risk Score": 1.65,
             "Attack Share %": 3.1,
             "Volume Share %": 1.9,
+            "Oracle Pool": "SolFi",
+            "Oracle Lag (ms)": 201,
             "Primary Causes": "Low Trading Volume, Concentrated Liquidity Providers, Price Impact >5% on 100 SOL trades",
             "Risk Tier": "MODERATE"
         },
@@ -112,7 +131,9 @@ def build_dangerous_pairs_ranking():
             "Risk Score": 1.42,
             "Attack Share %": 2.4,
             "Volume Share %": 1.7,
-            "Primary Causes": "Liquid Staking Peg Deviations, Oracle Update Latency, Arbitrage Across LST Pairs",
+            "Oracle Pool": "ZeroFi",
+            "Oracle Lag (ms)": 41,
+            "Primary Causes": "Liquid Staking Peg Deviations, Oracle Update Latency (~41ms), Arbitrage Across LST Pairs",
             "Risk Tier": "MODERATE"
         },
         {
@@ -121,7 +142,9 @@ def build_dangerous_pairs_ranking():
             "Risk Score": 0.18,
             "Attack Share %": 8.3,
             "Volume Share %": 47.2,
-            "Primary Causes": "Deep Liquidity >$1M (5.2x lower risk), Tight Spreads <0.5%, Aggregator Competition, Concentrated Liquidity Ranges",
+            "Oracle Pool": "HumidiFi",
+            "Oracle Lag (ms)": 17,
+            "Primary Causes": "Deep Liquidity >$1M (5.2x lower risk), Tight Spreads <0.5%, Aggregator Competition, Low Oracle Lag",
             "Risk Tier": "LOW"
         },
         {
@@ -130,6 +153,8 @@ def build_dangerous_pairs_ranking():
             "Risk Score": 0.12,
             "Attack Share %": 1.2,
             "Volume Share %": 10.1,
+            "Oracle Pool": "HumidiFi",
+            "Oracle Lag (ms)": 17,
             "Primary Causes": "Stablecoin Pair, Minimal Volatility, Tight Spreads, Efficient Price Curves",
             "Risk Tier": "LOW"
         },
@@ -139,6 +164,8 @@ def build_dangerous_pairs_ranking():
             "Risk Score": 0.08,
             "Attack Share %": 0.6,
             "Volume Share %": 7.8,
+            "Oracle Pool": "HumidiFi",
+            "Oracle Lag (ms)": 17,
             "Primary Causes": "Unified Routing, Deep Reserves, Negligible Sandwich Activity, Redundant Liquidity Paths",
             "Risk Tier": "LOW"
         }
@@ -155,6 +182,8 @@ def build_dangerous_pairs_ranking():
             {"name": "Risk Score", "id": "Risk Score", "type": "numeric"},
             {"name": "Attack %", "id": "Attack Share %", "type": "numeric"},
             {"name": "Volume %", "id": "Volume Share %", "type": "numeric"},
+            {"name": "Oracle Pool", "id": "Oracle Pool"},
+            {"name": "Oracle Lag (ms)", "id": "Oracle Lag (ms)", "type": "numeric"},
             {"name": "Primary Vulnerability Causes", "id": "Primary Causes"},
             {"name": "Tier", "id": "Risk Tier"}
         ],
@@ -218,6 +247,46 @@ def build_dangerous_pairs_ranking():
                 'if': {'column_id': 'Risk Score'},
                 'fontWeight': '700',
                 'fontSize': '15px'
+            },
+            # Oracle Lag coloring - HIGH CRITICAL (>150ms) - dark red
+            {
+                'if': {
+                    'filter_query': '{Oracle Lag (ms)} >= 150',
+                    'column_id': 'Oracle Lag (ms)'
+                },
+                'backgroundColor': '#fecaca',
+                'color': '#7f1d1d',
+                'fontWeight': '700'
+            },
+            # Oracle Lag coloring - HIGH (100-150ms) - orange
+            {
+                'if': {
+                    'filter_query': '{Oracle Lag (ms)} >= 100 && {Oracle Lag (ms)} < 150',
+                    'column_id': 'Oracle Lag (ms)'
+                },
+                'backgroundColor': '#fed7aa',
+                'color': '#92400e',
+                'fontWeight': '600'
+            },
+            # Oracle Lag coloring - MODERATE (50-99ms) - yellow
+            {
+                'if': {
+                    'filter_query': '{Oracle Lag (ms)} >= 50 && {Oracle Lag (ms)} < 100',
+                    'column_id': 'Oracle Lag (ms)'
+                },
+                'backgroundColor': '#fef3c7',
+                'color': '#78350f',
+                'fontWeight': '600'
+            },
+            # Oracle Lag coloring - LOW (<50ms) - green
+            {
+                'if': {
+                    'filter_query': '{Oracle Lag (ms)} < 50',
+                    'column_id': 'Oracle Lag (ms)'
+                },
+                'backgroundColor': '#d1fae5',
+                'color': '#065f46',
+                'fontWeight': '600'
             }
         ],
         sort_action='native',
@@ -277,33 +346,45 @@ def build_dangerous_pairs_ranking():
             html.Ul([
                 html.Li([
                     html.Span("PUMP/WSOL ", style={'fontWeight': '600', 'color': '#dc2626'}),
-                    html.Span("shows 3.16x risk amplification (38.2% attacks / 12.1% volume) due to low liquidity <$50K, high volatility 15-40%, and fragmentation across 5+ pools.")
+                    html.Span("= 3.16x risk amplification (38.2% attacks / 12.1% volume) due to low liquidity <$50K, high volatility 15-40%, ",
+                             style={'color': '#374151'}),
+                    html.Span("fragmentation across 5+ pools, and fast oracle updates (HumidiFi 17ms)",
+                             style={'fontWeight': '500', 'color': '#374151'})
+                ], style={'marginBottom': '8px', 'color': '#374151'}),
+                html.Li([
+                    html.Span("Oracle lag correlation: ", style={'fontWeight': '600', 'color': '#dc2626'}),
+                    html.Span("Pairs on slow-update pools (BisonFi 201ms, SolFi 201ms) enable extended MEV windows for sandwich attacks & liquidations. ",
+                             style={'color': '#374151'}),
+                    html.Span("WIF/SOL (102ms lag) + meme volatility = easy prey for bots.",
+                             style={'fontWeight': '500', 'color': '#374151'})
                 ], style={'marginBottom': '8px', 'color': '#374151'}),
                 html.Li([
                     html.Span("Exotic altcoin pairs ", style={'fontWeight': '600'}),
-                    html.Span("(BONK/SOL, WIF/SOL) collectively account for 20.7% of attacks due to concentrated holder bases and thin order books.")
+                    html.Span("(BONK/SOL 41ms, WIF/SOL 102ms) collectively account for 20.7% of attacks due to concentrated holder bases and thin order books.")
                 ], style={'marginBottom': '8px', 'color': '#374151'}),
                 html.Li([
                     html.Span("SOL/USDC risk varies 12.5x ", style={'fontWeight': '600'}),
-                    html.Span("based on liquidity tier: <$100K pools show 2.25x amplification vs. >$1M pools at 0.18x (5.2x protective factor).")
+                    html.Span("based on liquidity tier: <$100K pools (BisonFi 201ms lag) show 2.25x amplification vs. >$1M pools (HumidiFi 17ms lag) at 0.18x (5.2x protective factor).")
                 ], style={'marginBottom': '8px', 'color': '#374151'}),
                 html.Li([
                     html.Span("New token launches ", style={'fontWeight': '600'}),
-                    html.Span("in first 24-48h exhibit 2.10x risk from fast price discovery and absence of established liquidity depth.")
+                    html.Span("in first 24-48h exhibit 2.10x risk from fast price discovery, absence of liquidity, and moderate oracle lag (TesseraV 70ms).")
                 ], style={'marginBottom': '8px', 'color': '#374151'}),
                 html.Li([
                     html.Span("Stablecoin pairs ", style={'fontWeight': '600', 'color': '#059669'}),
-                    html.Span("(USDC/USDT, WSOL/SOL) show 0.08-0.12x risk due to minimal volatility, tight spreads, and unified routing.")
+                    html.Span("(USDC/USDT, WSOL/SOL) on HumidiFi (17ms lag) show 0.08-0.12x risk due to minimal volatility, tight spreads, unified routing, and low-latency oracle updates.")
                 ], style={'marginBottom': '8px', 'color': '#374151'})
             ], style={'paddingLeft': '20px', 'fontSize': '14px'}),
             
             html.Div([
                 html.Span("📖 ", style={'fontSize': '18px'}),
-                html.Span("Data Source: ", style={'fontWeight': '600', 'color': '#1f2937'}),
+                html.Span("Data Sources: ", style={'fontWeight': '600', 'color': '#1f2937'}),
                 html.Span("617 validated FAT_SANDWICH attacks from ", style={'color': '#6b7280', 'fontSize': '14px'}),
                 html.Code("all_fat_sandwich_only.csv", style={'backgroundColor': '#f3f4f6', 'padding': '2px 6px', 'borderRadius': '4px', 'fontSize': '13px'}),
                 html.Span(" | Liquidity metrics from ", style={'color': '#6b7280', 'fontSize': '14px'}),
-                html.Code("pamm_clean_final.parquet", style={'backgroundColor': '#f3f4f6', 'padding': '2px 6px', 'borderRadius': '4px', 'fontSize': '13px'})
+                html.Code("pamm_clean_final.parquet", style={'backgroundColor': '#f3f4f6', 'padding': '2px 6px', 'borderRadius': '4px', 'fontSize': '13px'}),
+                html.Span(" | Oracle lag from ", style={'color': '#6b7280', 'fontSize': '14px'}),
+                html.Code("oracle_updates_by_pool.csv", style={'backgroundColor': '#f3f4f6', 'padding': '2px 6px', 'borderRadius': '4px', 'fontSize': '13px'})
             ], style={
                 'marginTop': '20px',
                 'padding': '12px',

@@ -15,6 +15,30 @@ except ModuleNotFoundError:
     sys.path.insert(0, os.path.dirname(__file__))
     from dangerous_pairs_ranking import build_dangerous_pairs_ranking
 
+try:
+    from mev_forensics_section import build_mev_forensics_section
+except ModuleNotFoundError:
+    import sys
+    import os
+    sys.path.insert(0, os.path.dirname(__file__))
+    from mev_forensics_section import build_mev_forensics_section
+
+try:
+    from oracle_mechanics_component import build_oracle_lag_explanation, build_oracle_lag_visualization
+except ModuleNotFoundError:
+    import sys
+    import os
+    sys.path.insert(0, os.path.dirname(__file__))
+    from oracle_mechanics_component import build_oracle_lag_explanation, build_oracle_lag_visualization
+
+try:
+    from risk_formulation_component import build_risk_formulation_section, build_risk_visualization
+except ModuleNotFoundError:
+    import sys
+    import os
+    sys.path.insert(0, os.path.dirname(__file__))
+    from risk_formulation_component import build_risk_formulation_section, build_risk_visualization
+
 app = dash.Dash(__name__)
 server = app.server
 
@@ -243,6 +267,21 @@ app.layout = html.Div([
     
     # Section 5a: Token Pair Vulnerability Rankings (New - Added per user request)
     build_dangerous_pairs_ranking(),
+
+    # Section 5a.1: Oracle Lag Impact & MEV Window Mechanics
+    build_oracle_lag_explanation(),
+    
+    # Section 5a.2: Oracle Lag Visualization (3-slot MEV window)
+    build_oracle_lag_visualization(),
+    
+    # Section 5a.3: Risk Formulation with Component Breakdown
+    build_risk_formulation_section(),
+    
+    # Section 5a.4: Risk Component Visualization
+    build_risk_visualization(),
+
+    # Section 5b: MEV Forensics Lab (fingerprints, anomaly cases, wallet patterns, contagion)
+    build_mev_forensics_section(),
 
     # Section 2a: Why MEV Happens (Narrative)
     html.Div([

@@ -2,17 +2,32 @@
   "version": 2,
   "builds": [
     {
-      "src": "app/index.py",
-      "use": "@vercel/python"
+      "src": "public/index.html",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
+      "src": "/public/(.*)",
+      "dest": "/public/$1"
+    },
+    {
       "src": "/(.*)",
-      "dest": "app/index.py"
+      "dest": "/public/index.html"
     }
   ],
   "env": {
-    "PYTHONPATH": "/app"
-  }
+    "NODE_ENV": "production"
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, max-age=0"
+        }
+      ]
+    }
+  ]
 }

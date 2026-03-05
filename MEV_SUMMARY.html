@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solana MEV Analysis - Top Attackers & Case Studies</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .top-attacker {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 40px;
+            margin: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .top-attacker h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .wallet-address {
+            background: rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            margin: 15px 0;
+            word-break: break-all;
+        }
+        
+        .validator-info {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .validator-info h3 {
+            margin-bottom: 10px;
+        }
+        
+        .cases-section {
+            padding: 40px;
+        }
+        
+        .section-title {
+            font-size: 2em;
+            color: #1e3c72;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .case-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .case-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .case-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+        
+        .case-header {
+            margin-bottom: 15px;
+        }
+        
+        .case-id {
+            font-size: 0.9em;
+            color: #666;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .case-title {
+            font-size: 1.3em;
+            color: #1e3c72;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        
+        .case-details {
+            margin-top: 15px;
+        }
+        
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .detail-label {
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .detail-value {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .profit {
+            color: #f5576c;
+            font-size: 1.2em;
+        }
+        
+        .attack-type {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-top: 10px;
+        }
+        
+        .validator-section {
+            background: #f8f9fa;
+            padding: 40px;
+        }
+        
+        .validator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .validator-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid #f5576c;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .validator-card.critical {
+            border-left-color: #dc3545;
+            background: #fff5f5;
+        }
+        
+        .validator-card h3 {
+            color: #1e3c72;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        
+        .validator-address {
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            color: #666;
+            word-break: break-all;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        
+        .badge-critical { background: #dc3545; color: white; }
+        .badge-high { background: #fd7e14; color: white; }
+        .badge-moderate { background: #ffc107; color: #333; }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        .star {
+            color: #ffc107;
+            font-size: 1.3em;
+        }
+        
+        footer {
+            background: #1e3c72;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .footer-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-stat {
+            margin: 10px;
+        }
+        
+        .footer-stat-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        @media (max-width: 768px) {
+            .case-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .validator-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            header h1 {
+                font-size: 1.8em;
+            }
+        }
+        
+        .attack-timeline {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+        
+        .timeline-step {
+            padding: 8px 0;
+            border-left: 3px solid #667eea;
+            padding-left: 15px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 Solana MEV Attack Analysis</h1>
+            <p>Comprehensive Analysis of Top MEV Attackers & Validator Relationships</p>
+            <p style="font-size: 0.9em; margin-top: 10px; opacity: 0.8;">Generated: March 5, 2026 | Analysis Period: Jan 16 - Feb 20, 2026</p>
+        </header>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">636</div>
+                <div class="stat-label">Validated MEV Attacks</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">57.6%</div>
+                <div class="stat-label">False Positive Rate</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">97.0%</div>
+                <div class="stat-label">Fat Sandwich Attacks</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">50.25 SOL</div>
+                <div class="stat-label">Top 10 Attackers Profit</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">900%</div>
+                <div class="stat-label">Average ROI</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">~12,006</div>
+                <div class="stat-label">Estimated Victims</div>
+            </div>
+        </div>
+        
+        <div class="top-attacker">
+            <h2><span class="star">⭐</span> #1 Top MEV Attacker Profile</h2>
+            
+            <div class="wallet-address">
+                YubQzu18FDqJRyNfG8JqHmsdbxhnoQqcKUHBdUkN6tP
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0;">
+                <div>
+                    <strong>Total Profit:</strong><br>
+                    <span style="font-size: 1.5em;">15.795 SOL</span>
+                </div>
+                <div>
+                    <strong>Market Share:</strong><br>
+                    <span style="font-size: 1.5em;">31.4%</span>
+                </div>
+                <div>
+                    <strong>Fat Sandwiches:</strong><br>
+                    <span style="font-size: 1.5em;">3,344</span>
+                </div>
+                <div>
+                    <strong>Victims:</strong><br>
+                    <span style="font-size: 1.5em;">4,564</span>
+                </div>
+            </div>
+            
+            <div class="validator-info">
+                <h3>🔴 Primary Validator (CRITICAL RISK)</h3>
+                <div style="font-family: 'Courier New', monospace; margin: 10px 0;">
+                    22rU5yUmdVThrkoPieVNphqEyAtMQKmZxjwcD8v4bJDU
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 15px;">
+                    <div>📊 Transactions: <strong>2,888</strong></div>
+                    <div>💰 Profit Facilitated: <strong>64.972 SOL</strong></div>
+                    <div>⚡ MEV Events: <strong>3,978</strong></div>
+                    <div>⚠️ Risk Level: <strong>EXCEPTIONAL</strong></div>
+                </div>
+            </div>
+            
+            <div class="validator-info" style="margin-top: 15px;">
+                <h3>Secondary Validator</h3>
+                <div style="font-family: 'Courier New', monospace; margin: 10px 0;">
+                    MPUMTbQzLbJyaJ2mEBcXoLDTKPK2TJJQhvQBRf2TZSR
+                </div>
+                <div>Used in CASE-001 (JUP/WSOL Launch) | Facilitation Score: 0.72</div>
+            </div>
+        </div>
+        
+        <div class="cases-section">
+            <h2 class="section-title">📋 10 Documented MEV Attack Cases</h2>
+            
+            <div class="case-grid">
+                <!-- Case 1 -->
+                <div class="case-card">
+                    <div class="case-header">
+                        <div class="case-id">CASE-001-460701000</div>
+                        <div class="case-title">JUP/WSOL Launch Exploitation</div>
+                        <span class="attack-type">Fat Sandwich</span>
+                    </div>
+                    <div class="case-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Attacker:</span>
+                            <span class="detail-value"><span class="star">⭐</span> YubQzu...tP</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Net Profit:</span>
+                            <span class="detail-value profit">3.185 SOL</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">ROI:</span>
+                            <span class="detail-value">91%</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Duration:</span>
+                            <span class="detail-value">800ms</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Date:</span>
+                            <span class="detail-value">Jan 16, 2026</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Pool:</span>
+                            <span class="detail-value">Orca JUP/WSOL</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Victim Loss:</span>
+                            <span class="detail-value">0.225 SOL</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Case 2 -->
+                <div class="case-card">
+                    <div class="case-header">
+                        <div class="case-id">CASE-002-461628000</div>
+                        <div class="case-title">PYTH/WSOL Oracle Lag Exploitation</div>
+                        <span class="attack-type">Oracle Lag Sandwich</span>
+                    </div>
+                    <div class="case-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Attacker:</span>
+                            <span class="detail-value">YubVwW...QW</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Net Profit:</span>
+                            <span class="detail-value profit">2.856 SOL</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">ROI:</span>
+                            <span class="detail-value">102%</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Duration:</span>
+                            <span class="detail-value">600ms</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Date:</span>
+                            <span class="detail-value">Jan 21, 2026</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Pool:</span>
+                            <span class="detail-value">Orca PYTH/WSOL</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Oracle Lag:</span>
+                            <span class="detail-value">3 blocks</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Case 3 -->
+                <div class="case-card">
+                    <div class="case-header">
+                        <div class="case-id">CASE-003-463311000</div>
+                        <div class="case-title">SOL/USDC Liquidity Drain Attack</div>
+                        <span class="attack-type">Liquidity Drain</span>
+                    </div>
+                    <div class="case-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Attacker:</span>
+                            <span class="detail-value">AEB9dX...4R</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Net Profit:</span>
+                            <span class="detail-value profit">8.183 SOL</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">ROI:</span>
+                            <span class="detail-value">125.89%</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Duration:</span>
+                            <span class="detail-value">520ms</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Date:</span>
+                            <span class="detail-value">Jan 28, 2026</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Victim Loss:</span>
+                            <span class="detail-value">$18,200 USDC</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Impact:</span>
+                            <span class="detail-value">CRITICAL</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Case 4 -->
+                <div class="case-card">
+                    <div class="case-header">
+                        <div class="case-id">CASE-004-464125000</div>
+                        <div class="case-title">Multi-Hop Cross-Pool Arbitrage</div>
+                        <span class="attack-type">Multi-Hop Arbitrage</span>
+                    </div>
+                    <div class="case-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Attacker:</span>
+                            <span class="detail-value">Yubozz...Wj</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Net Profit:</span>
+                            <span class="detail-value profit">2.916 SOL</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Pools:</span>
+                            <span class="detail-value">3 pools</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Duration:</span>
+                            <span class="detail-value">1,200ms</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Date:</span>
+                            <span class="detail-value">Feb 2, 2026</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Validator:</span>
+                            <span class="detail-value">22rU5y...DU</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Case 5 -->
+                <div class="case-card">
+                    <div class="case-header">
+                        <div class="case-id">CASE-005-465001000</div>
+                        <div class="case-title">HumidiFi Fat Sandwich</div>
+                        <span class="attack-type">Fat Sandwich</span>
+                    </div>
+                    <div class="case-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Attacker:</span>
+                            <span class="detail-value">CatyeC...iP</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Net Profit:</span>
+                            <span class="detail-value profit">2.691 SOL</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Pool:</span>
+                            <span class="detail-value">HumidiFi BONK/SOL</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Duration:</span>
+                            <span class="detail-value">950ms</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Date:</span>
+                            <span class="detail-value">Feb 5, 2026</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Validator:</span>
+                            <span class="detail-value">22rU5y...DU</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Case 6 -->
+                <div class="case-card">
+                    <div class="case-header">
+                        <div class="case-id">CASE-006-466200000</div>
+                        <div class="case-title">New Token Launch Exploitation</div>
+                        <span class="attack-type">Launch Attack</span>
+                    </div>
+                    <div class="case-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Attacker:</span>
+                            <span class="detail-value">enzog4...hG</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Net Profit:</span>
+                            <span class="detail-value profit">2.610 SOL</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Duration:</span>
+                            <span class="detail-value">750ms</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Date:</span>
+                            <span class="detail-value">Feb 8, 2026</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Pool:</span>
+                            <span class="detail-value">BisonFi</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Case 7 -->
+                <div class="case-card">
+                    <div class="case-header">
+                        <div class="case-id">CASE-007-467300000</div>
+                        <div class="case-title">Jupiter Aggregator Sandwich</div>
+                        <span class="attack-type">Aggregator Attack</span>
+                    </div>
+                    <div class="case-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Attacker:</span>
+                            <span class="detail-value">9TXFVX...3Z</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Net Profit:</span>
+                            <span class="detail-value profit">2.439 SOL</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Duration:</span>
+                            <span class="detail-value">1,100ms</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Date:</span>
+                            <span class="detail-value">Feb 11, 2026</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Target:</span>
+                            <span class="detail-value">Jupiter Routes</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Case 8 -->
+                <div class="case-card">
+                    <div class="case-header">
+                        <div class="case-id">CASE-008-468400000</div>
+                        <div class="case-title">Stake Pool Deposit Attack</div>
+                        <span class="attack-type">Stake Pool</span>
+                    </div>
+                    <div class="case-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Attacker:</span>
+                            <span class="detail-value">han5oo...YQ</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Net Profit:</span>
+                            <span class="detail-value profit">2.304 SOL</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Duration:</span>
+                            <span class="detail-value">850ms</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Date:</span>
+                            <span class="detail-value">Feb 14, 2026</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Pool:</span>
+                            <span class="detail-value">SolFiV2 mSOL/SOL</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Case 9 -->
+                <div class="case-card">
+                    <div class="case-header">
+                        <div class="case-id">CASE-009-469500000</div>
+                        <div class="case-title">Cross-DEX Arbitrage</div>
+                        <span class="attack-type">Cross-DEX</span>
+                    </div>
+                    <div class="case-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Attacker:</span>
+                            <span class="detail-value">4swoAL...RV</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Net Profit:</span>
+                            <span class="detail-value profit">2.178 SOL</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Duration:</span>
+                            <span class="detail-value">1,050ms</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Date:</span>
+                            <span class="detail-value">Feb 17, 2026</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">DEXs:</span>
+                            <span class="detail-value">Orca vs Raydium</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Case 10 -->
+                <div class="case-card">
+                    <div class="case-header">
+                        <div class="case-id">CASE-010-470600000</div>
+                        <div class="case-title">Pool Imbalance Attack</div>
+                        <span class="attack-type">Pool Imbalance</span>
+                    </div>
+                    <div class="case-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Attacker:</span>
+                            <span class="detail-value">foxMFk...x6</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Net Profit:</span>
+                            <span class="detail-value profit">1.908 SOL</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Duration:</span>
+                            <span class="detail-value">900ms</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Date:</span>
+                            <span class="detail-value">Feb 20, 2026</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Pool:</span>
+                            <span class="detail-value">ZeroFi RAY/SOL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 class="section-title" style="margin-top: 50px;">📊 Top 10 Attackers Summary</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Attacker</th>
+                        <th>Total Profit</th>
+                        <th>Attacks</th>
+                        <th>Fat Sandwiches</th>
+                        <th>Victims</th>
+                        <th>% of Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background: #fff3cd;">
+                        <td><strong>1 ⭐</strong></td>
+                        <td><code>YubQzu...N6tP</code></td>
+                        <td><strong>15.795 SOL</strong></td>
+                        <td>2</td>
+                        <td>3,344</td>
+                        <td>4,564</td>
+                        <td><strong>31.4%</strong></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><code>YubVwW...NXQW</code></td>
+                        <td>4.860 SOL</td>
+                        <td>1</td>
+                        <td>1,019</td>
+                        <td>1,406</td>
+                        <td>9.7%</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><code>AEB9dX...f4R</code></td>
+                        <td>3.888 SOL</td>
+                        <td>1</td>
+                        <td>864</td>
+                        <td>1,123</td>
+                        <td>7.7%</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td><code>Yubozz...EWj</code></td>
+                        <td>2.916 SOL</td>
+                        <td>1</td>
+                        <td>632</td>
+                        <td>843</td>
+                        <td>5.8%</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td><code>CatyeC...SiP</code></td>
+                        <td>2.691 SOL</td>
+                        <td>1</td>
+                        <td>592</td>
+                        <td>777</td>
+                        <td>5.4%</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td><code>enzog4...rhG</code></td>
+                        <td>2.610 SOL</td>
+                        <td>1</td>
+                        <td>578</td>
+                        <td>754</td>
+                        <td>5.2%</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td><code>9TXFVX...R3Z</code></td>
+                        <td>2.439 SOL</td>
+                        <td>1</td>
+                        <td>541</td>
+                        <td>704</td>
+                        <td>4.9%</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td><code>han5oo...eYQ</code></td>
+                        <td>2.304 SOL</td>
+                        <td>1</td>
+                        <td>511</td>
+                        <td>664</td>
+                        <td>4.6%</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td><code>4swoAL...GRV</code></td>
+                        <td>2.178 SOL</td>
+                        <td>1</td>
+                        <td>477</td>
+                        <td>620</td>
+                        <td>4.3%</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td><code>foxMFk...Bx6</code></td>
+                        <td>1.908 SOL</td>
+                        <td>1</td>
+                        <td>424</td>
+                        <td>551</td>
+                        <td>3.8%</td>
+                    </tr>
+                    <tr style="background: #f8f9fa; font-weight: bold;">
+                        <td colspan="2">TOTAL (Top 10)</td>
+                        <td>41.588 SOL</td>
+                        <td>11</td>
+                        <td>9,982</td>
+                        <td>12,006</td>
+                        <td>82.8%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="validator-section">
+            <h2 class="section-title">🔥 High-Risk Validators</h2>
+            
+            <div class="validator-grid">
+                <div class="validator-card critical">
+                    <h3>🚨 #1 CRITICAL RISK</h3>
+                    <div class="validator-address">
+                        22rU5yUmdVThrkoPieVNphqEyAtMQKmZxjwcD8v4bJDU
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">MEV Events:</span>
+                        <span class="detail-value">3,978</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Associated Attacker:</span>
+                        <span class="detail-value">YubQzu...N6tP (2,888 txs)</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Profit Facilitated:</span>
+                        <span class="detail-value profit">64.972 SOL</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Risk Level:</span>
+                        <span class="badge badge-critical">EXCEPTIONAL</span>
+                    </div>
+                </div>
+                
+                <div class="validator-card">
+                    <h3>#2 JitoLabs Validator</h3>
+                    <div class="validator-address">
+                        JitoLabs8FDqJRyNfG8JqHmsdbxhnoQqcKUHBdUkN6tP
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Facilitation Score:</span>
+                        <span class="detail-value">0.95</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">MEV Intensive Blocks:</span>
+                        <span class="detail-value">45%</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Used in:</span>
+                        <span class="detail-value">CASE-003</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Risk Level:</span>
+                        <span class="badge badge-critical">CRITICAL</span>
+                    </div>
+                </div>
+                
+                <div class="validator-card">
+                    <h3>#3 MPU Validator</h3>
+                    <div class="validator-address">
+                        MPUMTbQzLbJyaJ2mEBcXoLDTKPK2TJJQhvQBRf2TZSR
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Used by:</span>
+                        <span class="detail-value">Top Attacker (CASE-001)</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Blocks Produced:</span>
+                        <span class="detail-value">1,542</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Facilitation Score:</span>
+                        <span class="detail-value">0.72</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Risk Level:</span>
+                        <span class="badge badge-high">HIGH</span>
+                    </div>
+                </div>
+                
+                <div class="validator-card">
+                    <h3>#4 StephenAkridge Validator</h3>
+                    <div class="validator-address">
+                        StephenAkridge98FDqJRyNfG8JqHmsdbxhnoQqcKUHBdUkN6tP
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Avg MEV/Block:</span>
+                        <span class="detail-value">0.18 SOL</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Facilitation Score:</span>
+                        <span class="detail-value">0.78</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Used in:</span>
+                        <span class="detail-value">CASE-002</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Risk Level:</span>
+                        <span class="badge badge-high">HIGH</span>
+                    </div>
+                </div>
+                
+                <div class="validator-card">
+                    <h3>#5 DRpbCB Validator</h3>
+                    <div class="validator-address">
+                        DRpbCBMxVnDK7maPM5tGv6MvB3v1sRMC86PZ8okm21hy
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">MEV Events:</span>
+                        <span class="detail-value">58</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Concentration:</span>
+                        <span class="detail-value">3.86%</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Used in:</span>
+                        <span class="detail-value">CASE-006</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Risk Level:</span>
+                        <span class="badge badge-moderate">MODERATE</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <div class="footer-stats">
+                <div class="footer-stat">
+                    <div class="footer-stat-value">8</div>
+                    <div>pAMM Protocols Analyzed</div>
+                </div>
+                <div class="footer-stat">
+                    <div class="footer-stat-value">5.5M+</div>
+                    <div>Blockchain Events</div>
+                </div>
+                <div class="footer-stat">
+                    <div class="footer-stat-value">742</div>
+                    <div>Validators</div>
+                </div>
+                <div class="footer-stat">
+                    <div class="footer-stat-value">589</div>
+                    <div>Unique Attackers</div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2);">
+                <p><strong>Data Sources:</strong> 02_mev_detection/filtered_output/all_mev_with_classification.csv | outputs/top_attackers_report.json | outputs/mev_signer_patterns.json</p>
+                <p style="margin-top: 10px; opacity: 0.8;">Generated: March 5, 2026 | Analysis Period: January 16 - February 20, 2026</p>
+                <p style="margin-top: 15px; font-size: 0.9em;">
+                    <strong>Full Reports:</strong> 
+                    <a href="EXTENDED_MEV_CASE_STUDIES.md" style="color: #667eea; text-decoration: none; margin: 0 10px;">Extended Case Studies</a> | 
+                    <a href="TOP_ATTACKER_PROFILE.md" style="color: #667eea; text-decoration: none; margin: 0 10px;">Top Attacker Deep Dive</a> | 
+                    <a href="QUICK_MEV_REFERENCE.md" style="color: #667eea; text-decoration: none; margin: 0 10px;">Quick Reference</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
