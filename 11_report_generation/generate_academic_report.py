@@ -232,16 +232,16 @@ def create_academic_report():
         ["", "", ""],
         ["9. Conclusion", "...........................", "65"],
         ["", "", ""],
-        ["10. Appendices", "...........................", "70"],
-        ["   A. Plot Generation References", "", "70"],
-        ["   B. Data Cleaning and Parsing References", "", "71"],
-        ["   C. Code Chunk References (Excerpts)", "", "72"],
-        ["   C1. Data Quality and Cleaning Visualizations", "", "73"],
-        ["   D. Top MEV Reference Metrics", "", "75"],
-        ["   E. MEV Signers - Attack Patterns & Value Extraction", "", "77"],
-        ["   F. Unique MEV Signer Patterns and Value Methods", "", "79"],
-        ["   G. Verified Attack Cases (Ground Truth)", "", "81"],
-        ["   H. Analysis Tools and Methodologies", "", "85"],
+        ["10. Appendices", "...........................", ""],
+        ["   A. Plot Generation References", "", ""],
+        ["   B. Data Cleaning and Parsing References", "", ""],
+        ["   C. Code Chunk References (Excerpts)", "", ""],
+        ["   C1. Data Quality and Cleaning Visualizations", "", ""],
+        ["   D. Top MEV Reference Metrics", "", ""],
+        ["   E. MEV Signers - Attack Patterns & Value Extraction", "", ""],
+        ["   F. MEV Attack Patterns and Mechanics", "", ""],
+        ["   G. Unique MEV Signer Patterns and Value Methods", "", ""],
+        ["   H. Analysis Tools and Methodologies", "", ""],
     ]
     
     toc_table_style = [
@@ -1990,11 +1990,11 @@ def create_academic_report():
     <b>Appendix E: MEV Signers - Attack Patterns & Value Extraction Analysis</b><br/>
     Detailed breakdown of unique attacker signatures, their behavioral patterns, success rates, and value extraction methodologies. Includes signer-to-profit mapping and specialization analysis.<br/>
     <br/>
-    <b>Appendix F: Unique MEV Signer Patterns and Value Extraction Methods</b><br/>
-    In-depth analysis of attack mechanics, execution patterns, and value extraction techniques employed by different MEV implementation strategies. Includes empirical evidence and technical specifications.<br/>
+    <b>Appendix F: MEV Attack Patterns and Mechanics</b><br/>
+    Pattern-level analysis of observed MEV attack behavior across protocols, including sandwich attacks, multi-hop arbitrage, and cross-pool exploitation mechanisms.<br/>
     <br/>
-    <b>Appendix G: Verified Attack Cases (Ground Truth)</b><br/>
-    Data-backed case summaries derived directly from the validated attack dataset (all_fat_sandwich_only.csv). Includes top-profit events with attacker, validator, pool, and net profit fields from canonical outputs.<br/>
+    <b>Appendix G: Unique MEV Signer Patterns and Value Extraction Methods</b><br/>
+    In-depth analysis of attack mechanics, execution patterns, and value extraction techniques employed by different MEV implementation strategies. Includes empirical evidence and technical specifications.<br/>
     <br/>
     <b>Appendix H: Analysis Tools and Methodologies</b><br/>
     Documentation of Python frameworks, libraries, machine learning tools, and statistical methods used throughout the analysis. Includes references to scikit-learn models, Monte Carlo simulation engines, and data processing pipelines.<br/>
@@ -2291,8 +2291,8 @@ def create_academic_report():
     story.append(Paragraph(signer_summary_text, normal_style))
     story.append(Spacer(1, 0.1*inch))
     
-    # Appendix G: MEV Attack Patterns
-    story.append(Paragraph("Appendix G: MEV Attack Patterns and Mechanics", heading2_style))
+    # Appendix F: MEV Attack Patterns
+    story.append(Paragraph("Appendix F: MEV Attack Patterns and Mechanics", heading2_style))
     
     attack_patterns_intro = (
         "<b>Observed Attack Pattern Summary</b><br/><br/>"
@@ -2324,73 +2324,8 @@ def create_academic_report():
     story.append(Paragraph(mev_pattern_summary, normal_style))
     story.append(Spacer(1, 0.1*inch))
 
-    story.append(Paragraph("Top Verified Cases (Ground Truth Dataset)", heading3_style))
-    case_source_rel = "02_mev_detection/filtered_output/all_fat_sandwich_only.csv"
-    case_source_path = os.path.join(base_dir, case_source_rel)
-    verified_case_rows = []
-
-    try:
-        case_df = pd.read_csv(case_source_path)
-        required_case_cols = ["attacker_signer", "validator", "net_profit_sol", "classification"]
-        if all(col in case_df.columns for col in required_case_cols):
-            case_df = case_df.dropna(subset=["attacker_signer", "validator", "net_profit_sol"])
-            case_df = case_df.sort_values("net_profit_sol", ascending=False).head(5)
-
-            for rank, (_, row) in enumerate(case_df.iterrows(), start=1):
-                attacker = str(row.get("attacker_signer", "N/A"))
-                validator = str(row.get("validator", "N/A"))
-                pool_name = str(row.get("amm_trade", "N/A"))
-                classification = str(row.get("classification", "N/A"))
-                confidence = str(row.get("confidence", "N/A"))
-                net_profit = float(row.get("net_profit_sol", 0.0))
-
-                attacker_short = f"{attacker[:6]}...{attacker[-4:]}" if len(attacker) > 14 else attacker
-                validator_short = f"{validator[:6]}...{validator[-4:]}" if len(validator) > 14 else validator
-
-                verified_case_rows.append([
-                    str(rank),
-                    attacker_short,
-                    pool_name,
-                    validator_short,
-                    f"{net_profit:.3f}",
-                    classification,
-                    confidence
-                ])
-    except Exception:
-        verified_case_rows = []
-
-    if verified_case_rows:
-        verified_case_table_data = [["Rank", "Attacker", "Pool", "Validator", "Net Profit (SOL)", "Class", "Confidence"]] + verified_case_rows
-        verified_case_table = Table(verified_case_table_data, colWidths=[0.45*inch, 1.1*inch, 1.0*inch, 1.1*inch, 1.0*inch, 0.95*inch, 0.9*inch])
-        verified_case_table.setStyle(TableStyle([
-            ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#f0f4f8')),
-            ('TEXTCOLOR', (0, 0), (-1, 0), colors.HexColor('#1a1a1a')),
-            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-            ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
-            ('FONTSIZE', (0, 0), (-1, -1), 8.5),
-            ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#d0d7de')),
-            ('ALIGN', (0, 0), (0, -1), 'CENTER'),
-            ('ALIGN', (4, 0), (4, -1), 'RIGHT'),
-            ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
-            ('TOPPADDING', (0, 0), (-1, -1), 4),
-            ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
-        ]))
-        story.append(verified_case_table)
-        story.append(Spacer(1, 0.08*inch))
-        story.append(Paragraph(
-            f"Source: {case_source_rel} (top 5 by net_profit_sol, n={len(verified_case_rows)}).",
-            normal_style
-        ))
-        story.append(Spacer(1, 0.1*inch))
-    else:
-        story.append(Paragraph(
-            "Ground-truth case table unavailable: could not read validated attack CSV at report generation time.",
-            normal_style
-        ))
-        story.append(Spacer(1, 0.1*inch))
-
-    # Appendix F: MEV Signer Patterns and Value Extraction
-    story.append(Paragraph("Appendix F: Unique MEV Signer Patterns and Value Extraction Methods", heading2_style))
+    # Appendix G: MEV Signer Patterns and Value Extraction
+    story.append(Paragraph("Appendix G: Unique MEV Signer Patterns and Value Extraction Methods", heading2_style))
     
     mev_patterns_text = (
         "<b>MEV Signer Classification and Activity Patterns</b><br/><br/>"

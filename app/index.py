@@ -5,6 +5,16 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
+# Vercel-compatible import (app/ is root in Vercel Python runtime)
+try:
+    from dangerous_pairs_ranking import build_dangerous_pairs_ranking
+except ModuleNotFoundError:
+    # Fallback for local development
+    import sys
+    import os
+    sys.path.insert(0, os.path.dirname(__file__))
+    from dangerous_pairs_ranking import build_dangerous_pairs_ranking
+
 app = dash.Dash(__name__)
 server = app.server
 
@@ -62,30 +72,25 @@ token_risk_factors = pd.DataFrame({
 
 # Case Studies
 case_studies = pd.DataFrame({
-    "Case": [
-        "BisonFi WIF/BONK Arbitrage",
-        "JUP/WSOL Launch Flash Crash Extraction",
-        "PYTH/WSOL Multi-Slot Attack",
-        "PYTH/WSOL Oracle Lag Exploitation",
-        "SOL/USDC Critical Liquidity Drain"
+    "Rank": [1, 2, 3, 4, 5],
+    "Attacker": [
+        "YubQzu18...N6tP",
+        "YubVwWeg...NXQW",
+        "AEB9dXBo...Sf4R",
+        "YubozzSn...fEWj",
+        "CatyeC3L...rSiP",
     ],
-    "Target": [
-        "BisonFi WIF/SOL + BONK/SOL",
-        "JUP/WSOL launch-period liquidity",
-        "PYTH/WSOL high-volatility window",
-        "PYTH/WSOL oracle-dependent pricing",
-        "SOL/USDC reserve depletion phase"
+    "Pool": ["HumidiFi", "HumidiFi", "HumidiFi", "HumidiFi", "BisonFi"],
+    "Validator": [
+        "22rU5yUm...bJDU",
+        "DRpbCBMx...21hy",
+        "HEL1USMZ...e2TU",
+        "5pPRHnie...HzSm",
+        "HnfPZDrb...CgML",
     ],
-    "Attack Slot(s)": [
-        "391,935,880-391,935,882",
-        "460,701,000",
-        "391,934,112-391,934,116",
-        "461,628,000",
-        "463,311,000"
-    ],
-    "Profit (SOL)": ["3.99 (209% ROI)", "3.18 (91% ROI)", "4.61 gross (552% ROI)", "2.86 (102% ROI)", "n/a in summary feed"],
-    "Method": ["Cross-pair arbitrage + dual sandwich", "Single-slot flash-crash sandwich", "Multi-slot sandwich + LP fees", "Oracle-lag sandwich", "Liquidity drain + sandwich sequence"],
-    "Attacker": ["AEB9dXBo...Y3zP", "YubQzu18...N6tP", "AEB9dXBo...Sf4R", "YubVwWeg...NXQW", "(from CASE-003 record)"]
+    "Class": ["FAT_SANDWICH", "FAT_SANDWICH", "FAT_SANDWICH", "FAT_SANDWICH", "FAT_SANDWICH"],
+    "Net Profit (SOL)": [13.716, 4.860, 3.888, 2.916, 2.691],
+    "Confidence": ["high", "high", "high", "high", "high"],
 })
 
 # ============ LAYOUT ============
@@ -102,59 +107,51 @@ app.layout = html.Div([
     # Section 5b: TOP STORIES - Attack Case Studies (FEATURED)
     html.Div([
         html.Div([
-                html.H2("TOP STORIES: Real-World Attack Case Studies",
+                html.H2("TOP STORIES: Verified Attack Cases (Ground Truth)",
                     style={"fontSize": "22px", "fontWeight": 700, "marginBottom": "16px", "color": "#dc2626"}),
-                 html.P("Five detailed case studies with exact slot references from the analysis dataset",
+                 html.P("Top 5 validated attacks from 02_mev_detection/filtered_output/all_fat_sandwich_only.csv (617 total validated FAT_SANDWICH events).",
                    style={"fontSize": "14px", "color": "#6b7280", "marginBottom": "24px"}),
         ], style={"backgroundColor": "#fef2f2", "border": "2px solid #dc2626", "padding": "20px", "borderRadius": "8px", "marginBottom": "24px"}),
         
         # Quick stats
         html.Div([
             html.Div([
-                html.Div("7.666 SOL", style={"fontSize": "28px", "fontWeight": 700, "color": "#059669"}),
-                html.Div("Total Attacker Revenue", style={"fontSize": "12px", "color": "#6b7280", "marginTop": "4px"}),
+                html.Div("28.071 SOL", style={"fontSize": "28px", "fontWeight": 700, "color": "#059669"}),
+                html.Div("Top-5 Net Profit", style={"fontSize": "12px", "color": "#6b7280", "marginTop": "4px"}),
             ], style={"backgroundColor": "#f0fdf4", "padding": "16px", "borderRadius": "6px", "textAlign": "center"}),
             
             html.Div([
-                html.Div("10.49 SOL", style={"fontSize": "28px", "fontWeight": 700, "color": "#dc2626"}),
-                html.Div("Victim Losses (6 users)", style={"fontSize": "12px", "color": "#6b7280", "marginTop": "4px"}),
+                html.Div("617", style={"fontSize": "28px", "fontWeight": 700, "color": "#dc2626"}),
+                html.Div("Validated Attacks", style={"fontSize": "12px", "color": "#6b7280", "marginTop": "4px"}),
             ], style={"backgroundColor": "#fef2f2", "padding": "16px", "borderRadius": "6px", "textAlign": "center"}),
             
             html.Div([
-                html.Div("552%", style={"fontSize": "28px", "fontWeight": 700, "color": "#f59e0b"}),
-                html.Div("Max ROI (Case 2)", style={"fontSize": "12px", "color": "#6b7280", "marginTop": "4px"}),
+                html.Div("13.716 SOL", style={"fontSize": "28px", "fontWeight": 700, "color": "#f59e0b"}),
+                html.Div("Highest Single Net", style={"fontSize": "12px", "color": "#6b7280", "marginTop": "4px"}),
             ], style={"backgroundColor": "#fffbeb", "padding": "16px", "borderRadius": "6px", "textAlign": "center"}),
             
             html.Div([
-                html.Div("3.365 SOL", style={"fontSize": "28px", "fontWeight": 700, "color": "#3b82f6"}),
-                html.Div("Validator Revenue", style={"fontSize": "12px", "color": "#6b7280", "marginTop": "4px"}),
+                html.Div("5", style={"fontSize": "28px", "fontWeight": 700, "color": "#3b82f6"}),
+                html.Div("Unique Validators (Top-5)", style={"fontSize": "12px", "color": "#6b7280", "marginTop": "4px"}),
             ], style={"backgroundColor": "#eff6ff", "padding": "16px", "borderRadius": "6px", "textAlign": "center"}),
         ], style={"display": "grid", "gridTemplateColumns": "repeat(4, 1fr)", "gap": "12px", "marginBottom": "24px"}),
         
         # Case Studies Summary Table
-        html.H3("Case Studies Overview", style={"fontSize": "16px", "fontWeight": 700, "marginBottom": "12px"}),
+        html.H3("Top Verified Cases", style={"fontSize": "16px", "fontWeight": 700, "marginBottom": "12px"}),
         dash_table.DataTable(
             data=case_studies.to_dict('records'),
             columns=[{"name": i, "id": i} for i in case_studies.columns],
             style_cell={"padding": "12px", "fontSize": "12px", "textAlign": "left"},
             style_header={"backgroundColor": "#f3f4f6", "fontWeight": 700},
             style_cell_conditional=[
-                {"if": {"column_id": "Profit (SOL)"}, "fontWeight": 700, "color": "#dc2626"},
+                {"if": {"column_id": "Net Profit (SOL)"}, "fontWeight": 700, "color": "#dc2626"},
             ],
         ),
         
         html.P([
-            html.Strong("Detailed Attack Breakdowns:"),
+            html.Strong("Data integrity note:"),
             html.Br(),
-            "• ", html.Strong("Case 1 (slots 391,935,880-391,935,882 | WIF/SOL + BONK/SOL):"), " Cross-pair arbitrage sequence across two correlated pools; 3.99 SOL gross, 209% ROI, dual-sandwich path.",
-            html.Br(),
-            "• ", html.Strong("Case 2 (slot 460,701,000 | JUP/WSOL launch):"), " Single-slot flash-crash extraction with front-run/victim/back-run ordering and rapid unwind.",
-            html.Br(),
-            "• ", html.Strong("Case 3 (slots 391,934,112-391,934,116 | PYTH/WSOL):"), " Multi-slot sandwich + LP fee capture structure spanning 3 slots during high-volatility window.",
-            html.Br(),
-            "• ", html.Strong("Case 4 (slot 461,628,000 | PYTH/WSOL oracle lag):"), " Oracle-lag exploitation around victim execution in the same slot with coordinated tip/bundle placement.",
-            html.Br(),
-            "• ", html.Strong("Case 5 (slot 463,311,000 | SOL/USDC drain):"), " Critical liquidity drain attack window identified in CASE-003, associated with crisis-style depletion conditions.",
+            "Prior reconstructed narratives and synthetic timelines were removed. This table is sourced directly from validated dataset fields only: attacker_signer, validator, amm_trade, classification, net_profit_sol.",
         ], style={"fontSize": "13px", "color": "#374151", "backgroundColor": "#f9fafb", "padding": "16px", "borderRadius": "6px", 
                   "lineHeight": "1.8", "marginTop": "16px", "marginBottom": "0"}),
 
@@ -243,6 +240,9 @@ app.layout = html.Div([
             ),
         ], style={"marginTop": "20px"}),
     ], style={"marginBottom": "40px"}),
+    
+    # Section 5a: Token Pair Vulnerability Rankings (New - Added per user request)
+    build_dangerous_pairs_ranking(),
 
     # Section 2a: Why MEV Happens (Narrative)
     html.Div([
