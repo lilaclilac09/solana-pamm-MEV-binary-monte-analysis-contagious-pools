@@ -2,6 +2,12 @@
 """
 Regenerate ALL visualizations using ONLY the filtered data (617 validated fat sandwich attacks)
 This ensures no false positives (failed sandwiches or multi-hop arbitrage) contaminate the analysis.
+
+IMPORTANT: Figure 7A MEV Score Fix
+This version calculates ACTUAL MEV scores for MEV bots using the same formula as aggregators:
+    mev_score = (late_slot_ratio * 0.3 + oracle_backrun_ratio * 0.3 + 
+                 high_bytes_ratio * 0.2 + cluster_ratio * 0.2)
+NOT using fake profit-based proxy.
 """
 import pandas as pd
 import numpy as np
@@ -20,6 +26,7 @@ BASE = Path(__file__).resolve().parent.parent
 FILTERED_DATA = BASE / '02_mev_detection' / 'filtered_output' / 'all_fat_sandwich_only.csv'
 AGGREGATOR_DATA = BASE / '07_ml_classification' / 'derived' / 'aggregator_analysis' / 'aggregators_with_pools.csv'
 POOL_SUMMARY = BASE / '02_mev_detection' / 'POOL_SUMMARY.csv'
+RAW_TRADE_DATA = BASE / '01_data_cleaning' / 'outputs' / 'pamm_clean_final.parquet'
 OUTPUT_DIR = BASE / '02_mev_detection' / 'filtered_output' / 'plots'
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -55,6 +62,129 @@ print(f"  Aggregator signers: {len(df_agg):,}")
 print(f"\n✓ Loading pool summary: {POOL_SUMMARY}")
 df_pools = pd.read_csv(POOL_SUMMARY)
 print(f"  Pools analyzed: {len(df_pools)}")
+
+# ============================================================================
+# CRITICAL FIX: Calculate actual MEV scores for MEV bots (same formula as aggregators)
+# ============================================================================
+print(f"\n{'='*80}")
+print("CALCULATING MEV SCORES FOR MEV BOTS (FIGURE 7A FIX)")
+print("="*80)
+print("\nLoading raw trade data to calculate MEV bot features...")
+print(f"Path: {RAW_TRADE_DATA}")
+
+mev_bot_features = {}
+try:
+    if RAW_TRADE_DATA.exists():
+        df_events_raw = pd.read_parquet(RAW_TRADE_DATA)
+        df_trades_raw = df_events_raw[df_events_raw['kind'] == 'TRADE'].copy()
+        print(f"✓ Loaded {len(df_trades_raw):,} trade records")
+        
+        # Get unique MEV bot signers from filtered data
+        mev_bot_signers = df_fat['signer'].unique()
+        print(f"✓ Found {len(mev_bot_signers)} unique MEV bot signers in filtered data")
+        
+        # Calculate MEV score for each MEV bot using the same formula as aggregators:
+        # mev_score = (late_slot_ratio * 0.3 + oracle_backrun_ratio * 0.3 + 
+        #              high_bytes_ratio * 0.2 + cluster_ratio * 0.2)
+        print("\nCalculating MEV features for MEV bots...")
+        
+        processed = 0
+        for signer in mev_bot_signers:
+            if processed % 50 == 0 and processed > 0:
+                print(f"  Processed {processed}/{len(mev_bot_signers)} signers...")
+            
+            signer_trades = df_trades_raw[df_trades_raw['signer'] == signer].copy()
+            
+            if len(signer_trades) < 2:
+                mev_bot_features[signer] = {
+                    'late_slot_ratio': 0.0,
+                    'oracle_backrun_ratio': 0.0,
+                    'high_bytes_ratio': 0.0,
+                    'cluster_ratio': 0.0,
+                    'mev_score': 0.0
+                }
+                processed += 1
+                continue
+            
+            total_trades = len(signer_trades)
+            
+            # 1. Late slot ratio (trades > 300ms from first shred)
+            late_slot_trades = (signer_trades['us_since_first_shred'] > 300000).sum()
+            late_slot_ratio = late_slot_trades / total_trades
+            
+            # 2. Oracle backrun ratio
+            signer_slots = signer_trades['slot'].unique()
+            oracle_backrun_count = 0
+            
+            # Get oracle events in the same slots
+            slot_oracles = df_events_raw[
+                (df_events_raw['slot'].isin(signer_slots)) & 
+                (df_events_raw['kind'] == 'ORACLE')
+            ][['slot', 'ms_time']].copy()
+            
+            if len(slot_oracles) > 0:
+                oracle_by_slot = slot_oracles.groupby('slot')['ms_time'].apply(list).to_dict()
+                for _, trade in signer_trades.iterrows():
+                    slot = trade['slot']
+                    trade_time = trade['ms_time']
+                    if slot in oracle_by_slot:
+                        oracle_times = oracle_by_slot[slot]
+                        time_diffs = [abs(ot - trade_time) for ot in oracle_times]
+                        if min(time_diffs) < 50:
+                            oracle_backrun_count += 1
+            
+            oracle_backrun_ratio = oracle_backrun_count / total_trades if total_trades > 0 else 0
+            
+            # 3. High bytes ratio (transaction bytes > 50)
+            if 'bytes_changed_trade' in signer_trades.columns:
+                high_bytes_trades = (signer_trades['bytes_changed_trade'] > 50).sum()
+                high_bytes_ratio = high_bytes_trades / total_trades if total_trades > 0 else 0
+            else:
+                high_bytes_ratio = 0.0
+            
+            # 4. Cluster ratio (multiple trades in same slot)
+            slot_counts = signer_trades.groupby('slot').size()
+            clustered_slots = (slot_counts >= 2).sum()
+            unique_slots = signer_trades['slot'].nunique()
+            cluster_ratio = clustered_slots / unique_slots if unique_slots > 0 else 0
+            
+            # Calculate MEV score using the standard formula
+            mev_score = (
+                late_slot_ratio * 0.3 +
+                oracle_backrun_ratio * 0.3 +
+                high_bytes_ratio * 0.2 +
+                cluster_ratio * 0.2
+            )
+            
+            mev_bot_features[signer] = {
+                'late_slot_ratio': late_slot_ratio,
+                'oracle_backrun_ratio': oracle_backrun_ratio,
+                'high_bytes_ratio': high_bytes_ratio,
+                'cluster_ratio': cluster_ratio,
+                'mev_score': mev_score
+            }
+            
+            processed += 1
+        
+        print(f"✓ Calculated MEV scores for {len(mev_bot_features)} MEV bot signers")
+        
+        # Summary statistics
+        mev_scores = [v['mev_score'] for v in mev_bot_features.values()]
+        print(f"\nMEV Bot Statistics (from {len(mev_scores)} unique signers):")
+        print(f"  Mean MEV score: {np.mean(mev_scores):.3f}")
+        print(f"  Median MEV score: {np.median(mev_scores):.3f}")
+        print(f"  Std dev: {np.std(mev_scores):.3f}")
+        print(f"  Min: {np.min(mev_scores):.3f}")
+        print(f"  Max: {np.max(mev_scores):.3f}")
+        print(f"  % above 0.55 threshold: {sum(1 for s in mev_scores if s > 0.55)/len(mev_scores)*100:.1f}%")
+        
+    else:
+        print(f"⚠️  Warning: Raw trade data not found at {RAW_TRADE_DATA}")
+        print("   Will use profit-based proxy for MEV bots (less accurate)")
+        
+except Exception as e:
+    print(f"⚠️  Warning: Error processing raw trades: {e}")
+    print("   Will use profit-based proxy for MEV bots (less accurate)")
 
 print("\n" + "="*80)
 print("GENERATING VISUALIZATIONS WITH FILTERED DATA")
@@ -166,6 +296,23 @@ mev_pool_counts = df_fat.groupby('signer')['pool'].nunique() if 'pool' in df_fat
 mev_avg_profit = df_fat.groupby('signer')['net_profit_sol'].mean()
 mev_attack_count = df_fat.groupby('signer').size()
 
+# ===== MEV Bot MEV Scores (CORRECTED using actual formula) =====
+# Use calculated MEV scores from above, fallback to old proxy if not available
+mev_scores_corrected = {}
+if mev_bot_features:
+    for signer in mev_avg_profit.index:
+        if signer in mev_bot_features:
+            mev_scores_corrected[signer] = mev_bot_features[signer]['mev_score']
+        else:
+            # Fallback for signers not in calculated features
+            mev_scores_corrected[signer] = mev_avg_profit[signer] / mev_avg_profit.max()
+else:
+    # Fallback if feature calculation failed
+    mev_scores_corrected = {signer: p / mev_avg_profit.max() 
+                            for signer, p in mev_avg_profit.items()}
+
+mev_scores_series = pd.Series(mev_scores_corrected)
+
 # Aggregator data
 agg_pool_counts = df_agg['unique_pools'] if 'unique_pools' in df_agg.columns else pd.Series()
 agg_mev_scores = df_agg['mev_score'] if 'mev_score' in df_agg.columns else pd.Series()
@@ -184,21 +331,22 @@ if len(mev_pool_counts) > 0 and len(agg_pool_counts) > 0:
     ax1.text(0.95, 0.95, f'MEV: {mev_pool_counts.mean():.1f} pools avg\nAgg: {agg_pool_counts.mean():.1f} pools avg',
              transform=ax1.transAxes, ha='right', va='top', bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
 
-# 2. MEV Score Distribution
+# 2. MEV Score Distribution (NOW USING CORRECT FORMULA)
 ax2 = axes[0, 1]
-if len(agg_mev_scores) > 0:
-    # Create MEV score for bots (proxy: normalized profit consistency)
-    if len(mev_avg_profit) > 0:
-        mev_score_proxy = (mev_avg_profit / mev_avg_profit.max()).fillna(0)
-        ax2.hist([mev_score_proxy, agg_mev_scores], bins=20, label=['MEV Bots', 'Aggregators'],
-                color=['red', 'blue'], alpha=0.6, edgecolor='black')
-        ax2.set_xlabel('MEV Score', fontweight='bold')
-        ax2.set_ylabel('Frequency', fontweight='bold')
-        ax2.set_title('MEV Score Distribution', fontweight='bold')
-        ax2.legend()
-        ax2.grid(axis='y', alpha=0.3)
-        ax2.text(0.95, 0.95, f'MEV: {mev_score_proxy.mean():.3f} avg\nAgg: {agg_mev_scores.mean():.3f} avg',
-                 transform=ax2.transAxes, ha='right', va='top', bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
+if len(agg_mev_scores) > 0 and len(mev_scores_series) > 0:
+    ax2.hist([mev_scores_series, agg_mev_scores], bins=20, label=['MEV Bots', 'Aggregators'],
+            color=['red', 'blue'], alpha=0.6, edgecolor='black')
+    ax2.set_xlabel('MEV Score', fontweight='bold')
+    ax2.set_ylabel('Frequency', fontweight='bold')
+    ax2.set_title('MEV Score Distribution (CORRECTED)', fontweight='bold')
+    ax2.legend()
+    ax2.grid(axis='y', alpha=0.3)
+    ax2.axvline(0.35, color='green', linestyle='--', linewidth=1.5, alpha=0.7, label='Threshold (0.35)')
+    
+    mev_mean = mev_scores_series.mean()
+    agg_mean = agg_mev_scores.mean()
+    ax2.text(0.95, 0.95, f'MEV: {mev_mean:.3f} avg\nAgg: {agg_mean:.3f} avg\nThreshold: 0.35',
+             transform=ax2.transAxes, ha='right', va='top', bbox=dict(boxstyle='round', facecolor='yellow', alpha=0.7))
 
 # 3. Attack/Trade Frequency
 ax3 = axes[0, 2]
@@ -211,19 +359,22 @@ if len(mev_attack_count) > 0 and len(agg_trade_freq) > 0:
     ax3.legend()
     ax3.grid(axis='y', alpha=0.3)
 
-# 4. Scatter: Pool Count vs MEV Score
+# 4. Scatter: Pool Count vs MEV Score (NOW USING CORRECT FORMULA)
 ax4 = axes[1, 0]
 if len(agg_pool_counts) > 0 and len(agg_mev_scores) > 0:
     ax4.scatter(agg_pool_counts, agg_mev_scores, alpha=0.5, c='blue', label='Aggregators', s=30)
-    if len(mev_pool_counts) > 0 and len(mev_score_proxy) > 0:
-        ax4.scatter(mev_pool_counts, mev_score_proxy, alpha=0.5, c='red', label='MEV Bots', s=30)
+    if len(mev_pool_counts) > 0 and len(mev_scores_series) > 0:
+        ax4.scatter(mev_pool_counts, mev_scores_series, alpha=0.5, c='red', label='MEV Bots', s=30)
     ax4.set_xlabel('Unique Pools', fontweight='bold')
     ax4.set_ylabel('MEV Score', fontweight='bold')
-    ax4.set_title('Pool Diversity vs MEV Score', fontweight='bold')
+    ax4.set_title('Pool Diversity vs MEV Score (CORRECTED)', fontweight='bold')
     ax4.legend()
     ax4.grid(alpha=0.3)
     # Add separation line (decision boundary)
-    ax4.axvline(x=5, color='green', linestyle='--', linewidth=2, alpha=0.7, label='Threshold (5 pools)')
+    ax4.axvline(x=5, color='green', linestyle='--', linewidth=2, alpha=0.7)
+    ax4.axhline(y=0.35, color='orange', linestyle='--', linewidth=2, alpha=0.7)
+    ax4.text(0.05, 0.95, 'Thresholds:\n5 pools\n0.35 score', transform=ax4.transAxes,
+             ha='left', va='top', bbox=dict(boxstyle='round', facecolor='lightyellow', alpha=0.7))
 
 # 5. Profit per Event Comparison
 ax5 = axes[1, 1]
@@ -237,22 +388,22 @@ if len(mev_avg_profit) > 0:
     ax5.text(0.5, 0.95, f'Median: {mev_avg_profit.median():.4f} SOL\nMean: {mev_avg_profit.mean():.4f} SOL',
              transform=ax5.transAxes, ha='center', va='top', bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
 
-# 6. Key Differences Summary Table
+# 6. Key Differences Summary Table (CORRECTED)
 ax6 = axes[1, 2]
 ax6.axis('off')
 
-# Calculate statistics
+# Calculate statistics (with corrected MEV scores)
 mev_pools_mean = mev_pool_counts.mean() if len(mev_pool_counts) > 0 else 0
 agg_pools_mean = agg_pool_counts.mean() if len(agg_pool_counts) > 0 else 0
-mev_score_mean = mev_score_proxy.mean() if 'mev_score_proxy' in locals() and len(mev_score_proxy) > 0 else 0
+mev_score_mean_corrected = mev_scores_series.mean()
 agg_score_mean = agg_mev_scores.mean() if len(agg_mev_scores) > 0 else 0
 
 summary_text = f"""
-KEY DIFFERENCES:
+KEY DIFFERENCES (CORRECTED):
 
 MEV BOTS (617 validated):
 • Pool focus: {mev_pools_mean:.1f} pools avg
-• MEV score: {mev_score_mean:.3f} avg
+• MEV score: {mev_score_mean_corrected:.3f} avg
 • Attacks: {len(df_fat)} total
 • Avg profit: {mev_avg_profit.mean():.4f} SOL
 • Behavior: Targeted exploitation
@@ -265,15 +416,18 @@ AGGREGATORS (1,908 signers):
 • Behavior: Multi-pool routing
 
 SEPARATION CRITERIA:
-✓ Pool count threshold: 5+
-✓ MEV score threshold: <0.35
-✓ No victim patterns
-✓ Token path: cyclic vs linear
+✓ Pool count guide: 5+ (reference)
+✓ MEV score guide: 0.35 (heuristic reference)
+✓ Victim-pattern evidence required
+✓ Token path context: cyclic vs linear
+
+NOTE: MEV scores now use correct 
+formula (transaction features, not profit)
 """
 
 ax6.text(0.1, 0.9, summary_text, transform=ax6.transAxes, 
-         fontsize=10, verticalalignment='top', fontfamily='monospace',
-         bbox=dict(boxstyle='round', facecolor='lightblue', alpha=0.3))
+         fontsize=9, verticalalignment='top', fontfamily='monospace',
+         bbox=dict(boxstyle='round', facecolor='#ffffcc', alpha=0.8, pad=0.7))
 
 plt.tight_layout()
 output_file = OUTPUT_DIR / 'aggregator_vs_mev_detailed_comparison.png'
