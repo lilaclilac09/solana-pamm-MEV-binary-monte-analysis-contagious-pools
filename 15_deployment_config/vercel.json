@@ -8,6 +8,10 @@
   ],
   "routes": [
     {
+      "src": "/(.*\\.pdf)",
+      "dest": "/public/$1"
+    },
+    {
       "src": "/public/(.*)",
       "dest": "/public/$1"
     },
