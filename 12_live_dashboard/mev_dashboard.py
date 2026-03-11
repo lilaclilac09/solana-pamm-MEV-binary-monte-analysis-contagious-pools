@@ -8,6 +8,31 @@ import plotly.graph_objects as go
 app = dash.Dash(__name__)
 server = app.server
 
+# Vercel Web Analytics integration
+app.index_string = '''
+<!DOCTYPE html>
+<html>
+    <head>
+        {%metas%}
+        <title>{%title%}</title>
+        {%favicon%}
+        {%css%}
+        <script>
+            window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+        </script>
+        <script defer src="/_vercel/insights/script.js"></script>
+    </head>
+    <body>
+        {%app_entry%}
+        <footer>
+            {%config%}
+            {%scripts%}
+            {%renderer%}
+        </footer>
+    </body>
+</html>
+'''
+
 # ============ DATA ============
 
 # Token Pair Risk Analysis
