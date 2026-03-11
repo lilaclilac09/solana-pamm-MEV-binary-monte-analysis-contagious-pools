@@ -172,6 +172,31 @@ case_studies = pd.DataFrame({
 app = dash.Dash(__name__, suppress_callback_exceptions=True)
 server = app.server
 
+# Vercel Web Analytics integration
+app.index_string = '''
+<!DOCTYPE html>
+<html>
+    <head>
+        {%metas%}
+        <title>{%title%}</title>
+        {%favicon%}
+        {%css%}
+        <script>
+            window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+        </script>
+        <script defer src="/_vercel/insights/script.js"></script>
+    </head>
+    <body>
+        {%app_entry%}
+        <footer>
+            {%config%}
+            {%scripts%}
+            {%renderer%}
+        </footer>
+    </body>
+</html>
+'''
+
 # Aileen's personal brand colors
 colors = {
     'primary': '#6C63FF',
