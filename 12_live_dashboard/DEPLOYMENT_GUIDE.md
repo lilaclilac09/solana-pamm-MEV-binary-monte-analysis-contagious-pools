@@ -1,5 +1,12 @@
 #  Deployment Guide for aileen.xyz
 
+## 🚫 Deployment Lock & Isolation (IMPORTANT)
+- aileena.xyz and mev.aileena.xyz must be deployed from separate folders and Vercel projects.
+- Do NOT deploy from the root if you intend to update only mev.aileena.xyz.
+- Remove all Vercel Git integrations and disable automatic deployments for both projects.
+- Only use manual deployment scripts for mev.aileena.xyz.
+- See DEPLOYMENT_LOCK_WARNING.md and DEPLOYMENT_LOCK_GUIDE.md for details.
+
 ## Option 1: Deploy to aileen.xyz Subdomain (Recommended)
 
 ### Method A: Using Vercel (Easiest)
