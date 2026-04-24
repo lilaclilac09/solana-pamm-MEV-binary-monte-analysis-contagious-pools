@@ -46,3 +46,6 @@ dist/
 # Node
 node_modules/
 .next/
+
+# Benchmark-generated parquet files (reproducible)
+00_planning_and_documentation/duckdb_parquet_benchmark/*.parquet
