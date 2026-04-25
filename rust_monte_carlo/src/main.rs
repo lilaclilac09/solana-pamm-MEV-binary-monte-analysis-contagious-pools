@@ -11,10 +11,17 @@
 
 use std::fs::File;
 use std::path::PathBuf;
+use std::sync::Arc;
 use std::sync::Mutex;
 use std::time::Instant;
 
+use arrow::array::{ArrayRef, Float64Array, StringArray, UInt32Array, UInt8Array};
+use arrow::datatypes::{DataType, Field, Schema};
+use arrow::record_batch::RecordBatch;
 use clap::Parser;
+use parquet::arrow::ArrowWriter;
+use parquet::basic::Compression;
+use parquet::file::properties::WriterProperties;
 use rand::rngs::StdRng;
 use rand::{Rng, SeedableRng};
 use rand_distr::{Binomial, Distribution, Normal, Uniform};
@@ -47,6 +54,10 @@ struct Cli {
     /// Optional tag suffix for output filenames (default: "rust")
     #[arg(long, default_value = "rust")]
     tag: String,
+
+    /// Skip the Parquet copy (CSV only).
+    #[arg(long, default_value_t = false)]
+    no_parquet: bool,
 }
 
 #[derive(Clone, Copy)]
@@ -148,13 +159,71 @@ fn median(sorted: &[f64]) -> f64 {
     quantile(sorted, 0.5)
 }
 
+fn parquet_schema() -> Arc<Schema> {
+    Arc::new(Schema::new(vec![
+        Field::new("sim", DataType::UInt32, false),
+        Field::new("trigger", DataType::UInt8, false),
+        Field::new("cascades", DataType::UInt32, false),
+        Field::new("slots_jumped", DataType::UInt32, false),
+        Field::new("total_loss", DataType::Float64, false),
+        Field::new("scenario", DataType::Utf8, false),
+        Field::new("scenario_name", DataType::Utf8, false),
+        Field::new("infra_gap", DataType::Float64, false),
+        Field::new("high_risk", DataType::UInt8, false),
+        Field::new("oracle_lag_ms", DataType::Float64, false),
+    ]))
+}
+
+fn write_parquet(
+    out_path: &PathBuf,
+    sim: Vec<u32>,
+    trigger: Vec<u8>,
+    cascades: Vec<u32>,
+    slots_jumped: Vec<u32>,
+    total_loss: Vec<f64>,
+    scenario_str: &'static str,
+    scenario_name_str: &'static str,
+    infra_gap: Vec<f64>,
+    high_risk: Vec<u8>,
+    oracle_lag_ms: f64,
+) {
+    let n = sim.len();
+    let schema = parquet_schema();
+    let scenario_arr: ArrayRef = Arc::new(StringArray::from(vec![scenario_str; n]));
+    let scenario_name_arr: ArrayRef = Arc::new(StringArray::from(vec![scenario_name_str; n]));
+    let oracle_lag_arr: ArrayRef = Arc::new(Float64Array::from(vec![oracle_lag_ms; n]));
+
+    let cols: Vec<ArrayRef> = vec![
+        Arc::new(UInt32Array::from(sim)),
+        Arc::new(UInt8Array::from(trigger)),
+        Arc::new(UInt32Array::from(cascades)),
+        Arc::new(UInt32Array::from(slots_jumped)),
+        Arc::new(Float64Array::from(total_loss)),
+        scenario_arr,
+        scenario_name_arr,
+        Arc::new(Float64Array::from(infra_gap)),
+        Arc::new(UInt8Array::from(high_risk)),
+        oracle_lag_arr,
+    ];
+    let batch = RecordBatch::try_new(schema.clone(), cols).expect("build record batch");
+
+    let file = File::create(out_path).expect("create parquet file");
+    let props = WriterProperties::builder()
+        .set_compression(Compression::SNAPPY)
+        .build();
+    let mut writer = ArrowWriter::try_new(file, schema, Some(props)).expect("open parquet writer");
+    writer.write(&batch).expect("write parquet batch");
+    writer.close().expect("close parquet writer");
+}
+
 fn run_scenario(
     scenario: &Scenario,
     n_sims: u32,
     oracle_lag: f64,
     base_seed: u64,
     scenario_index: u64,
-    out_path: &PathBuf,
+    csv_path: &PathBuf,
+    parquet_path: Option<&PathBuf>,
 ) -> SummaryRow {
     let started = Instant::now();
 
@@ -175,7 +244,17 @@ fn run_scenario(
     let loss_per_cascade = 50.0 + oracle_lag * 0.3;
     let baseline_loss_jito = 5.0 * loss_per_cascade;
 
-    let mut writer = csv::Writer::from_path(out_path).expect("open output CSV");
+    let mut writer = csv::Writer::from_path(csv_path).expect("open output CSV");
+
+    // Per-column buffers for Parquet write at the end.
+    let cap = n_sims as usize;
+    let mut col_sim: Vec<u32> = Vec::with_capacity(cap);
+    let mut col_trigger: Vec<u8> = Vec::with_capacity(cap);
+    let mut col_cascades: Vec<u32> = Vec::with_capacity(cap);
+    let mut col_slots: Vec<u32> = Vec::with_capacity(cap);
+    let mut col_loss: Vec<f64> = Vec::with_capacity(cap);
+    let mut col_infra: Vec<f64> = Vec::with_capacity(cap);
+    let mut col_high_risk: Vec<u8> = Vec::with_capacity(cap);
 
     let mut triggered_cascades: Vec<f64> = Vec::with_capacity(n_sims as usize / 5);
     let mut triggered_slots: Vec<f64> = Vec::with_capacity(n_sims as usize / 5);
@@ -201,6 +280,13 @@ fn run_scenario(
                     oracle_lag_ms: oracle_lag,
                 })
                 .expect("write row");
+            col_sim.push(sim);
+            col_trigger.push(0);
+            col_cascades.push(0);
+            col_slots.push(0);
+            col_loss.push(0.0);
+            col_infra.push(0.0);
+            col_high_risk.push(0);
             continue;
         }
 
@@ -257,9 +343,32 @@ fn run_scenario(
                 oracle_lag_ms: oracle_lag,
             })
             .expect("write row");
+        col_sim.push(sim);
+        col_trigger.push(1);
+        col_cascades.push(cascades);
+        col_slots.push(slots_jumped);
+        col_loss.push(total_loss);
+        col_infra.push(infra_gap);
+        col_high_risk.push(high_risk);
     }
 
     writer.flush().expect("flush csv");
+
+    if let Some(pq) = parquet_path {
+        write_parquet(
+            pq,
+            col_sim,
+            col_trigger,
+            col_cascades,
+            col_slots,
+            col_loss,
+            scenario.key,
+            scenario.name,
+            col_infra,
+            col_high_risk,
+            oracle_lag,
+        );
+    }
 
     triggered_cascades.sort_by(|a, b| a.partial_cmp(b).unwrap());
     triggered_slots.sort_by(|a, b| a.partial_cmp(b).unwrap());
@@ -332,9 +441,15 @@ fn main() {
 
     let summary_rows = Mutex::new(Vec::<SummaryRow>::new());
 
+    let write_parquet_flag = !cli.no_parquet;
+
     selected.par_iter().for_each(|(idx, scenario)| {
-        let path = cli.out_dir.join(format!(
+        let csv_path = cli.out_dir.join(format!(
             "monte_carlo_{}_{}.csv",
+            scenario.key, cli.tag
+        ));
+        let parquet_path = cli.out_dir.join(format!(
+            "monte_carlo_{}_{}.parquet",
             scenario.key, cli.tag
         ));
         let summary = run_scenario(
@@ -343,7 +458,8 @@ fn main() {
             cli.oracle_lag_ms,
             cli.seed,
             *idx as u64,
-            &path,
+            &csv_path,
+            if write_parquet_flag { Some(&parquet_path) } else { None },
         );
         println!(
             "  [{:>22}] n_sims={} trigger_rate={:.3}% mean_loss={:.2} elapsed={}ms",

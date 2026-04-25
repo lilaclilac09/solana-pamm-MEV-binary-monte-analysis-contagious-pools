@@ -28,13 +28,25 @@ CLI flags:
 - `--out-dir PATH` — output directory (default
   `08_monte_carlo_risk/outputs/rust`).
 - `--tag NAME` — filename suffix; outputs are
-  `monte_carlo_<scenario>_<tag>.csv` and `monte_carlo_summary_<tag>.csv`.
+  `monte_carlo_<scenario>_<tag>.csv`,
+  `monte_carlo_<scenario>_<tag>.parquet`, and
+  `monte_carlo_summary_<tag>.csv`.
+- `--no-parquet` — skip writing the Parquet copies (CSV only).
 
 ## Output schema
 
 Per-scenario CSV columns (identical to Python):
 `sim, trigger, cascades, slots_jumped, total_loss, scenario,
 scenario_name, infra_gap, high_risk, oracle_lag_ms`.
+
+Per-scenario Parquet has the same columns with snappy compression.
+Typical sizes at N = 100 000:
+
+| Scenario              |   CSV |  Parquet | Ratio |
+|-----------------------|------:|---------:|------:|
+| jito_baseline         | 6.5 MB |  865 KB  |  7.5x |
+| bam_privacy           | 8.0 MB | 1003 KB  |  8.0x |
+| harmony_multibuilder  |  11 MB |  1.1 MB  |  10x  |
 
 Summary CSV (one row per scenario): `scenario, n_sims, attack_rate,
 attack_rate_pct, mean_cascades, median_cascades, p90_cascades,
