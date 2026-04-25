@@ -49,3 +49,7 @@ node_modules/
 
 # Benchmark-generated parquet files (reproducible)
 00_planning_and_documentation/duckdb_parquet_benchmark/*.parquet
+
+# Rust build artefacts
+rust_monte_carlo/target/
+rust_monte_carlo/Cargo.lock
