@@ -68,6 +68,30 @@ run_step "contagion_visualizer_optimized" \
 run_step "validator_contagion_optimized" \
     python3 04_validator_analysis/12_validator_contagion_analysis_optimized.py
 
+# Step 7: smoke-load optimized pool coordination + contagious vulnerability
+# analyzers (their output is exercised against the available CSVs).
+run_step "pool_coordination_optimized" \
+    python3 -c "
+import importlib.util, pandas as pd
+spec = importlib.util.spec_from_file_location('m','06_pool_analysis/pool_coordination_network_analysis_optimized.py')
+m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
+df = pd.read_csv('02_mev_detection/filtered_output/per_pamm_all_mev_with_validator.csv').rename(columns={'attacker_signer':'signer','amm_trade':'pool'})
+a = m.PoolCoordinationAnalyzerOptimized(); a.mev_data = df
+g = a.build_attacker_pool_graph(df, min_interaction_weight=2)
+print(f'  graph: {g.number_of_nodes()} nodes, {g.number_of_edges()} edges')
+"
+
+run_step "contagious_vulnerability_optimized" \
+    python3 -c "
+import importlib.util
+spec = importlib.util.spec_from_file_location('m','13_mev_comprehensive_analysis/contagious_vulnerability_analyzer_optimized.py')
+m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
+a = m.ContagiousVulnerabilityAnalyzerOptimized()
+a.load_mev_data('02_mev_detection/filtered_output/all_mev_with_classification.csv')
+trig = a.identify_trigger_pool(a.mev_data)
+print(f'  trigger pool: {trig[chr(34)+\"trigger_pool\"+chr(34)] if False else trig[\"trigger_pool\"]}')
+"
+
 # Summary
 echo
 echo "════════════════════════════════════════════════════════════"
