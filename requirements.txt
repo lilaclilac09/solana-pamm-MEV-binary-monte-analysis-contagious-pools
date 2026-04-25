@@ -16,6 +16,14 @@ werkzeug>=3.0.0
 numpy>=1.26.0
 scipy>=1.11.0
 
+# Columnar storage / SQL engine (used by *_parquet.py and *_optimized.py)
+pyarrow>=15.0.0
+duckdb>=1.0.0
+
+# Plotting (used by 11_report_generation/, 08_monte_carlo_risk/, 06_pool_analysis/)
+matplotlib>=3.8.0
+seaborn>=0.13.0
+
 # Optional: For advanced features
 dash-bootstrap-components>=1.5.0
 redis>=5.0.0
