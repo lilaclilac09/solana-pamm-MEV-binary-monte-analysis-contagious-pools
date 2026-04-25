@@ -1,0 +1,571 @@
+{
+  "nodes": [
+    {
+      "id": "HEL1USMZKAL2odpNBj2oCjffnFGaYwmbGmyewGv1e2TU",
+      "type": "validator",
+      "mev_count": 86,
+      "concentration": 0.05729513657561625,
+      "risk_level": "HIGH"
+    },
+    {
+      "id": "DRpbCBMxVnDK7maPM5tGv6MvB3v1sRMC86PZ8okm21hy",
+      "type": "validator",
+      "mev_count": 58,
+      "concentration": 0.038640906062624915,
+      "risk_level": "HIGH"
+    },
+    {
+      "id": "Fd7btgySsrjuo25CJCj7oE7VPMyezDhnx7pZkj2v69Nk",
+      "type": "validator",
+      "mev_count": 39,
+      "concentration": 0.02598267821452365,
+      "risk_level": "HIGH"
+    },
+    {
+      "id": "DtdSSG8ZJRZVv5Jx7K1MeWp7Zxcu19GD5wQRGRpQ9uMF",
+      "type": "validator",
+      "mev_count": 37,
+      "concentration": 0.02465023317788141,
+      "risk_level": "HIGH"
+    },
+    {
+      "id": "9jxgosAfHgHzwnxsHw4RAZYaLVokMbnYtmiZBreynGFP",
+      "type": "validator",
+      "mev_count": 34,
+      "concentration": 0.022651565622918056,
+      "risk_level": "HIGH"
+    },
+    {
+      "id": "DNVZMSqeRH18Xa4MCTrb1MndNf3Npg4MEwqswo23eWkf",
+      "type": "validator",
+      "mev_count": 27,
+      "concentration": 0.01798800799467022,
+      "risk_level": "HIGH"
+    },
+    {
+      "id": "ChorusmmK7i1AxXeiTtQgQZhQNiXYU84ULeaYF1EH15n",
+      "type": "validator",
+      "mev_count": 26,
+      "concentration": 0.017321785476349102,
+      "risk_level": "HIGH"
+    },
+    {
+      "id": "5pPRHniefFjkiaArbGX3Y8NUysJmQ9tMZg3FrFGwHzSm",
+      "type": "validator",
+      "mev_count": 26,
+      "concentration": 0.017321785476349102,
+      "risk_level": "HIGH"
+    },
+    {
+      "id": "CAo1dCGYrB6NhHh5xb1cGjUiu86iyCfMTENxgHumSve4",
+      "type": "validator",
+      "mev_count": 26,
+      "concentration": 0.017321785476349102,
+      "risk_level": "HIGH"
+    },
+    {
+      "id": "9W3QTgBhkU4Bwg6cwnDJo6eGZ9BtZafSdu1Lo9JmWws7",
+      "type": "validator",
+      "mev_count": 25,
+      "concentration": 0.016655562958027982,
+      "risk_level": "HIGH"
+    },
+    {
+      "id": "JD549HsbJHeEKKUrKgg4Fj2iyv2RGjsV7NTZjZUrHybB",
+      "type": "validator",
+      "mev_count": 25,
+      "concentration": 0.016655562958027982,
+      "risk_level": "HIGH"
+    },
+    {
+      "id": "EvnRmnMrd69kFdbLMxWkTn1icZ7DCceRhvmb2SJXqDo4",
+      "type": "validator",
+      "mev_count": 23,
+      "concentration": 0.015323117921385743,
+      "risk_level": "HIGH"
+    },
+    {
+      "id": "q9XWcZ7T1wP4bW9SB4XgNNwjnFEJ982nE8aVbbNuwot",
+      "type": "validator",
+      "mev_count": 23,
+      "concentration": 0.015323117921385743,
+      "risk_level": "HIGH"
+    },
+    {
+      "id": "22rU5yUmdVThrkoPieVNphqEyAtMQKmZxjwcD8v4bJDU",
+      "type": "validator",
+      "mev_count": 23,
+      "concentration": 0.015323117921385743,
+      "risk_level": "HIGH"
+    },
+    {
+      "id": "JupmVLmA8RoyTUbTMMuTtoPWHEiNQobxgTeGTrPNkzT",
+      "type": "validator",
+      "mev_count": 22,
+      "concentration": 0.014656895403064623,
+      "risk_level": "HIGH"
+    }
+  ],
+  "edges": [
+    {
+      "source": "HEL1USMZKAL2odpNBj2oCjffnFGaYwmbGmyewGv1e2TU",
+      "target": "DRpbCBMxVnDK7maPM5tGv6MvB3v1sRMC86PZ8okm21hy",
+      "shared_attackers": 11,
+      "strength": 0.1375
+    },
+    {
+      "source": "HEL1USMZKAL2odpNBj2oCjffnFGaYwmbGmyewGv1e2TU",
+      "target": "Fd7btgySsrjuo25CJCj7oE7VPMyezDhnx7pZkj2v69Nk",
+      "shared_attackers": 4,
+      "strength": 0.05
+    },
+    {
+      "source": "HEL1USMZKAL2odpNBj2oCjffnFGaYwmbGmyewGv1e2TU",
+      "target": "DtdSSG8ZJRZVv5Jx7K1MeWp7Zxcu19GD5wQRGRpQ9uMF",
+      "shared_attackers": 7,
+      "strength": 0.0875
+    },
+    {
+      "source": "HEL1USMZKAL2odpNBj2oCjffnFGaYwmbGmyewGv1e2TU",
+      "target": "9jxgosAfHgHzwnxsHw4RAZYaLVokMbnYtmiZBreynGFP",
+      "shared_attackers": 4,
+      "strength": 0.05
+    },
+    {
+      "source": "HEL1USMZKAL2odpNBj2oCjffnFGaYwmbGmyewGv1e2TU",
+      "target": "DNVZMSqeRH18Xa4MCTrb1MndNf3Npg4MEwqswo23eWkf",
+      "shared_attackers": 3,
+      "strength": 0.0375
+    },
+    {
+      "source": "HEL1USMZKAL2odpNBj2oCjffnFGaYwmbGmyewGv1e2TU",
+      "target": "ChorusmmK7i1AxXeiTtQgQZhQNiXYU84ULeaYF1EH15n",
+      "shared_attackers": 5,
+      "strength": 0.0625
+    },
+    {
+      "source": "HEL1USMZKAL2odpNBj2oCjffnFGaYwmbGmyewGv1e2TU",
+      "target": "CAo1dCGYrB6NhHh5xb1cGjUiu86iyCfMTENxgHumSve4",
+      "shared_attackers": 5,
+      "strength": 0.0625
+    },
+    {
+      "source": "HEL1USMZKAL2odpNBj2oCjffnFGaYwmbGmyewGv1e2TU",
+      "target": "9W3QTgBhkU4Bwg6cwnDJo6eGZ9BtZafSdu1Lo9JmWws7",
+      "shared_attackers": 6,
+      "strength": 0.075
+    },
+    {
+      "source": "HEL1USMZKAL2odpNBj2oCjffnFGaYwmbGmyewGv1e2TU",
+      "target": "JD549HsbJHeEKKUrKgg4Fj2iyv2RGjsV7NTZjZUrHybB",
+      "shared_attackers": 1,
+      "strength": 0.0125
+    },
+    {
+      "source": "HEL1USMZKAL2odpNBj2oCjffnFGaYwmbGmyewGv1e2TU",
+      "target": "EvnRmnMrd69kFdbLMxWkTn1icZ7DCceRhvmb2SJXqDo4",
+      "shared_attackers": 1,
+      "strength": 0.0125
+    },
+    {
+      "source": "HEL1USMZKAL2odpNBj2oCjffnFGaYwmbGmyewGv1e2TU",
+      "target": "22rU5yUmdVThrkoPieVNphqEyAtMQKmZxjwcD8v4bJDU",
+      "shared_attackers": 5,
+      "strength": 0.0625
+    },
+    {
+      "source": "HEL1USMZKAL2odpNBj2oCjffnFGaYwmbGmyewGv1e2TU",
+      "target": "JupmVLmA8RoyTUbTMMuTtoPWHEiNQobxgTeGTrPNkzT",
+      "shared_attackers": 2,
+      "strength": 0.025
+    },
+    {
+      "source": "DRpbCBMxVnDK7maPM5tGv6MvB3v1sRMC86PZ8okm21hy",
+      "target": "Fd7btgySsrjuo25CJCj7oE7VPMyezDhnx7pZkj2v69Nk",
+      "shared_attackers": 3,
+      "strength": 0.05454545454545454
+    },
+    {
+      "source": "DRpbCBMxVnDK7maPM5tGv6MvB3v1sRMC86PZ8okm21hy",
+      "target": "DtdSSG8ZJRZVv5Jx7K1MeWp7Zxcu19GD5wQRGRpQ9uMF",
+      "shared_attackers": 3,
+      "strength": 0.05454545454545454
+    },
+    {
+      "source": "DRpbCBMxVnDK7maPM5tGv6MvB3v1sRMC86PZ8okm21hy",
+      "target": "9jxgosAfHgHzwnxsHw4RAZYaLVokMbnYtmiZBreynGFP",
+      "shared_attackers": 3,
+      "strength": 0.05454545454545454
+    },
+    {
+      "source": "DRpbCBMxVnDK7maPM5tGv6MvB3v1sRMC86PZ8okm21hy",
+      "target": "DNVZMSqeRH18Xa4MCTrb1MndNf3Npg4MEwqswo23eWkf",
+      "shared_attackers": 4,
+      "strength": 0.07272727272727272
+    },
+    {
+      "source": "DRpbCBMxVnDK7maPM5tGv6MvB3v1sRMC86PZ8okm21hy",
+      "target": "ChorusmmK7i1AxXeiTtQgQZhQNiXYU84ULeaYF1EH15n",
+      "shared_attackers": 4,
+      "strength": 0.07272727272727272
+    },
+    {
+      "source": "DRpbCBMxVnDK7maPM5tGv6MvB3v1sRMC86PZ8okm21hy",
+      "target": "5pPRHniefFjkiaArbGX3Y8NUysJmQ9tMZg3FrFGwHzSm",
+      "shared_attackers": 2,
+      "strength": 0.03636363636363636
+    },
+    {
+      "source": "DRpbCBMxVnDK7maPM5tGv6MvB3v1sRMC86PZ8okm21hy",
+      "target": "CAo1dCGYrB6NhHh5xb1cGjUiu86iyCfMTENxgHumSve4",
+      "shared_attackers": 3,
+      "strength": 0.05454545454545454
+    },
+    {
+      "source": "DRpbCBMxVnDK7maPM5tGv6MvB3v1sRMC86PZ8okm21hy",
+      "target": "9W3QTgBhkU4Bwg6cwnDJo6eGZ9BtZafSdu1Lo9JmWws7",
+      "shared_attackers": 3,
+      "strength": 0.05454545454545454
+    },
+    {
+      "source": "DRpbCBMxVnDK7maPM5tGv6MvB3v1sRMC86PZ8okm21hy",
+      "target": "JD549HsbJHeEKKUrKgg4Fj2iyv2RGjsV7NTZjZUrHybB",
+      "shared_attackers": 1,
+      "strength": 0.01818181818181818
+    },
+    {
+      "source": "DRpbCBMxVnDK7maPM5tGv6MvB3v1sRMC86PZ8okm21hy",
+      "target": "22rU5yUmdVThrkoPieVNphqEyAtMQKmZxjwcD8v4bJDU",
+      "shared_attackers": 2,
+      "strength": 0.03636363636363636
+    },
+    {
+      "source": "DRpbCBMxVnDK7maPM5tGv6MvB3v1sRMC86PZ8okm21hy",
+      "target": "JupmVLmA8RoyTUbTMMuTtoPWHEiNQobxgTeGTrPNkzT",
+      "shared_attackers": 2,
+      "strength": 0.03636363636363636
+    },
+    {
+      "source": "Fd7btgySsrjuo25CJCj7oE7VPMyezDhnx7pZkj2v69Nk",
+      "target": "DtdSSG8ZJRZVv5Jx7K1MeWp7Zxcu19GD5wQRGRpQ9uMF",
+      "shared_attackers": 3,
+      "strength": 0.08333333333333333
+    },
+    {
+      "source": "Fd7btgySsrjuo25CJCj7oE7VPMyezDhnx7pZkj2v69Nk",
+      "target": "9jxgosAfHgHzwnxsHw4RAZYaLVokMbnYtmiZBreynGFP",
+      "shared_attackers": 1,
+      "strength": 0.027777777777777776
+    },
+    {
+      "source": "Fd7btgySsrjuo25CJCj7oE7VPMyezDhnx7pZkj2v69Nk",
+      "target": "DNVZMSqeRH18Xa4MCTrb1MndNf3Npg4MEwqswo23eWkf",
+      "shared_attackers": 1,
+      "strength": 0.027777777777777776
+    },
+    {
+      "source": "Fd7btgySsrjuo25CJCj7oE7VPMyezDhnx7pZkj2v69Nk",
+      "target": "ChorusmmK7i1AxXeiTtQgQZhQNiXYU84ULeaYF1EH15n",
+      "shared_attackers": 4,
+      "strength": 0.1111111111111111
+    },
+    {
+      "source": "Fd7btgySsrjuo25CJCj7oE7VPMyezDhnx7pZkj2v69Nk",
+      "target": "CAo1dCGYrB6NhHh5xb1cGjUiu86iyCfMTENxgHumSve4",
+      "shared_attackers": 3,
+      "strength": 0.08333333333333333
+    },
+    {
+      "source": "Fd7btgySsrjuo25CJCj7oE7VPMyezDhnx7pZkj2v69Nk",
+      "target": "9W3QTgBhkU4Bwg6cwnDJo6eGZ9BtZafSdu1Lo9JmWws7",
+      "shared_attackers": 1,
+      "strength": 0.027777777777777776
+    },
+    {
+      "source": "Fd7btgySsrjuo25CJCj7oE7VPMyezDhnx7pZkj2v69Nk",
+      "target": "EvnRmnMrd69kFdbLMxWkTn1icZ7DCceRhvmb2SJXqDo4",
+      "shared_attackers": 2,
+      "strength": 0.05555555555555555
+    },
+    {
+      "source": "Fd7btgySsrjuo25CJCj7oE7VPMyezDhnx7pZkj2v69Nk",
+      "target": "q9XWcZ7T1wP4bW9SB4XgNNwjnFEJ982nE8aVbbNuwot",
+      "shared_attackers": 1,
+      "strength": 0.027777777777777776
+    },
+    {
+      "source": "Fd7btgySsrjuo25CJCj7oE7VPMyezDhnx7pZkj2v69Nk",
+      "target": "JupmVLmA8RoyTUbTMMuTtoPWHEiNQobxgTeGTrPNkzT",
+      "shared_attackers": 1,
+      "strength": 0.027777777777777776
+    },
+    {
+      "source": "DtdSSG8ZJRZVv5Jx7K1MeWp7Zxcu19GD5wQRGRpQ9uMF",
+      "target": "9jxgosAfHgHzwnxsHw4RAZYaLVokMbnYtmiZBreynGFP",
+      "shared_attackers": 1,
+      "strength": 0.029411764705882353
+    },
+    {
+      "source": "DtdSSG8ZJRZVv5Jx7K1MeWp7Zxcu19GD5wQRGRpQ9uMF",
+      "target": "ChorusmmK7i1AxXeiTtQgQZhQNiXYU84ULeaYF1EH15n",
+      "shared_attackers": 1,
+      "strength": 0.029411764705882353
+    },
+    {
+      "source": "DtdSSG8ZJRZVv5Jx7K1MeWp7Zxcu19GD5wQRGRpQ9uMF",
+      "target": "CAo1dCGYrB6NhHh5xb1cGjUiu86iyCfMTENxgHumSve4",
+      "shared_attackers": 2,
+      "strength": 0.058823529411764705
+    },
+    {
+      "source": "DtdSSG8ZJRZVv5Jx7K1MeWp7Zxcu19GD5wQRGRpQ9uMF",
+      "target": "9W3QTgBhkU4Bwg6cwnDJo6eGZ9BtZafSdu1Lo9JmWws7",
+      "shared_attackers": 1,
+      "strength": 0.029411764705882353
+    },
+    {
+      "source": "DtdSSG8ZJRZVv5Jx7K1MeWp7Zxcu19GD5wQRGRpQ9uMF",
+      "target": "JD549HsbJHeEKKUrKgg4Fj2iyv2RGjsV7NTZjZUrHybB",
+      "shared_attackers": 1,
+      "strength": 0.029411764705882353
+    },
+    {
+      "source": "DtdSSG8ZJRZVv5Jx7K1MeWp7Zxcu19GD5wQRGRpQ9uMF",
+      "target": "EvnRmnMrd69kFdbLMxWkTn1icZ7DCceRhvmb2SJXqDo4",
+      "shared_attackers": 2,
+      "strength": 0.058823529411764705
+    },
+    {
+      "source": "DtdSSG8ZJRZVv5Jx7K1MeWp7Zxcu19GD5wQRGRpQ9uMF",
+      "target": "22rU5yUmdVThrkoPieVNphqEyAtMQKmZxjwcD8v4bJDU",
+      "shared_attackers": 3,
+      "strength": 0.08823529411764706
+    },
+    {
+      "source": "DtdSSG8ZJRZVv5Jx7K1MeWp7Zxcu19GD5wQRGRpQ9uMF",
+      "target": "JupmVLmA8RoyTUbTMMuTtoPWHEiNQobxgTeGTrPNkzT",
+      "shared_attackers": 1,
+      "strength": 0.029411764705882353
+    },
+    {
+      "source": "9jxgosAfHgHzwnxsHw4RAZYaLVokMbnYtmiZBreynGFP",
+      "target": "DNVZMSqeRH18Xa4MCTrb1MndNf3Npg4MEwqswo23eWkf",
+      "shared_attackers": 3,
+      "strength": 0.09375
+    },
+    {
+      "source": "9jxgosAfHgHzwnxsHw4RAZYaLVokMbnYtmiZBreynGFP",
+      "target": "ChorusmmK7i1AxXeiTtQgQZhQNiXYU84ULeaYF1EH15n",
+      "shared_attackers": 1,
+      "strength": 0.03125
+    },
+    {
+      "source": "9jxgosAfHgHzwnxsHw4RAZYaLVokMbnYtmiZBreynGFP",
+      "target": "5pPRHniefFjkiaArbGX3Y8NUysJmQ9tMZg3FrFGwHzSm",
+      "shared_attackers": 1,
+      "strength": 0.03125
+    },
+    {
+      "source": "9jxgosAfHgHzwnxsHw4RAZYaLVokMbnYtmiZBreynGFP",
+      "target": "CAo1dCGYrB6NhHh5xb1cGjUiu86iyCfMTENxgHumSve4",
+      "shared_attackers": 4,
+      "strength": 0.125
+    },
+    {
+      "source": "9jxgosAfHgHzwnxsHw4RAZYaLVokMbnYtmiZBreynGFP",
+      "target": "9W3QTgBhkU4Bwg6cwnDJo6eGZ9BtZafSdu1Lo9JmWws7",
+      "shared_attackers": 2,
+      "strength": 0.0625
+    },
+    {
+      "source": "9jxgosAfHgHzwnxsHw4RAZYaLVokMbnYtmiZBreynGFP",
+      "target": "EvnRmnMrd69kFdbLMxWkTn1icZ7DCceRhvmb2SJXqDo4",
+      "shared_attackers": 2,
+      "strength": 0.0625
+    },
+    {
+      "source": "9jxgosAfHgHzwnxsHw4RAZYaLVokMbnYtmiZBreynGFP",
+      "target": "q9XWcZ7T1wP4bW9SB4XgNNwjnFEJ982nE8aVbbNuwot",
+      "shared_attackers": 2,
+      "strength": 0.0625
+    },
+    {
+      "source": "9jxgosAfHgHzwnxsHw4RAZYaLVokMbnYtmiZBreynGFP",
+      "target": "JupmVLmA8RoyTUbTMMuTtoPWHEiNQobxgTeGTrPNkzT",
+      "shared_attackers": 1,
+      "strength": 0.03125
+    },
+    {
+      "source": "DNVZMSqeRH18Xa4MCTrb1MndNf3Npg4MEwqswo23eWkf",
+      "target": "ChorusmmK7i1AxXeiTtQgQZhQNiXYU84ULeaYF1EH15n",
+      "shared_attackers": 1,
+      "strength": 0.037037037037037035
+    },
+    {
+      "source": "DNVZMSqeRH18Xa4MCTrb1MndNf3Npg4MEwqswo23eWkf",
+      "target": "CAo1dCGYrB6NhHh5xb1cGjUiu86iyCfMTENxgHumSve4",
+      "shared_attackers": 4,
+      "strength": 0.14814814814814814
+    },
+    {
+      "source": "DNVZMSqeRH18Xa4MCTrb1MndNf3Npg4MEwqswo23eWkf",
+      "target": "EvnRmnMrd69kFdbLMxWkTn1icZ7DCceRhvmb2SJXqDo4",
+      "shared_attackers": 1,
+      "strength": 0.037037037037037035
+    },
+    {
+      "source": "DNVZMSqeRH18Xa4MCTrb1MndNf3Npg4MEwqswo23eWkf",
+      "target": "22rU5yUmdVThrkoPieVNphqEyAtMQKmZxjwcD8v4bJDU",
+      "shared_attackers": 1,
+      "strength": 0.037037037037037035
+    },
+    {
+      "source": "DNVZMSqeRH18Xa4MCTrb1MndNf3Npg4MEwqswo23eWkf",
+      "target": "JupmVLmA8RoyTUbTMMuTtoPWHEiNQobxgTeGTrPNkzT",
+      "shared_attackers": 2,
+      "strength": 0.07407407407407407
+    },
+    {
+      "source": "ChorusmmK7i1AxXeiTtQgQZhQNiXYU84ULeaYF1EH15n",
+      "target": "5pPRHniefFjkiaArbGX3Y8NUysJmQ9tMZg3FrFGwHzSm",
+      "shared_attackers": 1,
+      "strength": 0.038461538461538464
+    },
+    {
+      "source": "ChorusmmK7i1AxXeiTtQgQZhQNiXYU84ULeaYF1EH15n",
+      "target": "CAo1dCGYrB6NhHh5xb1cGjUiu86iyCfMTENxgHumSve4",
+      "shared_attackers": 1,
+      "strength": 0.038461538461538464
+    },
+    {
+      "source": "ChorusmmK7i1AxXeiTtQgQZhQNiXYU84ULeaYF1EH15n",
+      "target": "9W3QTgBhkU4Bwg6cwnDJo6eGZ9BtZafSdu1Lo9JmWws7",
+      "shared_attackers": 2,
+      "strength": 0.08
+    },
+    {
+      "source": "ChorusmmK7i1AxXeiTtQgQZhQNiXYU84ULeaYF1EH15n",
+      "target": "JupmVLmA8RoyTUbTMMuTtoPWHEiNQobxgTeGTrPNkzT",
+      "shared_attackers": 1,
+      "strength": 0.041666666666666664
+    },
+    {
+      "source": "5pPRHniefFjkiaArbGX3Y8NUysJmQ9tMZg3FrFGwHzSm",
+      "target": "9W3QTgBhkU4Bwg6cwnDJo6eGZ9BtZafSdu1Lo9JmWws7",
+      "shared_attackers": 1,
+      "strength": 0.038461538461538464
+    },
+    {
+      "source": "5pPRHniefFjkiaArbGX3Y8NUysJmQ9tMZg3FrFGwHzSm",
+      "target": "JD549HsbJHeEKKUrKgg4Fj2iyv2RGjsV7NTZjZUrHybB",
+      "shared_attackers": 1,
+      "strength": 0.038461538461538464
+    },
+    {
+      "source": "5pPRHniefFjkiaArbGX3Y8NUysJmQ9tMZg3FrFGwHzSm",
+      "target": "EvnRmnMrd69kFdbLMxWkTn1icZ7DCceRhvmb2SJXqDo4",
+      "shared_attackers": 2,
+      "strength": 0.07692307692307693
+    },
+    {
+      "source": "5pPRHniefFjkiaArbGX3Y8NUysJmQ9tMZg3FrFGwHzSm",
+      "target": "22rU5yUmdVThrkoPieVNphqEyAtMQKmZxjwcD8v4bJDU",
+      "shared_attackers": 1,
+      "strength": 0.038461538461538464
+    },
+    {
+      "source": "CAo1dCGYrB6NhHh5xb1cGjUiu86iyCfMTENxgHumSve4",
+      "target": "9W3QTgBhkU4Bwg6cwnDJo6eGZ9BtZafSdu1Lo9JmWws7",
+      "shared_attackers": 3,
+      "strength": 0.11538461538461539
+    },
+    {
+      "source": "CAo1dCGYrB6NhHh5xb1cGjUiu86iyCfMTENxgHumSve4",
+      "target": "EvnRmnMrd69kFdbLMxWkTn1icZ7DCceRhvmb2SJXqDo4",
+      "shared_attackers": 2,
+      "strength": 0.07692307692307693
+    },
+    {
+      "source": "CAo1dCGYrB6NhHh5xb1cGjUiu86iyCfMTENxgHumSve4",
+      "target": "22rU5yUmdVThrkoPieVNphqEyAtMQKmZxjwcD8v4bJDU",
+      "shared_attackers": 1,
+      "strength": 0.038461538461538464
+    },
+    {
+      "source": "CAo1dCGYrB6NhHh5xb1cGjUiu86iyCfMTENxgHumSve4",
+      "target": "JupmVLmA8RoyTUbTMMuTtoPWHEiNQobxgTeGTrPNkzT",
+      "shared_attackers": 3,
+      "strength": 0.11538461538461539
+    },
+    {
+      "source": "9W3QTgBhkU4Bwg6cwnDJo6eGZ9BtZafSdu1Lo9JmWws7",
+      "target": "JD549HsbJHeEKKUrKgg4Fj2iyv2RGjsV7NTZjZUrHybB",
+      "shared_attackers": 1,
+      "strength": 0.04
+    },
+    {
+      "source": "9W3QTgBhkU4Bwg6cwnDJo6eGZ9BtZafSdu1Lo9JmWws7",
+      "target": "EvnRmnMrd69kFdbLMxWkTn1icZ7DCceRhvmb2SJXqDo4",
+      "shared_attackers": 3,
+      "strength": 0.12
+    },
+    {
+      "source": "9W3QTgBhkU4Bwg6cwnDJo6eGZ9BtZafSdu1Lo9JmWws7",
+      "target": "q9XWcZ7T1wP4bW9SB4XgNNwjnFEJ982nE8aVbbNuwot",
+      "shared_attackers": 2,
+      "strength": 0.08
+    },
+    {
+      "source": "9W3QTgBhkU4Bwg6cwnDJo6eGZ9BtZafSdu1Lo9JmWws7",
+      "target": "JupmVLmA8RoyTUbTMMuTtoPWHEiNQobxgTeGTrPNkzT",
+      "shared_attackers": 1,
+      "strength": 0.04
+    },
+    {
+      "source": "JD549HsbJHeEKKUrKgg4Fj2iyv2RGjsV7NTZjZUrHybB",
+      "target": "EvnRmnMrd69kFdbLMxWkTn1icZ7DCceRhvmb2SJXqDo4",
+      "shared_attackers": 1,
+      "strength": 0.041666666666666664
+    },
+    {
+      "source": "JD549HsbJHeEKKUrKgg4Fj2iyv2RGjsV7NTZjZUrHybB",
+      "target": "q9XWcZ7T1wP4bW9SB4XgNNwjnFEJ982nE8aVbbNuwot",
+      "shared_attackers": 1,
+      "strength": 0.041666666666666664
+    },
+    {
+      "source": "JD549HsbJHeEKKUrKgg4Fj2iyv2RGjsV7NTZjZUrHybB",
+      "target": "22rU5yUmdVThrkoPieVNphqEyAtMQKmZxjwcD8v4bJDU",
+      "shared_attackers": 1,
+      "strength": 0.041666666666666664
+    },
+    {
+      "source": "EvnRmnMrd69kFdbLMxWkTn1icZ7DCceRhvmb2SJXqDo4",
+      "target": "q9XWcZ7T1wP4bW9SB4XgNNwjnFEJ982nE8aVbbNuwot",
+      "shared_attackers": 2,
+      "strength": 0.08695652173913043
+    },
+    {
+      "source": "EvnRmnMrd69kFdbLMxWkTn1icZ7DCceRhvmb2SJXqDo4",
+      "target": "22rU5yUmdVThrkoPieVNphqEyAtMQKmZxjwcD8v4bJDU",
+      "shared_attackers": 1,
+      "strength": 0.043478260869565216
+    },
+    {
+      "source": "EvnRmnMrd69kFdbLMxWkTn1icZ7DCceRhvmb2SJXqDo4",
+      "target": "JupmVLmA8RoyTUbTMMuTtoPWHEiNQobxgTeGTrPNkzT",
+      "shared_attackers": 1,
+      "strength": 0.043478260869565216
+    },
+    {
+      "source": "q9XWcZ7T1wP4bW9SB4XgNNwjnFEJ982nE8aVbbNuwot",
+      "target": "22rU5yUmdVThrkoPieVNphqEyAtMQKmZxjwcD8v4bJDU",
+      "shared_attackers": 1,
+      "strength": 0.043478260869565216
+    }
+  ],
+  "metadata": {
+    "total_validators_analyzed": 15,
+    "total_records": 1501
+  }
+}
