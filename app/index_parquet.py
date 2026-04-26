@@ -42,6 +42,7 @@ def _shim(canonical_name: str, parquet_filename: str) -> None:
 # Install the shims BEFORE importing index.py.
 _shim("oracle_mechanics_component", "oracle_mechanics_component_parquet.py")
 _shim("mev_forensics_section", "mev_forensics_section_parquet.py")
+_shim("dangerous_pairs_ranking", "dangerous_pairs_ranking_parquet.py")
 
 # Make sure the original index.py's local imports resolve.
 if str(HERE) not in sys.path:
