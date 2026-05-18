@@ -20,6 +20,10 @@ dist/
 
 # OS
 .DS_Store
+**/.DS_Store
+
+# Python venv
+.venv/
 
 # 大型数据文件 (已被 git history 污染)
 01_data_cleaning/outputs/
