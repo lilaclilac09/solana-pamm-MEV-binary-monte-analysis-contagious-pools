@@ -2,7 +2,7 @@
 
 **MEV detection, oracle dependency, validator behavior, and contagious pool vulnerability in Solana PAMM systems**
 
-[📄 Paper](public/Solana_PAMM_MEV_Analysis_Report.pdf) &nbsp;·&nbsp; [🔴 Live Dashboard](#live-dashboard) &nbsp;·&nbsp; [📓 18-Stage Pipeline](#analysis-pipeline-00--17)
+[📄 Paper](public/Solana_PAMM_MEV_Analysis_Report.pdf) &nbsp;·&nbsp; [🔴 Live Dashboard](https://mev.aileena.xyz) &nbsp;·&nbsp; [📓 18-Stage Pipeline](#analysis-pipeline-00--17)
 
 ---
 
@@ -90,7 +90,7 @@ requirements.txt
 
 ## Live Dashboard
 
-The dashboard is deployed via Vercel and serves the interactive MEV threat intelligence view alongside the PDF report. See [`public/index.html`](public/index.html) and [`vercel.json`](vercel.json).
+The dashboard is live at **[mev.aileena.xyz](https://mev.aileena.xyz)** — interactive MEV threat intelligence view with the full PDF report. Source: [`public/index.html`](public/index.html), config: [`vercel.json`](vercel.json).
 
 ## Reproduce
 
