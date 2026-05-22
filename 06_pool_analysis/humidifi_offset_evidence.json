@@ -1,0 +1,54 @@
+{
+  "pools": [
+    {
+      "pool": "8sKQHfjNhvmAw94PhfvfMcytmqW6jmxvwieYyzXCCPu",
+      "hits": {}
+    },
+    {
+      "pool": "AvGeFw71N5sNfV97mZ1uNrHg4yfufRicCJUrS9j2ehTX",
+      "hits": {}
+    },
+    {
+      "pool": "DB3sUCP2H4icbeKmK6yb6nUxU5ogbcRHtGuq7W2RoRwW",
+      "hits": {}
+    },
+    {
+      "pool": "3QYYvFWgSuGK8bbxMSAYkCqE8QfSuFtByagnZAuekia2",
+      "hits": {}
+    },
+    {
+      "pool": "5dhYayH9qvzNyCPoh2hKN8TJqumoGsWdyZ9UfPLXBfD9",
+      "hits": {}
+    },
+    {
+      "pool": "FksffEqnBRixYGR791Qw2MgdU7zNCpHVFYBL4Fa4qVuH",
+      "hits": {}
+    },
+    {
+      "pool": "6n9VhCwQ7EwK6NqFDjnHPzEk6wZdRBTfh43RFgHQWHuQ",
+      "hits": {}
+    },
+    {
+      "pool": "iAMtZieUtpLwB3dzWw8Fo3H3FPkMFy3ej52URusseR1",
+      "hits": {}
+    },
+    {
+      "pool": "AYZ1amnDbDzsDVmnsFjsMDVJsJXaEEDHJsbCDnkTcdUM",
+      "hits": {}
+    },
+    {
+      "pool": "GD5eJhDmVcosRoU2H27LoFCuYERMTe4Mf1ooban6ba9T",
+      "hits": {}
+    },
+    {
+      "pool": "9c5xYTnURgpQLDk4XqkJdaUab6p8EMBgE5n7n29pQzCy",
+      "hits": {}
+    },
+    {
+      "pool": "H3TyE2Q3rDrvRXD8PzHYE7BS2hafGuybje4qXCtyWqMH",
+      "hits": {}
+    }
+  ],
+  "top_offsets": [],
+  "offset_mints": {}
+}

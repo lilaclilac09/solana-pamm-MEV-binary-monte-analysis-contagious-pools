@@ -1,0 +1,157 @@
+[
+  {
+    "pamm": "bisonfi",
+    "size": 2048,
+    "verdict": "GOOD",
+    "n_pools_checked": 5,
+    "m1_valid": 5,
+    "m2_valid": 5,
+    "m1_known_base_mint_hits": 5,
+    "m2_known_base_mint_hits": 4,
+    "m1_samples": {
+      "So11111111111111111111111111111111111111112": 3,
+      "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v": 2
+    },
+    "m2_samples": {
+      "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v": 1,
+      "USD1ttGY1N17NEEHLmELoaybftRBUSErhqYiQzvEmuB": 1,
+      "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB": 3
+    }
+  },
+  {
+    "pamm": "tessera",
+    "size": 1264,
+    "verdict": "GOOD",
+    "n_pools_checked": 5,
+    "m1_valid": 5,
+    "m2_valid": 5,
+    "m1_known_base_mint_hits": 5,
+    "m2_known_base_mint_hits": 1,
+    "m1_samples": {
+      "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v": 5
+    },
+    "m2_samples": {
+      "6p6xgHyF7AeE6TZkSmFsko444wqoP15icUSqi2jfGiPN": 1,
+      "So11111111111111111111111111111111111111112": 1,
+      "pumpCmXqMfrsAkQ5r49WcJnRayYRqmXz6ae8H7H9Dfn": 1,
+      "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump": 1,
+      "USD1ttGY1N17NEEHLmELoaybftRBUSErhqYiQzvEmuB": 1
+    }
+  },
+  {
+    "pamm": "alphaQ",
+    "size": 672,
+    "verdict": "GOOD",
+    "n_pools_checked": 5,
+    "m1_valid": 5,
+    "m2_valid": 5,
+    "m1_known_base_mint_hits": 5,
+    "m2_known_base_mint_hits": 1,
+    "m1_samples": {
+      "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v": 4,
+      "So11111111111111111111111111111111111111112": 1
+    },
+    "m2_samples": {
+      "2u1tszSeqZ3qBWF3uNGPFc8TzMk2tdiwknnRMWGWjGWH": 1,
+      "USD1ttGY1N17NEEHLmELoaybftRBUSErhqYiQzvEmuB": 1,
+      "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB": 1,
+      "CASHx9KJUStyftLFWGvEVf59SGeG9sh5FfcnZMVPCASH": 1,
+      "J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn": 1
+    }
+  },
+  {
+    "pamm": "solfi",
+    "size": 2800,
+    "verdict": "GOOD",
+    "n_pools_checked": 5,
+    "m1_valid": 5,
+    "m2_valid": 5,
+    "m1_known_base_mint_hits": 5,
+    "m2_known_base_mint_hits": 3,
+    "m1_samples": {
+      "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v": 4,
+      "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB": 1
+    },
+    "m2_samples": {
+      "So11111111111111111111111111111111111111112": 3,
+      "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump": 1,
+      "6p6xgHyF7AeE6TZkSmFsko444wqoP15icUSqi2jfGiPN": 1
+    }
+  },
+  {
+    "pamm": "solfiv2",
+    "size": 1728,
+    "verdict": "GOOD",
+    "n_pools_checked": 5,
+    "m1_valid": 5,
+    "m2_valid": 5,
+    "m1_known_base_mint_hits": 5,
+    "m2_known_base_mint_hits": 4,
+    "m1_samples": {
+      "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v": 5
+    },
+    "m2_samples": {
+      "So11111111111111111111111111111111111111112": 3,
+      "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB": 1,
+      "pumpCmXqMfrsAkQ5r49WcJnRayYRqmXz6ae8H7H9Dfn": 1
+    }
+  },
+  {
+    "pamm": "goonfiv2",
+    "size": 2048,
+    "verdict": "GOOD",
+    "n_pools_checked": 5,
+    "m1_valid": 5,
+    "m2_valid": 5,
+    "m1_known_base_mint_hits": 5,
+    "m2_known_base_mint_hits": 3,
+    "m1_samples": {
+      "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v": 4,
+      "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB": 1
+    },
+    "m2_samples": {
+      "7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs": 1,
+      "So11111111111111111111111111111111111111112": 2,
+      "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB": 1,
+      "98sMhvDwXj1RQi5c5Mndm3vPe9cBqPrbLaufMXFNMh5g": 1
+    }
+  },
+  {
+    "pamm": "zerofi",
+    "size": 7456,
+    "verdict": "GOOD",
+    "n_pools_checked": 5,
+    "m1_valid": 5,
+    "m2_valid": 5,
+    "m1_known_base_mint_hits": 5,
+    "m2_known_base_mint_hits": 2,
+    "m1_samples": {
+      "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB": 2,
+      "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v": 3
+    },
+    "m2_samples": {
+      "So11111111111111111111111111111111111111112": 2,
+      "USD1ttGY1N17NEEHLmELoaybftRBUSErhqYiQzvEmuB": 1,
+      "7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs": 1,
+      "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump": 1
+    }
+  },
+  {
+    "pamm": "obricv2",
+    "size": 666,
+    "verdict": "GOOD",
+    "n_pools_checked": 5,
+    "m1_valid": 5,
+    "m2_valid": 5,
+    "m1_known_base_mint_hits": 5,
+    "m2_known_base_mint_hits": 5,
+    "m1_samples": {
+      "So11111111111111111111111111111111111111112": 4,
+      "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v": 1
+    },
+    "m2_samples": {
+      "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v": 3,
+      "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB": 2
+    }
+  }
+]
