@@ -1,0 +1,80 @@
+[
+  {
+    "pool": "8sKQHfjNhvmAw94PhfvfMcytmqW6jmxvwieYyzXCCPu",
+    "sig": "FWPwYFmw8syudFMyXRCsmt9rKAZ14owzZjaLdRBCUPfYVHF3fkfwdKiZEz6v1bDZmT9LCHvfaH6QckTSKxZaQrp",
+    "mints": [
+      "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      "So11111111111111111111111111111111111111112"
+    ]
+  },
+  {
+    "pool": "AvGeFw71N5sNfV97mZ1uNrHg4yfufRicCJUrS9j2ehTX",
+    "sig": null,
+    "mints": []
+  },
+  {
+    "pool": "DB3sUCP2H4icbeKmK6yb6nUxU5ogbcRHtGuq7W2RoRwW",
+    "sig": "35e2233XoJBnzuHSZdhdDWA2Bg6eaWW1iLoh736jkzmsbam6Xck59Z8JrNwzqdLDE8WmWXGZhnwB7RsmCMkDiXhq",
+    "mints": [
+      "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      "So11111111111111111111111111111111111111112"
+    ]
+  },
+  {
+    "pool": "3QYYvFWgSuGK8bbxMSAYkCqE8QfSuFtByagnZAuekia2",
+    "sig": null,
+    "mints": []
+  },
+  {
+    "pool": "5dhYayH9qvzNyCPoh2hKN8TJqumoGsWdyZ9UfPLXBfD9",
+    "sig": "5LgXEMCErZvsy783B2UMWida73JX65Y7vNfgmDr3dswKXPH6hGJWX5miivRK3rwYpH1J8bw59fucKTeH67LxXHfo",
+    "mints": [
+      "So11111111111111111111111111111111111111112",
+      "USD1ttGY1N17NEEHLmELoaybftRBUSErhqYiQzvEmuB"
+    ]
+  },
+  {
+    "pool": "FksffEqnBRixYGR791Qw2MgdU7zNCpHVFYBL4Fa4qVuH",
+    "sig": null,
+    "mints": []
+  },
+  {
+    "pool": "6n9VhCwQ7EwK6NqFDjnHPzEk6wZdRBTfh43RFgHQWHuQ",
+    "sig": "5ijxxY1MQxetssZr8juc7H8LYjgYapk1MzK5wYZ51xiQ4ipzPMMK8m27tPhiwE21Y5sKSFv3Ky3cum8EQ1T1sQ6Y",
+    "mints": [
+      "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      "So11111111111111111111111111111111111111112"
+    ]
+  },
+  {
+    "pool": "iAMtZieUtpLwB3dzWw8Fo3H3FPkMFy3ej52URusseR1",
+    "sig": null,
+    "mints": []
+  },
+  {
+    "pool": "AYZ1amnDbDzsDVmnsFjsMDVJsJXaEEDHJsbCDnkTcdUM",
+    "sig": "MRcVVZvqoeMzvH1XSG74TVS2ZgxTugs6YVjeqRt3BYWo6r2jzpcEnjdRFSoNTMEXFnywvDb3jd1uDJDhaqdsuZi",
+    "mints": [
+      "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      "oreoU2P8bN6jkk3jbaiVxYnG1dCXcYxwhwyK9jSybcp"
+    ]
+  },
+  {
+    "pool": "GD5eJhDmVcosRoU2H27LoFCuYERMTe4Mf1ooban6ba9T",
+    "sig": null,
+    "mints": []
+  },
+  {
+    "pool": "9c5xYTnURgpQLDk4XqkJdaUab6p8EMBgE5n7n29pQzCy",
+    "sig": null,
+    "mints": []
+  },
+  {
+    "pool": "H3TyE2Q3rDrvRXD8PzHYE7BS2hafGuybje4qXCtyWqMH",
+    "sig": "zxApHdKMHqLLg9L7AHbsntiJ46DyyeMh9iXHBc9jP5CygTvVZj5oQ8gAFmPkSjtygxerrCrAvvtUomrR4xM6G4K",
+    "mints": [
+      "98sMhvDwXj1RQi5c5Mndm3vPe9cBqPrbLaufMXFNMh5g",
+      "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+    ]
+  }
+]
