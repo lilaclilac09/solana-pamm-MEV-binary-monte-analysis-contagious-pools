@@ -1,0 +1,662 @@
+{
+  "n_total": 91,
+  "buckets": {
+    "known_pamm": [
+      {
+        "program": "ALPHAQmeA7bjrVuccPsYPiCvsi428SNwte66Srvs4pHA",
+        "label": "AlphaQ"
+      },
+      {
+        "program": "AQU1FRd7papthgdrwPTTq5JacJh8YtwEXaBfKU3bTz45",
+        "label": "Aquifer"
+      },
+      {
+        "program": "BiSoNHVpsVZW2F7rx2eQ59yQwKxzU5NvBcmKshCSUypi",
+        "label": "BisonFi"
+      },
+      {
+        "program": "goonuddtQRrWqqn5nFyczVKaie28f3kDkHWkHtURSLE",
+        "label": "GoonFi V2"
+      },
+      {
+        "program": "9H6tua7jkLhdm3w8BvgpTn5LZNU7g4ZynDmCiNN3q6Rp",
+        "label": "HumidiFi"
+      },
+      {
+        "program": "obriQD1zbpyLz95G5n7nJe6a4DPjpFwa5XYPoNm113y",
+        "label": "Obric V2"
+      },
+      {
+        "program": "SoLFiHG9TfgtdUXUjWAxi3LtvYuFyDLVhBWxdMZxyCe",
+        "label": "SolFi"
+      },
+      {
+        "program": "SV2EYYJyRz2YhfXwXnhNAevDEui5Q6yrfyo13WtupPF",
+        "label": "SolFi V2"
+      },
+      {
+        "program": "TessVdML9pBGgG9yGks7o4HewRaXVAMuoVj4x83GLQH",
+        "label": "TesseraV"
+      },
+      {
+        "program": "ZERor4xhbUycZ6gb9ntrhqscUcZmAbQDjEAtCf4hbZY",
+        "label": "ZeroFi"
+      }
+    ],
+    "candidate_new_pamm": [
+      {
+        "program": "BQEJZUB4CzoT6UhRffoCkqCyqQNrCPCSGHcPEmsdbEsX",
+        "label": "LemmingsFi",
+        "account_count": 3,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1241441,
+          "space": 36
+        }
+      },
+      {
+        "program": "9VX8EKBg6vM6tA68xaDsPkbrx26XConZjkQmhVApUptc",
+        "label": "TaurusFi",
+        "account_count": 5,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1141440,
+          "space": 36
+        }
+      },
+      {
+        "program": "WooFif76YGRNjk1pA8wCsN67aQsD9f9iLsz4NcJ1AVb",
+        "label": "Woofi",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1141440,
+          "space": 36
+        }
+      }
+    ],
+    "classic_amm": [
+      {
+        "program": "AMM55ShdkoGRB5jVYPjWziwk8m5MpwyDgsMWHaMSQWH6",
+        "label": "Aldrin"
+      },
+      {
+        "program": "CURVGoZn8zycx6FXwwevgBTB2gVvdbGTEpvMJDbgs2t4",
+        "label": "Aldrin V2"
+      },
+      {
+        "program": "CLMM9tUoggJu2wagPkkqs9eFG4BWhVBZWkP1qv3Sp7tR",
+        "label": "Crema"
+      },
+      {
+        "program": "H8W3ctz92svYg6mkn1UtGfu2aQr2fnUFHM1RhScEtQDt",
+        "label": "Cropper"
+      },
+      {
+        "program": "DSwpgjMvXhtGn6BsbqmacdBZyfLj6jSWf3HJpdJtmg6N",
+        "label": "DexLab"
+      },
+      {
+        "program": "FLUXubRmkEi2q6K3Y9kBPg9248ggaZVsoSFhtJHSrm1X",
+        "label": "FluxBeam"
+      },
+      {
+        "program": "GAMMA7meSFWaBXF25oSUgmGRwaW6sCMFLmBNiMSdbHVT",
+        "label": "GooseFX GAMMA"
+      },
+      {
+        "program": "HyaB3W9q6XdA5xwpU4XnSZV94htfmbmqJXZcEbRaJutt",
+        "label": "Invariant"
+      },
+      {
+        "program": "jup3YeL8QhtSx1e253b2FDvsMNC87fDrgQZivbrndc9",
+        "label": "Jupiter Lend Earn"
+      },
+      {
+        "program": "fd3nMFYTQjX1yr5ER8u7tPdHJB7qt8RpDpNtLQX2Br5",
+        "label": "JupiterRfqV2"
+      },
+      {
+        "program": "MERLuDFBMmsHnsBPZw2sDQZHvXFMwp8EdjudcU2HKky",
+        "label": "Mercurial"
+      },
+      {
+        "program": "Eo7WjKq67rjJQSZxS6z3YkapzY3eMj6Xy8X5EQVn5UaB",
+        "label": "Meteora"
+      },
+      {
+        "program": "cpamdpZCGKUy5JxQXB4dcpGPiikHawvSWAd6mEn1sGG",
+        "label": "Meteora DAMM v2"
+      },
+      {
+        "program": "LBUZKhRxPF3XUpBCjp4YzTKgLccjZhTSDM9YuVaPwxo",
+        "label": "Meteora DLMM"
+      },
+      {
+        "program": "opnb2LAfJYbRMAHHvqjCwQxanZn7ReEHp1k81EohpZb",
+        "label": "OpenBook V2"
+      },
+      {
+        "program": "DjVE6JNiYqPL2QXyCUUh8rNjHrbz9hXHNYt99MQ59qw1",
+        "label": "Orca V1"
+      },
+      {
+        "program": "9W959DqEETiGZocYWCQPaJ6sBmUzgfxXfqGeTEdp3aQP",
+        "label": "Orca V2"
+      },
+      {
+        "program": "PSwapMdSai8tjrEXcxFeQth87xC4rRsa4VA5mhGhXkP",
+        "label": "Penguin"
+      },
+      {
+        "program": "PERPHjGBqRHArX4DySjwM6UJHiR3sWAatqfdBS2qQJu",
+        "label": "Perps"
+      },
+      {
+        "program": "PhoeNiXZ8ByJGLkxNfZRnkUfjvmuYqLR89jjFHGqdXY",
+        "label": "Phoenix"
+      },
+      {
+        "program": "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P",
+        "label": "Pump.fun"
+      },
+      {
+        "program": "pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA",
+        "label": "Pump.fun Amm"
+      },
+      {
+        "program": "675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8",
+        "label": "Raydium"
+      },
+      {
+        "program": "CAMMCzo5YL8w4VFF8KVHrK22GGUsp5VTaW7grrKgrWqK",
+        "label": "Raydium CLMM"
+      },
+      {
+        "program": "CPMMoo8L3F4NbTegBCKVNunggL7H1ZpdTHKxQB5qKP1C",
+        "label": "Raydium CP"
+      },
+      {
+        "program": "LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj",
+        "label": "Raydium Launchlab"
+      },
+      {
+        "program": "SSwpkEEcbUqx4vtoEByFjSkhKdCT862DNVb52nZg1UZ",
+        "label": "Saber"
+      },
+      {
+        "program": "DecZY86MU5Gj7kppfUCEmd4LbXXuyZH1yHaP2NTqdiZB",
+        "label": "Saber (Decimals)"
+      },
+      {
+        "program": "stkitrT1Uoy18Dk1fTrgPw8W6MVzoCfYoAFT4MLsmhq",
+        "label": "Sanctum"
+      },
+      {
+        "program": "SPoo1Ku8WFXoNDMHPsrGSTSG1Y47rzgn41SLUNakuHy",
+        "label": "Sanctum"
+      },
+      {
+        "program": "SPMBzsVUuoHA4Jm6KunbsotaahvVikZs1JyTW6iJvbn",
+        "label": "Sanctum"
+      },
+      {
+        "program": "SP12tWFxD9oJsVWNavTTBZvMbA6gkAmxtVgxdqvyvhY",
+        "label": "Sanctum"
+      },
+      {
+        "program": "5ocnV1qiCgaQR8Jb8xWnVbApfaygJ8tNoZfgPwsgx9kx",
+        "label": "Sanctum Infinity"
+      },
+      {
+        "program": "SSwapUtytfBdBn1b9NUGG6foMVPtcWgpRU32HToDUZr",
+        "label": "Saros"
+      },
+      {
+        "program": "1qbkdrr3z4ryLA7pZykqxvxWPoeifcVKo6ZG9CfkvVE",
+        "label": "Saros DLMM"
+      },
+      {
+        "program": "6dMXqGZ3ga2dikrYS9ovDXgHGh5RUsb2RTUj6hrQXhk6",
+        "label": "Stabble CLMM"
+      },
+      {
+        "program": "swapNyd8XiQwJ6ianp9snpu4brUqFxadzvHebnAXjJZ",
+        "label": "Stabble Stable Swap"
+      },
+      {
+        "program": "swapFpHZwjELNnjvThjajtiVmkz3yPQEHjLtka2fwHW",
+        "label": "Stabble Weighted Swap"
+      },
+      {
+        "program": "Dooar9JkhdZ7J3LHN3A7YCuoGRUggXhQaG4kijfLGU2j",
+        "label": "StepN"
+      },
+      {
+        "program": "SwaPpA9LAaLfeLi3a68M4DjnLqgtticKg6CnyNwgAC8",
+        "label": "Token Swap"
+      },
+      {
+        "program": "whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc",
+        "label": "Whirlpool"
+      },
+      {
+        "program": "StaKE6XNKVVhG8Qu9hDJBqCW3eRe7MDGLz17nJZetLT",
+        "label": "XOrca"
+      }
+    ],
+    "uncategorized": [
+      {
+        "program": "DEXYosS6oEGvk8uCDayvwEZz4qEyDJRf9nFgYCaqPMTm",
+        "label": "1DEX",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1422960,
+          "space": 36
+        }
+      },
+      {
+        "program": "BSwp6bEBihVLdqJRKGgzjcGLHkcTuzmSo1TQkHepzH8p",
+        "label": "Bonkswap",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1141440,
+          "space": 36
+        }
+      },
+      {
+        "program": "boop8hVGQGqehUK2iVEMEnMrL5RbjywRzHKBmBE7ry4",
+        "label": "Boop.fun",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1141446,
+          "space": 36
+        }
+      },
+      {
+        "program": "REALQqNEomY6cQGZJUGwywTBD2UmDT32rZcNnfxQ5N2",
+        "label": "Byreal",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1443447,
+          "space": 36
+        }
+      },
+      {
+        "program": "CarrotwivhMpDnm27EHmRLeQ683Z1PufuqEmBZvD282s",
+        "label": "Carrot",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1398960,
+          "space": 36
+        }
+      },
+      {
+        "program": "fUSioN9YKKSa3CUC2YUc4tPkHJ5Y6XW1yz8y6F7qWz9",
+        "label": "DefiTuna",
+        "account_count": 2676,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1141442,
+          "space": 36
+        }
+      },
+      {
+        "program": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+        "label": "Dynamic Bonding Curve",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 5571162548,
+          "space": 36
+        }
+      },
+      {
+        "program": "srAMMzfVHVAtgSJc8iH6CfKzuWuUTzLHVCE81QU1rgi",
+        "label": "Gavel",
+        "account_count": 187,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1141440,
+          "space": 36
+        }
+      },
+      {
+        "program": "Gswppe6ERWKpUTXvRPfXdzHhiCyJvLadVvXGfdpBqcE1",
+        "label": "Guacswap",
+        "account_count": 123,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1398960,
+          "space": 36
+        }
+      },
+      {
+        "program": "HEAVENoP2qxoeuF8Dj2oT1GHEnu49U5mJYkdeC8BAX2o",
+        "label": "Heaven",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1141440,
+          "space": 36
+        }
+      },
+      {
+        "program": "treaf4wWBBty3fHdyBpo35Mz84M8k3heKXmjmi9vFt5",
+        "label": "Helium Network",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1141440,
+          "space": 36
+        }
+      },
+      {
+        "program": "8dWTgQukmAefBAp7nF8kaA1vtZrnR34Zhdmm6Fi24esy",
+        "label": "Huma",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1141440,
+          "space": 36
+        }
+      },
+      {
+        "program": "HYEXCHtHkBagdStcJCp3xbbb9B7sdMdWXFNj6mdsG4hn",
+        "label": "Hylo Exchange",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1141440,
+          "space": 36
+        }
+      },
+      {
+        "program": "HysTabVUfmQBFcmzu1ctRd1Y1fxd66RBpboy1bmtDSQQ",
+        "label": "Hylo Stability Pool",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1141440,
+          "space": 36
+        }
+      },
+      {
+        "program": "3TK9D8aoBFYjYZtKCjciPrVrRStsnvo7KmpcJqDavpaU",
+        "label": "Kipseli",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1141440,
+          "space": 36
+        }
+      },
+      {
+        "program": "MSwapi3WhNKMUGm9YrxGhypgUEt7wYQH3ZgG32XoWzH",
+        "label": "M Swap",
+        "account_count": 3,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1141440,
+          "space": 36
+        }
+      },
+      {
+        "program": "MNFSTqtC93rEfYHB6hF82sKdZpUDFWkViLByLd1k1Ms",
+        "label": "Manifest",
+        "account_count": 1417,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1545442,
+          "space": 36
+        }
+      },
+      {
+        "program": "FUTARELBfJfQ8RDGhg1wdhddq1odMAJUePHFuBYfUxKq",
+        "label": "MetaDAO",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1141440,
+          "space": 36
+        }
+      },
+      {
+        "program": "MoonCVVNZFSYkqNXP6bxHLPL6QQJiMagDL3qcqUQTrG",
+        "label": "Moonit",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1141440,
+          "space": 36
+        }
+      },
+      {
+        "program": "HBVw6bZtcCaezhcBrmfyXBSBRWCdv72271xQ4GPvms2z",
+        "label": "Obsidian",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1141440,
+          "space": 36
+        }
+      },
+      {
+        "program": "omnixgS8fnqHfCcTGKWj6JtKjzpJZ1Y5y9pyFkQDkYE",
+        "label": "Omnipair",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1141440,
+          "space": 36
+        }
+      },
+      {
+        "program": "HpNfyc2Saw7RKkQd8nEL4khUcuPhQ7WwY1B2qjx8jxFq",
+        "label": "PancakeSwap",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1847448,
+          "space": 36
+        }
+      },
+      {
+        "program": "NUMERUNsFCP3kuNmWZuXtm1AaQCPj9uw6Guv2Ekoi5P",
+        "label": "Perena",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1151440,
+          "space": 36
+        }
+      },
+      {
+        "program": "save8RQVPMWNTzU18t3GBvBkN9hT7jsGjiCQ28FpD9H",
+        "label": "Perena Star",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1141440,
+          "space": 36
+        }
+      },
+      {
+        "program": "QuaNtZsgYRe5Z9Bk4LZ4cTD9tbkVoyCNf1R2BN9bBDv",
+        "label": "Quantum",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1141442,
+          "space": 36
+        }
+      },
+      {
+        "program": "riptK81hDxhe5pW5jSzSM9iRA8azgEgLJ4dXkPtBS7j",
+        "label": "Riptide",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1360441,
+          "space": 36
+        }
+      },
+      {
+        "program": "runnrXXdsSRkdueCRYxKDvSWfv6nAnrG5dcM29qj1HA",
+        "label": "RunnerRodeo",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1141440,
+          "space": 36
+        }
+      },
+      {
+        "program": "SCALEwAvEK5gtkdHiFzXfPgtk2YwJxPDzaV3aDmR7tA",
+        "label": "Scale Amm",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1141440,
+          "space": 36
+        }
+      },
+      {
+        "program": "SCALEWoRSpVZpMRqHEcDfNvBh3nUSe34jDr9r689gLa",
+        "label": "Scale Vmm",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1141440,
+          "space": 36
+        }
+      },
+      {
+        "program": "ojh19ojaKduoJZuaJADhcVGp4xt1TcdAvZmpVsCorch",
+        "label": "Scorch",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1844441,
+          "space": 36
+        }
+      },
+      {
+        "program": "endoLNCKTqDn8gSVnN2hDdpgACUPWHZTwoYnnMybpAT",
+        "label": "Solayer",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1141440,
+          "space": 36
+        }
+      },
+      {
+        "program": "CURVEmPpijXDTNdqrA9PGP1io2rkgiVXH26xdXVGLLfz",
+        "label": "Trends",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1141440,
+          "space": 36
+        }
+      },
+      {
+        "program": "2rU1oCHtQ7WJUvy15tKtFvxdYNNSc3id7AzUcjeFSddo",
+        "label": "VaultLiquidUnstake",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1141440,
+          "space": 36
+        }
+      },
+      {
+        "program": "5U3EU2ubXtK84QcRjWVmYt9RaDyA8gKxdUrPFXmZyaki",
+        "label": "Virtuals",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1141440,
+          "space": 36
+        }
+      },
+      {
+        "program": "vVoLTRjQmtFpiYoegx285Ze4gsLJ8ZxgFKVcuvmG1a8",
+        "label": "Voltr",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1141440,
+          "space": 36
+        }
+      },
+      {
+        "program": "FW6zUqn4iKRaeopwwhwsquTY6ABWLLgjxtrC3VPnaWBf",
+        "label": "WhaleStreet",
+        "account_count": null,
+        "program_meta": {
+          "executable": true,
+          "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+          "lamports": 1141441,
+          "space": 36
+        }
+      }
+    ]
+  },
+  "known_pamms_in_brief": {
+    "BiSoNHVpsVZW2F7rx2eQ59yQwKxzU5NvBcmKshCSUypi": "bisonfi",
+    "TessVdML9pBGgG9yGks7o4HewRaXVAMuoVj4x83GLQH": "tessera",
+    "ALPHAQmeA7bjrVuccPsYPiCvsi428SNwte66Srvs4pHA": "alphaQ",
+    "SoLFiHG9TfgtdUXUjWAxi3LtvYuFyDLVhBWxdMZxyCe": "solfi",
+    "SV2EYYJyRz2YhfXwXnhNAevDEui5Q6yrfyo13WtupPF": "solfiv2",
+    "goonuddtQRrWqqn5nFyczVKaie28f3kDkHWkHtURSLE": "goonfiv2",
+    "ZERor4xhbUycZ6gb9ntrhqscUcZmAbQDjEAtCf4hbZY": "zerofi",
+    "obriQD1zbpyLz95G5n7nJe6a4DPjpFwa5XYPoNm113y": "obricv2",
+    "9H6tua7jkLhdm3w8BvgpTn5LZNU7g4ZynDmCiNN3q6Rp": "humidifi",
+    "AQU1FRd7papthgdrwPTTq5JacJh8YtwEXaBfKU3bTz45": "aquifier"
+  }
+}
