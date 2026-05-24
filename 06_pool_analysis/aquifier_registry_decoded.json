@@ -1,0 +1,190 @@
+{
+  "registry_size": 8492,
+  "secondary_size": 8552,
+  "mint_gaps": [
+    {
+      "from": "SOL",
+      "to": "PYUSD",
+      "gap": 396
+    },
+    {
+      "from": "PYUSD",
+      "to": "USDC",
+      "gap": 528
+    },
+    {
+      "from": "USDC",
+      "to": "USDT",
+      "gap": 66
+    }
+  ],
+  "candidate_mints_stride_66": [
+    {
+      "offset": 131,
+      "mint": "So11111111111111111111111111111111111111112"
+    },
+    {
+      "offset": 197,
+      "mint": "WETZjtprkDMCcUxPi9PfWnowMRZkiGGHDb9rABuRZ2U"
+    },
+    {
+      "offset": 263,
+      "mint": "a3W4qutoEJA4232T2gwZUfgYJTetr96pU4SJMwppump"
+    },
+    {
+      "offset": 329,
+      "mint": "cbbtcf3aa214zXHbiAZQwf4122FBYbraNdFqgw4iMij"
+    },
+    {
+      "offset": 395,
+      "mint": "inxKXw9V2NDZE7hDijzpJaKKUb97NEPJDTCEEiYg4yY"
+    },
+    {
+      "offset": 461,
+      "mint": "pumpCmXqMfrsAkQ5r49WcJnRayYRqmXz6ae8H7H9Dfn"
+    },
+    {
+      "offset": 527,
+      "mint": "2b1kV6DkPAnxd5ixfnxCpjxmKwqjjaYmCZfHsFu24GXo"
+    },
+    {
+      "offset": 593,
+      "mint": "2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv"
+    },
+    {
+      "offset": 659,
+      "mint": "6p6xgHyF7AeE6TZkSmFsko444wqoP15icUSqi2jfGiPN"
+    },
+    {
+      "offset": 725,
+      "mint": "8Jx8AAHj86wbQgUTjGuj6GTTL5Ps3cqxKRTvpaJApump"
+    },
+    {
+      "offset": 791,
+      "mint": "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump"
+    },
+    {
+      "offset": 857,
+      "mint": "BWsnyEa1XtsNRdgPaDoA1WVUonF7BBGZTd2zc72NQsWT"
+    },
+    {
+      "offset": 923,
+      "mint": "CrAr4RRJMBVwRsZtT62pEhfA9H5utymC2mVx8e7FreP2"
+    },
+    {
+      "offset": 989,
+      "mint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump"
+    },
+    {
+      "offset": 1055,
+      "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+    },
+    {
+      "offset": 1121,
+      "mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB"
+    }
+  ],
+  "secondary_candidates_sample": [
+    {
+      "offset": 0,
+      "candidate": "4uQeVj5tqVtzhyYZVqiN1mqfojUKTqS7DZmPShBnry4",
+      "label": ""
+    },
+    {
+      "offset": 8,
+      "candidate": "8pJhHxPQRiUGdtVSCNPyP9AH994zeyYEBGb5yZRzheSA",
+      "label": ""
+    },
+    {
+      "offset": 16,
+      "candidate": "5rM5xsF1a9ni29ZjGa2wvARTHYTjXx4Neemug84rvyEe",
+      "label": ""
+    },
+    {
+      "offset": 24,
+      "candidate": "EJcYTX2c1mh5NTSa6VKHXAJXJVH8fBx5Nc7jaJMnemgR",
+      "label": ""
+    },
+    {
+      "offset": 32,
+      "candidate": "AT9sq314pramkCZTkoThQB2dPbaGm1ZCiuaBdsX3Rrag",
+      "label": ""
+    },
+    {
+      "offset": 40,
+      "candidate": "7rhxnLV8C77o6d8oz26AgK8x8m5ePsdeRawjqvojbjnQ",
+      "label": ""
+    },
+    {
+      "offset": 48,
+      "candidate": "4MkxvXdXpJ9xiTFgfrMZuFJNyemNCZLj8EVv1VtgDoqQ",
+      "label": ""
+    },
+    {
+      "offset": 56,
+      "candidate": "Hjj9adDHo6YAjDZzb1vQyGW8DkahNS6TDZM9Yns4YJSi",
+      "label": ""
+    },
+    {
+      "offset": 64,
+      "candidate": "HK6xWvkN9wjsaEtZNLwSSipQtJWDxqoXFzsTBQNdb98",
+      "label": ""
+    },
+    {
+      "offset": 72,
+      "candidate": "1989zAmZBwkwR6g8S3H8gkDhHRm3P11gpurN7faJqDu",
+      "label": ""
+    },
+    {
+      "offset": 80,
+      "candidate": "Enw7jrjrmXUksRHG2zF2VwXLqddAPaW3EMA4MJrEHGdm",
+      "label": ""
+    },
+    {
+      "offset": 88,
+      "candidate": "9bTALUvcofimR9QS1WcuxnSRHGP8XxA4JVcacMJyWkWk",
+      "label": ""
+    },
+    {
+      "offset": 96,
+      "candidate": "8kttZo2kwR9TU3DrP3LHp4tTJL4pDWhtJ94PMBJMGgQu",
+      "label": ""
+    },
+    {
+      "offset": 104,
+      "candidate": "327xgL9Mnq48M8onCQr9ba9JWPLTTY8f1ggWSzFxBnGS",
+      "label": ""
+    },
+    {
+      "offset": 112,
+      "candidate": "EgWAFQ3PABTaWKB3P43fFXa4tvytV6fXvtcDcE7qC8NN",
+      "label": ""
+    },
+    {
+      "offset": 120,
+      "candidate": "5X1K3ubkcrb2ACxxet7q2dBTuTVyNbRJSW7KPtFuuSKt",
+      "label": ""
+    },
+    {
+      "offset": 128,
+      "candidate": "DymUhgErQ3CetAFCiaY1VkSs5er8qruRXsFQFadhjjA3",
+      "label": ""
+    },
+    {
+      "offset": 136,
+      "candidate": "EbjjvpnouGGAjNHGoxkRgHL4pTmfDFTjTL3zRrJhSA9x",
+      "label": ""
+    },
+    {
+      "offset": 144,
+      "candidate": "2NUB8xMYpYgtzP3Y7AL71KBwyFKuTdmgBhFN6sMmbV6X",
+      "label": ""
+    },
+    {
+      "offset": 152,
+      "candidate": "HSrqQJ9QdpvnhSbFT9iP3xDa94n5tQQznUNjAiGn7Hwa",
+      "label": ""
+    }
+  ],
+  "secondary_n_plausible_pubkeys": 310
+}
