@@ -444,7 +444,7 @@ app.layout = html.Div([
                style={"textAlign": "center", "color": "#9ca3af", "fontSize": "12px", "margin": "0 0 16px 0"}),
         html.P([
             "any further questions or discussion pls Follow ",
-            html.A("@A01DZ3RO", href="https://x.com/A01DZ3RO", target="_blank",
+            html.A("@aileengf1", href="https://x.com/aileengf1", target="_blank",
                    style={"color": "#6b7280", "textDecoration": "none"}),
             " on X and dm"
         ], style={"textAlign": "center", "color": "#9ca3af", "fontSize": "12px", "margin": "0"}),
