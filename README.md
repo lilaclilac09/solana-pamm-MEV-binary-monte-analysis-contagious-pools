@@ -1,8 +1,10 @@
 # Solana PAMM MEV Analysis
 
+**Status: BLOCKED (production visualizations)** — https://mev.aileena.xyz serves a report page, but its first visualization URL returns HTML instead of an image (observed 2026-11-22). Next human action: review `DEPLOYMENT_LOCK_WARNING.md` and restore the report's visualization assets through the intended, separately managed MEV deployment; do not redeploy from this root. Local Dash rendering is not production proof.
+
 **MEV detection, oracle dependency, validator behavior, and contagious pool vulnerability in Solana PAMM systems**
 
-[📄 Paper](public/Solana_PAMM_MEV_Analysis_Report.pdf) &nbsp;·&nbsp; [🔴 Live Dashboard](https://mev.aileena.xyz) &nbsp;·&nbsp; [📓 18-Stage Pipeline](#analysis-pipeline-00--17)
+[📄 Paper](public/Solana_PAMM_MEV_Analysis_Report.pdf) &nbsp;·&nbsp; [Public Report (degraded)](https://mev.aileena.xyz) &nbsp;·&nbsp; [📓 18-Stage Pipeline](#analysis-pipeline-00--17)
 
 ---
 
@@ -90,7 +92,7 @@ requirements.txt
 
 ## Live Dashboard
 
-The dashboard is live at **[mev.aileena.xyz](https://mev.aileena.xyz)** — interactive MEV threat intelligence view with the full PDF report. Source: [`public/index.html`](public/index.html), config: [`vercel.json`](vercel.json).
+The public static report at **[mev.aileena.xyz](https://mev.aileena.xyz)** returns HTTP 200, but `/token_pair_fragility.png` also returns HTTP 200 with `Content-Type: text/html` and the report HTML body; the browser cannot display that visualization. This is not a verified interactive dashboard or full-PDF viewing flow. The repository PDF is linked separately above. Source: [`public/index.html`](public/index.html), config: [`vercel.json`](vercel.json); deployment remains locked under [`DEPLOYMENT_LOCK_WARNING.md`](DEPLOYMENT_LOCK_WARNING.md).
 
 ## Reproduce
 
